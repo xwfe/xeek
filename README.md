@@ -1,6 +1,6 @@
 # keex
 
-中文优先、本地优先的跨平台密码管理器。以 KeePass KDBX 为密码库，通过 Flutter 提供统一界面，规划支持密码、动态口令、通行密钥、证件、银行卡及 SSH Agent。
+中文优先、本地优先的移动端（iOS/Android）密码管理器。以 KeePass KDBX 为密码库，用 Flutter 做界面，规划支持密码、动态口令、通行密钥、证件、银行卡，并保证 KeeAgent（SSH 密钥）数据不被弄坏。桌面端留给未来用 Rust 开发的应用，见 [ADR-0005](adr/0005-mobile-first-scope.md)。
 
 **当前阶段：设计修订与实施规划。** 目录中尚无 Flutter 应用或可用于真实密码的安全核心。HTML 原型仅含演示数据，不保存输入、不接入系统凭据服务。
 
@@ -21,7 +21,7 @@ iOS 专项交互稿：`adr/design/zh-CN/ios.html`，补充双云同步、系统�
 ## 开发入口
 
 - [设计说明与原稿修正](adr/design/README.md)：中文术语、导航、状态、响应式布局。
-- [架构决策](adr/0001-flutter-kdbx-architecture.md)：KDBX、Rust 候选核心、系统扩展、同步与安全边界。
+- [架构决策](adr/0001-flutter-kdbx-architecture.md)：KDBX、Rust 候选核心、系统扩展、同步与安全边界；[范围收窄为移动端](adr/0005-mobile-first-scope.md)。
 - [威胁模型](adr/THREAT_MODEL.md)、[能力状态与平台矩阵](adr/CAPABILITIES.md)、[真实数据使用规则](adr/REAL_DATA_RULES.md)：K001 交付，待独立复核。
 - [实施路线](adr/IMPLEMENTATION_PLAN.md)、[任务清单](adr/TASKS.md)、[验收标准](adr/ACCEPTANCE.md)。
 - [调研依据](adr/RESEARCH.md)、[当前状态与验证](adr/STATUS.md)。
