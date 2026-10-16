@@ -23,6 +23,7 @@ iOS 专项交互稿：`adr/design/zh-CN/ios.html`，补充双云同步、系统�
 - [设计说明与原稿修正](adr/design/README.md)：中文术语、导航、状态、响应式布局。
 - [架构决策](adr/0001-flutter-kdbx-architecture.md)：KDBX、Rust 候选核心、系统扩展、同步与安全边界；[范围收窄为移动端](adr/0005-mobile-first-scope.md)。
 - [威胁模型](adr/THREAT_MODEL.md)、[能力状态与平台矩阵](adr/CAPABILITIES.md)、[真实数据使用规则](adr/REAL_DATA_RULES.md)：K001 交付，待独立复核。
+- [KDBX 合成样本](tests/fixtures/kdbx/README.md)与[测试对照工具](tests/kdbx_oracle/README.md)：K002 交付，待独立复核。只用于测试，不是 keex 的实现。
 - [实施路线](adr/IMPLEMENTATION_PLAN.md)、[任务清单](adr/TASKS.md)、[验收标准](adr/ACCEPTANCE.md)。
 - [调研依据](adr/RESEARCH.md)、[当前状态与验证](adr/STATUS.md)。
 - [iOS/Android 系统凭据](adr/0002-mobile-credentials.md)、[WebDAV/OneDrive](adr/0003-cloud-sync.md)、[高级 KDBX/Passkey](adr/0004-kdbx-advanced-passkeys.md)；[24 项专项子任务](adr/MOBILE_SYNC_TASKS.md)。
