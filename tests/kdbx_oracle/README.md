@@ -12,6 +12,25 @@ python3 -m unittest discover -s tests -v
 
 在别的目录跑会报 `Start directory is not importable`，先 `cd tests/kdbx_oracle`。
 
+看一个库的结构摘要、比较两个库（同样在本目录下）：
+
+```sh
+KX_PW='合成密码' python3 -m kdbx_oracle summary --password-env KX_PW 库.kdbx
+KX_PW='合成密码' python3 -m kdbx_oracle diff --password-env KX_PW A.kdbx B.kdbx \
+    --ignore '*KPXC_RANDOM_SLUG*' --ignore '*_LAST_MODIFIED*'
+```
+
+- 密码只读环境变量或提示输入，不接受命令行参数——参数会进 shell 历史和 `ps`。密钥文件用 `--keyfile`，只用密钥文件时加 `--no-password`；B 库密钥不同就用 `--b-keyfile` / `--b-password-env`。
+- `summary` 只输出计数、字段名和附件 SHA-256，不输出任何字段值。
+- `diff` 退出码：0 无差异，1 有差异，2 打不开。受保护值默认只报长度，`--reveal` 才显示内容，只对合成样本用。
+- 上面两个 `--ignore` 是 KeePassXC 每次保存都会变的自有元数据；不加的话，同一份内容被 KeePassXC 存一遍也会报 3–4 条差异。
+
+## 比较器认为什么算“一样”
+
+不报：加密随机数、二进制池编号（附件按内容 SHA-256 比）、时间的 3.1/4.x 两种写法、String/Binary/CustomData 的先后顺序、非用户字段里的 `true`/`True`。
+
+其余都报：不认识的元素和属性、保护标记变化、分组和条目的排列顺序、历史（按位置比较）。哪些差异是“改了就该变”的，由测试自己用 `--ignore` 列出来，比较器不替人猜。路径写法见 `kdbx_oracle/semantic.py` 开头。
+
 ## 为什么要自己读，不用 KeePassXC
 
 K003 要判断候选库有没有丢数据。如果用 KeePassXC 读两边的文件，KeePassXC 读取时自己丢掉的东西两边都看不见，结论会是假的“无损”。实测 KeePassXC 2.7.12 导入 XML 时就会丢掉 CustomData 条目上的 `LastModificationTime`，并把标签 `合成;synthetic` 重排成 `synthetic,合成`。
