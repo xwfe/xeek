@@ -118,6 +118,22 @@ class DiffTest(unittest.TestCase):
         )))
         self.assertEqual(diff(canonicalize(decoded(a)), canonicalize(decoded(b))), [])
 
+    def test_empty_unknown_element_still_counts(self):
+        # 不认识的空元素可能是新版本或插件的开关标记，丢了必须报。
+        a = database(entry(ENTRY_A, extra="<FutureFlag/>"), meta="<PluginFlag/>")
+        b = database(entry(ENTRY_A))
+        removed = sorted(d.path.rsplit("/", 1)[1] for d in diff(canonicalize(decoded(a)), canonicalize(decoded(b))))
+        self.assertEqual(removed, ["FutureFlag", "PluginFlag"])
+
+    def test_attachment_protection_reported_apart_from_content(self):
+        ref = "<Binary><Key>a.txt</Key><Value Ref=\"0\"/></Binary>"
+        a = decoded(database(entry(ENTRY_A, extra=ref)), {"0": (b"x", False)})
+        b = decoded(database(entry(ENTRY_A, extra=ref)), {"0": (b"x", True)})
+        (only,) = diff(canonicalize(a), canonicalize(b))
+        self.assertEqual(only.aspect, "attrs")
+        self.assertIn("sha256:", str(diff(canonicalize(a), canonicalize(decoded(
+            database(entry(ENTRY_A, extra=ref)), {"0": (b"y", True)})))[0]))
+
     def test_empty_custom_field_still_counts(self):
         a = database(entry(ENTRY_A))
         b = database(entry(ENTRY_A, extra="<String><Key>X-Empty</Key><Value/></String>"))

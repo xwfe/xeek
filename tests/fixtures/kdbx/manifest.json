@@ -118,7 +118,7 @@
       ],
       "writer_changes": [
         "added KeePassFile/Meta/CustomData",
-        "changed KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046/Group=619866709f661f4847cc86d411ca5bf1/IconID"
+        "changed/value KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046/Group=619866709f661f4847cc86d411ca5bf1/IconID"
       ],
       "client": {
         "name": "KeePassXC",
@@ -244,14 +244,14 @@
       ],
       "writer_changes": [
         "added KeePassFile/Meta/SettingsChanged",
-        "changed KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046/Group=619866709f661f4847cc86d411ca5bf1/Entry=62dfa961165248d64456c235a329c460/Binary=shared.txt/Value",
-        "changed KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046/Group=619866709f661f4847cc86d411ca5bf1/Entry=8965805d6caa1155bdc9ed01dcb11d04/Binary=notes.txt/Value",
-        "changed KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046/Group=619866709f661f4847cc86d411ca5bf1/Entry=8965805d6caa1155bdc9ed01dcb11d04/Binary=shared.txt/Value",
-        "changed KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046/Group=619866709f661f4847cc86d411ca5bf1/Entry=8965805d6caa1155bdc9ed01dcb11d04/History/Entry/Binary=blob.bin/Value",
-        "changed KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046/Group=619866709f661f4847cc86d411ca5bf1/Entry=8965805d6caa1155bdc9ed01dcb11d04/History/Entry/Binary=shared.txt/Value",
-        "changed KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046/Group=619866709f661f4847cc86d411ca5bf1/IconID",
-        "changed KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046/Group=ab138359004cc2cc83c8930b45db3261/Entry=5304a955887e682676d4a53259a477b5/Binary=KeeAgent.settings/Value",
-        "changed KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046/Group=ab138359004cc2cc83c8930b45db3261/Entry=5304a955887e682676d4a53259a477b5/Binary=id_ed25519/Value"
+        "changed/attrs KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046/Group=619866709f661f4847cc86d411ca5bf1/Entry=62dfa961165248d64456c235a329c460/Binary=shared.txt/Value",
+        "changed/attrs KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046/Group=619866709f661f4847cc86d411ca5bf1/Entry=8965805d6caa1155bdc9ed01dcb11d04/Binary=notes.txt/Value",
+        "changed/attrs KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046/Group=619866709f661f4847cc86d411ca5bf1/Entry=8965805d6caa1155bdc9ed01dcb11d04/Binary=shared.txt/Value",
+        "changed/attrs KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046/Group=619866709f661f4847cc86d411ca5bf1/Entry=8965805d6caa1155bdc9ed01dcb11d04/History/Entry/Binary=blob.bin/Value",
+        "changed/attrs KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046/Group=619866709f661f4847cc86d411ca5bf1/Entry=8965805d6caa1155bdc9ed01dcb11d04/History/Entry/Binary=shared.txt/Value",
+        "changed/attrs KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046/Group=ab138359004cc2cc83c8930b45db3261/Entry=5304a955887e682676d4a53259a477b5/Binary=KeeAgent.settings/Value",
+        "changed/attrs KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046/Group=ab138359004cc2cc83c8930b45db3261/Entry=5304a955887e682676d4a53259a477b5/Binary=id_ed25519/Value",
+        "changed/value KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046/Group=619866709f661f4847cc86d411ca5bf1/IconID"
       ],
       "client": {
         "name": "KeePassXC",
@@ -377,14 +377,14 @@
       ],
       "writer_changes": [
         "added KeePassFile/Meta/SettingsChanged",
-        "changed KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046/Group=619866709f661f4847cc86d411ca5bf1/Entry=62dfa961165248d64456c235a329c460/Binary=shared.txt/Value",
-        "changed KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046/Group=619866709f661f4847cc86d411ca5bf1/Entry=8965805d6caa1155bdc9ed01dcb11d04/Binary=notes.txt/Value",
-        "changed KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046/Group=619866709f661f4847cc86d411ca5bf1/Entry=8965805d6caa1155bdc9ed01dcb11d04/Binary=shared.txt/Value",
-        "changed KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046/Group=619866709f661f4847cc86d411ca5bf1/Entry=8965805d6caa1155bdc9ed01dcb11d04/History/Entry/Binary=blob.bin/Value",
-        "changed KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046/Group=619866709f661f4847cc86d411ca5bf1/Entry=8965805d6caa1155bdc9ed01dcb11d04/History/Entry/Binary=shared.txt/Value",
-        "changed KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046/Group=619866709f661f4847cc86d411ca5bf1/IconID",
-        "changed KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046/Group=ab138359004cc2cc83c8930b45db3261/Entry=5304a955887e682676d4a53259a477b5/Binary=KeeAgent.settings/Value",
-        "changed KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046/Group=ab138359004cc2cc83c8930b45db3261/Entry=5304a955887e682676d4a53259a477b5/Binary=id_ed25519/Value",
+        "changed/attrs KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046/Group=619866709f661f4847cc86d411ca5bf1/Entry=62dfa961165248d64456c235a329c460/Binary=shared.txt/Value",
+        "changed/attrs KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046/Group=619866709f661f4847cc86d411ca5bf1/Entry=8965805d6caa1155bdc9ed01dcb11d04/Binary=notes.txt/Value",
+        "changed/attrs KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046/Group=619866709f661f4847cc86d411ca5bf1/Entry=8965805d6caa1155bdc9ed01dcb11d04/Binary=shared.txt/Value",
+        "changed/attrs KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046/Group=619866709f661f4847cc86d411ca5bf1/Entry=8965805d6caa1155bdc9ed01dcb11d04/History/Entry/Binary=blob.bin/Value",
+        "changed/attrs KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046/Group=619866709f661f4847cc86d411ca5bf1/Entry=8965805d6caa1155bdc9ed01dcb11d04/History/Entry/Binary=shared.txt/Value",
+        "changed/attrs KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046/Group=ab138359004cc2cc83c8930b45db3261/Entry=5304a955887e682676d4a53259a477b5/Binary=KeeAgent.settings/Value",
+        "changed/attrs KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046/Group=ab138359004cc2cc83c8930b45db3261/Entry=5304a955887e682676d4a53259a477b5/Binary=id_ed25519/Value",
+        "changed/value KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046/Group=619866709f661f4847cc86d411ca5bf1/IconID",
         "removed KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046/Group=619866709f661f4847cc86d411ca5bf1/CustomData/Item=keex.fixture.group/LastModificationTime",
         "removed KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046/Group=619866709f661f4847cc86d411ca5bf1/Entry=8965805d6caa1155bdc9ed01dcb11d04/CustomData/Item=keex.fixture.entry/LastModificationTime"
       ],
@@ -524,7 +524,7 @@
       ],
       "writer_changes": [
         "added KeePassFile/Meta/SettingsChanged",
-        "changed KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046/Entry=ad4d29c749c425066c5d96ddd24f299c/Binary=random.bin/Value"
+        "changed/attrs KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046/Entry=ad4d29c749c425066c5d96ddd24f299c/Binary=random.bin/Value"
       ],
       "client": {
         "name": "KeePassXC",

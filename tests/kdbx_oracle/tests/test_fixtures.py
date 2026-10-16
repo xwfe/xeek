@@ -88,7 +88,7 @@ class GoldenSamplesTest(unittest.TestCase):
                 kind, level = sample["source"]
                 src = read_plain_xml(source.build(kind, level, sample["id"]))
                 changes = diff(canonicalize(src), canonicalize(open_sample(sample)), ignore=generate.VOLATILE)
-                self.assertEqual(sorted(f"{c.kind} {c.path}" for c in changes), sample["writer_changes"])
+                self.assertEqual(sorted(c.label for c in changes), sample["writer_changes"])
 
     def test_wrong_password_rejected(self):
         for sample in GOLDEN:

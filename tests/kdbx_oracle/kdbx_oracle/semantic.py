@@ -3,8 +3,11 @@
 “语义相同”的定义（反过来就是会报差异的东西）：
 - 字节不同但意思一样的，不报：加密随机数、二进制池的编号、时间的 3.1/4.x
   两种写法、String/Binary/CustomData 的先后顺序、布尔值大小写、标签的顺序和分隔符
-  （`a;b` 和 `b,a` 一样）、空元素和不写该元素（`<Tags/>` 和没有 Tags 一样）、值为空的
-  五个标准字段和不写该字段。自定义字段哪怕值为空，有和没有也算不同。
+  （`a;b` 和 `b,a` 一样）、**已知**的空元素和不写该元素（`<Tags/>` 和没有 Tags 一样）、
+  值为空的五个标准字段和不写该字段。自定义字段哪怕值为空，有和没有也算不同；不认识的
+  元素哪怕是空的，丢了也报（它可能是新版本或插件的标记，空不等于没有）。
+- 附件的“内容”和“保护标记”分开报：内容是节点文字（SHA-256 + 长度），保护标记是属性
+  `pool_protected`。
 - 其余一律报：包括不认识的元素和属性、保护标记、分组和条目的顺序、历史。
   哪些差异是“改了应该变”的，由调用方用 ignore 模式显式列出，比较器不替人猜。
 
@@ -120,6 +123,13 @@ class Difference:
     kind: str  # added / removed / changed / order
     path: str
     detail: str
+    aspect: str = ""  # changed 时是哪一项变了：value / protected / attrs
+
+    @property
+    def label(self) -> str:
+        """只含类型和路径、不含值的简写，用来写进 manifest。"""
+        kind = f"{self.kind}/{self.aspect}" if self.aspect else self.kind
+        return f"{kind} {self.path}"
 
     def __str__(self) -> str:
         return f"{self.kind:8} {self.path}  {self.detail}"
@@ -166,9 +176,8 @@ def _is_time(tag: str, parent_tag: str) -> bool:
     return tag in TIME_TAGS or (parent_tag == "Meta" and tag.endswith(TIME_SUFFIX))
 
 
-def _binary_digest(content: bytes, protected: bool) -> str:
-    digest = hashlib.sha256(content).hexdigest()
-    return f"sha256:{digest} size:{len(content)}" + (" protected" if protected else "")
+def _binary_digest(content: bytes) -> str:
+    return f"sha256:{hashlib.sha256(content).hexdigest()} size:{len(content)}"
 
 
 def canonicalize(decoded: DecodedKdbx) -> Node:
@@ -184,19 +193,25 @@ def _canon(element: ET.Element, parent: ET.Element | None, decoded: DecodedKdbx)
             protected = attrs.pop(name).lower() == "true" or protected
     text = (element.text or "").strip() if len(element) else (element.text or "")
 
-    if element.tag == "Value" and parent_tag == "Binary" and "Ref" in attrs:
-        ref = attrs.pop("Ref")
-        if ref not in decoded.binaries:
-            text = f"missing-binary-ref:{ref}"
+    if element.tag == "Value" and parent_tag == "Binary":
+        # 附件按内容摘要比，不按池编号。摘要不是秘密，保护标记放进属性而不是 node.protected，
+        # 否则差异输出会把摘要隐去。
+        if "Ref" in attrs:
+            ref = attrs.pop("Ref")
+            if ref not in decoded.binaries:
+                text = f"missing-binary-ref:{ref}"
+            else:
+                content, protected = decoded.binaries[ref]
+                text = _binary_digest(content)
         else:
-            content, pool_protected = decoded.binaries[ref]
-            text = _binary_digest(content, pool_protected)
-    elif element.tag == "Value" and parent_tag == "Binary":
-        # 没有 Ref 的附件是内联 base64；也按内容摘要比较。
-        try:
-            text = _binary_digest(base64.b64decode(text, validate=True), protected)
-        except binascii.Error:
-            pass
+            # 没有 Ref 的附件是内联 base64。
+            try:
+                text = _binary_digest(base64.b64decode(text, validate=True))
+            except binascii.Error:
+                pass
+        if protected:
+            attrs["pool_protected"] = "True"
+        protected = False
     elif _is_time(element.tag, parent_tag):
         text = normalize_time(text)
     elif element.tag in ("UUID", "RecycleBinUUID", "EntryTemplatesGroup", "LastSelectedGroup",
@@ -211,14 +226,16 @@ def _canon(element: ET.Element, parent: ET.Element | None, decoded: DecodedKdbx)
 
     node = Node(tag=element.tag, text=text, attrs=attrs, protected=protected)
     keyed = KEYED_CHILDREN.get(element.tag, {})
+    known = KNOWN_CHILDREN.get(element.tag, set())
     seen: dict[str, int] = {}
     for child in element:
         if element.tag == "Meta" and child.tag in ("Binaries", "HeaderHash"):
             # 二进制池已经折进引用处的摘要；HeaderHash 只属于 3.1 容器，状态另记在 summary。
             continue
         child_node = _canon(child, element, decoded)
-        if _is_empty(child_node) or _is_empty_standard_field(child_node):
+        if child.tag in known and (_is_empty(child_node) or _is_empty_standard_field(child_node)):
             # KeePassXC 会把缺省的空元素、空标准字段全部补上，KeePass 读的时候两者也没有区别。
+            # 只对已知元素这样做：不认识的空元素可能是开关式的标记，丢了就是丢了。
             continue
         if child.tag in keyed and not (element.tag == "History"):
             key_tag, is_uuid = keyed[child.tag]
@@ -272,11 +289,11 @@ def _diff(a: Node, b: Node, path: str, ignore: list[str], reveal: bool, out: lis
     if _ignored(path, ignore):
         return
     if a.text != b.text:
-        out.append(Difference("changed", path, f"{_show(a, reveal)} → {_show(b, reveal)}"))
+        out.append(Difference("changed", path, f"{_show(a, reveal)} → {_show(b, reveal)}", "value"))
     if a.protected != b.protected:
-        out.append(Difference("changed", path, f"保护标记 {a.protected} → {b.protected}"))
+        out.append(Difference("changed", path, f"保护标记 {a.protected} → {b.protected}", "protected"))
     if a.attrs != b.attrs:
-        out.append(Difference("changed", path, f"属性 {a.attrs} → {b.attrs}"))
+        out.append(Difference("changed", path, f"属性 {a.attrs} → {b.attrs}", "attrs"))
 
     a_children = dict(a.children)
     b_children = dict(b.children)

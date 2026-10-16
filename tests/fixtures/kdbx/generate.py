@@ -183,12 +183,17 @@ def sha256_file(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
-def generate(sample: dict, binary: str, out: Path, force: bool) -> dict | None:
+def sample_paths(sample: dict, out: Path) -> tuple[Path, Path | None]:
     target = out / (sample["id"].lower() + ".kdbx")
     keyfile = None
     if sample.get("keyfile"):
         suffix = ".keyx" if sample["keyfile"] == "generated" else ".key"
         keyfile = out / (sample["id"].lower() + suffix)
+    return target, keyfile
+
+
+def generate(sample: dict, binary: str, out: Path, force: bool) -> dict | None:
+    target, keyfile = sample_paths(sample, out)
     if target.exists() and not force:
         return None
     for path in (target, keyfile):
@@ -233,7 +238,7 @@ def describe(sample: dict, target: Path, keyfile: Path | None, source_xml: bytes
         record["source"] = sample["source"]
         changes = diff(canonicalize(read_plain_xml(source_xml)), canonicalize(decoded), ignore=VOLATILE)
         # 只记类型和路径：值里可能有 KeePassXC 写入的当前时间，每次生成都不同。
-        record["writer_changes"] = sorted(f"{c.kind} {c.path}" for c in changes)
+        record["writer_changes"] = sorted(c.label for c in changes)
     return record
 
 
@@ -242,10 +247,25 @@ def main() -> int:
     parser.add_argument("--force", action="store_true", help="覆盖已有样本")
     parser.add_argument("--keepassxc-cli", default="keepassxc-cli")
     parser.add_argument("--only", action="append", help="只生成指定 ID，可重复")
+    parser.add_argument("--refresh", action="store_true",
+                        help="不重新生成库文件，只按现有文件重算 manifest 里的摘要和写入差异（改了比较器以后用）")
     args = parser.parse_args()
 
     manifest = json.loads(MANIFEST.read_text(encoding="utf-8")) if MANIFEST.exists() else {"samples": []}
     existing = {record["id"]: record for record in manifest["samples"]}
+    if args.refresh:
+        for sample in SAMPLES:
+            target, keyfile = sample_paths(sample, HERE)
+            if sample["id"] not in existing or not target.exists():
+                continue
+            source_xml = source.build(*sample["source"], sample["id"]) if sample["method"] == "xml-import" else None
+            record = describe(sample, target, keyfile, source_xml)
+            record["client"] = existing[sample["id"]]["client"]
+            existing[sample["id"]] = record
+            print(f"重算 {sample['id']}")
+        write_manifest(existing)
+        return 0
+
     version = keepassxc_version(args.keepassxc_cli)
     for sample in SAMPLES:
         if args.only and sample["id"] not in args.only:
@@ -257,7 +277,11 @@ def main() -> int:
         record["client"] = {"name": "KeePassXC", "tool": "keepassxc-cli", "version": version}
         existing[sample["id"]] = record
         print(f"生成 {sample['id']}：KDBX {record['summary']['format']}，{len(record.get('writer_changes', []))} 处写入差异")
+    write_manifest(existing)
+    return 0
 
+
+def write_manifest(existing: dict) -> None:
     order = [s["id"] for s in SAMPLES]
     manifest = {
         "note": "K002 合成样本。密码和密钥都是公开的合成值，只用于测试。生成方式见 README.md。",
@@ -265,7 +289,6 @@ def main() -> int:
         + [r for i, r in existing.items() if i not in order],
     }
     MANIFEST.write_text(json.dumps(manifest, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
-    return 0
 
 
 if __name__ == "__main__":
