@@ -15,8 +15,10 @@ KeePassXC 读两边的文件，KeePassXC 读的时候自己丢掉的东西（例
 from __future__ import annotations
 
 import base64
+import binascii
 import hashlib
 import hmac
+import re
 import struct
 import zlib
 import xml.etree.ElementTree as ET
@@ -115,25 +117,26 @@ def _sha512(data: bytes) -> bytes:
 # ---------- 密钥 ----------
 
 def keyfile_key(data: bytes) -> bytes:
-    """按 KeePass 2.x 的规则把密钥文件变成 32 字节。"""
-    stripped = data.lstrip(b"\xef\xbb\xbf \t\r\n")
-    if stripped.startswith(b"<"):
-        key = _xml_keyfile_key(stripped)
+    """按 KeePassXC 2.7.12 `FileKey::load` 的顺序把密钥文件变成 32 字节：
+    XML → 恰好 32 字节 → 恰好 64 个十六进制字符 → 整个文件取 SHA-256。
+
+    跟 KeePassXC 不一致的只有一处：含 DOCTYPE 或不是 UTF-8 的文件不当 XML 解析（避免
+    实体展开），直接走后面的规则。所以这两类“合法 KeyFile”在这里会被当成普通文件取哈希。
+    """
+    if b"<!DOCTYPE" not in data and _non_utf8_reason(data) is None:
+        key = _xml_keyfile_key(data)
         if key is not None:
             return key
     if len(data) == 32:
         return data
-    if len(data) == 64:
-        try:
-            return bytes.fromhex(data.decode("ascii"))
-        except (UnicodeDecodeError, ValueError):
-            pass
+    if len(data) == 64 and re.fullmatch(rb"[0-9a-fA-F]{64}", data):
+        return bytes.fromhex(data.decode("ascii"))
     return _sha256(data)
 
 
 def _xml_keyfile_key(data: bytes) -> bytes | None:
-    if b"<!DOCTYPE" in data:
-        raise KdbxFormatError("密钥文件含 DOCTYPE，拒绝解析")
+    """不是 XML 或根元素不是 KeyFile 就返回 None（调用方接着试别的格式）；
+    是 KeyFile 但内容不对就报错——KeePassXC 也是这样，不会退回去取哈希。"""
     try:
         root = ET.fromstring(data)
     except ET.ParseError:
@@ -142,17 +145,20 @@ def _xml_keyfile_key(data: bytes) -> bytes | None:
         return None
     version = (root.findtext("Meta/Version") or "").strip()
     node = root.find("Key/Data")
-    if node is None:
-        raise KdbxFormatError("XML 密钥文件缺少 Key/Data")
-    text = node.text or ""
-    if version.startswith("1.0"):
-        return base64.b64decode(text.strip(), validate=True)
-    if version.startswith("2.0"):
-        key = bytes.fromhex("".join(text.split()))
-        expected = node.get("Hash")
-        if expected is not None and _sha256(key)[:4].hex().upper() != expected.strip().upper():
-            raise KdbxFormatError("XML 密钥文件的 Hash 校验不符")
-        return key
+    text = "".join((node.text or "").split()) if node is not None else ""
+    try:
+        if version.startswith("1.0"):
+            return base64.b64decode(text, validate=True)
+        if version == "2.0":
+            key = bytes.fromhex(text)
+            expected = (node.get("Hash") or "").strip().upper() if node is not None else ""
+            if _sha256(key)[:4].hex().upper() != expected:
+                raise KdbxFormatError("XML 2.0 密钥文件的 Hash 缺失或不符")
+            return key
+    except (binascii.Error, ValueError) as exc:
+        if isinstance(exc, KdbxError):
+            raise
+        raise KdbxFormatError("XML 密钥文件的 Key/Data 不是合法的 base64/十六进制") from exc
     raise KdbxUnsupported(f"不认识的密钥文件版本：{version!r}")
 
 
@@ -353,26 +359,39 @@ def _chacha20(key: bytes, nonce12: bytes, data: bytes) -> bytes:
     return cipher.decryptor().update(data)
 
 
-def _decrypt_payload(cipher_uuid: UUID, key: bytes, iv: bytes, payload: bytes) -> bytes:
+def _check_cipher(cipher_uuid: UUID, iv: bytes) -> None:
+    """在跑 KDF 之前就排除不支持的算法和长度不对的 IV。"""
     if cipher_uuid == CIPHER_AES256:
         if len(iv) != 16:
             raise KdbxFormatError("AES 的 IV 必须是 16 字节")
-        if not payload or len(payload) % 16:
-            raise KdbxFormatError("密文长度不是 16 的倍数：文件被截断或被改")
-        decryptor = Cipher(algorithms.AES(key), modes.CBC(iv)).decryptor()
-        padded = decryptor.update(payload) + decryptor.finalize()
-        unpadder = padding.PKCS7(128).unpadder()
-        try:
-            return unpadder.update(padded) + unpadder.finalize()
-        except ValueError as exc:
-            raise KdbxKeyError("解密后填充不对：密钥错误或密文被改") from exc
-    if cipher_uuid == CIPHER_CHACHA20:
+    elif cipher_uuid == CIPHER_CHACHA20:
         if len(iv) != 12:
             raise KdbxFormatError("ChaCha20 的 IV 必须是 12 字节")
+    elif cipher_uuid == CIPHER_TWOFISH:
+        raise KdbxUnsupported("Twofish 不支持（KeePass 2.x 里是插件，KeePassXC 原生支持）")
+    else:
+        raise KdbxUnsupported(f"未知加密算法 {cipher_uuid}")
+
+
+def _decrypt_raw(cipher_uuid: UUID, key: bytes, iv: bytes, payload: bytes) -> bytes:
+    """只解密，不去填充。去填充失败是“密钥错”还是“文件坏”，要由调用方先用
+    StreamStartBytes（3.1）或 HMAC（4.x）确认密钥之后才分得清。"""
+    if cipher_uuid == CIPHER_CHACHA20:
         return _chacha20(key, iv, payload)
-    if cipher_uuid == CIPHER_TWOFISH:
-        raise KdbxUnsupported("Twofish 是插件算法，不支持")
-    raise KdbxUnsupported(f"未知加密算法 {cipher_uuid}")
+    if not payload or len(payload) % 16:
+        raise KdbxFormatError("密文长度不是 16 的倍数：文件被截断或被改")
+    decryptor = Cipher(algorithms.AES(key), modes.CBC(iv)).decryptor()
+    return decryptor.update(payload) + decryptor.finalize()
+
+
+def _unpad(cipher_uuid: UUID, data: bytes) -> bytes:
+    if cipher_uuid == CIPHER_CHACHA20:
+        return data
+    unpadder = padding.PKCS7(128).unpadder()
+    try:
+        return unpadder.update(data) + unpadder.finalize()
+    except ValueError as exc:
+        raise KdbxIntegrityError("密钥正确但填充不对：文件末尾被截断或被追加了数据") from exc
 
 
 def _gunzip(data: bytes, limit: int = MAX_XML_BYTES) -> bytes:
@@ -500,7 +519,24 @@ def _parse_inner_header(data: bytes) -> tuple[int, bytes, list[tuple[bytes, bool
     return stream_id, stream_key, binaries, pos
 
 
+_XML_ENCODING = re.compile(rb"\s*<\?xml[^>]*?encoding\s*=\s*[\"']([^\"']*)[\"']")
+
+
+def _non_utf8_reason(xml_bytes: bytes) -> str | None:
+    """不是 UTF-8 就返回原因。下面的 DOCTYPE 检查按 UTF-8 字节搜，UTF-16 写的 DOCTYPE 搜不到；
+    而 expat 会自动识别 UTF-16 并展开里面的实体。KeePass 只写 UTF-8，其他编码一律拒绝。"""
+    if xml_bytes.startswith((b"\xff\xfe", b"\xfe\xff")) or b"\x00" in xml_bytes:
+        return "有 UTF-16/32 的 BOM 或 NUL 字节"
+    match = _XML_ENCODING.match(xml_bytes.removeprefix(b"\xef\xbb\xbf"))
+    if match and match.group(1).strip().lower() not in (b"utf-8", b"utf8"):
+        return f"声明的编码是 {match.group(1).decode('ascii', 'replace')}"
+    return None
+
+
 def _parse_xml(xml_bytes: bytes) -> ET.Element:
+    reason = _non_utf8_reason(xml_bytes)
+    if reason:
+        raise KdbxFormatError(f"XML 不是 UTF-8（{reason}），拒绝解析")
     # KeePass 写出的 XML 从不带 DOCTYPE；带了就可能是实体炸弹或外部实体，直接拒绝。
     # 搜整个文档而不只是开头：前面塞一大段注释就能把 DOCTYPE 推到后面。用户数据里的
     # "<!DOCTYPE" 会被转义成 "&lt;!DOCTYPE"，不会误伤。
@@ -609,6 +645,7 @@ def read_kdbx(
             raise KdbxFormatError("头部校验值被截断")
         if _sha256(header_bytes) != data[header_end : header_end + 32]:
             raise KdbxIntegrityError("头部 SHA-256 不符：头部损坏或被改")
+    _check_cipher(cipher_uuid, iv)
 
     composite = composite_key(password, keyfile)
     transformed, kdf_info = _derive_transformed_key(major, fields, composite)
@@ -624,7 +661,7 @@ def read_kdbx(
         if not hmac.compare_digest(stored_hmac, expected_hmac):
             raise KdbxKeyError("头部 HMAC 不符：密钥错误，或头部被改")
         payload = _read_hmac_blocks(data, pos + 64, hmac_base)
-        plain = _decrypt_payload(cipher_uuid, encryption_key, iv, payload)
+        plain = _unpad(cipher_uuid, _decrypt_raw(cipher_uuid, encryption_key, iv, payload))
         if compression:
             plain = _gunzip(plain, max_xml_bytes)
         stream_id, stream_key, pool, inner_end = _parse_inner_header(plain)
@@ -636,9 +673,12 @@ def read_kdbx(
         stream_start = _require(fields, H_STREAM_START, 32)
         stream_key = _require(fields, H_PROTECTED_KEY)
         (stream_id,) = struct.unpack("<I", _require(fields, H_INNER_STREAM_ID, 4))
-        plain = _decrypt_payload(cipher_uuid, encryption_key, iv, data[header_end:])
-        if plain[:32] != stream_start:
-            raise KdbxKeyError("StreamStartBytes 不符：密钥错误，或密文被改")
+        raw = _decrypt_raw(cipher_uuid, encryption_key, iv, data[header_end:])
+        # 先比 StreamStartBytes 再去填充：开头对得上说明密钥正确，之后的填充错误就是文件坏了。
+        # 顺序反了，在 16 字节对齐处截断的文件会被报成“密码错”，用户会反复试密码。
+        if raw[:32] != stream_start:
+            raise KdbxKeyError("StreamStartBytes 不符：密钥错误，或密文开头被改")
+        plain = _unpad(cipher_uuid, raw)
         xml_bytes = _read_hashed_blocks(plain[32:])
         if compression:
             xml_bytes = _gunzip(xml_bytes, max_xml_bytes)

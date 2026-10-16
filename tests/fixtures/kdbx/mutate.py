@@ -97,7 +97,8 @@ def v3_keys(data: bytes, password: str | None, keyfile: bytes | None):
 def v3_inner_xml(data: bytes, password: str | None, keyfile: bytes | None) -> bytes:
     """解出 3.1 的 XML 原文（受保护值仍是加密后的 base64，顺序不动就能原样放回去）。"""
     fields, header_end, key = v3_keys(data, password, keyfile)
-    plain = reader._decrypt_payload(reader.CIPHER_AES256, key, fields[reader.H_IV], data[header_end:])
+    raw = reader._decrypt_raw(reader.CIPHER_AES256, key, fields[reader.H_IV], data[header_end:])
+    plain = reader._unpad(reader.CIPHER_AES256, raw)
     xml = reader._read_hashed_blocks(plain[32:])
     return reader._gunzip(xml) if struct.unpack("<I", fields[reader.H_COMPRESSION])[0] else xml
 
