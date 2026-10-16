@@ -25,7 +25,7 @@
 
 ## 开发与交接
 
-先读 `README.md`、`adr/IMPLEMENTATION_PLAN.md` 和 `adr/TASKS.md`。每次仅领取明确任务及其依赖，交付代码、测试、证据、限制，并同步状态。不得仅因写了代码就勾选验收。
+先读 `README.md`、`adr/IMPLEMENTATION_PLAN.md`、`adr/TASKS.md` 和 `adr/REAL_DATA_RULES.md`；涉及秘密、授权、联网或跨进程的改动对照 `adr/THREAT_MODEL.md`，能力显示按 `adr/CAPABILITIES.md` 的状态规则。每次仅领取明确任务及其依赖，交付代码、测试、证据、限制，并同步状态。不得仅因写了代码就勾选验收。
 
 本仓库Git用户名使用 `uxiew`，仅配置仓库级 `user.name`，不得因此修改全局身份。提交邮箱未由用户指定时不编造；初始化本地仓库不等于获准创建远端或推送。
 
