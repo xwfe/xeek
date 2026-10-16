@@ -829,6 +829,336 @@
         "tool": "keepassxc-cli",
         "version": "2.7.12"
       }
+    },
+    {
+      "id": "R31-TRUNC-HALF",
+      "file": "r31-trunc-half.kdbx",
+      "sha256": "92be5e8ed51b08a5a1cb14c00386b53aefddd712509261ff9b5efd6cbefec7b5",
+      "expect": "reject",
+      "oracle_error": "KdbxFormatError",
+      "method": "mutation",
+      "base": "G31-RICH",
+      "purpose": "截掉后一半",
+      "credentials": {
+        "password": "合成口令-G31-RICH-Ünï🔑",
+        "keyfile": null,
+        "keyfile_sha256": null
+      }
+    },
+    {
+      "id": "R31-TRUNC-HEADER",
+      "file": "r31-trunc-header.kdbx",
+      "sha256": "3d283ecc5994b6105097d728b31114a88fcfeb5304b4cf26fe4f79e806e343aa",
+      "expect": "reject",
+      "oracle_error": "KdbxFormatError",
+      "method": "mutation",
+      "base": "G31-RICH",
+      "purpose": "断在头部字段中间",
+      "credentials": {
+        "password": "合成口令-G31-RICH-Ünï🔑",
+        "keyfile": null,
+        "keyfile_sha256": null
+      }
+    },
+    {
+      "id": "R31-TRAILING",
+      "file": "r31-trailing.kdbx",
+      "sha256": "27ea05291dddf9579973bb4abf7f44da959ea1c442eccedaf8ced8e78accad82",
+      "expect": "reject",
+      "oracle_error": "KdbxFormatError",
+      "method": "mutation",
+      "base": "G31-RICH",
+      "purpose": "密文后追加 22 字节",
+      "credentials": {
+        "password": "合成口令-G31-RICH-Ünï🔑",
+        "keyfile": null,
+        "keyfile_sha256": null
+      }
+    },
+    {
+      "id": "R31-CIPHER-FLIP",
+      "file": "r31-cipher-flip.kdbx",
+      "sha256": "1b9cab3e92df5725b4a97b27e5d43f008a34bf68adae16a4b779576de60764c9",
+      "expect": "reject",
+      "oracle_error": "KdbxIntegrityError",
+      "method": "mutation",
+      "base": "G31-RICH",
+      "purpose": "密文中间翻转 1 位",
+      "credentials": {
+        "password": "合成口令-G31-RICH-Ünï🔑",
+        "keyfile": null,
+        "keyfile_sha256": null
+      }
+    },
+    {
+      "id": "R31-HEADERHASH-MISMATCH",
+      "file": "r31-headerhash-mismatch.kdbx",
+      "sha256": "dbdc50add365df9d1b4b0cf699cf936316628ea063c4c1aded649cf8977f61a4",
+      "expect": "reject",
+      "oracle_error": "KdbxIntegrityError",
+      "method": "mutation",
+      "base": "G31-RICH",
+      "purpose": "头部插入 Comment 字段，密文未动，HeaderHash 不符",
+      "credentials": {
+        "password": "合成口令-G31-RICH-Ünï🔑",
+        "keyfile": null,
+        "keyfile_sha256": null
+      }
+    },
+    {
+      "id": "R31-HEADERHASH-MISSING",
+      "file": "r31-headerhash-missing.kdbx",
+      "sha256": "e15e2966c98dc049e3a79e68985ac5519dc0e55308c2c2e70ca40e4137442f18",
+      "expect": "read-only",
+      "oracle_error": null,
+      "method": "mutation",
+      "base": "G31-RICH",
+      "purpose": "重新加密时去掉 Meta/HeaderHash；内容完整，但头部是否被改无法确认",
+      "credentials": {
+        "password": "合成口令-G31-RICH-Ünï🔑",
+        "keyfile": null,
+        "keyfile_sha256": null
+      }
+    },
+    {
+      "id": "R31-AESKDF-HUGE",
+      "file": "r31-aeskdf-huge.kdbx",
+      "sha256": "f351b674a086c9ac636b71e79747c5eda80e981388052b5ef0eb1a2bd054d104",
+      "expect": "reject",
+      "oracle_error": "KdbxUnsupported",
+      "method": "mutation",
+      "base": "G31-RICH",
+      "purpose": "AES-KDF 轮数改成 2^62",
+      "credentials": {
+        "password": "合成口令-G31-RICH-Ünï🔑",
+        "keyfile": null,
+        "keyfile_sha256": null
+      }
+    },
+    {
+      "id": "R31-CIPHER-TWOFISH",
+      "file": "r31-cipher-twofish.kdbx",
+      "sha256": "c8bedb25196874a617bab8cc02c17b1f8727639b3ad4d46f265c773fc90d4835",
+      "expect": "reject",
+      "oracle_error": "KdbxUnsupported",
+      "method": "mutation",
+      "base": "G31-RICH",
+      "purpose": "加密算法改成 Twofish",
+      "credentials": {
+        "password": "合成口令-G31-RICH-Ünï🔑",
+        "keyfile": null,
+        "keyfile_sha256": null
+      }
+    },
+    {
+      "id": "R31-GZIP-BOMB",
+      "file": "r31-gzip-bomb.kdbx",
+      "sha256": "62d72f49a131e12a50fef7b535159cee0e85592c5d0e1fd5a4b05c16fde1a9a7",
+      "expect": "reject",
+      "oracle_error": "KdbxUnsupported",
+      "method": "mutation",
+      "base": "G31-RICH",
+      "purpose": "解压后 512 MiB",
+      "credentials": {
+        "password": "合成口令-G31-RICH-Ünï🔑",
+        "keyfile": null,
+        "keyfile_sha256": null
+      }
+    },
+    {
+      "id": "R31-XML-ENTITY",
+      "file": "r31-xml-entity.kdbx",
+      "sha256": "8a213e1a115f64bf9ede22dca9f971b12b2df74d71e3bc363eda29e60f94af91",
+      "expect": "reject",
+      "oracle_error": "KdbxFormatError",
+      "method": "mutation",
+      "base": "G31-RICH",
+      "purpose": "实体展开炸弹（10^9 倍）",
+      "credentials": {
+        "password": "合成口令-G31-RICH-Ünï🔑",
+        "keyfile": null,
+        "keyfile_sha256": null
+      }
+    },
+    {
+      "id": "R31-XML-EXTERNAL",
+      "file": "r31-xml-external.kdbx",
+      "sha256": "d7008fb48c36a7d75c5f77950b9de7a8e30b5b5a9d1d37fbf73e02e309041524",
+      "expect": "reject",
+      "oracle_error": "KdbxFormatError",
+      "method": "mutation",
+      "base": "G31-RICH",
+      "purpose": "外部实体指向 file:///etc/hosts",
+      "credentials": {
+        "password": "合成口令-G31-RICH-Ünï🔑",
+        "keyfile": null,
+        "keyfile_sha256": null
+      }
+    },
+    {
+      "id": "R31-XML-DEEP",
+      "file": "r31-xml-deep.kdbx",
+      "sha256": "5ac0ac75a964676917af7e1c4182499627c7bd9bbdfd7e7cc2aae1b55942ff13",
+      "expect": "reject",
+      "oracle_error": "KdbxFormatError",
+      "method": "mutation",
+      "base": "G31-RICH",
+      "purpose": "10 万层嵌套 Group",
+      "credentials": {
+        "password": "合成口令-G31-RICH-Ünï🔑",
+        "keyfile": null,
+        "keyfile_sha256": null
+      }
+    },
+    {
+      "id": "R41-TRUNC-HALF",
+      "file": "r41-trunc-half.kdbx",
+      "sha256": "55aca2e46b55d3aab80522611be38e4380e1203ea98ae1580ba0634507575c49",
+      "expect": "reject",
+      "oracle_error": "KdbxFormatError",
+      "method": "mutation",
+      "base": "G41-RICH",
+      "purpose": "截掉后一半",
+      "credentials": {
+        "password": "合成口令-G41-RICH-Ünï🔑",
+        "keyfile": null,
+        "keyfile_sha256": null
+      }
+    },
+    {
+      "id": "R41-TRAILING",
+      "file": "r41-trailing.kdbx",
+      "sha256": "51acd7b467ab76b107333074f92d543b8dc308933d9a88638c9fd424f9ccbff0",
+      "expect": "reject",
+      "oracle_error": "KdbxIntegrityError",
+      "method": "mutation",
+      "base": "G41-RICH",
+      "purpose": "结束块后追加 22 字节",
+      "credentials": {
+        "password": "合成口令-G41-RICH-Ünï🔑",
+        "keyfile": null,
+        "keyfile_sha256": null
+      }
+    },
+    {
+      "id": "R41-HEADER-FLIP",
+      "file": "r41-header-flip.kdbx",
+      "sha256": "88600f3551342611694a58dc6a1b3abee1721eaa7642fd7ebb2c013ef4dfe5da",
+      "expect": "reject",
+      "oracle_error": "KdbxIntegrityError",
+      "method": "mutation",
+      "base": "G41-RICH",
+      "purpose": "主种子翻转 1 位，头部 SHA-256 不符",
+      "credentials": {
+        "password": "合成口令-G41-RICH-Ünï🔑",
+        "keyfile": null,
+        "keyfile_sha256": null
+      }
+    },
+    {
+      "id": "R41-HEADER-HMAC",
+      "file": "r41-header-hmac.kdbx",
+      "sha256": "aad43728c2853eda9a6c5801bb24ac1ce0ddc93bfc6badcd7e1ac17ae44ffbeb",
+      "expect": "reject",
+      "oracle_error": "KdbxKeyError",
+      "method": "mutation",
+      "base": "G41-RICH",
+      "purpose": "主种子翻转 1 位并重算 SHA-256，只有头部 HMAC 能发现",
+      "credentials": {
+        "password": "合成口令-G41-RICH-Ünï🔑",
+        "keyfile": null,
+        "keyfile_sha256": null
+      }
+    },
+    {
+      "id": "R41-BLOCK-FLIP",
+      "file": "r41-block-flip.kdbx",
+      "sha256": "e3bd91f3d0bdd3c6b74c5a076e932f3e6d95337aae5651785ae37ba3a5dc8c1d",
+      "expect": "reject",
+      "oracle_error": "KdbxIntegrityError",
+      "method": "mutation",
+      "base": "G41-RICH",
+      "purpose": "第 0 块密文翻转 1 位",
+      "credentials": {
+        "password": "合成口令-G41-RICH-Ünï🔑",
+        "keyfile": null,
+        "keyfile_sha256": null
+      }
+    },
+    {
+      "id": "R41-ARGON2-HUGE",
+      "file": "r41-argon2-huge.kdbx",
+      "sha256": "cd6d20d66daa35ebe0d9221ce562ad0be39a8c1a9dfecd0f1d1205b1d238cdb2",
+      "expect": "reject",
+      "oracle_error": "KdbxUnsupported",
+      "method": "mutation",
+      "base": "G41-RICH",
+      "purpose": "KDF 改成 Argon2id、内存 1 TiB，并重算 SHA-256",
+      "credentials": {
+        "password": "合成口令-G41-RICH-Ünï🔑",
+        "keyfile": null,
+        "keyfile_sha256": null
+      }
+    },
+    {
+      "id": "R41-AESKDF-HUGE",
+      "file": "r41-aeskdf-huge.kdbx",
+      "sha256": "8aafc7cb812e18930301ce6aeb976d7cc0780ab58d82b6dbc49d3de3f35a637b",
+      "expect": "reject",
+      "oracle_error": "KdbxUnsupported",
+      "method": "mutation",
+      "base": "G41-RICH",
+      "purpose": "AES-KDF 轮数改成 2^62，并重算 SHA-256",
+      "credentials": {
+        "password": "合成口令-G41-RICH-Ünï🔑",
+        "keyfile": null,
+        "keyfile_sha256": null
+      }
+    },
+    {
+      "id": "R42-VERSION",
+      "file": "r42-version.kdbx",
+      "sha256": "bbc03f07b316340436b5ebc8f78f18c8dde105a9cedb530662d9b988c0096a2b",
+      "expect": "reject",
+      "oracle_error": "KdbxUnsupported",
+      "method": "mutation",
+      "base": "G41-RICH",
+      "purpose": "版本号改成 4.2",
+      "credentials": {
+        "password": "合成口令-G41-RICH-Ünï🔑",
+        "keyfile": null,
+        "keyfile_sha256": null
+      }
+    },
+    {
+      "id": "R-KDB1",
+      "file": "r-kdb1.kdbx",
+      "sha256": "38c0813297eb149dfccf4f7b0d8cfbff4f17f0bf0ba29fc685a98df577b270e9",
+      "expect": "reject",
+      "oracle_error": "KdbxUnsupported",
+      "method": "mutation",
+      "base": "G31-RICH",
+      "purpose": "签名改成 KeePass 1.x 的 KDB",
+      "credentials": {
+        "password": "合成口令-G31-RICH-Ünï🔑",
+        "keyfile": null,
+        "keyfile_sha256": null
+      }
+    },
+    {
+      "id": "R-NOT-KDBX",
+      "file": "r-not-kdbx.kdbx",
+      "sha256": "b690c55d8ed7723eb7c3f0202ed0cc2177303441b7483557a273ba4edaaf81e3",
+      "expect": "reject",
+      "oracle_error": "KdbxFormatError",
+      "method": "mutation",
+      "base": "G31-RICH",
+      "purpose": "256 字节伪随机数",
+      "credentials": {
+        "password": "合成口令-G31-RICH-Ünï🔑",
+        "keyfile": null,
+        "keyfile_sha256": null
+      }
     }
   ]
 }

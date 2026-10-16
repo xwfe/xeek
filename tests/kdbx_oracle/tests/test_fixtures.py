@@ -12,16 +12,21 @@ from pathlib import Path
 
 from cryptography.hazmat.primitives import serialization
 
+import kdbx_oracle
 from kdbx_oracle import KdbxKeyError, read_kdbx, read_plain_xml
 from kdbx_oracle.semantic import canonicalize, diff, summarize, uuid_hex
 
 FIXTURES = Path(__file__).resolve().parents[2] / "fixtures" / "kdbx"
 sys.path.insert(0, str(FIXTURES))
 import generate  # noqa: E402
+import mutate  # noqa: E402
 import source  # noqa: E402
 
 MANIFEST = json.loads((FIXTURES / "manifest.json").read_text(encoding="utf-8"))
 GOLDEN = [s for s in MANIFEST["samples"] if s["expect"] == "open"]
+MUTANTS = [s for s in MANIFEST["samples"] if s["expect"] != "open"]
+# 压缩炸弹解压后 512 MiB；测试里把上限压到 16 MiB，不然每次要先解出 256 MiB 才拒绝。
+TEST_XML_LIMIT = 16 << 20
 
 
 def open_sample(sample, password="__manifest__", keyfile="__manifest__"):
@@ -98,6 +103,45 @@ class GoldenSamplesTest(unittest.TestCase):
             with self.subTest(sample["id"]):
                 with self.assertRaises(KdbxKeyError):
                     open_sample(sample, keyfile=None)
+
+
+class MutantSamplesTest(unittest.TestCase):
+    def test_manifest_lists_every_mutation(self):
+        self.assertEqual([s["id"] for s in MUTANTS], [m[0] for m in mutate.MUTATIONS])
+
+    def test_mutations_are_reproducible(self):
+        golden = {s["id"]: s for s in GOLDEN}
+        for sample_id, base_id, func, *_ in mutate.MUTATIONS:
+            with self.subTest(sample_id):
+                base = golden[base_id]
+                creds = base["credentials"]
+                keyfile = (FIXTURES / creds["keyfile"]).read_bytes() if creds["keyfile"] else None
+                data = func((FIXTURES / base["file"]).read_bytes(), (creds["password"], keyfile))
+                record = next(s for s in MUTANTS if s["id"] == sample_id)
+                self.assertEqual(hashlib.sha256(data).hexdigest(), record["sha256"])
+                self.assertEqual((FIXTURES / record["file"]).read_bytes(), data)
+
+    def test_rejected_with_expected_error(self):
+        for sample in MUTANTS:
+            if sample["expect"] != "reject":
+                continue
+            with self.subTest(sample["id"]):
+                error = getattr(kdbx_oracle, sample["oracle_error"])
+                with self.assertRaises(error):
+                    creds = sample["credentials"]
+                    keyfile = (FIXTURES / creds["keyfile"]).read_bytes() if creds["keyfile"] else None
+                    read_kdbx((FIXTURES / sample["file"]).read_bytes(), password=creds["password"],
+                              keyfile=keyfile, max_xml_bytes=TEST_XML_LIMIT)
+
+    def test_headerhash_missing_opens_read_only_with_same_content(self):
+        sample = next(s for s in MUTANTS if s["id"] == "R31-HEADERHASH-MISSING")
+        self.assertEqual(sample["expect"], "read-only")
+        decoded = open_sample(sample)
+        self.assertEqual(decoded.header_hash, "missing")
+        base = open_sample(next(s for s in GOLDEN if s["id"] == sample["base"]))
+        self.assertEqual(base.header_hash, "match")
+        # 重新加密没有打乱保护流：除了 HeaderHash（比较器本来就忽略），内容完全一致。
+        self.assertEqual(diff(canonicalize(base), canonicalize(decoded), reveal=True), [])
 
 
 class RichContentTest(unittest.TestCase):

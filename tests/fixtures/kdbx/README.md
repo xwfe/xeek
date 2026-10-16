@@ -19,6 +19,14 @@ python3 -I tests/fixtures/kdbx/generate.py --only G41-RICH --force   # 重做指
 
 `*.kdbx`、`*.keyx`、`*.key` 在 `.gitignore` 里，新样本要逐个 `git add -f`。
 
+损坏样本由 `mutate.py` 从黄金样本变异而来，字节完全确定：
+
+```sh
+python3 -I tests/fixtures/kdbx/mutate.py
+```
+
+**重做了 G31-RICH 或 G41-RICH 以后必须重跑它**，否则测试里的 `test_mutations_are_reproducible` 会报哈希不符——那不是解码器坏了，是损坏样本还是从旧黄金样本变异的。
+
 ## 样本矩阵
 
 样本源分两类：
@@ -41,6 +49,42 @@ python3 -I tests/fixtures/kdbx/generate.py --only G41-RICH --force   # 重做指
 
 错误密码、缺少密钥文件不单独存文件，测试里对每个样本动态验证。
 
+### 损坏与攻击样本
+
+预期 `reject` = keex 必须拒绝打开、不写回；`read-only` = 可以打开，但必须只读。第四列是 kdbx_oracle 实际抛的异常，供对照；keex 的错误分类不必一样，但不能把“被改”报成“密码错”以外的可继续状态。密码同基础样本。
+
+| ID | 基于 | 怎么改 | 预期 | oracle |
+| --- | --- | --- | --- | --- |
+| R31-TRUNC-HALF | G31-RICH | 截掉后一半 | reject | FormatError |
+| R31-TRUNC-HEADER | G31-RICH | 断在头部字段中间 | reject | FormatError |
+| R31-TRAILING | G31-RICH | 密文后追加 22 字节 | reject | FormatError |
+| R31-CIPHER-FLIP | G31-RICH | 密文中间翻转 1 位 | reject | IntegrityError |
+| R31-HEADERHASH-MISMATCH | G31-RICH | 头部插入 Comment 字段，密文不动 | reject | IntegrityError |
+| R31-HEADERHASH-MISSING | G31-RICH | 去掉 Meta/HeaderHash 后重新加密 | **read-only** | 打开，`header_hash == "missing"` |
+| R31-AESKDF-HUGE | G31-RICH | AES-KDF 轮数改成 2^62 | reject | Unsupported |
+| R31-CIPHER-TWOFISH | G31-RICH | 加密算法改成 Twofish | reject | Unsupported |
+| R31-GZIP-BOMB | G31-RICH | 解压后 512 MiB（文件 0.5 MB） | reject | Unsupported |
+| R31-XML-ENTITY | G31-RICH | 实体展开炸弹 | reject | FormatError |
+| R31-XML-EXTERNAL | G31-RICH | 外部实体指向 `file:///etc/hosts` | reject | FormatError |
+| R31-XML-DEEP | G31-RICH | 10 万层嵌套 Group | reject | FormatError |
+| R41-TRUNC-HALF | G41-RICH | 截掉后一半 | reject | FormatError |
+| R41-TRAILING | G41-RICH | 结束块后追加 22 字节 | reject | IntegrityError |
+| R41-HEADER-FLIP | G41-RICH | 主种子翻转 1 位 | reject | IntegrityError |
+| R41-HEADER-HMAC | G41-RICH | 主种子翻转 1 位并重算 SHA-256，只有头部 HMAC 能发现 | reject | KeyError |
+| R41-BLOCK-FLIP | G41-RICH | 第 0 块密文翻转 1 位 | reject | IntegrityError |
+| R41-ARGON2-HUGE | G41-RICH | KDF 改成 Argon2id、内存 1 TiB，重算 SHA-256 | reject | Unsupported |
+| R41-AESKDF-HUGE | G41-RICH | AES-KDF 轮数改成 2^62，重算 SHA-256 | reject | Unsupported |
+| R42-VERSION | G41-RICH | 版本号改成 4.2 | reject | Unsupported |
+| R-KDB1 | G31-RICH | 签名改成 KeePass 1.x | reject | Unsupported |
+| R-NOT-KDBX | — | 256 字节伪随机数 | reject | FormatError |
+
+几个容易踩的坑：
+
+- **R41-HEADER-HMAC 的报错和“密码错”一样。** 头部被改且重算了 SHA-256 时，只有头部 HMAC 会失败，而 HMAC 失败在格式上分不出是密钥错还是头部被改。keex 的提示不要断言“密码错误”。
+- **超大 KDF 参数必须在跑 KDF 之前拒绝。** 4.x 要先核头部 SHA-256、再查参数上限、最后才跑 KDF；3.1 头部没有校验，只能靠参数上限。顺序反了，R31-AESKDF-HUGE 会让客户端卡到天荒地老。
+- **尾部污染在 4.x 里密码学上发现不了。** 结束块之后的字节不在任何 HMAC 里，只能靠“结束块后必须是文件末尾”这条规则拒绝。
+- **压缩炸弹测试里用 16 MiB 上限**，省得每次解出 256 MiB。keex 自己的上限由 K015 定。
+
 ## KeePassXC 2.7.12 写库时自己改了什么
 
 把源 XML 和生成的库做语义比较得到（逐条路径见 manifest 的 `writer_changes`）。做 K003 无损对照时要知道这些是 KeePassXC 的行为，不是候选库的：
@@ -60,4 +104,4 @@ python3 -I tests/fixtures/kdbx/generate.py --only G41-RICH --force   # 重做指
 | KeePass 2.x（官方）写的样本 | 本机没有 .NET/Mono | 在装了 KeePass 的机器上生成后登记 |
 | 移动端客户端（KeePassDX、KeePassium、Strongbox）写的样本 | 需要真机或模拟器 | K003 前后在测试机上生成 |
 | KeeAgent 本体读取验证、带口令的 SSH 私钥 | 没有 KeePass/KeeAgent；加密 OpenSSH 私钥需要 bcrypt 库 | KeeAgent 设置目前按格式手写，只验证了字节保留 |
-| 损坏、截断、尾部污染、HeaderHash、超大参数、压缩炸弹、XML 攻击样本 | K002 下一步 | 由黄金样本确定性变异生成 |
+| 4.x 的压缩炸弹和 XML 攻击 | 要重算 HMAC 块，变异工具只做了 3.1 重新加密；两者的解压和 XML 解析是同一层 | 需要时给 mutate.py 加 4.x 重新加密 |
