@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/><meta content="mobile_blank" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{width:100vw;min-height:100vh;margin:0;padding:0;background-color:#090D16;}body{overscroll-behavior:none;font-family:'Geist',sans-serif;}.pb-safe{padding-bottom:env(safe-area-inset-bottom,0px);}.pt-safe{padding-top:env(safe-area-inset-top,0px);}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { "colors": { "error-container": "#93000a", "border-subtle": "rgba(148, 163, 184, 0.12)", "status-danger": "#EF4444", "inverse-primary": "#006c49", "on-surface-variant": "#bbcabf", "surface-container-lowest": "#0a0e17", "surface-container-low": "#181b25", "background": "#0f131c", "on-background": "#dfe2ef", "surface-bright": "#353943", "on-secondary-fixed-variant": "#004e5c", "on-primary-fixed-variant": "#005236", "surface-card": "#131C2E", "outline-variant": "#3c4a42", "border-highlight": "rgba(16, 185, 129, 0.35)", "secondary": "#4cd7f6", "primary": "#4edea3", "on-secondary-container": "#00424e", "on-surface": "#dfe2ef", "inverse-on-surface": "#2c303a", "status-warning": "#F59E0B", "surface-dim": "#0f131c", "text-muted": "#94A3B8", "surface-container-highest": "#31353f", "secondary-fixed-dim": "#4cd7f6", "secondary-fixed": "#acedff", "on-tertiary": "#1000a9", "status-otp": "#8B5CF6", "tertiary-fixed-dim": "#c0c1ff", "on-primary-container": "#00422b", "on-primary-fixed": "#002113", "error": "#ffb4ab", "surface-container": "#1c1f29", "surface-container-high": "#262a34", "inverse-surface": "#dfe2ef", "on-secondary-fixed": "#001f26", "tertiary": "#c0c1ff", "on-tertiary-container": "#1d17b2", "surface-variant": "#31353f", "on-error-container": "#ffdad6", "surface-raised": "#0F172A", "secondary-container": "#03b5d3", "status-info": "#06B6D4", "primary-fixed-dim": "#4edea3", "surface-base": "#090D16", "on-primary": "#003824", "text-primary": "#F8FAFC", "on-tertiary-fixed-variant": "#2f2ebe", "tertiary-container": "#9699ff", "on-error": "#690005", "on-secondary": "#003640", "surface-overlay": "#1E293B", "tertiary-fixed": "#e1e0ff", "on-tertiary-fixed": "#07006c", "primary-container": "#10b981", "outline": "#86948a", "surface": "#0f131c", "primary-fixed": "#6ffbbe", "surface-tint": "#4edea3" }, "borderRadius": { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" }, "spacing": { "space-2xs": "0.25rem", "space-xl": "2rem", "gutter-mobile": "0.75rem", "margin": "1rem", "space-md": "1rem", "space-xs": "0.5rem", "space-sm": "0.75rem", "margin-tablet": "1.5rem", "space-2xl": "3rem", "space-lg": "1.5rem", "gutter": "1rem" }, "fontFamily": { "body-lg": [ "Geist" ], "headline-xl": [ "Geist" ], "code-secret": [ "JetBrains Mono" ], "body-md": [ "Geist" ], "body-sm": [ "Geist" ], "headline-lg": [ "Geist" ], "headline-md": [ "Geist" ], "label-md": [ "JetBrains Mono" ], "code-otp": [ "JetBrains Mono" ], "label-sm": [ "JetBrains Mono" ] }, "fontSize": { "body-lg": [ "16px", { "lineHeight": "24px", "fontWeight": "400" } ], "headline-xl": [ "32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700" } ], "code-secret": [ "15px", { "lineHeight": "22px", "letterSpacing": "0.04em", "fontWeight": "500" } ], "body-md": [ "14px", { "lineHeight": "20px", "fontWeight": "400" } ], "body-sm": [ "12px", { "lineHeight": "16px", "fontWeight": "400" } ], "headline-lg": [ "24px", { "lineHeight": "32px", "letterSpacing": "-0.015em", "fontWeight": "600" } ], "headline-md": [ "20px", { "lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "600" } ], "label-md": [ "12px", { "lineHeight": "16px", "letterSpacing": "0.06em", "fontWeight": "500" } ], "code-otp": [ "28px", { "lineHeight": "36px", "letterSpacing": "0.15em", "fontWeight": "700" } ], "label-sm": [ "10px", { "lineHeight": "14px", "letterSpacing": "0.08em", "fontWeight": "600" } ] } } } }</script><style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head><body class="bg-surface-base text-on-surface min-h-screen flex flex-col justify-between selection:bg-primary/20 selection:text-primary"><main class="flex-1 flex flex-col w-full bg-surface-base pt-safe pb-safe"><div class="flex flex-col w-full relative px-margin pb-space-xl">
+<!-- Dynamic Ambient Glow Background Layers -->
+<div class="absolute -top-12 left-1/2 -translate-x-1/2 w-80 h-80 bg-primary/10 rounded-full blur-3xl pointer-events-none"></div>
+<div class="absolute top-64 right-4 w-56 h-56 bg-secondary/5 rounded-full blur-2xl pointer-events-none"></div>
+<!-- Security Protocol Top Badge & Node Status -->
+<header class="flex flex-col gap-space-xs mt-space-sm mb-space-md">
+<div class="flex items-center justify-between text-on-surface-variant">
+<!-- Self-Hosted Node Indicator -->
+<div class="inline-flex items-center gap-space-xs bg-surface-container-low px-space-sm py-1 rounded-full">
+<span class="relative flex h-2 w-2">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+<span class="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
+</span>
+<span class="font-label-sm text-label-sm text-on-surface">Docker Vaultwarden</span>
+<span class="font-label-sm text-label-sm text-primary">直连 · 100% 同步</span>
+</div>
+<!-- Offline Vault State Toggle -->
+<button class="flex items-center gap-1 bg-surface-container-low hover:bg-surface-container px-space-sm py-1 rounded-full text-on-surface-variant transition-colors" id="offline-switch-btn" title="切换本地离线冷模式" type="button">
+<span class="material-symbols-outlined text-[14px] text-secondary">wifi_tethering</span>
+<span class="font-label-sm text-label-sm">节点在线</span>
+</button>
+</div>
+<!-- Encryption Guarantee Strip -->
+<div class="flex items-center justify-center gap-1.5 py-1 bg-surface-container-lowest/80 rounded-lg text-center">
+<span class="material-symbols-outlined text-[13px] text-primary" style="font-variation-settings: 'FILL' 1;">verified_user</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant tracking-wider">
+        E2EE 本地内存隔离 · Argon2id 加密保护 (m=64MB, t=3)
+      </span>
+</div>
+</header>
+<!-- Center Vault Biometric & Shield Hero Area -->
+<section class="flex flex-col items-center text-center my-space-sm relative">
+<!-- Holographic Circuit Vault Icon Display -->
+<div class="relative w-36 h-36 flex items-center justify-center mb-space-sm">
+<!-- Ambient Rotating Pulse Rings -->
+<div class="absolute inset-0 rounded-full border border-primary/20 animate-spin" style="animation-duration: 18s;"></div>
+<div class="absolute inset-2 rounded-full border border-secondary/15 animate-spin" style="animation-duration: 12s; animation-direction: reverse;"></div>
+<!-- Sensor Glow Background -->
+<div class="absolute w-24 h-24 rounded-full bg-gradient-to-tr from-surface-card via-surface-container to-surface-card shadow-xl flex items-center justify-center">
+<!-- Inner Core Vault Graphic SVG -->
+<svg class="w-14 h-14 text-primary" fill="none" viewbox="0 0 48 48">
+<circle cx="24" cy="24" r="22" stroke="currentColor" stroke-dasharray="3 3" stroke-opacity="0.3" stroke-width="1.5"></circle>
+<path d="M24 6L37 11.5V23C37 31.5 24 40 24 40C24 40 11 31.5 11 23V11.5L24 6Z" fill="#131C2E" stroke="currentColor" stroke-linejoin="round" stroke-width="2"></path>
+<circle cx="24" cy="22" r="5" stroke="#4edea3" stroke-width="2"></circle>
+<path d="M24 27V32" stroke="#4edea3" stroke-linecap="round" stroke-width="2.5"></path>
+<circle cx="24" cy="22" fill="#4edea3" r="1.5"></circle>
+</svg>
+</div>
+<!-- Orbiting Quantum Dots -->
+<div class="absolute top-1 left-1/2 -translate-x-1/2 w-2 h-2 rounded-full bg-secondary shadow-md shadow-secondary"></div>
+<div class="absolute bottom-2 right-6 w-1.5 h-1.5 rounded-full bg-primary shadow-sm shadow-primary"></div>
+</div>
+<!-- Main Vault Headlines -->
+<h1 class="font-headline-lg text-headline-lg text-text-primary tracking-tight mb-1">
+      主金库已加密锁定
+    </h1>
+<p class="font-label-md text-label-md text-text-muted flex items-center gap-1.5">
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
+      vaultwarden.internal · 142 个加密凭据就绪
+    </p>
+<!-- Biometric Main Trigger Button with Ripple State -->
+<div class="w-full max-w-xs mt-space-md flex flex-col items-center">
+<button class="group relative w-full overflow-hidden bg-surface-card hover:bg-surface-raised active:scale-[0.98] transition-all p-space-md rounded-xl shadow-lg flex items-center justify-center gap-space-sm text-text-primary cursor-pointer" id="biometric-trigger" type="button">
+<!-- Edge Highlight Glow -->
+<div class="absolute inset-0 rounded-xl bg-gradient-to-r from-primary/10 via-transparent to-secondary/10 opacity-70 group-hover:opacity-100 transition-opacity pointer-events-none"></div>
+<!-- Biometric Fingerprint Icon -->
+<div class="relative flex items-center justify-center w-11 h-11 rounded-lg bg-surface-container-high text-primary group-hover:text-secondary group-hover:shadow-primary/30 transition-all">
+<span class="material-symbols-outlined text-[28px]" id="bio-icon">fingerprint</span>
+<span class="absolute -top-1 -right-1 flex h-2.5 w-2.5">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-secondary opacity-75"></span>
+<span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-secondary"></span>
+</span>
+</div>
+<div class="flex flex-col text-left">
+<span class="font-headline-md text-headline-md leading-tight text-on-surface font-semibold" id="bio-title">点击立即生物认证</span>
+<span class="font-body-sm text-body-sm text-text-muted" id="bio-subtitle">轻触验证 Touch ID / Face ID</span>
+</div>
+</button>
+<!-- Hardware Security Key (FIDO2 NFC) Pill -->
+<button class="mt-space-xs inline-flex items-center gap-1.5 bg-surface-container-low hover:bg-surface-container active:bg-surface-container-high px-space-md py-1.5 rounded-full text-on-surface-variant transition-colors" id="yubikey-trigger" type="button">
+<span class="material-symbols-outlined text-[16px] text-status-warning">key</span>
+<span class="font-label-sm text-label-sm tracking-wide">支持 FIDO2 / YubiKey NFC 硬件密钥</span>
+<span class="material-symbols-outlined text-[14px]">nfc</span>
+</button>
+</div>
+</section>
+<!-- Alternative Authentication Mode: PIN Dots / Master Key -->
+<section class="w-full max-w-sm mx-auto mt-space-md flex flex-col items-center bg-surface-card/60 backdrop-blur-md p-space-md rounded-xl">
+<!-- Mode Tabs: Quick PIN vs Master Password -->
+<div class="w-full flex items-center bg-surface-container-lowest p-1 rounded-lg mb-space-md">
+<button class="flex-1 py-1.5 rounded-md font-label-md text-label-md text-on-surface bg-surface-container font-semibold transition-all" id="tab-pin" type="button">
+        6位 快速 PIN
+      </button>
+<button class="flex-1 py-1.5 rounded-md font-label-md text-label-md text-on-surface-variant hover:text-on-surface transition-all" id="tab-pass" type="button">
+        主密码 (Password)
+      </button>
+</div>
+<!-- VIEW A: 6-Digit PIN Interface -->
+<div class="w-full flex flex-col items-center" id="pin-view">
+<!-- 6 Digits Secure Indicators -->
+<div class="flex items-center justify-center gap-3.5 mb-space-lg" id="pin-dots">
+<div class="w-3.5 h-3.5 rounded-full bg-surface-container-highest transition-all duration-200"></div>
+<div class="w-3.5 h-3.5 rounded-full bg-surface-container-highest transition-all duration-200"></div>
+<div class="w-3.5 h-3.5 rounded-full bg-surface-container-highest transition-all duration-200"></div>
+<div class="w-3.5 h-3.5 rounded-full bg-surface-container-highest transition-all duration-200"></div>
+<div class="w-3.5 h-3.5 rounded-full bg-surface-container-highest transition-all duration-200"></div>
+<div class="w-3.5 h-3.5 rounded-full bg-surface-container-highest transition-all duration-200"></div>
+</div>
+<!-- Cyber Tactical Numeric Keypad (4x3 Grid) -->
+<div class="grid grid-cols-3 gap-2.5 w-full max-w-[270px]">
+<button class="pin-key bg-surface-container hover:bg-surface-container-high active:bg-primary/20 text-on-surface font-code-secret text-code-secret font-semibold h-12 rounded-lg flex items-center justify-center transition-transform active:scale-95" data-val="1" type="button">1</button>
+<button class="pin-key bg-surface-container hover:bg-surface-container-high active:bg-primary/20 text-on-surface font-code-secret text-code-secret font-semibold h-12 rounded-lg flex items-center justify-center transition-transform active:scale-95" data-val="2" type="button">2</button>
+<button class="pin-key bg-surface-container hover:bg-surface-container-high active:bg-primary/20 text-on-surface font-code-secret text-code-secret font-semibold h-12 rounded-lg flex items-center justify-center transition-transform active:scale-95" data-val="3" type="button">3</button>
+<button class="pin-key bg-surface-container hover:bg-surface-container-high active:bg-primary/20 text-on-surface font-code-secret text-code-secret font-semibold h-12 rounded-lg flex items-center justify-center transition-transform active:scale-95" data-val="4" type="button">4</button>
+<button class="pin-key bg-surface-container hover:bg-surface-container-high active:bg-primary/20 text-on-surface font-code-secret text-code-secret font-semibold h-12 rounded-lg flex items-center justify-center transition-transform active:scale-95" data-val="5" type="button">5</button>
+<button class="pin-key bg-surface-container hover:bg-surface-container-high active:bg-primary/20 text-on-surface font-code-secret text-code-secret font-semibold h-12 rounded-lg flex items-center justify-center transition-transform active:scale-95" data-val="6" type="button">6</button>
+<button class="pin-key bg-surface-container hover:bg-surface-container-high active:bg-primary/20 text-on-surface font-code-secret text-code-secret font-semibold h-12 rounded-lg flex items-center justify-center transition-transform active:scale-95" data-val="7" type="button">7</button>
+<button class="pin-key bg-surface-container hover:bg-surface-container-high active:bg-primary/20 text-on-surface font-code-secret text-code-secret font-semibold h-12 rounded-lg flex items-center justify-center transition-transform active:scale-95" data-val="8" type="button">8</button>
+<button class="pin-key bg-surface-container hover:bg-surface-container-high active:bg-primary/20 text-on-surface font-code-secret text-code-secret font-semibold h-12 rounded-lg flex items-center justify-center transition-transform active:scale-95" data-val="9" type="button">9</button>
+<button class="bg-surface-container-low hover:bg-surface-container active:bg-surface-container-high text-on-surface-variant font-label-sm text-label-sm h-12 rounded-lg flex items-center justify-center transition-transform active:scale-95" id="pin-clear" type="button">清除</button>
+<button class="pin-key bg-surface-container hover:bg-surface-container-high active:bg-primary/20 text-on-surface font-code-secret text-code-secret font-semibold h-12 rounded-lg flex items-center justify-center transition-transform active:scale-95" data-val="0" type="button">0</button>
+<button class="bg-surface-container-low hover:bg-surface-container active:bg-surface-container-high text-on-surface-variant h-12 rounded-lg flex items-center justify-center transition-transform active:scale-95" id="pin-back" type="button">
+<span class="material-symbols-outlined text-[20px]">backspace</span>
+</button>
+</div>
+</div>
+<!-- VIEW B: Master Password Input Field (Hidden by default) -->
+<div class="w-full hidden flex-col gap-space-sm" id="pass-view">
+<div class="relative w-full">
+<input class="w-full bg-surface-container-lowest text-text-primary placeholder:text-outline font-code-secret text-code-secret py-3 pl-3.5 pr-11 rounded-lg focus:outline-none focus:bg-surface-container-low transition-colors" id="master-password-input" placeholder="输入主秘钥 (Master Password)" type="password"/>
+<button class="absolute right-3 top-1/2 -translate-y-1/2 text-on-surface-variant hover:text-on-surface p-1" id="toggle-pwd-vis" type="button">
+<span class="material-symbols-outlined text-[18px]" id="eye-icon">visibility_off</span>
+</button>
+</div>
+<!-- Segmented Password Strength Visual -->
+<div class="flex flex-col gap-1 w-full mt-1">
+<div class="flex items-center justify-between font-label-sm text-label-sm text-on-surface-variant">
+<span>本地哈希熵值检验</span>
+<span class="text-primary font-code-secret" id="strength-label">Argon2id 就绪</span>
+</div>
+<div class="grid grid-cols-4 gap-1.5 w-full">
+<div class="h-1 rounded-full bg-primary" id="bar-1"></div>
+<div class="h-1 rounded-full bg-primary" id="bar-2"></div>
+<div class="h-1 rounded-full bg-secondary" id="bar-3"></div>
+<div class="h-1 rounded-full bg-surface-container-highest" id="bar-4"></div>
+</div>
+</div>
+<!-- Submit Master Password Button -->
+<button class="w-full mt-space-xs py-3 rounded-lg bg-primary-container hover:bg-primary active:scale-[0.98] font-body-md text-body-md font-semibold text-on-primary-container transition-all flex items-center justify-center gap-2" id="submit-master-password" type="button">
+<span class="material-symbols-outlined text-[18px]">lock_open</span>
+<span>解密并装载主金库</span>
+</button>
+</div>
+</section>
+<!-- Vault Safety Status Notification Toast (Hidden initially) -->
+<div class="w-full max-w-sm mx-auto mt-space-sm py-2 px-space-md rounded-lg bg-surface-container flex items-center justify-between text-on-surface hidden transition-all" id="auth-status-toast">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[18px]" id="toast-icon">check_circle</span>
+<span class="font-body-sm text-body-sm" id="toast-text">生物特征识别成功，正在解密本地密钥库...</span>
+</div>
+</div>
+<!-- Security Safeguards and Emergency Footer -->
+<footer class="mt-space-lg flex flex-col items-center gap-space-sm text-center">
+<div class="flex items-center justify-center gap-4 text-on-surface-variant">
+<button class="font-label-sm text-label-sm text-secondary hover:text-secondary-fixed flex items-center gap-1 transition-colors" id="emergency-btn" type="button">
+<span class="material-symbols-outlined text-[14px]">sos</span>
+        紧急救援恢复秘钥 (Emergency Kit)
+      </button>
+<span class="text-surface-container-highest font-code-secret">•</span>
+<button class="font-label-sm text-label-sm text-on-surface-variant hover:text-text-primary transition-colors" id="switch-vault-btn" type="button">
+        切换冷钱包 / 多金库
+      </button>
+</div>
+<!-- Anti-Tamper Memory Wipe Countdown Warning -->
+<div class="flex items-center justify-center gap-1.5 text-on-surface-variant/80 px-space-md py-1">
+<span class="material-symbols-outlined text-[13px] text-status-warning">gpp_maybe</span>
+<p class="font-label-sm text-label-sm tracking-tight text-center">
+        连续输错 5 次将触发本地防篡改内存擦除 · 剩余尝试次数: <span class="text-primary font-bold">5</span>
+</p>
+</div>
+</footer>
+</div>
+<script>
+  (function() {
+    // Mode Switching Logic
+    const tabPin = document.getElementById('tab-pin');
+    const tabPass = document.getElementById('tab-pass');
+    const pinView = document.getElementById('pin-view');
+    const passView = document.getElementById('pass-view');
+
+    tabPin.addEventListener('click', () => {
+      tabPin.classList.add('bg-surface-container', 'font-semibold', 'text-on-surface');
+      tabPin.classList.remove('text-on-surface-variant');
+      tabPass.classList.remove('bg-surface-container', 'font-semibold', 'text-on-surface');
+      tabPass.classList.add('text-on-surface-variant');
+      pinView.classList.remove('hidden');
+      passView.classList.add('hidden');
+    });
+
+    tabPass.addEventListener('click', () => {
+      tabPass.classList.add('bg-surface-container', 'font-semibold', 'text-on-surface');
+      tabPass.classList.remove('text-on-surface-variant');
+      tabPin.classList.remove('bg-surface-container', 'font-semibold', 'text-on-surface');
+      tabPin.classList.add('text-on-surface-variant');
+      passView.classList.remove('hidden');
+      pinView.classList.add('hidden');
+    });
+
+    // Password Visibility Toggle
+    const pwdInput = document.getElementById('master-password-input');
+    const toggleEye = document.getElementById('toggle-pwd-vis');
+    const eyeIcon = document.getElementById('eye-icon');
+
+    toggleEye.addEventListener('click', () => {
+      if (pwdInput.type === 'password') {
+        pwdInput.type = 'text';
+        eyeIcon.textContent = 'visibility';
+      } else {
+        pwdInput.type = 'password';
+        eyeIcon.textContent = 'visibility_off';
+      }
+    });
+
+    // Numeric PIN input handling
+    let currentPin = '';
+    const pinDots = document.getElementById('pin-dots').children;
+    const pinKeys = document.querySelectorAll('.pin-key');
+    const pinClear = document.getElementById('pin-clear');
+    const pinBack = document.getElementById('pin-back');
+    const toast = document.getElementById('auth-status-toast');
+    const toastText = document.getElementById('toast-text');
+    const toastIcon = document.getElementById('toast-icon');
+
+    function updatePinDots() {
+      for (let i = 0; i < 6; i++) {
+        if (i < currentPin.length) {
+          pinDots[i].classList.remove('bg-surface-container-highest');
+          pinDots[i].classList.add('bg-primary', 'shadow-sm', 'shadow-primary');
+        } else {
+          pinDots[i].classList.remove('bg-primary', 'shadow-sm', 'shadow-primary');
+          pinDots[i].classList.add('bg-surface-container-highest');
+        }
+      }
+
+      if (currentPin.length === 6) {
+        showSuccessUnlock('PIN 验证成功，正在派生主加密秘钥...');
+      }
+    }
+
+    pinKeys.forEach(btn => {
+      btn.addEventListener('click', () => {
+        if (currentPin.length < 6) {
+          currentPin += btn.dataset.val;
+          updatePinDots();
+        }
+      });
+    });
+
+    pinClear.addEventListener('click', () => {
+      currentPin = '';
+      updatePinDots();
+    });
+
+    pinBack.addEventListener('click', () => {
+      currentPin = currentPin.slice(0, -1);
+      updatePinDots();
+    });
+
+    // Biometric & YubiKey Interactions
+    const bioBtn = document.getElementById('biometric-trigger');
+    const yubikeyBtn = document.getElementById('yubikey-trigger');
+
+    function showSuccessUnlock(msg) {
+      toast.classList.remove('hidden');
+      toastText.textContent = msg;
+      toastIcon.textContent = 'lock_open';
+      toastIcon.className = 'material-symbols-outlined text-primary text-[18px] animate-pulse';
+      setTimeout(() => {
+        toastText.textContent = '主金库解密完成，进入主界面...';
+      }, 1200);
+    }
+
+    bioBtn.addEventListener('click', () => {
+      showSuccessUnlock('生物验证通过 (Touch ID) · 正在解密私钥...');
+    });
+
+    yubikeyBtn.addEventListener('click', () => {
+      toast.classList.remove('hidden');
+      toastIcon.textContent = 'nfc';
+      toastIcon.className = 'material-symbols-outlined text-secondary text-[18px]';
+      toastText.textContent = '请将 YubiKey 5 NFC 贴合至手机天线处...';
+      setTimeout(() => {
+        showSuccessUnlock('FIDO2 物理凭据验证成功，金库已解锁！');
+      }, 1500);
+    });
+
+    const submitMaster = document.getElementById('submit-master-password');
+    submitMaster.addEventListener('click', () => {
+      if (pwdInput.value.length > 0) {
+        showSuccessUnlock('Argon2id 密钥派生中... 金库已就绪');
+      } else {
+        toast.classList.remove('hidden');
+        toastIcon.textContent = 'error';
+        toastIcon.className = 'material-symbols-outlined text-status-danger text-[18px]';
+        toastText.textContent = '请输入主密码以进行解密';
+      }
+    });
+
+    // Offline mode toggle
+    const offlineBtn = document.getElementById('offline-switch-btn');
+    let isOffline = false;
+    offlineBtn.addEventListener('click', () => {
+      isOffline = !isOffline;
+      if (isOffline) {
+        offlineBtn.innerHTML = '<span class="material-symbols-outlined text-[14px] text-status-warning">cloud_off</span><span class="font-label-sm text-label-sm text-status-warning">本地离线冷模式</span>';
+      } else {
+        offlineBtn.innerHTML = '<span class="material-symbols-outlined text-[14px] text-secondary">wifi_tethering</span><span class="font-label-sm text-label-sm">节点在线</span>';
+      }
+    });
+  })();
+</script></main></body></html>

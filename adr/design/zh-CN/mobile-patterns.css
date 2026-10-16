@@ -1,0 +1,18 @@
+/* Bitwarden交互参考的keex适配；不使用参考产品的品牌素材。 */
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap}
+.catalogue-search{display:flex;align-items:center;gap:10px;min-height:48px;border:1px solid var(--line);border-radius:12px;background:var(--surface);padding:0 13px;margin-bottom:12px;color:var(--muted)}
+.catalogue-search svg{width:20px;min-width:20px;height:20px}
+.catalogue-search input{min-width:0;width:100%;border:0;background:none;color:var(--text);padding:10px 0;font-size:16px}
+.catalogue-search input::placeholder{color:var(--muted)}
+.catalogue-filters{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-bottom:16px}
+.catalogue-filters button,.catalogue-filters select{width:100%;min-width:0;min-height:44px;border:1px solid var(--line);border-radius:9px;background:var(--surface);padding:8px 6px;font-size:14px;color:var(--text)}
+.catalogue-filters label{min-width:0}
+.catalogue-filters [aria-pressed=true]{background:var(--soft);border-color:var(--accent);color:var(--accent)}
+.catalogue-count{font-size:13px;color:var(--muted);margin:8px 2px 10px}
+.empty-results{padding:24px 16px;border:1px dashed var(--line);border-radius:13px;text-align:center}
+.empty-results h2{font-size:18px}
+.empty-results p{color:var(--muted);font-size:14px;margin:12px 0;line-height:1.8}
+.entry-actions{display:flex;gap:10px}
+.entry-actions .secondary{flex:1}
+.danger-action{color:var(--danger)}
+@media(max-width:360px){.catalogue-filters{gap:6px}.catalogue-filters button,.catalogue-filters select{font-size:13px;padding:8px 3px}}

@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="zh-CN" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="color-scheme" content="dark light">
+  <title>keex · iOS 中文设计</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="ios.css">
+  <link rel="stylesheet" href="mobile-patterns.css">
+  <script src="ios.js" defer></script>
+</head>
+<body>
+  <a href="#screen" class="skip">跳到预览内容</a>
+  <header class="review-header"><a class="wordmark" href="index.html">keex <span>设计实验室 / iOS</span></a><button class="theme-button" id="theme-button" aria-label="切换深浅主题">切换主题</button></header>
+  <div class="review-layout">
+    <aside class="review-controls" aria-label="设计预览控制区">
+      <details open><summary>设计场景</summary><p>仅切换示意，不读取设备能力。</p>
+        <label for="version">模拟 iOS 版本</label><select id="version"><option value="17">iOS 17 · 基础能力</option><option value="18" selected>iOS 18 · 增强能力</option><option value="26">iOS 26 · 迁移能力</option></select>
+        <label for="scenario">快速查看</label><select id="scenario"><option value="password">主应用 · 密码</option><option value="verify">主应用 · 验证</option><option value="sync">云同步与备份</option><option value="webdav">WebDAV 配置</option><option value="onedrive">OneDrive 授权范围</option><option value="conflict">同步冲突</option><option value="system">系统密码能力</option><option value="advanced">KDBX 高级属性</option><option value="attachments">附件与历史</option><option value="ext-password">扩展 · 填充密码</option><option value="ext-create">扩展 · 创建通行密钥</option><option value="ext-assert">扩展 · 使用通行密钥</option><option value="ext-error">扩展 · 无法安全保存</option><option value="locked">锁定状态</option></select>
+      </details>
+      <div class="review-note"><strong>同一密码库，两个界面边界</strong><p>主应用管理信息与同步；系统凭据扩展只完成当前请求，不带主应用的五项导航。</p><p>原生认证、云授权和加密保存均未接入。本页只含合成数据。</p></div>
+    </aside>
+    <section class="preview" aria-label="iOS 应用设计预览">
+      <div class="preview-caption"><span>keex · iOS 交互设计</span><span>演示数据</span></div>
+      <header class="app-chrome"><button id="back" class="back-button" data-action="back" aria-label="返回上一页"></button><span id="context">个人密码库</span><button class="lock-button" data-action="lock" aria-label="锁定演示密码库"></button></header>
+      <main id="screen" tabindex="-1"></main>
+      <nav id="tabs" aria-label="主导航"></nav>
+    </section>
+    <aside class="design-context"><p class="eyebrow">交付边界</p><h2>不把“已识别”<br>当成“已可用”</h2><div class="principle"><span>01</span><p>本机已保存与远端已同步，分别显示。</p></div><div class="principle"><span>02</span><p>附件、历史和协议属性，保持 KDBX 无损。</p></div><div class="principle"><span>03</span><p>创建通行密钥，先持久化再返回。</p></div><a href="index.html">查看通用五端设计 →</a><p class="fine">这是 HTML 预览，不是 Flutter 或系统凭据服务。</p></aside>
+  </div>
+  <dialog id="explanation" aria-labelledby="explanation-title"><div class="dialog-body"><p class="eyebrow">交互说明 · 不执行真实操作</p><h2 id="explanation-title"></h2><p id="explanation-text"></p><button class="primary" data-action="dismiss">知道了</button></div></dialog>
+</body>
+</html>

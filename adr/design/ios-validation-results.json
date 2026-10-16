@@ -1,0 +1,24 @@
+{
+  "date": "2026-10-12",
+  "target": "adr/design/zh-CN/ios.html",
+  "scope": "HTML设计原型，非原生凭据/云同步/KDBX实现",
+  "unique_browser_assertions": 60,
+  "viewports": [
+    {"width":1440,"height":1000,"passed":60,"failed":0},
+    {"width":390,"height":844,"passed":60,"failed":0},
+    {"width":320,"height":740,"passed":60,"failed":0},
+    {"width":844,"height":390,"passed":60,"failed":0}
+  ],
+  "additional_checks": {"real_browser_tab_click":true,"escape_does_not_bypass_lock":true},
+  "initial_failure": "扩展场景缺少渲染分派",
+  "fixed_and_retested": true,
+  "console": {"errors":0,"warnings":0},
+  "static_checks": {"original_files_unchanged":11,"main_tasks":67,"subtasks":24,"task_graphs_acyclic":true,"research_source_ids":19},
+  "server_stopped":true,
+  "browser_closed":true,
+  "flutter_native_build_tested":false,
+  "real_credentials_tested":false,
+  "real_cloud_accounts_tested":false,
+  "kdbx_roundtrip_tested":false,
+  "pixel_visual_review_completed":false
+}

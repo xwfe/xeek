@@ -1,0 +1,26 @@
+{
+  "date": "2026-10-15",
+  "target": "adr/design/zh-CN/ios.html",
+  "scope": "HTML合成原型，非Flutter/原生功能",
+  "base_assertions": 60,
+  "new_assertions": 31,
+  "viewports": [
+    {"width":390,"height":844,"base_passed":60,"new_passed":31,"failed":0},
+    {"width":320,"height":740,"base_passed":60,"new_passed":31,"failed":0}
+  ],
+  "desktop_current_revision_tested": false,
+  "desktop_limitation": "1440视口切换工具调用被拦截，未将旧版本结果计入本轮",
+  "console": {"errors":0,"warnings":0},
+  "browser_closed": true,
+  "preview_port": 5178,
+  "preview_server_stopped": true,
+  "preexisting_port_5173_untouched": true,
+  "pixel_visual_review_completed": false,
+  "native_credentials_tested": false,
+  "git_initialized": true,
+  "git_branch": "main",
+  "git_user_name_local": "uxiew",
+  "git_user_email_changed": false,
+  "commits_created": 0,
+  "remote_created": false
+}

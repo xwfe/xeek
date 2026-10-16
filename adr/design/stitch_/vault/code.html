@@ -1,0 +1,337 @@
+<!DOCTYPE html><html class="dark" lang="zh-CN"><head><meta charset="utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"><meta content="mobile_tab" name="shell-type"><link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@500;600;700&amp;family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&amp;family=JetBrains+Mono:wght@100..900&amp;display=swap" rel="stylesheet"><style>@layer base{html,body{width:100vw;margin:0;padding:0;background-color:#0f131c;}body{overscroll-behavior:none;-webkit-tap-highlight-color:transparent;}.pb-safe{padding-bottom:env(safe-area-inset-bottom,0px);}.pt-safe{padding-top:env(safe-area-inset-top,0px);}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { colors: { "inverse-primary": "#006c49", "on-tertiary-fixed-variant": "#2f2ebe", "border-highlight": "rgba(16, 185, 129, 0.35)", "tertiary-fixed": "#e1e0ff", "surface-container-lowest": "#0a0e17", "surface-bright": "#353943", "on-background": "#dfe2ef", "background": "#0f131c", "error": "#ffb4ab", "surface-raised": "#0F172A", "tertiary-container": "#9699ff", "on-tertiary": "#1000a9", "on-primary-container": "#00422b", "outline-variant": "#3c4a42", "surface-container": "#1c1f29", "surface": "#0f131c", "surface-container-low": "#181b25", "surface-overlay": "#1E293B", "inverse-surface": "#dfe2ef", "status-warning": "#F59E0B", "on-secondary": "#003640", "secondary": "#4cd7f6", "tertiary": "#c0c1ff", "surface-card": "#131C2E", "on-primary-fixed": "#002113", "status-otp": "#8B5CF6", "text-primary": "#F8FAFC", "surface-variant": "#31353f", "on-secondary-container": "#00424e", "inverse-on-surface": "#2c303a", "on-primary": "#003824", "primary": "#4edea3", "primary-fixed-dim": "#4edea3", "secondary-container": "#03b5d3", "outline": "#86948a", "on-error": "#690005", "on-surface-variant": "#bbcabf", "primary-fixed": "#6ffbbe", "on-secondary-fixed-variant": "#004e5c", "on-primary-fixed-variant": "#005236", "on-error-container": "#ffdad6", "text-muted": "#94A3B8", "status-info": "#06B6D4", "on-secondary-fixed": "#001f26", "surface-dim": "#0f131c", "error-container": "#93000a", "border-subtle": "rgba(148, 163, 184, 0.12)", "status-danger": "#EF4444", "secondary-fixed": "#acedff", "surface-tint": "#4edea3", "tertiary-fixed-dim": "#c0c1ff", "on-surface": "#dfe2ef", "secondary-fixed-dim": "#4cd7f6", "surface-container-highest": "#31353f", "on-tertiary-container": "#1d17b2", "primary-container": "#10b981", "on-tertiary-fixed": "#07006c", "surface-base": "#090D16", "surface-container-high": "#262a34" }, borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" }, spacing: { "space-2xl": "3rem", "space-xs": "0.5rem", "space-xl": "2rem", "space-md": "1rem", "margin": "1rem", "gutter": "1rem", "margin-tablet": "1.5rem", "space-2xs": "0.25rem", "space-lg": "1.5rem", "space-sm": "0.75rem", "gutter-mobile": "0.75rem" }, fontFamily: { "body-lg": ["Geist"], "body-md": ["Geist"], "headline-xl": ["Geist"], "label-md": ["JetBrains Mono"], "body-sm": ["Geist"], "code-secret": ["JetBrains Mono"], "label-sm": ["JetBrains Mono"], "code-otp": ["JetBrains Mono"], "headline-lg": ["Geist"], "headline-md": ["Geist"] }, fontSize: { "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }], "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }], "headline-xl": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700" }], "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.06em", "fontWeight": "500" }], "body-sm": ["12px", { "lineHeight": "16px", "fontWeight": "400" }], "code-secret": ["15px", { "lineHeight": "22px", "letterSpacing": "0.04em", "fontWeight": "500" }], "label-sm": ["10px", { "lineHeight": "14px", "letterSpacing": "0.08em", "fontWeight": "600" }], "code-otp": ["28px", { "lineHeight": "36px", "letterSpacing": "0.15em", "fontWeight": "700" }], "headline-lg": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.015em", "fontWeight": "600" }], "headline-md": ["20px", { "lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "600" }] } } } };</script></head><body class="bg-surface text-on-surface flex flex-col min-h-screen selection:bg-primary selection:text-on-primary-fixed"><header class="fixed top-0 inset-x-0 z-50 bg-surface/80 backdrop-blur-xl pt-safe shadow-[0_1px_8px_rgba(0,0,0,0.25)]"><div class="h-16 px-gutter flex items-center justify-between gap-space-sm"><div class="flex items-center gap-space-sm min-w-0 flex-1"><img alt="VaultShield Logo" class="h-8 w-auto object-contain shrink-0" src="https://lh3.googleusercontent.com/aida/AEtjO1U6SWkFMuc1Y9hY9QBN9rywBGf6Lftszq7NOpPEnwGzsYCPd4mIp623FE0arZhLw_NlSz9TPa2xMZsC4kuGDdGlBLjOGPZuO0Sn8VXfCiSsLxYOkON4CSW14xTXknwmZEd6Pu_QS-67I91PjqDbtklAoySMjz38ZWPsmkhqMQZLSIkVcxtSyYlF16JrPCqypO4PafPNOaNVgShb4tCv9c-Qp_d9eutci7ytJfjXl7I6y_7V4UKSw6FqJw"><div class="flex flex-col min-w-0"><div class="flex items-center gap-space-2xs"><span class="font-label-sm text-label-sm tracking-wider text-primary uppercase">端到端自托管</span><span class="inline-flex items-center gap-1 px-1.5 py-0.5 rounded-full bg-surface-container-high"><span class="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></span><span class="font-label-sm text-label-sm text-on-surface-variant">已同步</span></span></div><h1 class="font-headline-md text-headline-md text-text-primary truncate">密码库</h1></div></div><div class="flex items-center gap-space-xs shrink-0"><button aria-label="锁定金库" class="w-11 h-11 flex items-center justify-center rounded-xl bg-surface-container text-on-surface-variant hover:text-primary transition-colors" type="button"><span class="material-symbols-outlined text-[20px]">lock</span></button><img alt="Profile" class="w-8 h-8 rounded-full object-cover shrink-0" src="https://lh3.googleusercontent.com/aida-public/AB6AXuASAc3i-hKAMVPCmFsr3mI_F5mPecfEA974U8ApxiFIuunlI0_J7WlRzHL7SRYyoeJ_9rxgkI3J7XbL-KASQMVywqjHqGtyjQr69oD7TpOLq0KGc2WX41JmVSzwajOoXhyD_cm625_DfpSjcP78Rarj1MxB6OU1z2MSiszAZj4SQhe2jCTiofdSmZcGT8CgkfZMZ2HYmIlmeDOjPZAXoD57BIPCBvaVMyr68pViQEdUbwoSK0xsldMh"></div></div></header><main class="flex-1 flex flex-col relative w-full pt-16 pb-20 bg-surface"><div class="flex flex-col w-full px-margin pb-space-xl">
+<!-- Toast Micro-feedback container -->
+<div class="fixed top-20 left-1/2 -translate-x-1/2 z-50 pointer-events-none transition-all duration-300 opacity-0 translate-y-2 flex items-center gap-space-xs px-space-md py-space-xs rounded-full bg-surface-overlay shadow-xl text-on-surface" id="toast-notify">
+<span class="material-symbols-outlined text-[18px] text-primary" id="toast-icon">check_circle</span>
+<span class="font-label-md text-label-md tracking-wider text-text-primary" id="toast-text">已安全复制至剪贴板</span>
+</div>
+<!-- Search & Filter Area -->
+<div class="relative w-full mb-space-sm mt-space-xs">
+<div class="relative flex items-center w-full rounded-xl bg-surface-container-low shadow-sm">
+<span class="material-symbols-outlined text-outline ml-space-md text-[20px] pointer-events-none">search</span>
+<input class="w-full bg-transparent py-3 px-space-sm text-text-primary placeholder:text-outline font-body-md text-body-md focus:outline-none focus:text-text-primary" placeholder="搜索 142 个加密凭据、通行密钥或域名..." type="text">
+<button aria-label="扫码填充" class="p-2 mr-2 rounded-lg text-outline hover:text-primary active:scale-95 transition-transform" onclick="triggerToast('启动环境生物识别相机扫码...')" type="button">
+<span class="material-symbols-outlined text-[20px]">qr_code_scanner</span>
+</button>
+</div>
+<!-- Category Pills (Horizontal Scroll) -->
+<div class="flex items-center gap-space-xs overflow-x-auto no-scrollbar py-space-xs mt-space-xs">
+<button class="shrink-0 flex items-center gap-1.5 px-space-md py-1.5 rounded-full bg-primary text-on-primary font-label-md text-label-md shadow-sm">
+<span class="">全部凭据</span>
+<span class="px-1.5 py-0.2 rounded-full bg-on-primary/20 text-on-primary font-label-sm text-label-sm">142</span>
+</button>
+<button class="shrink-0 flex items-center gap-1.5 px-space-md py-1.5 rounded-full bg-surface-container text-on-surface-variant hover:text-text-primary transition-colors font-label-md text-label-md">
+<span class="material-symbols-outlined text-[16px]">lock</span>
+<span class="">登录信息</span>
+</button>
+<button class="shrink-0 flex items-center gap-1.5 px-space-md py-1.5 rounded-full bg-surface-container text-on-surface-variant hover:text-text-primary transition-colors font-label-md text-label-md">
+<span class="material-symbols-outlined text-[16px]">passkey</span>
+<span class="">通行密钥</span>
+</button>
+<button class="shrink-0 flex items-center gap-1.5 px-space-md py-1.5 rounded-full bg-surface-container text-on-surface-variant hover:text-text-primary transition-colors font-label-md text-label-md">
+<span class="material-symbols-outlined text-[16px]">description</span>
+<span class="">安全备注</span>
+</button>
+<button class="shrink-0 flex items-center gap-1.5 px-space-md py-1.5 rounded-full bg-surface-container text-on-surface-variant hover:text-text-primary transition-colors font-label-md text-label-md">
+<span class="material-symbols-outlined text-[16px]">timer</span>
+<span class="">双重认证 2FA</span>
+</button>
+</div>
+</div>
+<!-- Self-Hosted Sync State Micro-Card -->
+<div class="relative overflow-hidden rounded-xl bg-surface-container-low p-space-sm mb-space-md shadow-sm">
+<div class="flex items-center justify-between gap-space-sm">
+<div class="flex items-center gap-space-sm min-w-0">
+<div class="w-10 h-10 rounded-lg bg-surface-container-high flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-primary text-[22px]">dns</span>
+</div>
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-space-2xs">
+<span class="font-label-md text-label-md text-text-primary truncate">Docker Vaultwarden 主节点</span>
+<span class="w-1.5 h-1.5 rounded-full bg-primary animate-ping"></span>
+</div>
+<div class="flex items-center gap-space-xs font-body-sm text-body-sm text-outline truncate">
+<span class="">TLS 1.3 端到端加密</span>
+<span class="text-surface-variant">•</span>
+<span class="text-primary font-label-sm text-label-sm">刚刚同步</span>
+</div>
+</div>
+</div>
+<button aria-label="手动增量同步" class="p-2 rounded-lg bg-surface-container text-on-surface-variant hover:text-primary active:rotate-180 transition-all duration-300" onclick="triggerToast('金库已完成双向增量同步')" type="button">
+<span class="material-symbols-outlined text-[18px]">sync</span>
+</button>
+</div>
+</div>
+<!-- Quick Actions Grid -->
+<div class="grid grid-cols-2 gap-space-xs mb-space-md">
+<button class="flex items-center justify-between p-space-sm rounded-xl bg-surface-container hover:bg-surface-container-high transition-colors text-left group" onclick="triggerToast('已生成高熵密码: vK8#mQ9$pL2!zR4')">
+<div class="flex items-center gap-space-xs min-w-0">
+<div class="w-8 h-8 rounded-lg bg-surface-container-highest flex items-center justify-center text-secondary group-hover:scale-105 transition-transform">
+<span class="material-symbols-outlined text-[18px]">key</span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-body-md text-body-md text-text-primary font-medium truncate">生成高强度密码</span>
+<span class="font-label-sm text-label-sm text-outline">自定义熵池</span>
+</div>
+</div>
+<span class="material-symbols-outlined text-outline text-[16px] group-hover:translate-x-0.5 transition-transform">chevron_right</span>
+</button>
+<button class="flex items-center justify-between p-space-sm rounded-xl bg-surface-container hover:bg-surface-container-high transition-colors text-left group" onclick="triggerToast('已就绪就近自动填充服务')">
+<div class="flex items-center gap-space-xs min-w-0">
+<div class="w-8 h-8 rounded-lg bg-surface-container-highest flex items-center justify-center text-status-otp group-hover:scale-105 transition-transform">
+<span class="material-symbols-outlined text-[18px]">bolt</span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-body-md text-body-md text-text-primary font-medium truncate">快捷就近填充</span>
+<span class="font-label-sm text-label-sm text-outline">FIDO2 / 剪贴板</span>
+</div>
+</div>
+<span class="material-symbols-outlined text-outline text-[16px] group-hover:translate-x-0.5 transition-transform">chevron_right</span>
+</button>
+</div>
+<!-- Vault Items Flow Header -->
+<div class="flex items-center justify-between mb-space-xs px-1">
+<div class="flex items-center gap-1.5">
+<span class="font-label-md text-label-md uppercase tracking-wider text-outline">已存根密码集</span>
+<span class="w-1 h-1 rounded-full bg-outline"></span>
+<span class="font-label-sm text-label-sm text-primary">端到端本地加解密</span>
+</div>
+<button class="flex items-center gap-1 text-outline hover:text-text-primary transition-colors font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[16px]">swap_vert</span>
+<span class="">按活动时间</span>
+</button>
+</div>
+<!-- Items Stack -->
+<div class="flex flex-col gap-space-sm">
+<!-- Card 1: GitHub with TOTP & Passkey -->
+<div class="relative overflow-hidden rounded-xl bg-surface-container-low p-space-md shadow-sm">
+<div class="flex items-start justify-between gap-space-sm">
+<div class="flex items-center gap-space-sm min-w-0">
+<div class="relative w-11 h-11 rounded-xl bg-surface-container-high flex items-center justify-center shrink-0">
+<img class="w-8 h-8 rounded-lg object-cover" data-alt="Minimalist glowing monochrome Github mascot octocat icon on sleek dark slate rounded square background cyber cryptographic" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAnUiE2e9zJmxRz9dhCQEXwTCBGjr7rZg03I8AGLqhMKv6rot1JyTF8TZj8fOrhIIIpCd2n8HOxrVyWsBf-rSChj3Nk8BsTRP7O2gx9RSw_4619zIP_EmSoCHrM76fNLo-BYizmdCz_nIEZ2Nn6LKR2exHGxCu5Q97RcHYQm64TOqVU_AvzHgo14kdKR9mIkkYgbTou_8OyitsanrKOjwc7XyB9prn_yjIQadraswutg9pTIC00dUGE">
+</div>
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-1.5">
+<span class="font-body-lg text-body-lg text-text-primary font-semibold truncate">GitHub</span>
+<span class="inline-flex items-center gap-1 px-1.5 py-0.5 rounded-full bg-secondary/10 text-secondary font-label-sm text-label-sm"><span class="material-symbols-outlined text-[12px]">passkey</span>通行密钥</span>
+</div>
+<span class="font-code-secret text-code-secret text-outline truncate">octocat@dev.io</span>
+</div>
+</div>
+<button class="p-1 rounded-lg text-outline hover:text-text-primary transition-colors">
+<span class="material-symbols-outlined text-[18px]">star</span>
+</button>
+</div>
+<!-- TOTP Token Live Section -->
+<div class="mt-space-sm p-space-sm rounded-lg bg-surface-container flex items-center justify-between">
+<div class="flex flex-col min-w-0">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-outline flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-status-otp"></span>
+            2FA 实时令牌 (TOTP)
+          </span>
+<div class="flex items-center gap-space-xs mt-0.5">
+<span class="font-code-otp text-code-otp text-status-otp select-all">482 910</span>
+<button class="p-1.5 rounded-md hover:bg-surface-container-high text-outline hover:text-status-otp transition-colors active:scale-90" onclick="triggerToast('双重验证码 482910 已复制')">
+<span class="material-symbols-outlined text-[18px]">content_copy</span>
+</button>
+</div>
+</div>
+<!-- SVG Radial Countdown -->
+<div class="relative w-10 h-10 shrink-0 flex items-center justify-center">
+<svg class="w-full h-full -rotate-90" viewBox="0 0 36 36">
+<path class="text-surface-container-highest" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="currentColor" stroke-width="3"></path>
+<path class="text-status-otp transition-all duration-1000 ease-linear" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="currentColor" stroke-dasharray="72, 100" stroke-linecap="round" stroke-width="3"></path>
+</svg>
+<span class="absolute font-label-sm text-label-sm text-text-primary font-bold">21秒</span>
+</div>
+</div>
+<!-- Quick Action Controls -->
+<div class="mt-space-sm flex items-center gap-space-xs">
+<button class="flex-1 flex items-center justify-center gap-1.5 py-2 px-space-sm rounded-lg bg-surface-container hover:bg-surface-container-high text-on-surface-variant hover:text-text-primary transition-colors font-label-md text-label-md active:scale-[0.98]" onclick="triggerToast('账号 octocat@dev.io 已复制')">
+<span class="material-symbols-outlined text-[16px]">person</span>
+<span class="">复制账号</span>
+</button>
+<button class="flex-1 flex items-center justify-center gap-1.5 py-2 px-space-sm rounded-lg bg-surface-container hover:bg-surface-container-high text-primary hover:text-primary-fixed transition-colors font-label-md text-label-md active:scale-[0.98]" onclick="triggerToast('密码已复制至内存加密剪贴板')">
+<span class="material-symbols-outlined text-[16px]">key</span>
+<span class="">复制密码</span>
+</button>
+<button class="p-2 rounded-lg bg-surface-container text-outline hover:text-text-primary transition-colors">
+<span class="material-symbols-outlined text-[18px]">visibility_off</span>
+</button>
+</div>
+</div>
+<!-- Card 2: AWS Console with Root Protection & High Entropy Meter -->
+<div class="relative overflow-hidden rounded-xl bg-surface-container-low p-space-md shadow-sm">
+<div class="flex items-start justify-between gap-space-sm">
+<div class="flex items-center gap-space-sm min-w-0">
+<div class="w-11 h-11 rounded-xl bg-surface-container-high flex items-center justify-center shrink-0">
+<img class="w-8 h-8 rounded-lg object-cover" data-alt="High tech AWS cloud infrastructure icon glowing orange amber cube glyph on obsidian black card cyber aesthetic" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBIY9N0l8__XKziZ3z_qK-b5f5_GXWISMyK_7ANm70Cv-gWpxkLgkw4rmMVH_ZltzHCoy4vPBSy9ImFMi-2gnbMXOoIje5Ymb1YA5QY3tvPfbGqX8MZspbYxZU3a-Vy6zBIuOFgDcYxKGmMh_4FO3HPD-k5ktu5N9_jt6tyjtizwlfJ1qY7ieiE5kXAvL07CCs3WNhT8qXFYSGkWA6ZHGKQ-YsxvEVIKI-FWJnob5vZwoRDoH8fD-lH">
+</div>
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-1.5">
+<span class="font-body-lg text-body-lg text-text-primary font-semibold truncate">AWS Management Console</span>
+<span class="inline-flex items-center px-1.5 py-0.5 rounded-full bg-error-container text-error font-label-sm text-label-sm">
+                根特权账户
+              </span>
+</div>
+<span class="font-code-secret text-code-secret text-outline truncate">ops-sec-root@cloud-infra.net</span>
+</div>
+</div>
+<button class="p-1 rounded-lg text-outline hover:text-text-primary transition-colors">
+<span class="material-symbols-outlined text-[18px]">more_vert</span>
+</button>
+</div>
+<!-- Segmented Strength Meter -->
+<div class="mt-space-sm p-space-sm rounded-lg bg-surface-container flex flex-col gap-1.5">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-primary text-[16px]">verified_user</span>
+<span class="font-label-sm text-label-sm text-text-primary">主密钥强度：极高 (98% 熵值)</span>
+</div>
+<span class="font-label-sm text-label-sm text-outline">修改于 12 天前</span>
+</div>
+<!-- 4-Segment Bar -->
+<div class="grid grid-cols-4 gap-1.5 mt-0.5">
+<div class="h-1.5 rounded-full bg-primary"></div>
+<div class="h-1.5 rounded-full bg-primary"></div>
+<div class="h-1.5 rounded-full bg-primary"></div>
+<div class="h-1.5 rounded-full bg-primary"></div>
+</div>
+</div>
+<!-- Quick Action Controls -->
+<div class="mt-space-sm flex items-center gap-space-xs">
+<button class="flex-1 flex items-center justify-center gap-1.5 py-2 px-space-sm rounded-lg bg-surface-container hover:bg-surface-container-high text-on-surface-variant hover:text-text-primary transition-colors font-label-md text-label-md active:scale-[0.98]" onclick="triggerToast('账号 ops-sec-root 已复制')">
+<span class="material-symbols-outlined text-[16px]">person</span>
+<span class="">复制账号</span>
+</button>
+<button class="flex-1 flex items-center justify-center gap-1.5 py-2 px-space-sm rounded-lg bg-surface-container hover:bg-surface-container-high text-primary hover:text-primary-fixed transition-colors font-label-md text-label-md active:scale-[0.98]" onclick="triggerToast('高熵根密码已复制')">
+<span class="material-symbols-outlined text-[16px]">key</span>
+<span class="">复制密码</span>
+</button>
+<button class="p-2 rounded-lg bg-surface-container text-outline hover:text-text-primary transition-colors">
+<span class="material-symbols-outlined text-[18px]">launch</span>
+</button>
+</div>
+</div>
+<!-- Card 3: Proton Mail (End-to-End Secure Note & Custom Badges) -->
+<div class="relative overflow-hidden rounded-xl bg-surface-container-low p-space-md shadow-sm">
+<div class="flex items-start justify-between gap-space-sm">
+<div class="flex items-center gap-space-sm min-w-0">
+<div class="w-11 h-11 rounded-xl bg-surface-container-high flex items-center justify-center shrink-0">
+<img class="w-8 h-8 rounded-lg object-cover" data-alt="Proton lock shield icon cyber purple glowing metallic texture dark mode interface badge" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAdJdVQLa-lgaAhhVVZdCRzf7ZAZIhSfTu0e2Xk_A5dCF13HDbCieATwl1AhsaWZA831u9H2GlGJarCtcR-9wkqKh8KFFU2rvOCAp4Nhkz9bQ-5xhf6vxZCEAYXRym4_cFiEMFz0NMZMdUwvY0B3AZ5ufw0ZudWyvVH_yvkMEENJu3ek7uF4prAasYzadWVO-5wI5Tzk3RFeGdpybIStvFsiLbKmCG9Z4vnArvmdRnX5ouQta0gBhj5">
+</div>
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-1.5">
+<span class="font-body-lg text-body-lg text-text-primary font-semibold truncate">Proton Mail</span>
+<span class="inline-flex items-center px-1.5 py-0.5 rounded-full bg-tertiary-container/20 text-tertiary-container font-label-sm text-label-sm">
+                端到端加密信箱
+              </span>
+</div>
+<span class="font-code-secret text-code-secret text-outline truncate">cipher-vault@proton.me</span>
+</div>
+</div>
+<button class="p-1 rounded-lg text-outline hover:text-text-primary transition-colors">
+<span class="material-symbols-outlined text-[18px]">star</span>
+</button>
+</div>
+<!-- Private Memo Snippet -->
+<div class="mt-space-sm p-space-sm rounded-lg bg-surface-container flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-outline text-[18px] shrink-0">lock_open</span>
+<div class="flex flex-col min-w-0">
+<span class="font-label-sm text-label-sm text-outline">安全加密备注</span>
+<span class="font-body-sm text-body-sm text-text-primary truncate">PGP 指纹密钥已绑定至 YubiKey 5C NFC 备用槽位</span>
+</div>
+</div>
+<!-- Action Row -->
+<div class="mt-space-sm flex items-center gap-space-xs">
+<button class="flex-1 flex items-center justify-center gap-1.5 py-2 px-space-sm rounded-lg bg-surface-container hover:bg-surface-container-high text-on-surface-variant hover:text-text-primary transition-colors font-label-md text-label-md active:scale-[0.98]" onclick="triggerToast('账号已复制')">
+<span class="material-symbols-outlined text-[16px]">person</span>
+<span class="">复制账号</span>
+</button>
+<button class="flex-1 flex items-center justify-center gap-1.5 py-2 px-space-sm rounded-lg bg-surface-container hover:bg-surface-container-high text-primary hover:text-primary-fixed transition-colors font-label-md text-label-md active:scale-[0.98]" onclick="triggerToast('已复制加密邮箱凭证')">
+<span class="material-symbols-outlined text-[16px]">key</span>
+<span class="">复制密码</span>
+</button>
+<button class="p-2 rounded-lg bg-surface-container text-outline hover:text-text-primary transition-colors">
+<span class="material-symbols-outlined text-[18px]">share</span>
+</button>
+</div>
+</div>
+<!-- Card 4: Stripe Dashboard (Team Shared Vault & Read-only Badge) -->
+<div class="relative overflow-hidden rounded-xl bg-surface-container-low p-space-md shadow-sm">
+<div class="flex items-start justify-between gap-space-sm">
+<div class="flex items-center gap-space-sm min-w-0">
+<div class="w-11 h-11 rounded-xl bg-surface-container-high flex items-center justify-center shrink-0">
+<img class="w-8 h-8 rounded-lg object-cover" data-alt="Stripe payment technology glowing cyan minimal logo dark mode interface cryptographic token icon" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCgjiT_Z3uiAUfbZgNpaU9QPzS5Sa_Efppyaow2Wo289pyNLI1YnX4rQrpqxKzg2YnmP1BPe67QQuj9zcSniWis0acZICAZkZCv0ZP-eL55q7B_NmmfhAO8HTn9Zfi0eFkn9zAtCNVUbjheTCv99X-8wPY5osAlIk2uRTNwMMiFrUCSvI7_ZJe6JnCqEn9QkvWt4k68O3VYyuW9JviFnaHB_Gzr3e3EjQB-d36o6mIZKVrGOEVUpJwE">
+</div>
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-1.5">
+<span class="font-body-lg text-body-lg text-text-primary font-semibold truncate">Stripe Dashboard</span>
+<span class="inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded-full bg-status-info/10 text-status-info font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[12px]">group</span>
+                团队共享
+              </span>
+</div>
+<span class="font-code-secret text-code-secret text-outline truncate">finance-readonly@studio.io</span>
+</div>
+</div>
+<div class="px-2 py-0.5 rounded bg-surface-container-high text-outline font-label-sm text-label-sm">
+          受限只读
+        </div>
+</div>
+<!-- Masked Key Representation -->
+<div class="mt-space-sm p-space-sm rounded-lg bg-surface-container flex items-center justify-between">
+<div class="flex items-center gap-space-xs min-w-0">
+<span class="material-symbols-outlined text-outline text-[16px]">key</span>
+<span class="font-code-secret text-code-secret text-outline tracking-widest truncate">••••••••••••••••</span>
+</div>
+<span class="font-label-sm text-label-sm text-outline">API 密钥限制</span>
+</div>
+<!-- Action Row -->
+<div class="mt-space-sm flex items-center gap-space-xs">
+<button class="flex-1 flex items-center justify-center gap-1.5 py-2 px-space-sm rounded-lg bg-surface-container hover:bg-surface-container-high text-on-surface-variant hover:text-text-primary transition-colors font-label-md text-label-md active:scale-[0.98]" onclick="triggerToast('账号已复制')">
+<span class="material-symbols-outlined text-[16px]">person</span>
+<span class="">复制账号</span>
+</button>
+<button class="flex-1 flex items-center justify-center gap-1.5 py-2 px-space-sm rounded-lg bg-surface-container hover:bg-surface-container-high text-primary hover:text-primary-fixed transition-colors font-label-md text-label-md active:scale-[0.98]" onclick="triggerToast('已复制 Stripe 凭据')">
+<span class="material-symbols-outlined text-[16px]">key</span>
+<span class="">复制密码</span>
+</button>
+<button class="p-2 rounded-lg bg-surface-container text-outline hover:text-text-primary transition-colors">
+<span class="material-symbols-outlined text-[18px]">history</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Subtle Encrypted Vault Status Indicator at bottom -->
+<div class="mt-space-lg flex items-center justify-center gap-2 py-space-xs text-outline font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[14px] text-primary">enhanced_encryption</span>
+<span class="">Argon2id + AES-256-GCM 本地加密隔离环境</span>
+</div>
+<!-- Floating Add New Credential Trigger (Preserving thumb zone) -->
+<div class="fixed right-5 bottom-24 z-40">
+<button aria-label="添加新凭据" class="w-14 h-14 rounded-full bg-primary text-on-primary shadow-xl flex items-center justify-center active:scale-90 transition-transform" onclick="triggerToast('启动创建新凭据与通行密钥向导')" type="button">
+<span class="material-symbols-outlined text-[28px] font-bold">add</span>
+</button>
+</div>
+</div>
+<script>
+  function triggerToast(message) {
+    const toast = document.getElementById('toast-notify');
+    const toastText = document.getElementById('toast-text');
+    if (!toast || !toastText) return;
+    
+    toastText.textContent = message;
+    toast.classList.remove('opacity-0', 'translate-y-2');
+    toast.classList.add('opacity-100', 'translate-y-0');
+    
+    clearTimeout(window.__toastTimeout);
+    window.__toastTimeout = setTimeout(() => {
+      toast.classList.remove('opacity-100', 'translate-y-0');
+      toast.classList.add('opacity-0', 'translate-y-2');
+    }, 2200);
+  }
+</script></main><nav class="fixed bottom-0 inset-x-0 z-50 pb-safe bg-surface-container-lowest/85 backdrop-blur-xl shadow-[0_-4px_20px_rgba(0,0,0,0.4)]" data-active-classes="text-primary [&amp;&gt;div]:bg-primary/10"><div class="flex justify-around items-center h-20 px-space-xs"><a aria-current="page" class="flex flex-col items-center justify-center gap-1 w-16 h-14 transition-all group text-primary [&amp;&gt;div]:bg-primary/10" data-path="vault" href="#"><div class="w-10 h-7 rounded-full flex items-center justify-center transition-colors"><span class="material-symbols-outlined text-[22px]">shield</span></div><span class="font-label-sm text-label-sm">密码库</span></a><a class="flex flex-col items-center justify-center gap-1 w-16 h-14 text-on-surface-variant hover:text-on-surface transition-all group" data-path="generator" href="#"><div class="w-10 h-7 rounded-full flex items-center justify-center transition-colors"><span class="material-symbols-outlined text-[22px]">key</span></div><span class="font-label-sm text-label-sm">生成器</span></a><a class="flex flex-col items-center justify-center gap-1 w-16 h-14 text-on-surface-variant hover:text-on-surface transition-all group" data-path="security-audit" href="#"><div class="w-10 h-7 rounded-full flex items-center justify-center transition-colors"><span class="material-symbols-outlined text-[22px]">health_metrics</span></div><span class="font-label-sm text-label-sm">安全审计</span></a><a class="flex flex-col items-center justify-center gap-1 w-16 h-14 text-on-surface-variant hover:text-on-surface transition-all group" data-path="node-settings" href="#"><div class="w-10 h-7 rounded-full flex items-center justify-center transition-colors"><span class="material-symbols-outlined text-[22px]">dns</span></div><span class="font-label-sm text-label-sm">节点设置</span></a></div></nav>
+
+</body></html>

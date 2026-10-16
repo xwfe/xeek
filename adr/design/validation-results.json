@@ -1,0 +1,31 @@
+{
+  "date": "2026-10-12",
+  "target": "adr/design/zh-CN/index.html",
+  "scope": "仅HTML交互原型，不是Flutter或密码安全实现",
+  "javascript_syntax_exit_code": 0,
+  "static_verification": {
+    "original_files_unchanged": 11,
+    "local_links_checked": 17,
+    "navigation": ["密码", "验证", "证件", "银行", "设置"],
+    "unique_implementation_tasks": 67,
+    "task_dependencies_acyclic": true,
+    "external_static_assets": 0
+  },
+  "browser_assertions": {
+    "desktop_1440x1000": 25,
+    "mobile_390x844": 14,
+    "small_320x740": 5,
+    "tablet_768x1024": 5,
+    "escape_does_not_skip_lock_screen": 1,
+    "total_passed": 50,
+    "failed": 0
+  },
+  "console": {"errors": 0, "warnings": 0},
+  "production_security_tested": false,
+  "flutter_build_tested": false,
+  "pixel_level_visual_review_completed": false,
+  "screenshots_archived_in_project": false,
+  "screenshot_limitation": "浏览器输出限于自身缓存，GLD读取限于workspace，cp不在白名单；未变更权限",
+  "preview_server_stopped": true,
+  "browser_page_closed": true
+}

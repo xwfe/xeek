@@ -1,0 +1,40 @@
+# 本机状态与工具缓存，不把执行日志或设备信息放进版本历史。
+.DS_Store
+._*
+.gld/
+.playwright-mcp/
+__pycache__/
+*.pyc
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+build/
+target/
+node_modules/
+coverage/
+Pods/
+.symlinks/
+DerivedData/
+*.xcuserstate
+xcuserdata/
+
+# 凭据和密码库默认排除。后续合成测试样本须逐文件审查并明确放行。
+.env
+.env.*
+!.env.example
+!.env.sample
+*.kdbx
+*.keyx
+*.key
+*.pem
+*.p12
+*.pfx
+*.passkey
+*.jks
+*.keystore
+*.mobileprovision
+android/local.properties
+android/key.properties
+
+# 原始Stitch设计、源码、依赖锁文件应保留；不全局忽略zip/png/lock。
+# .gitignore不是秘密扫描或访问控制，不能阻止强制添加敏感文件。

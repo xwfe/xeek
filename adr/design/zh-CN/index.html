@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="zh-CN" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="color-scheme" content="dark light">
+  <meta name="description" content="keex 中文交互设计原型，仅含演示数据。">
+  <title>keex · 中文设计原型</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="styles.css">
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">跳到主要内容</a>
+  <div class="app-shell" id="shell">
+    <aside class="sidebar">
+      <div class="brand"><span class="brand-mark" aria-hidden="true">k</span><div><strong>keex</strong><small>你的凭据，由你掌握</small></div></div>
+      <button class="vault-switch" data-action="info" data-topic="vault"><span class="vault-avatar" aria-hidden="true">个</span><span><strong>个人密码库</strong><small>演示文件 · KDBX 4.1</small></span><span aria-hidden="true">⌄</span></button>
+      <p class="nav-heading">我的空间</p>
+      <nav id="navigation" aria-label="主导航"></nav>
+      <div class="sidebar-bottom"><div class="local-note"><span class="status-dot" aria-hidden="true"></span><span>本地优先<small>同步服务由你选择</small></span></div><button class="quiet full" data-action="lock"><span data-icon="lock"></span>锁定密码库</button><p class="prototype-label">设计原型 · 非真实密码库</p></div>
+    </aside>
+    <section class="workspace">
+      <header class="topbar">
+        <div class="mobile-brand"><span class="brand-mark small" aria-hidden="true">k</span><strong>keex</strong></div>
+        <label class="search-box"><span data-icon="search" aria-hidden="true"></span><span class="sr-only">搜索全部分类</span><input id="search" type="search" placeholder="搜索全部分类" autocomplete="off" spellcheck="false"><kbd aria-hidden="true">⌘ / Ctrl K</kbd></label>
+        <div class="top-actions"><span class="prototype-chip">交互原型</span><button class="icon-button" data-action="theme" aria-label="切换深浅主题" title="切换深浅主题"><span data-icon="theme"></span></button><button class="icon-button" data-action="lock" aria-label="锁定密码库" title="锁定密码库"><span data-icon="lock"></span></button></div>
+      </header>
+      <main id="main" tabindex="-1"></main>
+      <footer class="page-footer"><span>仅演示数据 · <a href="ios.html" style="color:var(--accent)">查看 iOS 专项设计</a></span><span>中文优先 · 五端设计基准</span></footer>
+    </section>
+  </div>
+  <dialog id="modal" aria-labelledby="modal-title"><div id="modal-content"></div><button class="icon-button modal-close" data-action="close-modal" aria-label="关闭弹窗"><span data-icon="close"></span></button></dialog>
+  <dialog id="lock-dialog" aria-labelledby="lock-title">
+    <div class="lock-content"><span class="lock-emblem" data-icon="lock" aria-hidden="true"></span><p class="eyebrow">keex · 个人密码库</p><h1 id="lock-title">密码库已锁定</h1><p class="muted">这是锁定流程的界面演示。<br>原型没有真实加密或身份验证能力。</p><label class="form-label">主密码<input type="password" disabled placeholder="请勿在原型中输入真实主密码"></label><button class="primary full" data-action="unlock">进入演示密码库</button><p class="lock-help">正式应用：主密码与可选密钥文件解锁。<br>生物识别需在当前设备单独启用。</p><button class="text-button" data-action="recovery">无法解锁？</button></div>
+  </dialog>
+  <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+</body>
+</html>
