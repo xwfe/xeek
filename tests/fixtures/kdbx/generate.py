@@ -13,6 +13,7 @@
 from __future__ import annotations
 
 import argparse
+import base64
 import hashlib
 import json
 import subprocess
@@ -82,6 +83,16 @@ SAMPLES = [
         "purpose": "只用密钥文件，没有密码",
     },
     {
+        "id": "G31-KEYXML1", "method": "cli-keyfile", "format": "3.1", "keyfile": "xml-1.0",
+        "password": "keex-synthetic-G31-KEYXML1",
+        "purpose": "密码 + KeePass 2.x 旧式 XML 1.0 密钥文件（base64）",
+    },
+    {
+        "id": "G31-KEYRAW32", "method": "cli-keyfile", "format": "3.1", "keyfile": "raw-32",
+        "password": "keex-synthetic-G31-KEYRAW32",
+        "purpose": "密码 + 恰好 32 字节的二进制密钥文件（直接当密钥）",
+    },
+    {
         "id": "G31-KEYBIN", "method": "cli-keyfile", "format": "3.1", "keyfile": "binary-64",
         "password": "keex-synthetic-G31-KEYBIN",
         "purpose": "密码 + 64 字节任意二进制密钥文件（按 SHA-256 取密钥）",
@@ -136,7 +147,16 @@ def keepassxc_version(binary: str) -> str:
 def make_keyfile(kind: str, sample_id: str, path: Path) -> None:
     if kind == "generated":
         return  # 交给 KeePassXC 在 db-create 时生成
-    if kind == "binary-64":
+    if kind == "raw-32":
+        path.write_bytes(source.seed("keyfile/" + sample_id, 32))
+    elif kind == "xml-1.0":
+        encoded = base64.b64encode(source.seed("keyfile/" + sample_id, 32)).decode()
+        path.write_text(
+            '<?xml version="1.0" encoding="utf-8"?>\n<KeyFile>\n\t<Meta>\n\t\t<Version>1.00</Version>\n\t</Meta>\n'
+            f"\t<Key>\n\t\t<Data>{encoded}</Data>\n\t</Key>\n</KeyFile>\n",
+            encoding="utf-8",
+        )
+    elif kind == "binary-64":
         path.write_bytes(source.seed("keyfile/" + sample_id, 64))
     elif kind == "hex-64":
         path.write_text(source.seed("keyfile/" + sample_id, 32).hex(), encoding="ascii")

@@ -713,6 +713,124 @@
       }
     },
     {
+      "id": "G31-KEYXML1",
+      "file": "g31-keyxml1.kdbx",
+      "sha256": "9bc9d24a5d0f004f1199a075e84f19310eaf728caad299e9e4a6ba4b12878eee",
+      "expect": "open",
+      "method": "cli-keyfile",
+      "purpose": "密码 + KeePass 2.x 旧式 XML 1.0 密钥文件（base64）",
+      "credentials": {
+        "password": "keex-synthetic-G31-KEYXML1",
+        "keyfile": "g31-keyxml1.key",
+        "keyfile_sha256": "8cf73b0bb13963544219fc2a6b4308170c089300aaf46e65f718634f3c1d59a6"
+      },
+      "summary": {
+        "format": "3.1",
+        "cipher": "aes256-cbc",
+        "kdf": {
+          "name": "aes-kdf",
+          "rounds": 5555555
+        },
+        "compressed": true,
+        "inner_stream": "salsa20",
+        "header_hash": "match",
+        "generator": "KeePassXC",
+        "groups": 1,
+        "entries": 1,
+        "history_entries": 0,
+        "entries_with_history": 0,
+        "recycle_bin": {
+          "enabled": true,
+          "group_present": false,
+          "entries": 0
+        },
+        "deleted_objects": 0,
+        "custom_icons": 0,
+        "entries_with_tags": 0,
+        "attachments": {
+          "references": 0,
+          "names": [],
+          "pool_items": 0,
+          "pool_bytes": 0,
+          "pool_protected": 0
+        },
+        "custom_fields": [],
+        "protected_custom_fields": [],
+        "otp_fields": [],
+        "passkey_fields": [],
+        "keeagent_settings": 0,
+        "meta_custom_data_keys": [
+          "KPXC_RANDOM_SLUG",
+          "_LAST_MODIFIED"
+        ],
+        "unknown_elements": []
+      },
+      "client": {
+        "name": "KeePassXC",
+        "tool": "keepassxc-cli",
+        "version": "2.7.12"
+      }
+    },
+    {
+      "id": "G31-KEYRAW32",
+      "file": "g31-keyraw32.kdbx",
+      "sha256": "86e3dbbe7c5e5040b356417dde502d84871eed3c2794dbacb974700dfd7c8e2e",
+      "expect": "open",
+      "method": "cli-keyfile",
+      "purpose": "密码 + 恰好 32 字节的二进制密钥文件（直接当密钥）",
+      "credentials": {
+        "password": "keex-synthetic-G31-KEYRAW32",
+        "keyfile": "g31-keyraw32.key",
+        "keyfile_sha256": "3fcd114e503641405663981a8faa8a42477030c0366214765973ee0568e276ff"
+      },
+      "summary": {
+        "format": "3.1",
+        "cipher": "aes256-cbc",
+        "kdf": {
+          "name": "aes-kdf",
+          "rounds": 5769231
+        },
+        "compressed": true,
+        "inner_stream": "salsa20",
+        "header_hash": "match",
+        "generator": "KeePassXC",
+        "groups": 1,
+        "entries": 1,
+        "history_entries": 0,
+        "entries_with_history": 0,
+        "recycle_bin": {
+          "enabled": true,
+          "group_present": false,
+          "entries": 0
+        },
+        "deleted_objects": 0,
+        "custom_icons": 0,
+        "entries_with_tags": 0,
+        "attachments": {
+          "references": 0,
+          "names": [],
+          "pool_items": 0,
+          "pool_bytes": 0,
+          "pool_protected": 0
+        },
+        "custom_fields": [],
+        "protected_custom_fields": [],
+        "otp_fields": [],
+        "passkey_fields": [],
+        "keeagent_settings": 0,
+        "meta_custom_data_keys": [
+          "KPXC_RANDOM_SLUG",
+          "_LAST_MODIFIED"
+        ],
+        "unknown_elements": []
+      },
+      "client": {
+        "name": "KeePassXC",
+        "tool": "keepassxc-cli",
+        "version": "2.7.12"
+      }
+    },
+    {
       "id": "G31-KEYBIN",
       "file": "g31-keybin.kdbx",
       "sha256": "45d9b7d11ad077ab28fccbad0763ab8004ad6f7ea0d6d545a946669b0ab52ee5",
