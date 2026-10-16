@@ -7,7 +7,7 @@
 ## 0. 怎么用
 
 - 界面、设置页、文档提到任何能力时，只能用 §1 的六种状态之一。不要自造“已启用”“支持”“已连接”这类说不清的词。
-- 某平台能不能做、前提是什么，查 §2。keex 打算在哪个阶段做，查 [ADR-0001 §9](0001-flutter-kdbx-architecture.md) 和 [TASKS.md](TASKS.md)。
+- 当前只交付 Android/iOS（[ADR-0005](0005-mobile-first-scope.md)）。某平台能不能做、前提是什么，查 §2；§3 的桌面三列只是给未来 Rust 桌面应用的资料。keex 打算在哪个阶段做，查 [TASKS.md](TASKS.md)。
 - 一项能力做完、测完，在本文件对应格子写上证据文件链接。没有证据链接的格子，一律视为“未实现”。
 
 ## 1. 六种状态
@@ -28,7 +28,7 @@
 1. **“可用”只能来自运行时检测**。不能因为“编译目标是 iOS”或“服务商是 OneDrive”就标可用。
 2. **结果不确定一律算“未检测”**。例如 WebDAV 服务器声称支持 ETag 但条件写入没实测通过，就是“未检测”，不是“可用”。
 3. **“不支持”和“未实现”必须分开**。前者是平台限制或产品决定，后者是我们还没做。混在一起，用户会以为某个平台永远不能用，或者以为马上就能用。
-4. **用户设置和实际状态分开存**。用户开了 SSH 代理、但库锁了，应显示“暂不可用：密码库已锁定”，不能把开关拨回“关”——否则解锁后用户还得重新打开，而且看不出为什么失效。
+4. **用户设置和实际状态分开存**。用户开了生物识别快速解锁，但系统里重新录入了指纹、快速解锁材料已失效，应显示“暂不可用：输入主密码后重新启用”，不能把开关拨回“关”——否则用户看不出为什么失效，也不知道怎么恢复。
 5. **能力状态是“这台设备上这项功能”**。单条记录的“记录可识别 → 核心可使用 → 已启用系统提供者 → 远端已确认同步”是另一组状态，见 [ADR-0002 §1](0002-mobile-credentials.md)，两者不要混用。
 
 拟定类型（契约，不代表代码已存在）：
@@ -48,28 +48,49 @@ class CapabilityStatus {
 
 格子里写平台前提（系统版本、权限、实现路径）。写“不支持”的格子就是“不支持”状态，其余格子当前都是“未实现”。版本号是 API 可用下限，不是 keex 的发布承诺；带「待核」的内容还没找到一手资料，实施任务必须先确认。
 
-五端条件相同、不单列的能力：KDBX 读写（写入要等 G0 门槛）、生成器、TOTP/HOTP、导入导出、WebDAV/OneDrive 同步。同步在移动端后台运行受系统限制，见 [ADR-0003 §5](0003-cloud-sync.md)。
+两端条件相同、不单列的能力：KDBX 读写（写入要等 G0 门槛）、生成器、TOTP/HOTP、导入导出、WebDAV/OneDrive 同步。同步在后台运行受系统限制，见 [ADR-0003 §5](0003-cloud-sync.md)。
 
-| 能力 | macOS | Windows | Linux | Android | iOS | 验证任务 |
-| --- | --- | --- | --- | --- | --- | --- |
-| 打开外部库文件 | 沙盒内用 security-scoped bookmark | 普通文件路径 | 普通文件路径；Flatpak 内走文件选择门户 | SAF + 持久化 URI 授权 | 文件选择器 + security-scoped URL；扩展能否访问需实测（[ADR-0002 §3](0002-mobile-credentials.md)） | K013 |
-| 快速解锁 | data protection keychain + `ThisDeviceOnly` + Touch ID，`.biometryCurrentSet` | Windows Hello，必须有 TPM 支撑；没有 TPM 或只能用 DPAPI 时**不支持**。能否禁止 PIN 回退待 K018 | **不支持**：Secret Service 只是软件封装，强度等于登录密码（[THREAT_MODEL.md](THREAT_MODEL.md) T2）。要改成“带警示提供”，先改 ACCEPTANCE AC-SECRET 并复核，不由 K018 自行决定 | Keystore 密钥要求 `AUTH_BIOMETRIC_STRONG`、经 `CryptoObject` 使用；`KeyInfo` 显示不在安全硬件里的设备**不支持** | data protection keychain + `ThisDeviceOnly` + Face ID/Touch ID，`.biometryCurrentSet` | K018 |
-| 系统事件触发锁库（锁屏、休眠、切后台） | 有系统通知 | 有系统通知 | 取决于桌面环境和 logind，没有统一信号 | 有 | 有 | K019 |
-| 剪贴板敏感标记 | `prepareForNewContents(with: .currentHostOnly)`（macOS 10.12+）让内容不进通用剪贴板；“敏感内容”没有系统级标记，只有 `org.nspasteboard.ConcealedType`/`TransientType` 约定，剪贴板工具自愿遵守 | 写入 `ExcludeClipboardContentFromMonitorProcessing`、`CanIncludeInClipboardHistory`=0、`CanUploadToCloudClipboard`=0 格式，或用 WinRT `ClipboardContentOptions` | KDE Klipper 识别 `x-kde-passwordManagerHint=secret`；其他桌面没有统一约定 | Android 13+ `ClipDescription.EXTRA_IS_SENSITIVE`，隐藏剪贴板预览 | `UIPasteboard` 的 `.localOnly`（不进通用剪贴板）和 `.expirationDate` | K019 |
-| 截图/录屏防护 | **不支持**：`NSWindow.sharingType = .none` 对 ScreenCaptureKit 不可靠（开发者论坛报告，Apple 无正式说明），可以设置但不宣称 | `SetWindowDisplayAffinity(WDA_EXCLUDEFROMCAPTURE)`，Windows 10 2004+ | **不支持**：X11 无法阻止，Wayland 由合成器决定 | `FLAG_SECURE` 阻止截图和不安全显示；Android 14 可检测截图，15 可检测录屏 | **不能阻止截图**；可检测录屏并遮挡内容 | K019 |
-| 任务预览遮挡 | 不适用 | 不适用 | 不适用 | `FLAG_SECURE` 或 `setRecentsScreenshotEnabled(false)`（Android 13+） | 进入后台前盖上遮罩视图 | K019 |
-| SSH 代理 | Unix socket + `SSH_AUTH_SOCK` | OpenSSH 命名管道 `\\.\pipe\openssh-ssh-agent`；和系统 ssh-agent 服务怎么共存待 K006 | Unix socket + `SSH_AUTH_SOCK` | **不支持**：不作通用系统代理 | **不支持**：同左 | K005、K006 |
-| 系统密码自动填充 | 凭据提供者扩展，macOS 11+ | **不支持**系统级；走浏览器扩展 | **不支持**系统级；走浏览器扩展 | AutofillService API 26+；键盘内候选 API 30+；API 34+ 另有 Credential Provider | 凭据提供者扩展，iOS 12+；产品基线 iOS 17+（ADR-0002） | K007、K008、K048、K049 |
-| 系统通行密钥提供者 | macOS 14+；keex 首版先走浏览器路径（ADR-0001 §9） | Windows 11 第三方 passkey 插件模型，有微软官方文档和示例；用户在“设置 > 账户 > 通行密钥 > 高级选项”启用。哪个 Windows 版本起对普通用户正式推送「待核」（二手报道称 2025-11） | **不支持**系统级；走浏览器扩展 | API 34+ `CredentialProviderService` | iOS 17+ | K007、K008、K052–K054 |
-| 系统动态口令填充 | macOS 15+ | **不支持** | **不支持** | 没有和 iOS 对等的入口；Autofill 遇到标了验证码提示的字段时尽力填充，不宣称对等（ADR-0002） | iOS 18+，增强项 | M22 |
-| 浏览器扩展填充 | Chromium/Firefox + native messaging | 同左 | 同左 | **不支持**：走系统填充 | **不支持**：走系统填充 | K050、K054 |
-| 桌面全局自动输入 | 需“辅助功能”授权 | 无法向管理员权限的窗口输入 | X11 可以；Wayland 受合成器限制 | **不支持** | **不支持** | K065 |
-| 管理器间凭据交换 | macOS 26+ | **不支持**：未见系统级接口 | **不支持** | Credential Transfer「待核」 | iOS 26+ | M23 |
+SSH 代理、浏览器扩展填充、全局自动输入在 Android/iOS 上都是**不支持**：移动系统没有对应入口，填充走下表的系统接口。KeeAgent 条目只保证数据无损。
 
-## 3. 依据
+| 能力 | Android | iOS | 验证任务 |
+| --- | --- | --- | --- |
+| 打开外部库文件 | SAF + 持久化 URI 授权 | 文件选择器 + security-scoped URL；扩展能否访问需实测（[ADR-0002 §3](0002-mobile-credentials.md)） | K013 |
+| 快速解锁 | Keystore 密钥要求 `AUTH_BIOMETRIC_STRONG`、经 `CryptoObject` 使用；`KeyInfo` 显示不在安全硬件里的设备**不支持**（[THREAT_MODEL.md](THREAT_MODEL.md) T2） | data protection keychain + `ThisDeviceOnly` + Face ID/Touch ID，`.biometryCurrentSet` | K018 |
+| 系统事件触发锁库（锁屏、切后台） | 有 | 有 | K019 |
+| 剪贴板敏感标记 | Android 13+ `ClipDescription.EXTRA_IS_SENSITIVE`，隐藏剪贴板预览 | `UIPasteboard` 的 `.localOnly`（不进通用剪贴板）和 `.expirationDate` | K019 |
+| 截图/录屏防护 | `FLAG_SECURE` 阻止截图和不安全显示；Android 14 可检测截图，15 可检测录屏 | **不能阻止截图**；可检测录屏并遮挡内容 | K019 |
+| 任务预览遮挡 | `FLAG_SECURE` 或 `setRecentsScreenshotEnabled(false)`（Android 13+） | 进入后台前盖上遮罩视图 | K019 |
+| 对普通无障碍服务隐藏秘密 | Android 14+ `setAccessibilityDataSensitive`：只有声明为无障碍工具的服务（如 TalkBack）还能读。Flutter 是单一视图渲染，能否按控件生效待 K019 实测 | 不适用：第三方 App 不能像 Android 那样读取别的 App 的界面 | K019 |
+| 防悬浮窗诱导点击 | `filterTouchesWhenObscured`；Android 12+ `setHideOverlayWindows(true)` 隐藏其他应用的悬浮窗（需 `HIDE_OVERLAY_WINDOWS` 权限） | 不适用：系统不允许第三方悬浮窗 | K019 |
+| 主密码输入不经第三方输入法 | **不支持**：不能强制使用系统输入法；`IME_FLAG_NO_PERSONALIZED_LEARNING` 只防输入法“学习”，不防恶意输入法 | 安全文本框上系统强制使用系统键盘 | K019 |
+| 系统密码自动填充 | AutofillService API 26+；键盘内候选 API 30+；API 34+ 另有 Credential Provider | 凭据提供者扩展，iOS 12+；产品基线 iOS 17+（ADR-0002） | K007、K008、K048、K049 |
+| 系统通行密钥提供者 | API 34+ `CredentialProviderService` | iOS 17+ | K007、K008、K052、K053 |
+| 系统动态口令填充 | 没有和 iOS 对等的入口；Autofill 遇到标了验证码提示的字段时尽力填充，不宣称对等（ADR-0002） | iOS 18+，增强项 | M22 |
+| 管理器间凭据交换 | Credential Transfer「待核」 | iOS 26+ | M23 |
+
+## 3. 未来桌面（资料，不在当前范围）
+
+给未来 Rust 桌面应用用，2026-10 的判断，启动桌面端时按当时的系统版本复核。
+
+| 能力 | macOS | Windows | Linux | 参考任务 |
+| --- | --- | --- | --- | --- |
+| 打开外部库文件 | 沙盒内用 security-scoped bookmark | 普通文件路径 | 普通文件路径；Flatpak 内走文件选择门户 | — |
+| 快速解锁 | data protection keychain + `ThisDeviceOnly` + Touch ID，`.biometryCurrentSet` | Windows Hello，必须有 TPM 支撑；没有 TPM 或只能用 DPAPI 时**不支持**。能否禁止 PIN 回退待实测 | **不支持**：Secret Service 只是软件封装，强度等于登录密码。要改成“带警示提供”，先改 ACCEPTANCE AC-SECRET 并复核 | — |
+| 系统事件触发锁库（锁屏、休眠） | 有系统通知 | 有系统通知 | 取决于桌面环境和 logind，没有统一信号 | — |
+| 剪贴板敏感标记 | `prepareForNewContents(with: .currentHostOnly)`（macOS 10.12+）让内容不进通用剪贴板；“敏感内容”没有系统级标记，只有 `org.nspasteboard.ConcealedType`/`TransientType` 约定，剪贴板工具自愿遵守 | 写入 `ExcludeClipboardContentFromMonitorProcessing`、`CanIncludeInClipboardHistory`=0、`CanUploadToCloudClipboard`=0 格式，或用 WinRT `ClipboardContentOptions` | KDE Klipper 识别 `x-kde-passwordManagerHint=secret`；其他桌面没有统一约定 | — |
+| 截图/录屏防护 | **不支持**：`NSWindow.sharingType = .none` 对 ScreenCaptureKit 不可靠（开发者论坛报告，Apple 无正式说明），可以设置但不宣称 | `SetWindowDisplayAffinity(WDA_EXCLUDEFROMCAPTURE)`，Windows 10 2004+ | **不支持**：X11 无法阻止，Wayland 由合成器决定 | — |
+| SSH 代理 | Unix socket + `SSH_AUTH_SOCK` | OpenSSH 命名管道 `\\.\pipe\openssh-ssh-agent`；和系统 ssh-agent 服务怎么共存待实验 | Unix socket + `SSH_AUTH_SOCK` | K005、K006 |
+| 系统密码自动填充 | 凭据提供者扩展，macOS 11+ | **不支持**系统级；走浏览器扩展 | **不支持**系统级；走浏览器扩展 | — |
+| 系统通行密钥提供者 | macOS 14+ | Windows 11 第三方 passkey 插件模型，有微软官方文档和示例；用户在“设置 > 账户 > 通行密钥 > 高级选项”启用。哪个 Windows 版本起对普通用户正式推送「待核」（二手报道称 2025-11） | **不支持**系统级；走浏览器扩展 | K054 |
+| 系统动态口令填充 | macOS 15+ | **不支持** | **不支持** | — |
+| 浏览器扩展填充 | Chromium/Firefox + native messaging | 同左 | 同左 | K050、K054 |
+| 桌面全局自动输入 | 需“辅助功能”授权 | 无法向管理员权限的窗口输入 | X11 可以；Wayland 受合成器限制 | K065 |
+| 管理器间凭据交换 | macOS 26+ | **不支持**：未见系统级接口 | **不支持** | — |
+
+## 4. 依据
 
 核对日期 2026-10-16。带「待核」的内容没有一手资料支撑。
 
 - Apple：[Passkey 列表入口](https://developer.apple.com/documentation/authenticationservices/ascredentialproviderviewcontroller/preparecredentiallist(for:requestparameters:))（iOS 17 / macOS 14）；[动态口令列表入口](https://developer.apple.com/documentation/authenticationservices/ascredentialproviderviewcontroller/prepareonetimecodecredentiallist(for:))（iOS 18 / macOS 15）；[currentHostOnly](https://developer.apple.com/documentation/appkit/nspasteboard/contentsoptions/currenthostonly)（macOS 10.12+，内容只留本机）；[sharingType 与 ScreenCaptureKit 的论坛报告](https://developer.apple.com/forums/thread/808016)。
-- Android：[安全处理剪贴板](https://developer.android.com/privacy-and-security/risks/secure-clipboard-handling)；[截图检测](https://developer.android.com/about/versions/14/features/screenshot-detection)。
+- Android：[安全处理剪贴板](https://developer.android.com/privacy-and-security/risks/secure-clipboard-handling)；[截图检测](https://developer.android.com/about/versions/14/features/screenshot-detection)；[API 34 的 View 变更（含 `setAccessibilityDataSensitive`）](https://developer.android.com/sdk/api_diff/34/changes/android.view.View)；[保护敏感 Activity（含 `HIDE_OVERLAY_WINDOWS`）](https://developer.android.com/security/fraud-prevention/activities)。
 - Windows：[剪贴板格式](https://learn.microsoft.com/windows/win32/dataxchg/clipboard-formats)；[ClipboardContentOptions](https://learn.microsoft.com/uwp/api/windows.applicationmodel.datatransfer.clipboardcontentoptions)；[Plugin passkey manager support](https://learn.microsoft.com/windows/apps/develop/security/third-party) 与 [PasskeyManager 示例](https://github.com/microsoft/Windows-classic-samples/tree/main/Samples/PasskeyManager)；正式推送时间只有二手报道。
