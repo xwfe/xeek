@@ -27,13 +27,13 @@ KX_PW='合成密码' python3 -m kdbx_oracle diff --password-env KX_PW A.kdbx B.k
 
 ## 比较器认为什么算“一样”
 
-不报：加密随机数、二进制池编号（附件按内容 SHA-256 比）、时间的 3.1/4.x 两种写法、String/Binary/CustomData 的先后顺序、非用户字段里的 `true`/`True`。
+不报：加密随机数、二进制池编号（附件按内容 SHA-256 比）、时间的 3.1/4.x 两种写法、String/Binary/CustomData 的先后顺序、非用户字段里的 `true`/`True`、标签的顺序和分隔符、空元素和不写该元素、值为空的五个标准字段和不写该字段。自定义字段哪怕值为空，有和没有也算不同。
 
 其余都报：不认识的元素和属性、保护标记变化、分组和条目的排列顺序、历史（按位置比较）。哪些差异是“改了就该变”的，由测试自己用 `--ignore` 列出来，比较器不替人猜。路径写法见 `kdbx_oracle/semantic.py` 开头。
 
 ## 为什么要自己读，不用 KeePassXC
 
-K003 要判断候选库有没有丢数据。如果用 KeePassXC 读两边的文件，KeePassXC 读取时自己丢掉的东西两边都看不见，结论会是假的“无损”。实测 KeePassXC 2.7.12 导入 XML 时就会丢掉 CustomData 条目上的 `LastModificationTime`，并把标签 `合成;synthetic` 重排成 `synthetic,合成`。
+K003 要判断候选库有没有丢数据。如果用 KeePassXC 读两边的文件，KeePassXC 读取时自己丢掉的东西两边都看不见，结论会是假的“无损”。KeePassXC 2.7.12 实际会丢什么、改什么，见[样本说明](../fixtures/kdbx/README.md)里的“KeePassXC 2.7.12 写库时自己改了什么”。
 
 ## 支持范围
 
@@ -44,6 +44,7 @@ K003 要判断候选库有没有丢数据。如果用 KeePassXC 读两边的文�
 | KDF | AES-KDF、Argon2id | **Argon2d 不支持**：cryptography 只有 Argon2id。KeePassXC 图形界面默认就是 Argon2d，这是已知缺口 |
 | 外层加密 | AES-256-CBC、ChaCha20 | Twofish 不支持 |
 | 内层保护流 | Salsa20（自写，见 `salsa20.py`）、ChaCha20 | ArcFour 不支持 |
+| 资源上限 | 解压/XML 256 MiB（`read_kdbx(max_xml_bytes=...)` 可调小）、XML 嵌套 256 层、AES-KDF 2^32 轮、Argon2 1 GiB / 65536 次、文件 64 MiB；任何位置出现 DOCTYPE/ENTITY 就拒绝 | 只防测试被卡死，不是 keex 的资源策略（K015） |
 | 完整性 | 4.x 头部 SHA-256 + 头部 HMAC + 分块 HMAC，拒绝结束块后的多余数据；3.x StreamStartBytes + 块哈希 + HeaderHash | 3.x 的 HeaderHash 不符就拒绝；缺失时 `header_hash == "missing"`，调用方应只读（[威胁模型](../../adr/THREAT_MODEL.md) T1） |
 
 **没有被样本覆盖到的路径**：ChaCha20 外层加密、Argon2id。keepassxc-cli 不能选算法，只会写 AES-256 + AES-KDF，所以这两条代码路径目前没有端到端验证。

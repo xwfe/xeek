@@ -50,6 +50,9 @@ HEADER_HMAC_INDEX = 0xFFFFFFFFFFFFFFFF
 
 MAX_FILE_BYTES = 64 << 20
 MAX_XML_BYTES = 256 << 20
+# KeePass 的 Root/Group…/Entry/History/Entry/String/Value 正常不超过几十层。再深就是攻击：
+# 递归处理 XML 的代码（包括 semantic.py）会栈溢出。
+MAX_XML_DEPTH = 256
 MAX_AES_ROUNDS = 1 << 32
 MAX_ARGON2_MEMORY = 1 << 30
 MAX_ARGON2_ITERATIONS = 1 << 16
@@ -354,8 +357,8 @@ def _decrypt_payload(cipher_uuid: UUID, key: bytes, iv: bytes, payload: bytes) -
     if cipher_uuid == CIPHER_AES256:
         if len(iv) != 16:
             raise KdbxFormatError("AES 的 IV 必须是 16 字节")
-        if len(payload) % 16:
-            raise KdbxKeyError("密文长度不是 16 的倍数：文件被截断或被改")
+        if not payload or len(payload) % 16:
+            raise KdbxFormatError("密文长度不是 16 的倍数：文件被截断或被改")
         decryptor = Cipher(algorithms.AES(key), modes.CBC(iv)).decryptor()
         padded = decryptor.update(payload) + decryptor.finalize()
         unpadder = padding.PKCS7(128).unpadder()
@@ -372,10 +375,10 @@ def _decrypt_payload(cipher_uuid: UUID, key: bytes, iv: bytes, payload: bytes) -
     raise KdbxUnsupported(f"未知加密算法 {cipher_uuid}")
 
 
-def _gunzip(data: bytes) -> bytes:
+def _gunzip(data: bytes, limit: int = MAX_XML_BYTES) -> bytes:
     decompressor = zlib.decompressobj(16 + zlib.MAX_WBITS)
-    out = decompressor.decompress(data, MAX_XML_BYTES + 1)
-    if len(out) > MAX_XML_BYTES or decompressor.unconsumed_tail:
+    out = decompressor.decompress(data, limit + 1)
+    if len(out) > limit or decompressor.unconsumed_tail:
         raise KdbxUnsupported("解压后超过测试上限，疑似压缩炸弹")
     if not decompressor.eof:
         raise KdbxIntegrityError("gzip 数据被截断")
@@ -498,13 +501,22 @@ def _parse_inner_header(data: bytes) -> tuple[int, bytes, list[tuple[bytes, bool
 
 
 def _parse_xml(xml_bytes: bytes) -> ET.Element:
-    # KeePass 写出的 XML 从不带 DOCTYPE；带了就可能是实体炸弹，直接拒绝。
-    if b"<!DOCTYPE" in xml_bytes[:4096] or b"<!ENTITY" in xml_bytes:
+    # KeePass 写出的 XML 从不带 DOCTYPE；带了就可能是实体炸弹或外部实体，直接拒绝。
+    # 搜整个文档而不只是开头：前面塞一大段注释就能把 DOCTYPE 推到后面。用户数据里的
+    # "<!DOCTYPE" 会被转义成 "&lt;!DOCTYPE"，不会误伤。
+    if b"<!DOCTYPE" in xml_bytes or b"<!ENTITY" in xml_bytes:
         raise KdbxFormatError("XML 含 DOCTYPE/ENTITY，拒绝解析")
     try:
-        return ET.fromstring(xml_bytes)
+        root = ET.fromstring(xml_bytes)
     except ET.ParseError as exc:
         raise KdbxFormatError(f"XML 解析失败：{exc}") from exc
+    stack = [(root, 1)]
+    while stack:
+        element, depth = stack.pop()
+        if depth > MAX_XML_DEPTH:
+            raise KdbxFormatError(f"XML 嵌套超过 {MAX_XML_DEPTH} 层")
+        stack.extend((child, depth + 1) for child in element)
+    return root
 
 
 def _unprotect(root: ET.Element, stream, binaries: dict[str, tuple[bytes, bool]]) -> None:
@@ -568,8 +580,16 @@ def read_plain_xml(xml_bytes: bytes) -> DecodedKdbx:
     )
 
 
-def read_kdbx(data: bytes, password: str | None = None, keyfile: bytes | None = None) -> DecodedKdbx:
-    """解密并校验一个 KDBX；任何校验失败都抛异常，不返回部分结果。"""
+def read_kdbx(
+    data: bytes,
+    password: str | None = None,
+    keyfile: bytes | None = None,
+    max_xml_bytes: int = MAX_XML_BYTES,
+) -> DecodedKdbx:
+    """解密并校验一个 KDBX；任何校验失败都抛异常，不返回部分结果。
+
+    max_xml_bytes 只是为了让压缩炸弹测试不必真的解出 256 MiB，不是 keex 的上限（那是 K015）。
+    """
     if len(data) > MAX_FILE_BYTES:
         raise KdbxUnsupported("文件超过测试上限")
     major, minor, fields, header_end = _parse_outer_header(data)
@@ -606,7 +626,7 @@ def read_kdbx(data: bytes, password: str | None = None, keyfile: bytes | None = 
         payload = _read_hmac_blocks(data, pos + 64, hmac_base)
         plain = _decrypt_payload(cipher_uuid, encryption_key, iv, payload)
         if compression:
-            plain = _gunzip(plain)
+            plain = _gunzip(plain, max_xml_bytes)
         stream_id, stream_key, pool, inner_end = _parse_inner_header(plain)
         for index, item in enumerate(pool):
             binaries[str(index)] = item
@@ -621,10 +641,10 @@ def read_kdbx(data: bytes, password: str | None = None, keyfile: bytes | None = 
             raise KdbxKeyError("StreamStartBytes 不符：密钥错误，或密文被改")
         xml_bytes = _read_hashed_blocks(plain[32:])
         if compression:
-            xml_bytes = _gunzip(xml_bytes)
+            xml_bytes = _gunzip(xml_bytes, max_xml_bytes)
         header_hash_status = "pending"
 
-    if len(xml_bytes) > MAX_XML_BYTES:
+    if len(xml_bytes) > max_xml_bytes:
         raise KdbxUnsupported("XML 超过测试上限")
     root = _parse_xml(xml_bytes)
     if root.tag != "KeePassFile":
