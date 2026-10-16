@@ -541,6 +541,33 @@ def _unprotect(root: ET.Element, stream, binaries: dict[str, tuple[bytes, bool]]
 
 # ---------- 入口 ----------
 
+def read_plain_xml(xml_bytes: bytes) -> DecodedKdbx:
+    """读 KeePass 的明文 XML（导出格式），转成和 read_kdbx 一样的结构，用来和成品库比较。
+
+    明文 XML 里没有保护流：受保护值用 ProtectInMemory="True" 标记，附件池在 Meta/Binaries。
+    """
+    root = _parse_xml(xml_bytes)
+    if root.tag != "KeePassFile":
+        raise KdbxFormatError("XML 根元素不是 KeePassFile")
+    binaries: dict[str, tuple[bytes, bool]] = {}
+    for element in root.findall("Meta/Binaries/Binary"):
+        raw = base64.b64decode(element.text or "", validate=True)
+        if (element.get("Compressed") or "").lower() == "true":
+            raw = _gunzip(raw)
+        binaries[element.get("ID", "")] = (raw, (element.get("Protected") or "").lower() == "true")
+    return DecodedKdbx(
+        major=0,
+        minor=0,
+        cipher="none",
+        kdf={},
+        compressed=False,
+        inner_stream="none",
+        header_hash="not-applicable",
+        root=root,
+        binaries=binaries,
+    )
+
+
 def read_kdbx(data: bytes, password: str | None = None, keyfile: bytes | None = None) -> DecodedKdbx:
     """解密并校验一个 KDBX；任何校验失败都抛异常，不返回部分结果。"""
     if len(data) > MAX_FILE_BYTES:

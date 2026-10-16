@@ -104,6 +104,26 @@ class DiffTest(unittest.TestCase):
         c = decoded(database(entry(ENTRY_A, extra=ref.format(0))), {"0": (b"z", False)})
         self.assertEqual(len(diff(canonicalize(a), canonicalize(c))), 1)
 
+    def test_tag_order_and_separator_do_not_matter(self):
+        a = database(entry(ENTRY_A, extra="<Tags>合成;web</Tags>"))
+        b = database(entry(ENTRY_A, extra="<Tags>web,合成</Tags>"))
+        self.assertEqual(diff(canonicalize(decoded(a)), canonicalize(decoded(b))), [])
+
+    def test_empty_element_equals_missing_element(self):
+        a = database(entry(ENTRY_A))
+        b = database(entry(ENTRY_A, extra=(
+            "<Tags/><ForegroundColor/><History/>"
+            "<String><Key>Notes</Key><Value/></String>"
+            "<String><Key>URL</Key><Value Protected=\"True\"></Value></String>"
+        )))
+        self.assertEqual(diff(canonicalize(decoded(a)), canonicalize(decoded(b))), [])
+
+    def test_empty_custom_field_still_counts(self):
+        a = database(entry(ENTRY_A))
+        b = database(entry(ENTRY_A, extra="<String><Key>X-Empty</Key><Value/></String>"))
+        (only,) = diff(canonicalize(decoded(a)), canonicalize(decoded(b)))
+        self.assertEqual((only.kind, only.path.rsplit("/", 1)[1]), ("added", "String=X-Empty"))
+
     def test_ignore_pattern(self):
         a = canonicalize(decoded(database(entry(ENTRY_A))))
         b = canonicalize(decoded(database(entry(ENTRY_A)).replace("<Generator>x", "<Generator>y")))

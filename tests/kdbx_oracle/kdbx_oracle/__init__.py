@@ -12,6 +12,7 @@ from .reader import (
     KdbxKeyError,
     KdbxUnsupported,
     read_kdbx,
+    read_plain_xml,
 )
 
 __all__ = [
@@ -22,4 +23,5 @@ __all__ = [
     "KdbxKeyError",
     "KdbxUnsupported",
     "read_kdbx",
+    "read_plain_xml",
 ]

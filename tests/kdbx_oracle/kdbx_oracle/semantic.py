@@ -2,7 +2,9 @@
 
 “语义相同”的定义（反过来就是会报差异的东西）：
 - 字节不同但意思一样的，不报：加密随机数、二进制池的编号、时间的 3.1/4.x
-  两种写法、String/Binary/CustomData 的先后顺序、布尔值大小写。
+  两种写法、String/Binary/CustomData 的先后顺序、布尔值大小写、标签的顺序和分隔符
+  （`a;b` 和 `b,a` 一样）、空元素和不写该元素（`<Tags/>` 和没有 Tags 一样）、值为空的
+  五个标准字段和不写该字段。自定义字段哪怕值为空，有和没有也算不同。
 - 其余一律报：包括不认识的元素和属性、保护标记、分组和条目的顺序、历史。
   哪些差异是“改了应该变”的，由调用方用 ignore 模式显式列出，比较器不替人猜。
 
@@ -90,8 +92,12 @@ KNOWN_CHILDREN = {
     "History": {"Entry"},
 }
 
-PASSKEY_PREFIX = "KPEX_PASSKEY_"
-OTP_KEYS = {"otp", "TOTP Seed", "TOTP Settings", "TimeOtp-Secret", "TimeOtp-Secret-Base32", "HmacOtp-Secret"}
+# KPEX_ 是 KeePassXC/Strongbox 共用的字段前缀；KPXC_PASSKEY_USERNAME 是 KeePassXC 早期的旧名。
+PASSKEY_PREFIXES = ("KPEX_PASSKEY_", "KPXC_PASSKEY_")
+# otp 是 KeePassXC 的 otpauth:// URI；TOTP Seed/Settings 是旧 KeeOtp/KeeTrayTOTP 插件；
+# TimeOtp-*/HmacOtp-* 是 KeePass 2.47+ 原生格式。
+OTP_KEYS = {"otp", "TOTP Seed", "TOTP Settings"}
+OTP_PREFIXES = ("TimeOtp-", "HmacOtp-")
 KEEAGENT_SETTINGS = "KeeAgent.settings"
 STANDARD_FIELDS = {"Title", "UserName", "Password", "URL", "Notes"}
 NULL_UUID = "00000000000000000000000000000000"
@@ -197,6 +203,9 @@ def _canon(element: ET.Element, parent: ET.Element | None, decoded: DecodedKdbx)
                          "LastTopVisibleGroup", "LastTopVisibleEntry", "CustomIconUUID",
                          "PreviousParentGroup"):
         text = uuid_hex(text)
+    elif element.tag == "Tags":
+        # KeePass 用 ; 分隔、按输入顺序存；KeePassXC 读两种分隔符，写回时排序并改用 ,。
+        text = ",".join(sorted({tag.strip() for tag in re.split(r"[;,]", text) if tag.strip()}))
     elif parent_tag not in USER_TEXT_PARENTS and text.lower() in ("true", "false"):
         text = text.capitalize()
 
@@ -206,6 +215,10 @@ def _canon(element: ET.Element, parent: ET.Element | None, decoded: DecodedKdbx)
     for child in element:
         if element.tag == "Meta" and child.tag in ("Binaries", "HeaderHash"):
             # 二进制池已经折进引用处的摘要；HeaderHash 只属于 3.1 容器，状态另记在 summary。
+            continue
+        child_node = _canon(child, element, decoded)
+        if _is_empty(child_node) or _is_empty_standard_field(child_node):
+            # KeePassXC 会把缺省的空元素、空标准字段全部补上，KeePass 读的时候两者也没有区别。
             continue
         if child.tag in keyed and not (element.tag == "History"):
             key_tag, is_uuid = keyed[child.tag]
@@ -218,8 +231,21 @@ def _canon(element: ET.Element, parent: ET.Element | None, decoded: DecodedKdbx)
         seen[label] = count + 1
         if count:
             label = f"{label}#{count}"
-        node.children.append((label, _canon(child, element, decoded)))
+        node.children.append((label, child_node))
     return node
+
+
+def _is_empty(node: Node) -> bool:
+    return not node.text and not node.attrs and not node.protected and not node.children
+
+
+def _is_empty_standard_field(node: Node) -> bool:
+    if node.tag != "String":
+        return False
+    children = dict(node.children)
+    key = children.get("Key")
+    value = children.get("Value")
+    return key is not None and key.text in STANDARD_FIELDS and (value is None or not value.text)
 
 
 # ---------- 比较 ----------
@@ -317,9 +343,9 @@ def summarize(decoded: DecodedKdbx) -> dict:
             custom_fields.add(key)
             if (value.get("Protected") or value.get("ProtectInMemory") or "").lower() == "true":
                 protected_custom.add(key)
-            if key in OTP_KEYS:
+            if key in OTP_KEYS or key.startswith(OTP_PREFIXES):
                 otp.add(key)
-            if key.startswith(PASSKEY_PREFIX):
+            if key.startswith(PASSKEY_PREFIXES):
                 passkey.add(key)
 
     attachment_refs = [b for e in all_entries for b in e.findall("Binary")]
