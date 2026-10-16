@@ -555,6 +555,14 @@ def read_kdbx(data: bytes, password: str | None = None, keyfile: bytes | None = 
     master_seed = _require(fields, H_MASTER_SEED, 32)
     iv = _require(fields, H_IV)
 
+    if major == 4:
+        # 先做不需要密钥的头部 SHA-256，再跑 KDF。反过来的话，改坏的头部也会先烧一遍
+        # 可能很贵的 KDF；超大 KDF 参数样本也靠这个顺序才能测到上限检查。
+        if header_end + 64 > len(data):
+            raise KdbxFormatError("头部校验值被截断")
+        if _sha256(header_bytes) != data[header_end : header_end + 32]:
+            raise KdbxIntegrityError("头部 SHA-256 不符：头部损坏或被改")
+
     composite = composite_key(password, keyfile)
     transformed, kdf_info = _derive_transformed_key(major, fields, composite)
     encryption_key = _sha256(master_seed + transformed)
@@ -563,12 +571,7 @@ def read_kdbx(data: bytes, password: str | None = None, keyfile: bytes | None = 
     binaries: dict[str, tuple[bytes, bool]] = {}
     if major == 4:
         pos = header_end
-        if pos + 64 > len(data):
-            raise KdbxFormatError("头部校验值被截断")
-        stored_hash = data[pos : pos + 32]
         stored_hmac = data[pos + 32 : pos + 64]
-        if _sha256(header_bytes) != stored_hash:
-            raise KdbxIntegrityError("头部 SHA-256 不符：头部损坏或被改")
         hmac_base = _sha512(master_seed + transformed + b"\x01")
         expected_hmac = hmac.new(_block_key(hmac_base, HEADER_HMAC_INDEX), header_bytes, hashlib.sha256).digest()
         if not hmac.compare_digest(stored_hmac, expected_hmac):
