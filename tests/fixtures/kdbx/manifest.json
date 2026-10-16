@@ -1,0 +1,834 @@
+{
+  "note": "K002 合成样本。密码和密钥都是公开的合成值，只用于测试。生成方式见 README.md。",
+  "samples": [
+    {
+      "id": "G31-RICH",
+      "file": "g31-rich.kdbx",
+      "sha256": "c719b5b4510b7b89fa3142536bce322fcda8685a9aa03c0964b9695717bbe7b7",
+      "expect": "open",
+      "method": "xml-import",
+      "purpose": "3.1 全特性：历史（含受保护字段增删）、回收站、DeletedObjects、共享附件、未知受保护字段、KeeAgent、三种 OTP、Passkey（含旧字段名）、字段引用、自定义图标、Unicode/空字段/长字符串",
+      "credentials": {
+        "password": "合成口令-G31-RICH-Ünï🔑",
+        "keyfile": null,
+        "keyfile_sha256": null
+      },
+      "summary": {
+        "format": "3.1",
+        "cipher": "aes256-cbc",
+        "kdf": {
+          "name": "aes-kdf",
+          "rounds": 1000000
+        },
+        "compressed": true,
+        "inner_stream": "salsa20",
+        "header_hash": "match",
+        "generator": "keex-fixture-source",
+        "groups": 8,
+        "entries": 12,
+        "history_entries": 2,
+        "entries_with_history": 1,
+        "recycle_bin": {
+          "enabled": true,
+          "group_present": true,
+          "entries": 1
+        },
+        "deleted_objects": 2,
+        "custom_icons": 1,
+        "entries_with_tags": 3,
+        "attachments": {
+          "references": 7,
+          "names": [
+            "KeeAgent.settings",
+            "blob.bin",
+            "id_ed25519",
+            "notes.txt",
+            "shared.txt"
+          ],
+          "pool_items": 5,
+          "pool_bytes": 3239,
+          "pool_protected": 0
+        },
+        "custom_fields": [
+          "KP2A_URL_1",
+          "KPEX_PASSKEY_CREDENTIAL_ID",
+          "KPEX_PASSKEY_FLAG_BE",
+          "KPEX_PASSKEY_FLAG_BS",
+          "KPEX_PASSKEY_GENERATED_USER_ID",
+          "KPEX_PASSKEY_PRIVATE_KEY_PEM",
+          "KPEX_PASSKEY_RELYING_PARTY",
+          "KPEX_PASSKEY_USERNAME",
+          "KPEX_PASSKEY_USER_HANDLE",
+          "KPXC_PASSKEY_USERNAME",
+          "TOTP Seed",
+          "TOTP Settings",
+          "TimeOtp-Algorithm",
+          "TimeOtp-Length",
+          "TimeOtp-Period",
+          "TimeOtp-Secret-Base32",
+          "X-Empty",
+          "X-Long-Protected",
+          "X-Old-Protected",
+          "X-Plain",
+          "X-Secret",
+          "otp",
+          "自定义中文字段名"
+        ],
+        "protected_custom_fields": [
+          "KPEX_PASSKEY_GENERATED_USER_ID",
+          "KPEX_PASSKEY_PRIVATE_KEY_PEM",
+          "KPEX_PASSKEY_USER_HANDLE",
+          "TOTP Seed",
+          "TimeOtp-Secret-Base32",
+          "X-Long-Protected",
+          "X-Old-Protected",
+          "X-Secret",
+          "otp"
+        ],
+        "otp_fields": [
+          "TOTP Seed",
+          "TOTP Settings",
+          "TimeOtp-Algorithm",
+          "TimeOtp-Length",
+          "TimeOtp-Period",
+          "TimeOtp-Secret-Base32",
+          "otp"
+        ],
+        "passkey_fields": [
+          "KPEX_PASSKEY_CREDENTIAL_ID",
+          "KPEX_PASSKEY_FLAG_BE",
+          "KPEX_PASSKEY_FLAG_BS",
+          "KPEX_PASSKEY_GENERATED_USER_ID",
+          "KPEX_PASSKEY_PRIVATE_KEY_PEM",
+          "KPEX_PASSKEY_RELYING_PARTY",
+          "KPEX_PASSKEY_USERNAME",
+          "KPEX_PASSKEY_USER_HANDLE",
+          "KPXC_PASSKEY_USERNAME"
+        ],
+        "keeagent_settings": 1,
+        "meta_custom_data_keys": [
+          "KPXC_RANDOM_SLUG",
+          "_LAST_MODIFIED"
+        ],
+        "unknown_elements": []
+      },
+      "source": [
+        "rich",
+        "3.1"
+      ],
+      "writer_changes": [
+        "added KeePassFile/Meta/CustomData",
+        "changed KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046/Group=619866709f661f4847cc86d411ca5bf1/IconID"
+      ],
+      "client": {
+        "name": "KeePassXC",
+        "tool": "keepassxc-cli",
+        "version": "2.7.12"
+      }
+    },
+    {
+      "id": "G40-RICH",
+      "file": "g40-rich.kdbx",
+      "sha256": "419f2406522d7b3e16f22fcd8e40a1a97a54ee2e4e1f70a0ad8298fe239efc14",
+      "expect": "open",
+      "method": "xml-import",
+      "purpose": "同 G31-RICH，加分组/条目/元数据 CustomData（KeePassXC 遇到条目 CustomData 才写 4.0）",
+      "credentials": {
+        "password": "合成口令-G40-RICH-Ünï🔑",
+        "keyfile": null,
+        "keyfile_sha256": null
+      },
+      "summary": {
+        "format": "4.0",
+        "cipher": "aes256-cbc",
+        "kdf": {
+          "name": "aes-kdf",
+          "rounds": 1000000
+        },
+        "compressed": true,
+        "inner_stream": "chacha20",
+        "header_hash": "not-applicable",
+        "generator": "keex-fixture-source",
+        "groups": 8,
+        "entries": 12,
+        "history_entries": 2,
+        "entries_with_history": 1,
+        "recycle_bin": {
+          "enabled": true,
+          "group_present": true,
+          "entries": 1
+        },
+        "deleted_objects": 2,
+        "custom_icons": 1,
+        "entries_with_tags": 3,
+        "attachments": {
+          "references": 7,
+          "names": [
+            "KeeAgent.settings",
+            "blob.bin",
+            "id_ed25519",
+            "notes.txt",
+            "shared.txt"
+          ],
+          "pool_items": 5,
+          "pool_bytes": 3239,
+          "pool_protected": 5
+        },
+        "custom_fields": [
+          "KP2A_URL_1",
+          "KPEX_PASSKEY_CREDENTIAL_ID",
+          "KPEX_PASSKEY_FLAG_BE",
+          "KPEX_PASSKEY_FLAG_BS",
+          "KPEX_PASSKEY_GENERATED_USER_ID",
+          "KPEX_PASSKEY_PRIVATE_KEY_PEM",
+          "KPEX_PASSKEY_RELYING_PARTY",
+          "KPEX_PASSKEY_USERNAME",
+          "KPEX_PASSKEY_USER_HANDLE",
+          "KPXC_PASSKEY_USERNAME",
+          "TOTP Seed",
+          "TOTP Settings",
+          "TimeOtp-Algorithm",
+          "TimeOtp-Length",
+          "TimeOtp-Period",
+          "TimeOtp-Secret-Base32",
+          "X-Empty",
+          "X-Long-Protected",
+          "X-Old-Protected",
+          "X-Plain",
+          "X-Secret",
+          "otp",
+          "自定义中文字段名"
+        ],
+        "protected_custom_fields": [
+          "KPEX_PASSKEY_GENERATED_USER_ID",
+          "KPEX_PASSKEY_PRIVATE_KEY_PEM",
+          "KPEX_PASSKEY_USER_HANDLE",
+          "TOTP Seed",
+          "TimeOtp-Secret-Base32",
+          "X-Long-Protected",
+          "X-Old-Protected",
+          "X-Secret",
+          "otp"
+        ],
+        "otp_fields": [
+          "TOTP Seed",
+          "TOTP Settings",
+          "TimeOtp-Algorithm",
+          "TimeOtp-Length",
+          "TimeOtp-Period",
+          "TimeOtp-Secret-Base32",
+          "otp"
+        ],
+        "passkey_fields": [
+          "KPEX_PASSKEY_CREDENTIAL_ID",
+          "KPEX_PASSKEY_FLAG_BE",
+          "KPEX_PASSKEY_FLAG_BS",
+          "KPEX_PASSKEY_GENERATED_USER_ID",
+          "KPEX_PASSKEY_PRIVATE_KEY_PEM",
+          "KPEX_PASSKEY_RELYING_PARTY",
+          "KPEX_PASSKEY_USERNAME",
+          "KPEX_PASSKEY_USER_HANDLE",
+          "KPXC_PASSKEY_USERNAME"
+        ],
+        "keeagent_settings": 1,
+        "meta_custom_data_keys": [
+          "KPXC_RANDOM_SLUG",
+          "_LAST_MODIFIED",
+          "keex.fixture"
+        ],
+        "unknown_elements": []
+      },
+      "source": [
+        "rich",
+        "4.0"
+      ],
+      "writer_changes": [
+        "added KeePassFile/Meta/SettingsChanged",
+        "changed KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046/Group=619866709f661f4847cc86d411ca5bf1/Entry=62dfa961165248d64456c235a329c460/Binary=shared.txt/Value",
+        "changed KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046/Group=619866709f661f4847cc86d411ca5bf1/Entry=8965805d6caa1155bdc9ed01dcb11d04/Binary=notes.txt/Value",
+        "changed KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046/Group=619866709f661f4847cc86d411ca5bf1/Entry=8965805d6caa1155bdc9ed01dcb11d04/Binary=shared.txt/Value",
+        "changed KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046/Group=619866709f661f4847cc86d411ca5bf1/Entry=8965805d6caa1155bdc9ed01dcb11d04/History/Entry/Binary=blob.bin/Value",
+        "changed KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046/Group=619866709f661f4847cc86d411ca5bf1/Entry=8965805d6caa1155bdc9ed01dcb11d04/History/Entry/Binary=shared.txt/Value",
+        "changed KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046/Group=619866709f661f4847cc86d411ca5bf1/IconID",
+        "changed KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046/Group=ab138359004cc2cc83c8930b45db3261/Entry=5304a955887e682676d4a53259a477b5/Binary=KeeAgent.settings/Value",
+        "changed KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046/Group=ab138359004cc2cc83c8930b45db3261/Entry=5304a955887e682676d4a53259a477b5/Binary=id_ed25519/Value"
+      ],
+      "client": {
+        "name": "KeePassXC",
+        "tool": "keepassxc-cli",
+        "version": "2.7.12"
+      }
+    },
+    {
+      "id": "G41-RICH",
+      "file": "g41-rich.kdbx",
+      "sha256": "68c71f1c7896b2678799fa656ce0a5bfa5921c7703f15fe2aec6ecb88cda0f6d",
+      "expect": "open",
+      "method": "xml-import",
+      "purpose": "同 G40-RICH，加 4.1 特性：QualityCheck、PreviousParentGroup、分组标签、图标名称、CustomData 时间",
+      "credentials": {
+        "password": "合成口令-G41-RICH-Ünï🔑",
+        "keyfile": null,
+        "keyfile_sha256": null
+      },
+      "summary": {
+        "format": "4.1",
+        "cipher": "aes256-cbc",
+        "kdf": {
+          "name": "aes-kdf",
+          "rounds": 1000000
+        },
+        "compressed": true,
+        "inner_stream": "chacha20",
+        "header_hash": "not-applicable",
+        "generator": "keex-fixture-source",
+        "groups": 8,
+        "entries": 12,
+        "history_entries": 2,
+        "entries_with_history": 1,
+        "recycle_bin": {
+          "enabled": true,
+          "group_present": true,
+          "entries": 1
+        },
+        "deleted_objects": 2,
+        "custom_icons": 1,
+        "entries_with_tags": 3,
+        "attachments": {
+          "references": 7,
+          "names": [
+            "KeeAgent.settings",
+            "blob.bin",
+            "id_ed25519",
+            "notes.txt",
+            "shared.txt"
+          ],
+          "pool_items": 5,
+          "pool_bytes": 3239,
+          "pool_protected": 5
+        },
+        "custom_fields": [
+          "KP2A_URL_1",
+          "KPEX_PASSKEY_CREDENTIAL_ID",
+          "KPEX_PASSKEY_FLAG_BE",
+          "KPEX_PASSKEY_FLAG_BS",
+          "KPEX_PASSKEY_GENERATED_USER_ID",
+          "KPEX_PASSKEY_PRIVATE_KEY_PEM",
+          "KPEX_PASSKEY_RELYING_PARTY",
+          "KPEX_PASSKEY_USERNAME",
+          "KPEX_PASSKEY_USER_HANDLE",
+          "KPXC_PASSKEY_USERNAME",
+          "TOTP Seed",
+          "TOTP Settings",
+          "TimeOtp-Algorithm",
+          "TimeOtp-Length",
+          "TimeOtp-Period",
+          "TimeOtp-Secret-Base32",
+          "X-Empty",
+          "X-Long-Protected",
+          "X-Old-Protected",
+          "X-Plain",
+          "X-Secret",
+          "otp",
+          "自定义中文字段名"
+        ],
+        "protected_custom_fields": [
+          "KPEX_PASSKEY_GENERATED_USER_ID",
+          "KPEX_PASSKEY_PRIVATE_KEY_PEM",
+          "KPEX_PASSKEY_USER_HANDLE",
+          "TOTP Seed",
+          "TimeOtp-Secret-Base32",
+          "X-Long-Protected",
+          "X-Old-Protected",
+          "X-Secret",
+          "otp"
+        ],
+        "otp_fields": [
+          "TOTP Seed",
+          "TOTP Settings",
+          "TimeOtp-Algorithm",
+          "TimeOtp-Length",
+          "TimeOtp-Period",
+          "TimeOtp-Secret-Base32",
+          "otp"
+        ],
+        "passkey_fields": [
+          "KPEX_PASSKEY_CREDENTIAL_ID",
+          "KPEX_PASSKEY_FLAG_BE",
+          "KPEX_PASSKEY_FLAG_BS",
+          "KPEX_PASSKEY_GENERATED_USER_ID",
+          "KPEX_PASSKEY_PRIVATE_KEY_PEM",
+          "KPEX_PASSKEY_RELYING_PARTY",
+          "KPEX_PASSKEY_USERNAME",
+          "KPEX_PASSKEY_USER_HANDLE",
+          "KPXC_PASSKEY_USERNAME"
+        ],
+        "keeagent_settings": 1,
+        "meta_custom_data_keys": [
+          "KPXC_RANDOM_SLUG",
+          "_LAST_MODIFIED",
+          "keex.fixture"
+        ],
+        "unknown_elements": []
+      },
+      "source": [
+        "rich",
+        "4.1"
+      ],
+      "writer_changes": [
+        "added KeePassFile/Meta/SettingsChanged",
+        "changed KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046/Group=619866709f661f4847cc86d411ca5bf1/Entry=62dfa961165248d64456c235a329c460/Binary=shared.txt/Value",
+        "changed KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046/Group=619866709f661f4847cc86d411ca5bf1/Entry=8965805d6caa1155bdc9ed01dcb11d04/Binary=notes.txt/Value",
+        "changed KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046/Group=619866709f661f4847cc86d411ca5bf1/Entry=8965805d6caa1155bdc9ed01dcb11d04/Binary=shared.txt/Value",
+        "changed KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046/Group=619866709f661f4847cc86d411ca5bf1/Entry=8965805d6caa1155bdc9ed01dcb11d04/History/Entry/Binary=blob.bin/Value",
+        "changed KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046/Group=619866709f661f4847cc86d411ca5bf1/Entry=8965805d6caa1155bdc9ed01dcb11d04/History/Entry/Binary=shared.txt/Value",
+        "changed KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046/Group=619866709f661f4847cc86d411ca5bf1/IconID",
+        "changed KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046/Group=ab138359004cc2cc83c8930b45db3261/Entry=5304a955887e682676d4a53259a477b5/Binary=KeeAgent.settings/Value",
+        "changed KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046/Group=ab138359004cc2cc83c8930b45db3261/Entry=5304a955887e682676d4a53259a477b5/Binary=id_ed25519/Value",
+        "removed KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046/Group=619866709f661f4847cc86d411ca5bf1/CustomData/Item=keex.fixture.group/LastModificationTime",
+        "removed KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046/Group=619866709f661f4847cc86d411ca5bf1/Entry=8965805d6caa1155bdc9ed01dcb11d04/CustomData/Item=keex.fixture.entry/LastModificationTime"
+      ],
+      "client": {
+        "name": "KeePassXC",
+        "tool": "keepassxc-cli",
+        "version": "2.7.12"
+      }
+    },
+    {
+      "id": "G31-BIG",
+      "file": "g31-big.kdbx",
+      "sha256": "3be7d83ed88152faf9c92a8cb25c362da77a63429a9df0232cb487260dd850a3",
+      "expect": "open",
+      "method": "xml-import",
+      "purpose": "1.2 MB 不可压缩附件，内容跨过 1 MiB 块边界（3.1 哈希块）",
+      "credentials": {
+        "password": "keex-synthetic-G31-BIG",
+        "keyfile": null,
+        "keyfile_sha256": null
+      },
+      "summary": {
+        "format": "3.1",
+        "cipher": "aes256-cbc",
+        "kdf": {
+          "name": "aes-kdf",
+          "rounds": 1000000
+        },
+        "compressed": true,
+        "inner_stream": "salsa20",
+        "header_hash": "match",
+        "generator": "keex-fixture-source",
+        "groups": 1,
+        "entries": 1,
+        "history_entries": 0,
+        "entries_with_history": 0,
+        "recycle_bin": {
+          "enabled": true,
+          "group_present": false,
+          "entries": 0
+        },
+        "deleted_objects": 0,
+        "custom_icons": 0,
+        "entries_with_tags": 0,
+        "attachments": {
+          "references": 1,
+          "names": [
+            "random.bin"
+          ],
+          "pool_items": 1,
+          "pool_bytes": 1200000,
+          "pool_protected": 0
+        },
+        "custom_fields": [],
+        "protected_custom_fields": [],
+        "otp_fields": [],
+        "passkey_fields": [],
+        "keeagent_settings": 0,
+        "meta_custom_data_keys": [
+          "KPXC_RANDOM_SLUG",
+          "_LAST_MODIFIED"
+        ],
+        "unknown_elements": []
+      },
+      "source": [
+        "big",
+        "3.1"
+      ],
+      "writer_changes": [
+        "added KeePassFile/Meta/CustomData"
+      ],
+      "client": {
+        "name": "KeePassXC",
+        "tool": "keepassxc-cli",
+        "version": "2.7.12"
+      }
+    },
+    {
+      "id": "G41-BIG",
+      "file": "g41-big.kdbx",
+      "sha256": "f7db8f54da7dcbdf86fb155159bd079270e47c7ceb33da71e00869eac5fbede6",
+      "expect": "open",
+      "method": "xml-import",
+      "purpose": "1.2 MB 不可压缩附件，密文跨过 1 MiB 块边界（4.x HMAC 块）",
+      "credentials": {
+        "password": "keex-synthetic-G41-BIG",
+        "keyfile": null,
+        "keyfile_sha256": null
+      },
+      "summary": {
+        "format": "4.1",
+        "cipher": "aes256-cbc",
+        "kdf": {
+          "name": "aes-kdf",
+          "rounds": 1000000
+        },
+        "compressed": true,
+        "inner_stream": "chacha20",
+        "header_hash": "not-applicable",
+        "generator": "keex-fixture-source",
+        "groups": 1,
+        "entries": 1,
+        "history_entries": 0,
+        "entries_with_history": 0,
+        "recycle_bin": {
+          "enabled": true,
+          "group_present": false,
+          "entries": 0
+        },
+        "deleted_objects": 0,
+        "custom_icons": 0,
+        "entries_with_tags": 0,
+        "attachments": {
+          "references": 1,
+          "names": [
+            "random.bin"
+          ],
+          "pool_items": 1,
+          "pool_bytes": 1200000,
+          "pool_protected": 1
+        },
+        "custom_fields": [],
+        "protected_custom_fields": [],
+        "otp_fields": [],
+        "passkey_fields": [],
+        "keeagent_settings": 0,
+        "meta_custom_data_keys": [
+          "KPXC_RANDOM_SLUG",
+          "_LAST_MODIFIED",
+          "keex.fixture"
+        ],
+        "unknown_elements": []
+      },
+      "source": [
+        "big",
+        "4.1"
+      ],
+      "writer_changes": [
+        "added KeePassFile/Meta/SettingsChanged",
+        "changed KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046/Entry=ad4d29c749c425066c5d96ddd24f299c/Binary=random.bin/Value"
+      ],
+      "client": {
+        "name": "KeePassXC",
+        "tool": "keepassxc-cli",
+        "version": "2.7.12"
+      }
+    },
+    {
+      "id": "G41-CLI",
+      "file": "g41-cli.kdbx",
+      "sha256": "d0bcd7558f098731ebf724bfb21bfbaad3cb6e7d2193009c4fb8190b0edddf89",
+      "expect": "open",
+      "method": "cli-ops",
+      "purpose": "KeePassXC 自己产生的历史、附件、回收站和永久删除（不经过手写 XML）。移进回收站时 KeePassXC 写入 PreviousParentGroup，整库随之升到 4.1",
+      "credentials": {
+        "password": "keex-synthetic-G41-CLI",
+        "keyfile": null,
+        "keyfile_sha256": null
+      },
+      "summary": {
+        "format": "4.1",
+        "cipher": "aes256-cbc",
+        "kdf": {
+          "name": "aes-kdf",
+          "rounds": 5555555
+        },
+        "compressed": true,
+        "inner_stream": "chacha20",
+        "header_hash": "not-applicable",
+        "generator": "KeePassXC",
+        "groups": 4,
+        "entries": 2,
+        "history_entries": 4,
+        "entries_with_history": 1,
+        "recycle_bin": {
+          "enabled": true,
+          "group_present": true,
+          "entries": 1
+        },
+        "deleted_objects": 1,
+        "custom_icons": 0,
+        "entries_with_tags": 0,
+        "attachments": {
+          "references": 3,
+          "names": [
+            "blob.bin",
+            "notes.txt"
+          ],
+          "pool_items": 2,
+          "pool_bytes": 282,
+          "pool_protected": 2
+        },
+        "custom_fields": [],
+        "protected_custom_fields": [],
+        "otp_fields": [],
+        "passkey_fields": [],
+        "keeagent_settings": 0,
+        "meta_custom_data_keys": [
+          "KPXC_RANDOM_SLUG",
+          "_LAST_MODIFIED"
+        ],
+        "unknown_elements": []
+      },
+      "client": {
+        "name": "KeePassXC",
+        "tool": "keepassxc-cli",
+        "version": "2.7.12"
+      }
+    },
+    {
+      "id": "G31-KEYXML",
+      "file": "g31-keyxml.kdbx",
+      "sha256": "48b548c87ae5a0ff2cfe05eea486d217b51c00330d0dbbb04914feefce7ac929",
+      "expect": "open",
+      "method": "cli-keyfile",
+      "purpose": "密码 + KeePassXC 生成的 XML 2.0 密钥文件",
+      "credentials": {
+        "password": "keex-synthetic-G31-KEYXML",
+        "keyfile": "g31-keyxml.keyx",
+        "keyfile_sha256": "9a8368c88ab822f84ca692877dfa47734ef4d6f1671e34ea2ba07e48452c26f2"
+      },
+      "summary": {
+        "format": "3.1",
+        "cipher": "aes256-cbc",
+        "kdf": {
+          "name": "aes-kdf",
+          "rounds": 5769231
+        },
+        "compressed": true,
+        "inner_stream": "salsa20",
+        "header_hash": "match",
+        "generator": "KeePassXC",
+        "groups": 1,
+        "entries": 1,
+        "history_entries": 0,
+        "entries_with_history": 0,
+        "recycle_bin": {
+          "enabled": true,
+          "group_present": false,
+          "entries": 0
+        },
+        "deleted_objects": 0,
+        "custom_icons": 0,
+        "entries_with_tags": 0,
+        "attachments": {
+          "references": 0,
+          "names": [],
+          "pool_items": 0,
+          "pool_bytes": 0,
+          "pool_protected": 0
+        },
+        "custom_fields": [],
+        "protected_custom_fields": [],
+        "otp_fields": [],
+        "passkey_fields": [],
+        "keeagent_settings": 0,
+        "meta_custom_data_keys": [
+          "KPXC_RANDOM_SLUG",
+          "_LAST_MODIFIED"
+        ],
+        "unknown_elements": []
+      },
+      "client": {
+        "name": "KeePassXC",
+        "tool": "keepassxc-cli",
+        "version": "2.7.12"
+      }
+    },
+    {
+      "id": "G31-KEYONLY",
+      "file": "g31-keyonly.kdbx",
+      "sha256": "def9d61a97b861174a1db3139a6eccbb521b8df6e655ae164aeaa385a961687c",
+      "expect": "open",
+      "method": "cli-keyfile",
+      "purpose": "只用密钥文件，没有密码",
+      "credentials": {
+        "password": null,
+        "keyfile": "g31-keyonly.keyx",
+        "keyfile_sha256": "4237eaf3c1a332dacf4d864ba988011852af855cc1f247ab7009c40c0d88ca6a"
+      },
+      "summary": {
+        "format": "3.1",
+        "cipher": "aes256-cbc",
+        "kdf": {
+          "name": "aes-kdf",
+          "rounds": 5660377
+        },
+        "compressed": true,
+        "inner_stream": "salsa20",
+        "header_hash": "match",
+        "generator": "KeePassXC",
+        "groups": 1,
+        "entries": 1,
+        "history_entries": 0,
+        "entries_with_history": 0,
+        "recycle_bin": {
+          "enabled": true,
+          "group_present": false,
+          "entries": 0
+        },
+        "deleted_objects": 0,
+        "custom_icons": 0,
+        "entries_with_tags": 0,
+        "attachments": {
+          "references": 0,
+          "names": [],
+          "pool_items": 0,
+          "pool_bytes": 0,
+          "pool_protected": 0
+        },
+        "custom_fields": [],
+        "protected_custom_fields": [],
+        "otp_fields": [],
+        "passkey_fields": [],
+        "keeagent_settings": 0,
+        "meta_custom_data_keys": [
+          "KPXC_RANDOM_SLUG",
+          "_LAST_MODIFIED"
+        ],
+        "unknown_elements": []
+      },
+      "client": {
+        "name": "KeePassXC",
+        "tool": "keepassxc-cli",
+        "version": "2.7.12"
+      }
+    },
+    {
+      "id": "G31-KEYBIN",
+      "file": "g31-keybin.kdbx",
+      "sha256": "45d9b7d11ad077ab28fccbad0763ab8004ad6f7ea0d6d545a946669b0ab52ee5",
+      "expect": "open",
+      "method": "cli-keyfile",
+      "purpose": "密码 + 64 字节任意二进制密钥文件（按 SHA-256 取密钥）",
+      "credentials": {
+        "password": "keex-synthetic-G31-KEYBIN",
+        "keyfile": "g31-keybin.key",
+        "keyfile_sha256": "c8a478ce00bb5d30f02b5f920e10591bacc918829b17db1fa314c75b2d1bbc46"
+      },
+      "summary": {
+        "format": "3.1",
+        "cipher": "aes256-cbc",
+        "kdf": {
+          "name": "aes-kdf",
+          "rounds": 5882353
+        },
+        "compressed": true,
+        "inner_stream": "salsa20",
+        "header_hash": "match",
+        "generator": "KeePassXC",
+        "groups": 1,
+        "entries": 1,
+        "history_entries": 0,
+        "entries_with_history": 0,
+        "recycle_bin": {
+          "enabled": true,
+          "group_present": false,
+          "entries": 0
+        },
+        "deleted_objects": 0,
+        "custom_icons": 0,
+        "entries_with_tags": 0,
+        "attachments": {
+          "references": 0,
+          "names": [],
+          "pool_items": 0,
+          "pool_bytes": 0,
+          "pool_protected": 0
+        },
+        "custom_fields": [],
+        "protected_custom_fields": [],
+        "otp_fields": [],
+        "passkey_fields": [],
+        "keeagent_settings": 0,
+        "meta_custom_data_keys": [
+          "KPXC_RANDOM_SLUG",
+          "_LAST_MODIFIED"
+        ],
+        "unknown_elements": []
+      },
+      "client": {
+        "name": "KeePassXC",
+        "tool": "keepassxc-cli",
+        "version": "2.7.12"
+      }
+    },
+    {
+      "id": "G31-KEYHEX",
+      "file": "g31-keyhex.kdbx",
+      "sha256": "85ac366d80798dea7dc73530848ee8e2de193efa7b313047223d373e6c5fd008",
+      "expect": "open",
+      "method": "cli-keyfile",
+      "purpose": "密码 + 64 个十六进制字符的密钥文件（直接当 32 字节密钥）",
+      "credentials": {
+        "password": "keex-synthetic-G31-KEYHEX",
+        "keyfile": "g31-keyhex.key",
+        "keyfile_sha256": "127616ea2f4edae78a46d872b0e1b68e557b27bdfa587ebde92b3ac65ad58f32"
+      },
+      "summary": {
+        "format": "3.1",
+        "cipher": "aes256-cbc",
+        "kdf": {
+          "name": "aes-kdf",
+          "rounds": 5882353
+        },
+        "compressed": true,
+        "inner_stream": "salsa20",
+        "header_hash": "match",
+        "generator": "KeePassXC",
+        "groups": 1,
+        "entries": 1,
+        "history_entries": 0,
+        "entries_with_history": 0,
+        "recycle_bin": {
+          "enabled": true,
+          "group_present": false,
+          "entries": 0
+        },
+        "deleted_objects": 0,
+        "custom_icons": 0,
+        "entries_with_tags": 0,
+        "attachments": {
+          "references": 0,
+          "names": [],
+          "pool_items": 0,
+          "pool_bytes": 0,
+          "pool_protected": 0
+        },
+        "custom_fields": [],
+        "protected_custom_fields": [],
+        "otp_fields": [],
+        "passkey_fields": [],
+        "keeagent_settings": 0,
+        "meta_custom_data_keys": [
+          "KPXC_RANDOM_SLUG",
+          "_LAST_MODIFIED"
+        ],
+        "unknown_elements": []
+      },
+      "client": {
+        "name": "KeePassXC",
+        "tool": "keepassxc-cli",
+        "version": "2.7.12"
+      }
+    }
+  ]
+}
