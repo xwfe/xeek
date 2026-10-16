@@ -2,6 +2,8 @@
 
 日期：2026-10-12。状态：**产品边界已确定；核心库和原生扩展实现需通过 P0 实验后批准**。
 
+**2026-10-16 范围收窄**：当前只交付 iOS/Android，桌面端留给未来的 Rust 应用，见 [ADR-0005](0005-mobile-first-scope.md)。本文中的桌面内容（§2 桌面层、§6 代理部分、§7 桌面浏览器段、§9 桌面三列、§10 的五端打包）只作未来资料。
+
 细化设计以 [ADR-0002](0002-mobile-credentials.md)、[ADR-0003](0003-cloud-sync.md)、[ADR-0004](0004-kdbx-advanced-passkeys.md) 为准：iOS与Android同期验证，OneDrive进入P3；高级字段/附件/Passkey在写入门槛中验证。
 
 ## 1. 已确定与未确定
@@ -27,7 +29,7 @@ Flutter 应用（Dart）
 平台适配与进程边界
   ├─ Swift：Apple Keychain / 本地认证 / 文件授权 / 凭据扩展
   ├─ Kotlin：Keystore / 生物认证 / AutofillService / CredentialProviderService
-  ├─ 桌面：本地 IPC、剪贴板、托盘、会话锁定、浏览器桥接
+  ├─ 桌面（未来 Rust 应用）：本地 IPC、剪贴板、托盘、会话锁定、浏览器桥接
   └─ 同步 provider：本地文件、WebDAV、OneDrive；分别验证授权与最终提交
           │
 加密 .kdbx 文件 + 加密版本快照；OS 安全存储仅放设备授权材料
@@ -73,6 +75,8 @@ Rust 有利于共享协议与控制密钥生命周期，但并不自动保证安
 
 ## 6. SSH Agent / KeeAgent
 
+> 移动端只负责 KeeAgent 数据无损；本节代理部分属未来桌面应用，见 ADR-0005。
+
 KeeAgent 是 KeePass 2.x 插件，可自充代理或对接外部代理；Flutter 不能直接加载它。keex 的目标是**保存兼容数据 + 实现代理协议与用户流程**，不是兼容整个 KeePass .NET 插件 ABI。[S05]
 
 优先实现自有受控代理：macOS/Linux Unix socket，`SSH_AUTH_SOCK` 定位；Windows OpenSSH 管道/路由需 P0 验证，必须处理系统 ssh-agent 占用、ACL 和当前用户隔离，不能启动后覆盖系统服务。Pageant 作为后续兼容；移动端不承诺向其他任意终端 App 暴露常驻 SSH 代理。
@@ -93,7 +97,7 @@ Android 14+ 通过 `CredentialProviderService` 提供密码和通行密钥，旧
 
 Apple 使用 Credential Provider Extension / AuthenticationServices，由 Swift 原生扩展处理系统请求，再调用共享核心；App Group、Keychain access group、扩展内存、锁定状态以及双进程写库要真机验证。具体最低 OS 按所用 API availability 确定，不照搬“支持 passkey 登录”的 Flutter 插件系统要求。[S07]
 
-桌面浏览器填充采用经过配对和身份校验的本地桥接/浏览器扩展；不能开启无认证 localhost HTTP API。原生操作系统 Passkey provider 另外评估，不把桌面全端系统注册写成首版完成。KeePassXC 的 Passkey 浏览器方案可参考，但不是声称现有 KeePassXC 扩展天然可连接 keex。[S08]
+（未来桌面）桌面浏览器填充采用经过配对和身份校验的本地桥接/浏览器扩展；不能开启无认证 localhost HTTP API。原生操作系统 Passkey provider 另外评估，不把桌面全端系统注册写成首版完成。KeePassXC 的 Passkey 浏览器方案可参考，但不是声称现有 KeePassXC 扩展天然可连接 keex。[S08]
 
 兼容性测试涵盖 KeePassXC/KeePassDX 等实际字段及导入导出；KDBX 可扩展不意味着所有客户端会理解这些字段。互通未验证时保留原始数据并关闭相应写入/注册功能。
 
@@ -109,7 +113,7 @@ WebDAV 有可靠 ETag/If-Match 时使用条件写入。缺少/不遵守强版本
 
 状态：仅本地、待上传、下载中、等待解锁合并、冲突待处理、已同步、失败重试。只有条件提交成功才显示已同步；同步不是备份、TLS 不是文件端到端加密、旧密文副本也不能被远程撤销。
 
-## 9. 平台交付矩阵（目标，不是现状）
+## 9. 平台交付矩阵（目标，不是现状；桌面三列属未来，见 ADR-0005）
 
 | 能力 | macOS | Windows | Linux | Android | iOS |
 | --- | --- | --- | --- | --- | --- |

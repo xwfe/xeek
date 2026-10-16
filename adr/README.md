@@ -1,6 +1,6 @@
 # 架构与实施资料
 
-更新：2026-10-15。
+更新：2026-10-16。
 
 | 文件 | 用途 |
 | --- | --- |
@@ -8,6 +8,7 @@
 | [0002-mobile-credentials.md](0002-mobile-credentials.md) | iOS/Android提供者、原生扩展、索引与共享授权 |
 | [0003-cloud-sync.md](0003-cloud-sync.md) | WebDAV/OneDrive权限、最终条件提交、冲突与后台 |
 | [0004-kdbx-advanced-passkeys.md](0004-kdbx-advanced-passkeys.md) | 高级字段、附件池、历史、KPEX映射与Passkey签名 |
+| [0005-mobile-first-scope.md](0005-mobile-first-scope.md) | 当前只做 iOS/Android；桌面端留给未来 Rust 应用，桌面资料索引 |
 | [MOBILE_SYNC_TASKS.md](MOBILE_SYNC_TASKS.md) | 对应主任务的24项专项实施子任务 |
 | [research/mobile-sync-2026-10-12.md](research/mobile-sync-2026-10-12.md) | Monica/Bitwarden等源码证据、官方资料与研究限制 |
 | [design/IOS_DESIGN.md](design/IOS_DESIGN.md) | iOS专项页面、状态与Flutter/原生交接 |

@@ -1,0 +1,38 @@
+# ADR-0005：当前只做移动端，桌面端留给未来的 Rust 应用
+
+日期：2026-10-16。状态：**已决定**（用户当日指示）。本文件部分取代 [ADR-0001](0001-flutter-kdbx-architecture.md) 中涉及桌面端的内容。
+
+## 决定
+
+- **当前交付范围只有 iOS 和 Android**（含平板）。Flutter 做主界面，系统扩展用 Swift/Kotlin，共享核心仍按 K009 选型。
+- **macOS、Windows、Linux 不在当前交付范围**。未来另做桌面应用，用 Rust 开发。现有桌面资料原地保留并加标注，不删除、不再扩写。
+- KeePass、KeePassXC 等桌面客户端仍是兼容性测试的**参考客户端**——它们是测试工具，不是 keex 的交付平台。K002 用 `keepassxc-cli` 生成样本不受影响。
+
+## 对现有计划的影响
+
+| 内容 | 现在怎么处理 |
+| --- | --- |
+| Flutter 五端 | 只做 Android、iOS；K004、K010、K056 的“五端”改为两端 |
+| SSH | 移动端不做代理（ADR-0001 本来就定了“不作通用系统代理”）。**KeeAgent 数据仍须无损**：用户的库可能在桌面 KeePass + KeeAgent 里用，keex 手机端编辑后不能把它弄坏，所以 K042、K043 留在当前范围。代理本身（K005、K006、K044–K047、K063）归桌面 |
+| 桌面专属功能 | 浏览器扩展填充（K050）、桌面浏览器 Passkey（K054）、全局自动输入（K065）、CLI（K067）归桌面 |
+| 任务依赖 | K009 不再等 K005/K006；K055 不再等 K047/K054。任务编号不变，桌面任务在 [TASKS.md](TASKS.md) 的优先级栏标“桌面” |
+| 共享核心选型 | K009 仍按 G0 证据裁决 Rust 还是 Dart。新增一个考量：Rust 核心未来可被桌面应用直接复用，Dart 实现不行。这是加分项，不是免除无损门槛的理由 |
+| 发布层级 | 个人试用版 = Android + iOS；正式版 = 移动版。见 [IMPLEMENTATION_PLAN.md](IMPLEMENTATION_PLAN.md) |
+| 平台矩阵、威胁模型、验收 | 桌面列、桌面条目标“未来桌面”并保留；威胁模型补充手机上恶意 App 的部分 |
+| 平板宽屏 | 不受影响。五项导航在宽屏仍用同序侧栏，验收宽度从 1440 改为 1024（平板横屏） |
+
+## 桌面资料在哪
+
+给未来的 Rust 桌面应用用。这些是 2026-10 的方案和判断，没有一项实测过：
+
+- [ADR-0001](0001-flutter-kdbx-architecture.md) §2 分层图里的“桌面”一行、§6 SSH Agent/KeeAgent、§7 桌面浏览器填充段、§9 的桌面三列。
+- [THREAT_MODEL.md](THREAT_MODEL.md) T4 的桌面各行与桌面承诺、T14 SSH 代理转发、§5 锁库表的 SSH 行。
+- [CAPABILITIES.md](CAPABILITIES.md) §2 的 macOS/Windows/Linux 三列。
+- [ACCEPTANCE.md](ACCEPTANCE.md) AC-SSH，以及 AC-CREDENTIAL 里浏览器扩展与桌面桥接一句。
+- [TASKS.md](TASKS.md) 中标“桌面”的任务。
+- [RESEARCH.md](RESEARCH.md) S05（KeeAgent）、S09（OpenSSH 代理限制）。
+- 中文交互原型 `adr/design/zh-CN/` 的 1440 宽布局。
+
+## 将来启动桌面端时
+
+先写新的 ADR，至少定下：桌面 UI 用什么做；和移动端共享哪些核心库；桌面威胁模型按当时的系统版本复测。上面的资料只能当起点，不能当已验证的结论——尤其 T4 里各桌面系统的进程隔离判断，系统升级后很可能变。
