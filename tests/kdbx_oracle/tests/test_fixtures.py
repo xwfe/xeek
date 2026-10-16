@@ -6,6 +6,8 @@ manifest 是生成器写的，只比对 manifest 的话，生成器和解码器�
 
 import hashlib
 import json
+import shutil
+import subprocess
 import sys
 import unittest
 from pathlib import Path
@@ -23,8 +25,10 @@ import mutate  # noqa: E402
 import source  # noqa: E402
 
 MANIFEST = json.loads((FIXTURES / "manifest.json").read_text(encoding="utf-8"))
+# GOLDEN：所有应该能打开的样本（参考客户端写的，加上变异后仍合法的 V 样本）。
 GOLDEN = [s for s in MANIFEST["samples"] if s["expect"] == "open"]
-MUTANTS = [s for s in MANIFEST["samples"] if s["expect"] != "open"]
+MUTANTS = [s for s in MANIFEST["samples"] if s["method"] == "mutation"]
+KEEPASSXC = shutil.which("keepassxc-cli")
 # 压缩炸弹解压后 512 MiB；测试里把上限压到 16 MiB，不然每次要先解出 256 MiB 才拒绝。
 TEST_XML_LIMIT = 16 << 20
 
@@ -110,7 +114,7 @@ class MutantSamplesTest(unittest.TestCase):
         self.assertEqual([s["id"] for s in MUTANTS], [m[0] for m in mutate.MUTATIONS])
 
     def test_mutations_are_reproducible(self):
-        golden = {s["id"]: s for s in GOLDEN}
+        golden = {s["id"]: s for s in MANIFEST["samples"] if s["method"] != "mutation"}
         for sample_id, base_id, func, *_ in mutate.MUTATIONS:
             with self.subTest(sample_id):
                 base = golden[base_id]
@@ -127,11 +131,23 @@ class MutantSamplesTest(unittest.TestCase):
                 continue
             with self.subTest(sample["id"]):
                 error = getattr(kdbx_oracle, sample["oracle_error"])
-                with self.assertRaises(error):
+                with self.assertRaises(error) as caught:
                     creds = sample["credentials"]
                     keyfile = (FIXTURES / creds["keyfile"]).read_bytes() if creds["keyfile"] else None
                     read_kdbx((FIXTURES / sample["file"]).read_bytes(), password=creds["password"],
                               keyfile=keyfile, max_xml_bytes=TEST_XML_LIMIT)
+                # 只看异常类型不够：样本哪天因为别的原因抛出同类异常，就不再测它声称的那项检查了。
+                self.assertIn(sample["oracle_reason"], str(caught.exception))
+
+    def test_valid_variants_match_base(self):
+        for sample in MUTANTS:
+            if sample["expect"] != "open":
+                continue
+            with self.subTest(sample["id"]):
+                decoded = open_sample(sample)
+                base = open_sample(next(s for s in MANIFEST["samples"] if s["id"] == sample["base"]))
+                self.assertEqual(decoded.header_hash, base.header_hash)
+                self.assertEqual(diff(canonicalize(base), canonicalize(decoded), reveal=True), [])
 
     def test_headerhash_missing_opens_read_only_with_same_content(self):
         sample = next(s for s in MUTANTS if s["id"] == "R31-HEADERHASH-MISSING")
@@ -142,6 +158,40 @@ class MutantSamplesTest(unittest.TestCase):
         self.assertEqual(base.header_hash, "match")
         # 重新加密没有打乱保护流：除了 HeaderHash（比较器本来就忽略），内容完全一致。
         self.assertEqual(diff(canonicalize(base), canonicalize(decoded), reveal=True), [])
+
+
+@unittest.skipUnless(KEEPASSXC, "没有 keepassxc-cli，跳过和 KeePassXC 的对照")
+class KeePassXCCrossCheckTest(unittest.TestCase):
+    """和 KeePassXC 自己读出的内容对照。
+
+    其他测试除了少量写死的明文，都是解码器和自己生成的 manifest 比；这里是唯一一个整体上
+    不依赖解码器的对照。
+    """
+
+    def export(self, sample) -> bytes:
+        creds = sample["credentials"]
+        argv = [KEEPASSXC, "export", "-q"]
+        if creds["keyfile"]:
+            argv += ["-k", str(FIXTURES / creds["keyfile"])]
+        if creds["password"] is None:
+            argv.append("--no-password")
+        argv.append(str(FIXTURES / sample["file"]))
+        result = subprocess.run(argv, input=((creds["password"] or "") + "\n").encode(), capture_output=True,
+                                timeout=60, check=True)
+        return result.stdout
+
+    def test_oracle_matches_keepassxc_export(self):
+        for sample in MANIFEST["samples"]:
+            if sample["expect"] not in ("open", "read-only"):
+                continue
+            with self.subTest(sample["id"]):
+                decoded = open_sample(sample)
+                ignore = list(generate.VOLATILE)
+                if decoded.major == 4:
+                    # keepassxc-cli 2.7.12 导出 4.x 库时附件全是 Ref="0" 且没有附件池，内容丢了，没法比。
+                    ignore.append("*/Binary=*/Value")
+                exported = canonicalize(read_plain_xml(self.export(sample)))
+                self.assertEqual([str(d) for d in diff(exported, canonicalize(decoded), ignore=ignore)], [])
 
 
 class RichContentTest(unittest.TestCase):
