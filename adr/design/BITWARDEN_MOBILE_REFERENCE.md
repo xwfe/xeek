@@ -6,7 +6,7 @@
 
 采用 Bitwarden 的任务导向交互：快速找到条目、明确的新建类型、分组表单、字段操作、上下文生成、可恢复删除和设置分组。仍使用 keex 的中文、黑曜石/翡翠绿设计语言，以及 **密码、验证、证件、银行、设置** 五项导航；不复制Bitwarden品牌资产、底栏、注册登录页或付费墙。
 
-Flutter 主应用、原生凭据扩展和 KDBX 唯一权威密码库不变。多库切换借鉴“当前范围明确”，不引入Bitwarden账号服务器、组织/Collection权限、Send链接分享或订阅模型。生成器仍在新建/编辑上下文；SSH Agent、WebDAV/OneDrive和Passkey互通按原路线保留。
+Flutter 主应用、原生凭据扩展和 KDBX 唯一权威密码库不变。多库切换借鉴“当前范围明确”，不引入Bitwarden账号服务器、组织/Collection权限、Send链接分享或订阅模型。生成器仍在新建/编辑上下文；KeeAgent 数据无损、WebDAV/OneDrive和Passkey互通按原路线保留，SSH Agent 本身属未来桌面（[ADR-0005](../0005-mobile-first-scope.md)）。
 
 ## 2. 功能取舍与界面映射
 

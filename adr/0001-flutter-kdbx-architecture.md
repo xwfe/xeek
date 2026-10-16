@@ -2,13 +2,13 @@
 
 日期：2026-10-12。状态：**产品边界已确定；核心库和原生扩展实现需通过 P0 实验后批准**。
 
-**2026-10-16 范围收窄**：当前只交付 iOS/Android，桌面端留给未来的 Rust 应用，见 [ADR-0005](0005-mobile-first-scope.md)。本文中的桌面内容（§2 桌面层、§6 代理部分、§7 桌面浏览器段、§9 桌面三列、§10 的五端打包）只作未来资料。
+**2026-10-16 范围收窄**：当前只交付 iOS/Android，桌面端留给未来的 Rust 应用，见 [ADR-0005](0005-mobile-first-scope.md)。本文中的桌面内容（§2 桌面层与 agent-core、§6 代理部分、§7 桌面浏览器段、§9 桌面三列）只作未来资料，已在原处标注。
 
 细化设计以 [ADR-0002](0002-mobile-credentials.md)、[ADR-0003](0003-cloud-sync.md)、[ADR-0004](0004-kdbx-advanced-passkeys.md) 为准：iOS与Android同期验证，OneDrive进入P3；高级字段/附件/Passkey在写入门槛中验证。
 
 ## 1. 已确定与未确定
 
-已确定：Flutter 主界面，五端目标；中文优先、五项导航；本地优先；KDBX 唯一权威数据；SSH Agent/KeeAgent 兼容；系统自动填充；TOTP/恢复码/Passkey；可选自托管同步。
+已确定：Flutter 主界面，当前只交付 iOS/Android（桌面三端留给未来的 Rust 应用）；中文优先、五项导航；本地优先；KDBX 唯一权威数据；KeeAgent 数据无损保留、密钥可解析（SSH 代理签名属未来桌面）；系统自动填充；TOTP/恢复码/Passkey；可选自托管同步。
 
 未确定：具体 KDBX 写入库、Rust/Dart 边界最终落点、各端最低系统版本、浏览器扩展实现路径、通行密钥跨客户端字段映射、发行许可证。它们不能由演示稿或一个 pub/crates 包的标签代替验证。
 
@@ -24,7 +24,7 @@ Flutter 应用（Dart）
   ├─ vault-core：KDBX 读写、会话、条目、历史、附件、内存生命周期
   ├─ credential-core：生成器、TOTP/HOTP、通行密钥记录与签名策略
   ├─ sync-core：版本、三方合并、冲突、原子写入、恢复
-  └─ agent-core：SSH agent 协议、授权、超时、锁库撤销
+  └─ agent-core（未来桌面）：SSH agent 协议、授权、超时、锁库撤销
           │
 平台适配与进程边界
   ├─ Swift：Apple Keychain / 本地认证 / 文件授权 / 凭据扩展
@@ -37,7 +37,7 @@ Flutter 应用（Dart）
 
 Rust 有利于共享协议与控制密钥生命周期，但并不自动保证安全；Flutter/Dart、系统框架和 FFI 仍可能产生短期副本。首选 `flutter_rust_bridge` 验证 Flutter 桥接，原生扩展用稳定 C ABI/合适绑定调用同一核心；这不是承诺一份 Dart 引擎可运行于所有扩展。依据 S02–S04、S10。
 
-暂定目录（尚未创建应用代码）：`apps/keex/`、`packages/keex_platform/`、`crates/vault_core/`、`crates/credential_core/`、`crates/sync_core/`、`crates/agent_core/`、`native/apple/`、`native/android/`、`extensions/browser/`、`tests/fixtures/`。初期可合并少量 crate，按边界而不是按文件数量拆分，不先造通用插件市场或微服务系统。
+暂定目录（尚未创建应用代码）：`apps/keex/`、`packages/keex_platform/`、`crates/vault_core/`、`crates/credential_core/`、`crates/sync_core/`、`native/apple/`、`native/android/`、`tests/fixtures/`（K002 已建）；未来桌面再加 `crates/agent_core/`、`extensions/browser/`。初期可合并少量 crate，按边界而不是按文件数量拆分，不先造通用插件市场或微服务系统。
 
 ## 3. KDBX 格式与库选型门槛
 
@@ -71,13 +71,13 @@ Rust 有利于共享协议与控制密钥生命周期，但并不自动保证安
 
 自动保留有上限的**加密**备份和合并祖先；恢复是重新打开校验后的副本，不是在原文件上盲目覆盖。库主密码/密钥文件更换需备份恢复演练，避免新旧设备互相回写旧密钥配置。
 
-生物识别通过系统安全存储封装的本机快速解锁材料实现，不上传生物特征、不将短 PIN 当独立 KDBX 主密钥。设备锁/生物录入变更/系统权限撤销后快速解锁失效并回退完整密钥。Keychain、Keystore、Windows 设备保护及 Linux Secret Service 的保障不同，能力检查后展示而非统一承诺。首次解锁和定期再验证规则应可解释。
+生物识别通过系统安全存储封装的本机快速解锁材料实现，不上传生物特征、不将短 PIN 当独立 KDBX 主密钥。设备锁/生物录入变更/系统权限撤销后快速解锁失效并回退完整密钥。Keychain、Keystore、Windows 设备保护及 Linux Secret Service（后两者属未来桌面）的保障不同，能力检查后展示而非统一承诺。首次解锁和定期再验证规则应可解释。
 
 ## 6. SSH Agent / KeeAgent
 
 > 移动端只负责 KeeAgent 数据无损；本节代理部分属未来桌面应用，见 ADR-0005。
 
-KeeAgent 是 KeePass 2.x 插件，可自充代理或对接外部代理；Flutter 不能直接加载它。keex 的目标是**保存兼容数据 + 实现代理协议与用户流程**，不是兼容整个 KeePass .NET 插件 ABI。[S05]
+KeeAgent 是 KeePass 2.x 插件，可以自己充当代理，也可以对接外部代理；Flutter 不能直接加载它。keex 的目标是**保存兼容数据 + 实现代理协议与用户流程**，不是兼容整个 KeePass .NET 插件 ABI。[S05]
 
 优先实现自有受控代理：macOS/Linux Unix socket，`SSH_AUTH_SOCK` 定位；Windows OpenSSH 管道/路由需 P0 验证，必须处理系统 ssh-agent 占用、ACL 和当前用户隔离，不能启动后覆盖系统服务。Pageant 作为后续兼容；移动端不承诺向其他任意终端 App 暴露常驻 SSH 代理。
 
@@ -103,7 +103,7 @@ Apple 使用 Credential Provider Extension / AuthenticationServices，由 Swift 
 
 ## 8. 同步策略
 
-KDBX 本地文件为唯一数据源；自托管是“自己选择密文文件存储”，不是强制运行账户后端。首个云同步阶段同时覆盖 WebDAV 与 OneDrive；每库只启用一个双向源，iOS文件提供者与云直连不竞争写同一对象。用户历史提及的小程序/Web 保留为后续受限入口研究，不承诺运行原生 SSH 或拥有完整私钥库，不作为当前五端安全核心的先决条件。
+KDBX 本地文件为唯一数据源；自托管是“自己选择密文文件存储”，不是强制运行账户后端。首个云同步阶段同时覆盖 WebDAV 与 OneDrive；每库只启用一个双向源，iOS文件提供者与云直连不竞争写同一对象。用户历史提及的小程序/Web 保留为后续受限入口研究，不承诺运行原生 SSH 或拥有完整私钥库，不作为当前移动端安全核心的先决条件。
 
 Provider 只处理加密对象、版本号/ETag、条件读取写入、超时重试。服务器凭据存设备安全存储，避免仅存于尚未能下载的同一库造成首次同步循环依赖；不把同步访问令牌和主密码混为一谈。跨源重定向不转发认证头；TLS 错误默认拒绝。
 
@@ -124,10 +124,10 @@ WebDAV 有可靠 ETag/If-Match 时使用条件写入。缺少/不遵守强版本
 | Passkey 注册/认证 | 浏览器路径先行 | 浏览器/原生可行性门槛 | 浏览器路径先行 | 14+ provider | API 可用版本原生扩展 |
 | 桌面全局自动输入 | 后续/需权限 | 后续/需权限 | 后续/Wayland 差异 | 不模拟 | 不模拟 |
 
-平台不可用的能力给出原因和替代路径，不展示假开关。能力状态的判定规则和各平台前置条件见 [CAPABILITIES.md](CAPABILITIES.md)。iOS、Android与macOS共同进入首个跨设备纵向闭环；P0同时验证两种移动原生接口及iOS扩展内存/写入能力，不把iOS推迟到产品末期。
+平台不可用的能力给出原因和替代路径，不展示假开关。能力状态的判定规则和各平台前置条件见 [CAPABILITIES.md](CAPABILITIES.md)。iOS 与 Android 共同进入首个跨设备纵向闭环（macOS 原计划同批，范围收窄后移到未来桌面）；P0同时验证两种移动原生接口及iOS扩展内存/写入能力，不把iOS推迟到产品末期。
 
 ## 10. 首版范围与明确不做
 
-基础：多库创建/打开/锁定、搜索/分组/标签/收藏、类型模板、受保护字段、附件、历史/回收站、生成器/OTP、导入导出、加密备份、冲突安全同步、原生填充、安全检查、设置、跨平台打包。SSH 与 Passkey 是正式产品目标，试用阶段可以分批，但功能缺失必须标明。
+基础：多库创建/打开/锁定、搜索/分组/标签/收藏、类型模板、受保护字段、附件、历史/回收站、生成器/OTP、导入导出、加密备份、冲突安全同步、原生填充、安全检查、设置、iOS/Android 打包。Passkey 是正式产品目标；SSH 在移动端只做 KeeAgent 数据无损和密钥解析（显示公钥指纹），代理签名属未来桌面。试用阶段可以分批，但功能缺失必须标明。
 
 不默认引入：Vaultwarden 协议后端、账户注册、团队 RBAC/在线共享链接、支付功能、钱包交易、秘密交给 LLM、通用第三方插件执行、暗网监控营销、六位 PIN 独立解密、在所有平台常驻代理的承诺。后续 provider 可扩展，首版只用内置可信适配；自动化/CLI 必须设计按条目按用途授权，不能给模型一个 dump-vault 接口。

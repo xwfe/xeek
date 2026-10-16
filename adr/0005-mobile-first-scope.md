@@ -13,21 +13,22 @@
 | 内容 | 现在怎么处理 |
 | --- | --- |
 | Flutter 五端 | 只做 Android、iOS；K004、K010、K056 的“五端”改为两端 |
-| SSH | 移动端不做代理（ADR-0001 本来就定了“不作通用系统代理”）。**KeeAgent 数据仍须无损**：用户的库可能在桌面 KeePass + KeeAgent 里用，keex 手机端编辑后不能把它弄坏，所以 K042、K043 留在当前范围。代理本身（K005、K006、K044–K047、K063）归桌面 |
+| SSH | 移动端不做代理（ADR-0001 本来就定了“不作通用系统代理”）。**KeeAgent 数据仍须无损**：用户的库可能在桌面 KeePass + KeeAgent 里用，keex 手机端编辑后不能把它弄坏，所以 K042（字段/附件无损）、K043（密钥解析，验收是公钥和指纹与 `ssh-keygen` 一致）留在当前范围。代理和签名（K005、K006、K044–K047、K063）归桌面，签名的 OpenSSH 验签在 K044 |
 | 桌面专属功能 | 浏览器扩展填充（K050）、桌面浏览器 Passkey（K054）、全局自动输入（K065）、CLI（K067）归桌面 |
 | 任务依赖 | K009 不再等 K005/K006；K055 不再等 K047/K054。任务编号不变，桌面任务在 [TASKS.md](TASKS.md) 的优先级栏标“桌面” |
 | 共享核心选型 | K009 仍按 G0 证据裁决 Rust 还是 Dart。新增一个考量：Rust 核心未来可被桌面应用直接复用，Dart 实现不行。这是加分项，不是免除无损门槛的理由 |
 | 发布层级 | 个人试用版 = Android + iOS；正式版 = 移动版。见 [IMPLEMENTATION_PLAN.md](IMPLEMENTATION_PLAN.md) |
-| 平台矩阵、威胁模型、验收 | 桌面列、桌面条目标“未来桌面”并保留；威胁模型补充手机上恶意 App 的部分 |
+| 平台矩阵、威胁模型、验收 | 桌面列、桌面条目原处保留并标注。标注写法：TASKS 优先级栏写“桌面”；THREAT_MODEL、ACCEPTANCE 用【桌面】；其余文档写“未来桌面”。三种写法意思一样。威胁模型补充手机上恶意 App 的部分 |
+| Web/小程序（K066） | 既不是移动原生也不是桌面，保持 P2 受限入口研究，不在当前关键链上，也不随桌面一起推迟或提前 |
 | 平板宽屏 | 不受影响。五项导航在宽屏仍用同序侧栏，验收宽度从 1440 改为 1024（平板横屏） |
 
 ## 桌面资料在哪
 
 给未来的 Rust 桌面应用用。这些是 2026-10 的方案和判断，没有一项实测过：
 
-- [ADR-0001](0001-flutter-kdbx-architecture.md) §2 分层图里的“桌面”一行、§6 SSH Agent/KeeAgent、§7 桌面浏览器填充段、§9 的桌面三列。
+- [ADR-0001](0001-flutter-kdbx-architecture.md) §2 分层图里的“桌面”和 agent-core 两行、§6 SSH Agent/KeeAgent、§7 桌面浏览器填充段、§9 的桌面三列。
 - [THREAT_MODEL.md](THREAT_MODEL.md) T4 的桌面各行与桌面承诺、T14 SSH 代理转发、§5 锁库表的 SSH 行。
-- [CAPABILITIES.md](CAPABILITIES.md) §2 的 macOS/Windows/Linux 三列。
+- [CAPABILITIES.md](CAPABILITIES.md) §3 未来桌面矩阵。
 - [ACCEPTANCE.md](ACCEPTANCE.md) AC-SSH，以及 AC-CREDENTIAL 里浏览器扩展与桌面桥接一句。
 - [TASKS.md](TASKS.md) 中标“桌面”的任务。
 - [RESEARCH.md](RESEARCH.md) S05（KeeAgent）、S09（OpenSSH 代理限制）。
