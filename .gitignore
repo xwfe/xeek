@@ -5,6 +5,10 @@
 .playwright-mcp/
 __pycache__/
 *.pyc
+# K002 本地秘密扫描依赖和临时测试目录；规则、源码和哈希锁提交。
+/tests/secret_scan/.deps/
+/tests/secret_scan/.scratch/
+/tests/secret_scan/.resolve.json
 .dart_tool/
 .flutter-plugins
 .flutter-plugins-dependencies
