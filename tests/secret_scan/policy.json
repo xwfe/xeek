@@ -1,0 +1,839 @@
+{
+  "version": 1,
+  "approved_files": [
+    {
+      "kind": "design-binary",
+      "path": "adr/design/stitch_.zip",
+      "reason": "已提交的原始设计素材；与 HEAD 固定字节一致，不执行归档内文件、不作 OCR 或内容解包。",
+      "sha256": "80f26bfeeb8f897967fc7406f5bc73206ef45e198783f3b8aa1f49b5852df8ef"
+    },
+    {
+      "kind": "design-binary",
+      "path": "adr/design/stitch_/audit/screen.png",
+      "reason": "已提交的原始设计素材；与 HEAD 固定字节一致，不执行归档内文件、不作 OCR 或内容解包。",
+      "sha256": "f6e043e95014850e4123244301ec3528e10d29a1b336fce25cb88e95bb24366d"
+    },
+    {
+      "kind": "design-binary",
+      "path": "adr/design/stitch_/generator/screen.png",
+      "reason": "已提交的原始设计素材；与 HEAD 固定字节一致，不执行归档内文件、不作 OCR 或内容解包。",
+      "sha256": "31e99b10be0b2e59d3f8b8b8a4b77dbbb883ff81b7ddddb6347b17def20f7f69"
+    },
+    {
+      "kind": "design-binary",
+      "path": "adr/design/stitch_/github/screen.png",
+      "reason": "已提交的原始设计素材；与 HEAD 固定字节一致，不执行归档内文件、不作 OCR 或内容解包。",
+      "sha256": "af007f0ad890f220fc6281dfdeda3796f89bd49d8c5dfa8351db059b53b02ef3"
+    },
+    {
+      "kind": "design-binary",
+      "path": "adr/design/stitch_/vault_unlock/screen.png",
+      "reason": "已提交的原始设计素材；与 HEAD 固定字节一致，不执行归档内文件、不作 OCR 或内容解包。",
+      "sha256": "ec883e4ac4a7b86c30438f068cc9644e0a0cc8f7d71aee00850f439fe40c9e5d"
+    },
+    {
+      "kind": "design-binary",
+      "path": "adr/design/stitch_/vault/screen.png",
+      "reason": "已提交的原始设计素材；与 HEAD 固定字节一致，不执行归档内文件、不作 OCR 或内容解包。",
+      "sha256": "bb6051801386073975f5bc31df7e3b2d4294def9d552cf4ad8dacf3dd1887b53"
+    },
+    {
+      "kind": "synthetic-kdbx",
+      "path": "tests/fixtures/kdbx/g31-big.kdbx",
+      "reason": "既有公开合成样本；来源及凭据登记见 tests/fixtures/kdbx/manifest.json；本轮只核对固定字节，不解密。",
+      "sha256": "3be7d83ed88152faf9c92a8cb25c362da77a63429a9df0232cb487260dd850a3"
+    },
+    {
+      "kind": "synthetic-kdbx",
+      "path": "tests/fixtures/kdbx/g31-keybin.kdbx",
+      "reason": "既有公开合成样本；来源及凭据登记见 tests/fixtures/kdbx/manifest.json；本轮只核对固定字节，不解密。",
+      "sha256": "45d9b7d11ad077ab28fccbad0763ab8004ad6f7ea0d6d545a946669b0ab52ee5"
+    },
+    {
+      "kind": "synthetic-key",
+      "path": "tests/fixtures/kdbx/g31-keybin.key",
+      "reason": "既有公开合成样本；来源及凭据登记见 tests/fixtures/kdbx/manifest.json；本轮只核对固定字节，不解密。",
+      "sha256": "c8a478ce00bb5d30f02b5f920e10591bacc918829b17db1fa314c75b2d1bbc46"
+    },
+    {
+      "kind": "synthetic-kdbx",
+      "path": "tests/fixtures/kdbx/g31-keyhex.kdbx",
+      "reason": "既有公开合成样本；来源及凭据登记见 tests/fixtures/kdbx/manifest.json；本轮只核对固定字节，不解密。",
+      "sha256": "85ac366d80798dea7dc73530848ee8e2de193efa7b313047223d373e6c5fd008"
+    },
+    {
+      "kind": "synthetic-key",
+      "path": "tests/fixtures/kdbx/g31-keyhex.key",
+      "reason": "既有公开合成样本；来源及凭据登记见 tests/fixtures/kdbx/manifest.json；本轮只核对固定字节，不解密。",
+      "sha256": "127616ea2f4edae78a46d872b0e1b68e557b27bdfa587ebde92b3ac65ad58f32"
+    },
+    {
+      "kind": "synthetic-kdbx",
+      "path": "tests/fixtures/kdbx/g31-keyonly.kdbx",
+      "reason": "既有公开合成样本；来源及凭据登记见 tests/fixtures/kdbx/manifest.json；本轮只核对固定字节，不解密。",
+      "sha256": "def9d61a97b861174a1db3139a6eccbb521b8df6e655ae164aeaa385a961687c"
+    },
+    {
+      "kind": "synthetic-key",
+      "path": "tests/fixtures/kdbx/g31-keyonly.keyx",
+      "reason": "既有公开合成样本；来源及凭据登记见 tests/fixtures/kdbx/manifest.json；本轮只核对固定字节，不解密。",
+      "sha256": "4237eaf3c1a332dacf4d864ba988011852af855cc1f247ab7009c40c0d88ca6a"
+    },
+    {
+      "kind": "synthetic-kdbx",
+      "path": "tests/fixtures/kdbx/g31-keyraw32.kdbx",
+      "reason": "既有公开合成样本；来源及凭据登记见 tests/fixtures/kdbx/manifest.json；本轮只核对固定字节，不解密。",
+      "sha256": "86e3dbbe7c5e5040b356417dde502d84871eed3c2794dbacb974700dfd7c8e2e"
+    },
+    {
+      "kind": "synthetic-key",
+      "path": "tests/fixtures/kdbx/g31-keyraw32.key",
+      "reason": "既有公开合成样本；来源及凭据登记见 tests/fixtures/kdbx/manifest.json；本轮只核对固定字节，不解密。",
+      "sha256": "3fcd114e503641405663981a8faa8a42477030c0366214765973ee0568e276ff"
+    },
+    {
+      "kind": "synthetic-kdbx",
+      "path": "tests/fixtures/kdbx/g31-keyxml.kdbx",
+      "reason": "既有公开合成样本；来源及凭据登记见 tests/fixtures/kdbx/manifest.json；本轮只核对固定字节，不解密。",
+      "sha256": "48b548c87ae5a0ff2cfe05eea486d217b51c00330d0dbbb04914feefce7ac929"
+    },
+    {
+      "kind": "synthetic-key",
+      "path": "tests/fixtures/kdbx/g31-keyxml.keyx",
+      "reason": "既有公开合成样本；来源及凭据登记见 tests/fixtures/kdbx/manifest.json；本轮只核对固定字节，不解密。",
+      "sha256": "9a8368c88ab822f84ca692877dfa47734ef4d6f1671e34ea2ba07e48452c26f2"
+    },
+    {
+      "kind": "synthetic-kdbx",
+      "path": "tests/fixtures/kdbx/g31-keyxml1.kdbx",
+      "reason": "既有公开合成样本；来源及凭据登记见 tests/fixtures/kdbx/manifest.json；本轮只核对固定字节，不解密。",
+      "sha256": "9bc9d24a5d0f004f1199a075e84f19310eaf728caad299e9e4a6ba4b12878eee"
+    },
+    {
+      "kind": "synthetic-key",
+      "path": "tests/fixtures/kdbx/g31-keyxml1.key",
+      "reason": "既有公开合成样本；来源及凭据登记见 tests/fixtures/kdbx/manifest.json；本轮只核对固定字节，不解密。",
+      "sha256": "8cf73b0bb13963544219fc2a6b4308170c089300aaf46e65f718634f3c1d59a6"
+    },
+    {
+      "kind": "synthetic-kdbx",
+      "path": "tests/fixtures/kdbx/g31-rich.kdbx",
+      "reason": "既有公开合成样本；来源及凭据登记见 tests/fixtures/kdbx/manifest.json；本轮只核对固定字节，不解密。",
+      "sha256": "c719b5b4510b7b89fa3142536bce322fcda8685a9aa03c0964b9695717bbe7b7"
+    },
+    {
+      "kind": "synthetic-kdbx",
+      "path": "tests/fixtures/kdbx/g40-rich.kdbx",
+      "reason": "既有公开合成样本；来源及凭据登记见 tests/fixtures/kdbx/manifest.json；本轮只核对固定字节，不解密。",
+      "sha256": "419f2406522d7b3e16f22fcd8e40a1a97a54ee2e4e1f70a0ad8298fe239efc14"
+    },
+    {
+      "kind": "synthetic-kdbx",
+      "path": "tests/fixtures/kdbx/g41-big.kdbx",
+      "reason": "既有公开合成样本；来源及凭据登记见 tests/fixtures/kdbx/manifest.json；本轮只核对固定字节，不解密。",
+      "sha256": "f7db8f54da7dcbdf86fb155159bd079270e47c7ceb33da71e00869eac5fbede6"
+    },
+    {
+      "kind": "synthetic-kdbx",
+      "path": "tests/fixtures/kdbx/g41-cli.kdbx",
+      "reason": "既有公开合成样本；来源及凭据登记见 tests/fixtures/kdbx/manifest.json；本轮只核对固定字节，不解密。",
+      "sha256": "d0bcd7558f098731ebf724bfb21bfbaad3cb6e7d2193009c4fb8190b0edddf89"
+    },
+    {
+      "kind": "synthetic-kdbx",
+      "path": "tests/fixtures/kdbx/g41-rich.kdbx",
+      "reason": "既有公开合成样本；来源及凭据登记见 tests/fixtures/kdbx/manifest.json；本轮只核对固定字节，不解密。",
+      "sha256": "68c71f1c7896b2678799fa656ce0a5bfa5921c7703f15fe2aec6ecb88cda0f6d"
+    },
+    {
+      "kind": "synthetic-kdbx",
+      "path": "tests/fixtures/kdbx/m31-passkey-edit1.kdbx",
+      "reason": "既有公开合成样本；来源及凭据登记见 tests/fixtures/kdbx/matrix_manifest.json；本轮只核对固定字节，不解密。",
+      "sha256": "186dd1153f42976fe3f2eee2efb8a07b97680e228faf03ee2e277a10c2b1305e"
+    },
+    {
+      "kind": "synthetic-kdbx",
+      "path": "tests/fixtures/kdbx/m31-passkey-edit2.kdbx",
+      "reason": "既有公开合成样本；来源及凭据登记见 tests/fixtures/kdbx/matrix_manifest.json；本轮只核对固定字节，不解密。",
+      "sha256": "cc09bb662cb145b8590f95c60556008fdac1ecc2cc1d035cfe9f87c3cf29f32b"
+    },
+    {
+      "kind": "synthetic-kdbx",
+      "path": "tests/fixtures/kdbx/m31-passkey.kdbx",
+      "reason": "既有公开合成样本；来源及凭据登记见 tests/fixtures/kdbx/matrix_manifest.json；本轮只核对固定字节，不解密。",
+      "sha256": "3e045825f1e4f382d14a510e59225ae8874be23fd4e072d7a6f7f42afb2e19b3"
+    },
+    {
+      "kind": "synthetic-kdbx",
+      "path": "tests/fixtures/kdbx/m40-passkey-edit1.kdbx",
+      "reason": "既有公开合成样本；来源及凭据登记见 tests/fixtures/kdbx/matrix_manifest.json；本轮只核对固定字节，不解密。",
+      "sha256": "e4d281b028d1e8ccd317b987fbe4d895511bf60cb1aa19b983fe4a0621b1d121"
+    },
+    {
+      "kind": "synthetic-kdbx",
+      "path": "tests/fixtures/kdbx/m40-passkey-edit2.kdbx",
+      "reason": "既有公开合成样本；来源及凭据登记见 tests/fixtures/kdbx/matrix_manifest.json；本轮只核对固定字节，不解密。",
+      "sha256": "6202d439fab44bafe79d94444cfddaf94eb96d7e824f003ad3bd0b1edf752866"
+    },
+    {
+      "kind": "synthetic-kdbx",
+      "path": "tests/fixtures/kdbx/m40-passkey.kdbx",
+      "reason": "既有公开合成样本；来源及凭据登记见 tests/fixtures/kdbx/matrix_manifest.json；本轮只核对固定字节，不解密。",
+      "sha256": "55a2729d25412062d06e911f17a702d9a0d28888c8bc3b4ae0be11b2e965cc52"
+    },
+    {
+      "kind": "synthetic-kdbx",
+      "path": "tests/fixtures/kdbx/m41-passkey-edit1.kdbx",
+      "reason": "既有公开合成样本；来源及凭据登记见 tests/fixtures/kdbx/matrix_manifest.json；本轮只核对固定字节，不解密。",
+      "sha256": "00201776ed5e0b8c57fdf44aa6dc284735cc41da312e2d49bcf80c87f7945411"
+    },
+    {
+      "kind": "synthetic-kdbx",
+      "path": "tests/fixtures/kdbx/m41-passkey-edit2.kdbx",
+      "reason": "既有公开合成样本；来源及凭据登记见 tests/fixtures/kdbx/matrix_manifest.json；本轮只核对固定字节，不解密。",
+      "sha256": "5d8622dcc8bb33a819485832dff9504422a7b7db2f104bdf1af8921f1e92a38e"
+    },
+    {
+      "kind": "synthetic-kdbx",
+      "path": "tests/fixtures/kdbx/m41-passkey.kdbx",
+      "reason": "既有公开合成样本；来源及凭据登记见 tests/fixtures/kdbx/matrix_manifest.json；本轮只核对固定字节，不解密。",
+      "sha256": "93f4bae7173e586b4e7d8e016b7b6f4b3591345817dde9f554089cfebf365f75"
+    },
+    {
+      "kind": "synthetic-kdbx",
+      "path": "tests/fixtures/kdbx/m41-scale-1000-large-edit1.kdbx",
+      "reason": "既有公开合成样本；来源及凭据登记见 tests/fixtures/kdbx/matrix_manifest.json；本轮只核对固定字节，不解密。",
+      "sha256": "0e8d498d01f2b2d91fd5bd500532b015c93776d60442dbaa1345eba73e85a936"
+    },
+    {
+      "kind": "synthetic-kdbx",
+      "path": "tests/fixtures/kdbx/m41-scale-1000-large.kdbx",
+      "reason": "既有公开合成样本；来源及凭据登记见 tests/fixtures/kdbx/matrix_manifest.json；本轮只核对固定字节，不解密。",
+      "sha256": "df2519d724b84f05fedb2138acf1e47a14773b1174675f337a5bc6aa76b220d8"
+    },
+    {
+      "kind": "synthetic-kdbx",
+      "path": "tests/fixtures/kdbx/m41-scale-1000-small-edit1.kdbx",
+      "reason": "既有公开合成样本；来源及凭据登记见 tests/fixtures/kdbx/matrix_manifest.json；本轮只核对固定字节，不解密。",
+      "sha256": "adec03e8d567fc973632202460902ea4136cde213e1e105daf32f18c732567aa"
+    },
+    {
+      "kind": "synthetic-kdbx",
+      "path": "tests/fixtures/kdbx/m41-scale-1000-small.kdbx",
+      "reason": "既有公开合成样本；来源及凭据登记见 tests/fixtures/kdbx/matrix_manifest.json；本轮只核对固定字节，不解密。",
+      "sha256": "21aa6b212eeac37cd39c9f0409c273b2dc227da688a5e232d4964609fc7e9148"
+    },
+    {
+      "kind": "synthetic-kdbx",
+      "path": "tests/fixtures/kdbx/m41-scale-10000-large-edit1.kdbx",
+      "reason": "既有公开合成样本；来源及凭据登记见 tests/fixtures/kdbx/matrix_manifest.json；本轮只核对固定字节，不解密。",
+      "sha256": "74332fd9496369e4e28afa142756a6f99ae4b57fe03fd13c5a78e1a6c9dbab1f"
+    },
+    {
+      "kind": "synthetic-kdbx",
+      "path": "tests/fixtures/kdbx/m41-scale-10000-large.kdbx",
+      "reason": "既有公开合成样本；来源及凭据登记见 tests/fixtures/kdbx/matrix_manifest.json；本轮只核对固定字节，不解密。",
+      "sha256": "41fd45df0de86774f7388a4fd2971f9f59731cad83472eea24db8b0c05b8a1db"
+    },
+    {
+      "kind": "synthetic-kdbx",
+      "path": "tests/fixtures/kdbx/m41-scale-10000-small-edit1.kdbx",
+      "reason": "既有公开合成样本；来源及凭据登记见 tests/fixtures/kdbx/matrix_manifest.json；本轮只核对固定字节，不解密。",
+      "sha256": "2bceba686efeb60c1229122c1eedceaa88e618715618b7bbe816b876a178be53"
+    },
+    {
+      "kind": "synthetic-kdbx",
+      "path": "tests/fixtures/kdbx/m41-scale-10000-small.kdbx",
+      "reason": "既有公开合成样本；来源及凭据登记见 tests/fixtures/kdbx/matrix_manifest.json；本轮只核对固定字节，不解密。",
+      "sha256": "f09bb4b9ff14dcfaee02a7b6289b45eb55ae0f792a7f0a2d2e4cecefd17254c1"
+    },
+    {
+      "kind": "synthetic-kdbx",
+      "path": "tests/fixtures/kdbx/r-kdb1.kdbx",
+      "reason": "既有公开合成样本；来源及凭据登记见 tests/fixtures/kdbx/manifest.json；本轮只核对固定字节，不解密。",
+      "sha256": "38c0813297eb149dfccf4f7b0d8cfbff4f17f0bf0ba29fc685a98df577b270e9"
+    },
+    {
+      "kind": "synthetic-kdbx",
+      "path": "tests/fixtures/kdbx/r-not-kdbx.kdbx",
+      "reason": "既有公开合成样本；来源及凭据登记见 tests/fixtures/kdbx/manifest.json；本轮只核对固定字节，不解密。",
+      "sha256": "b690c55d8ed7723eb7c3f0202ed0cc2177303441b7483557a273ba4edaaf81e3"
+    },
+    {
+      "kind": "synthetic-kdbx",
+      "path": "tests/fixtures/kdbx/r31-aeskdf-huge.kdbx",
+      "reason": "既有公开合成样本；来源及凭据登记见 tests/fixtures/kdbx/manifest.json；本轮只核对固定字节，不解密。",
+      "sha256": "f351b674a086c9ac636b71e79747c5eda80e981388052b5ef0eb1a2bd054d104"
+    },
+    {
+      "kind": "synthetic-kdbx",
+      "path": "tests/fixtures/kdbx/r31-cipher-flip.kdbx",
+      "reason": "既有公开合成样本；来源及凭据登记见 tests/fixtures/kdbx/manifest.json；本轮只核对固定字节，不解密。",
+      "sha256": "1b9cab3e92df5725b4a97b27e5d43f008a34bf68adae16a4b779576de60764c9"
+    },
+    {
+      "kind": "synthetic-kdbx",
+      "path": "tests/fixtures/kdbx/r31-cipher-unknown.kdbx",
+      "reason": "既有公开合成样本；来源及凭据登记见 tests/fixtures/kdbx/manifest.json；本轮只核对固定字节，不解密。",
+      "sha256": "83a54fd1d3eb69464b288d6d8bf4eb7d11e240ecde4f1238c5c8574cde8009f0"
+    },
+    {
+      "kind": "synthetic-kdbx",
+      "path": "tests/fixtures/kdbx/r31-gzip-bomb.kdbx",
+      "reason": "既有公开合成样本；来源及凭据登记见 tests/fixtures/kdbx/manifest.json；本轮只核对固定字节，不解密。",
+      "sha256": "62d72f49a131e12a50fef7b535159cee0e85592c5d0e1fd5a4b05c16fde1a9a7"
+    },
+    {
+      "kind": "synthetic-kdbx",
+      "path": "tests/fixtures/kdbx/r31-headerhash-mismatch.kdbx",
+      "reason": "既有公开合成样本；来源及凭据登记见 tests/fixtures/kdbx/manifest.json；本轮只核对固定字节，不解密。",
+      "sha256": "454ea276985b2dea216460ec0661d0167ac36f13a08a64a5ec29780fcf3a764d"
+    },
+    {
+      "kind": "synthetic-kdbx",
+      "path": "tests/fixtures/kdbx/r31-headerhash-missing.kdbx",
+      "reason": "既有公开合成样本；来源及凭据登记见 tests/fixtures/kdbx/manifest.json；本轮只核对固定字节，不解密。",
+      "sha256": "e15e2966c98dc049e3a79e68985ac5519dc0e55308c2c2e70ca40e4137442f18"
+    },
+    {
+      "kind": "synthetic-kdbx",
+      "path": "tests/fixtures/kdbx/r31-trailing-aligned.kdbx",
+      "reason": "既有公开合成样本；来源及凭据登记见 tests/fixtures/kdbx/manifest.json；本轮只核对固定字节，不解密。",
+      "sha256": "5c9c26e007a325d2782078fcce96fe168cb89377c72d744256d554fbccc89a0d"
+    },
+    {
+      "kind": "synthetic-kdbx",
+      "path": "tests/fixtures/kdbx/r31-trailing.kdbx",
+      "reason": "既有公开合成样本；来源及凭据登记见 tests/fixtures/kdbx/manifest.json；本轮只核对固定字节，不解密。",
+      "sha256": "27ea05291dddf9579973bb4abf7f44da959ea1c442eccedaf8ced8e78accad82"
+    },
+    {
+      "kind": "synthetic-kdbx",
+      "path": "tests/fixtures/kdbx/r31-trunc-aligned.kdbx",
+      "reason": "既有公开合成样本；来源及凭据登记见 tests/fixtures/kdbx/manifest.json；本轮只核对固定字节，不解密。",
+      "sha256": "0642854d32706cae4178ab081a09d134c03bb0edb27961f3eb22188bc9a5f156"
+    },
+    {
+      "kind": "synthetic-kdbx",
+      "path": "tests/fixtures/kdbx/r31-trunc-half.kdbx",
+      "reason": "既有公开合成样本；来源及凭据登记见 tests/fixtures/kdbx/manifest.json；本轮只核对固定字节，不解密。",
+      "sha256": "92be5e8ed51b08a5a1cb14c00386b53aefddd712509261ff9b5efd6cbefec7b5"
+    },
+    {
+      "kind": "synthetic-kdbx",
+      "path": "tests/fixtures/kdbx/r31-trunc-header.kdbx",
+      "reason": "既有公开合成样本；来源及凭据登记见 tests/fixtures/kdbx/manifest.json；本轮只核对固定字节，不解密。",
+      "sha256": "3d283ecc5994b6105097d728b31114a88fcfeb5304b4cf26fe4f79e806e343aa"
+    },
+    {
+      "kind": "synthetic-kdbx",
+      "path": "tests/fixtures/kdbx/r31-xml-deep.kdbx",
+      "reason": "既有公开合成样本；来源及凭据登记见 tests/fixtures/kdbx/manifest.json；本轮只核对固定字节，不解密。",
+      "sha256": "5ac0ac75a964676917af7e1c4182499627c7bd9bbdfd7e7cc2aae1b55942ff13"
+    },
+    {
+      "kind": "synthetic-kdbx",
+      "path": "tests/fixtures/kdbx/r31-xml-entity.kdbx",
+      "reason": "既有公开合成样本；来源及凭据登记见 tests/fixtures/kdbx/manifest.json；本轮只核对固定字节，不解密。",
+      "sha256": "8a213e1a115f64bf9ede22dca9f971b12b2df74d71e3bc363eda29e60f94af91"
+    },
+    {
+      "kind": "synthetic-kdbx",
+      "path": "tests/fixtures/kdbx/r31-xml-external.kdbx",
+      "reason": "既有公开合成样本；来源及凭据登记见 tests/fixtures/kdbx/manifest.json；本轮只核对固定字节，不解密。",
+      "sha256": "d7008fb48c36a7d75c5f77950b9de7a8e30b5b5a9d1d37fbf73e02e309041524"
+    },
+    {
+      "kind": "synthetic-kdbx",
+      "path": "tests/fixtures/kdbx/r41-aeskdf-huge.kdbx",
+      "reason": "既有公开合成样本；来源及凭据登记见 tests/fixtures/kdbx/manifest.json；本轮只核对固定字节，不解密。",
+      "sha256": "8aafc7cb812e18930301ce6aeb976d7cc0780ab58d82b6dbc49d3de3f35a637b"
+    },
+    {
+      "kind": "synthetic-kdbx",
+      "path": "tests/fixtures/kdbx/r41-argon2-huge.kdbx",
+      "reason": "既有公开合成样本；来源及凭据登记见 tests/fixtures/kdbx/manifest.json；本轮只核对固定字节，不解密。",
+      "sha256": "cd6d20d66daa35ebe0d9221ce562ad0be39a8c1a9dfecd0f1d1205b1d238cdb2"
+    },
+    {
+      "kind": "synthetic-kdbx",
+      "path": "tests/fixtures/kdbx/r41-block-flip.kdbx",
+      "reason": "既有公开合成样本；来源及凭据登记见 tests/fixtures/kdbx/manifest.json；本轮只核对固定字节，不解密。",
+      "sha256": "e3bd91f3d0bdd3c6b74c5a076e932f3e6d95337aae5651785ae37ba3a5dc8c1d"
+    },
+    {
+      "kind": "synthetic-kdbx",
+      "path": "tests/fixtures/kdbx/r41-header-flip.kdbx",
+      "reason": "既有公开合成样本；来源及凭据登记见 tests/fixtures/kdbx/manifest.json；本轮只核对固定字节，不解密。",
+      "sha256": "88600f3551342611694a58dc6a1b3abee1721eaa7642fd7ebb2c013ef4dfe5da"
+    },
+    {
+      "kind": "synthetic-kdbx",
+      "path": "tests/fixtures/kdbx/r41-header-hmac.kdbx",
+      "reason": "既有公开合成样本；来源及凭据登记见 tests/fixtures/kdbx/manifest.json；本轮只核对固定字节，不解密。",
+      "sha256": "441af36079d7b466a06f92cfd4f87244be6f975e8e235ef9f57906f36d36c65a"
+    },
+    {
+      "kind": "synthetic-kdbx",
+      "path": "tests/fixtures/kdbx/r41-trailing.kdbx",
+      "reason": "既有公开合成样本；来源及凭据登记见 tests/fixtures/kdbx/manifest.json；本轮只核对固定字节，不解密。",
+      "sha256": "51acd7b467ab76b107333074f92d543b8dc308933d9a88638c9fd424f9ccbff0"
+    },
+    {
+      "kind": "synthetic-kdbx",
+      "path": "tests/fixtures/kdbx/r41-trunc-half.kdbx",
+      "reason": "既有公开合成样本；来源及凭据登记见 tests/fixtures/kdbx/manifest.json；本轮只核对固定字节，不解密。",
+      "sha256": "55aca2e46b55d3aab80522611be38e4380e1203ea98ae1580ba0634507575c49"
+    },
+    {
+      "kind": "synthetic-kdbx",
+      "path": "tests/fixtures/kdbx/r42-version.kdbx",
+      "reason": "既有公开合成样本；来源及凭据登记见 tests/fixtures/kdbx/manifest.json；本轮只核对固定字节，不解密。",
+      "sha256": "18e9ed5870c41c6a61eddd7fe770b33520d7f02e71f4b5a8540a72da4fb93b40"
+    },
+    {
+      "kind": "synthetic-kdbx",
+      "path": "tests/fixtures/kdbx/rs41-passkey-aes-kdf-aes.kdbx",
+      "reason": "既有公开合成样本；来源及凭据登记见 tests/fixtures/kdbx/rust_writer_manifest.json；本轮只核对固定字节，不解密。",
+      "sha256": "b86edde434a04e7ab9c62f30b5c9a89ab7dd747c21dd11a1b242c87051993df8"
+    },
+    {
+      "kind": "synthetic-kdbx",
+      "path": "tests/fixtures/kdbx/rs41-passkey-aes-kdf-chacha20.kdbx",
+      "reason": "既有公开合成样本；来源及凭据登记见 tests/fixtures/kdbx/rust_writer_manifest.json；本轮只核对固定字节，不解密。",
+      "sha256": "e82cc0473084b0a57118499d9b1eb57f4b13032cde4eb2b5f723eecce3a6cbe0"
+    },
+    {
+      "kind": "synthetic-kdbx",
+      "path": "tests/fixtures/kdbx/rs41-passkey-argon2d-aes.kdbx",
+      "reason": "既有公开合成样本；来源及凭据登记见 tests/fixtures/kdbx/rust_writer_manifest.json；本轮只核对固定字节，不解密。",
+      "sha256": "06782580f41ecee36dd64af6f97b6ab9f81581a31a571cd1b281f9df8f5c509b"
+    },
+    {
+      "kind": "synthetic-kdbx",
+      "path": "tests/fixtures/kdbx/rs41-passkey-argon2d-chacha20.kdbx",
+      "reason": "既有公开合成样本；来源及凭据登记见 tests/fixtures/kdbx/rust_writer_manifest.json；本轮只核对固定字节，不解密。",
+      "sha256": "7ddca848104ee63b61e7f1571283b700094d1b2de9c1aa483aa4e81f33e5d714"
+    },
+    {
+      "kind": "synthetic-kdbx",
+      "path": "tests/fixtures/kdbx/rs41-passkey-argon2id-aes.kdbx",
+      "reason": "既有公开合成样本；来源及凭据登记见 tests/fixtures/kdbx/rust_writer_manifest.json；本轮只核对固定字节，不解密。",
+      "sha256": "e24378c2581a0f74fec714a9ee221d74cb0e08c3d16d7a742ca1fd4d0d95635f"
+    },
+    {
+      "kind": "synthetic-kdbx",
+      "path": "tests/fixtures/kdbx/rs41-passkey-argon2id-chacha20.kdbx",
+      "reason": "既有公开合成样本；来源及凭据登记见 tests/fixtures/kdbx/rust_writer_manifest.json；本轮只核对固定字节，不解密。",
+      "sha256": "94b92a678bcc1612322126d2e784e2662632771098a55f0241d311a7338b71b2"
+    },
+    {
+      "kind": "synthetic-kdbx",
+      "path": "tests/fixtures/kdbx/rs41-vault-aes-kdf-aes.kdbx",
+      "reason": "既有公开合成样本；来源及凭据登记见 tests/fixtures/kdbx/rust_writer_manifest.json；本轮只核对固定字节，不解密。",
+      "sha256": "050879fed6aeb390ba057205861a370ef07f63d939e24909a2f240adad5ef68d"
+    },
+    {
+      "kind": "synthetic-kdbx",
+      "path": "tests/fixtures/kdbx/rs41-vault-aes-kdf-chacha20.kdbx",
+      "reason": "既有公开合成样本；来源及凭据登记见 tests/fixtures/kdbx/rust_writer_manifest.json；本轮只核对固定字节，不解密。",
+      "sha256": "9fb9b6f70f640075d32820353997f3282cb01a46d677f7bfc6f6101cfb429996"
+    },
+    {
+      "kind": "synthetic-kdbx",
+      "path": "tests/fixtures/kdbx/rs41-vault-argon2d-aes.kdbx",
+      "reason": "既有公开合成样本；来源及凭据登记见 tests/fixtures/kdbx/rust_writer_manifest.json；本轮只核对固定字节，不解密。",
+      "sha256": "0810c4ed1a9e0d24d55cda81414e8707346c01cecb6d70e5932324c74576749e"
+    },
+    {
+      "kind": "synthetic-kdbx",
+      "path": "tests/fixtures/kdbx/rs41-vault-argon2d-chacha20.kdbx",
+      "reason": "既有公开合成样本；来源及凭据登记见 tests/fixtures/kdbx/rust_writer_manifest.json；本轮只核对固定字节，不解密。",
+      "sha256": "350ed914d16dc4bdfce26c387d2d190d0dea38b117e1a6ce42a403c00c4bf2c5"
+    },
+    {
+      "kind": "synthetic-kdbx",
+      "path": "tests/fixtures/kdbx/rs41-vault-argon2id-aes.kdbx",
+      "reason": "既有公开合成样本；来源及凭据登记见 tests/fixtures/kdbx/rust_writer_manifest.json；本轮只核对固定字节，不解密。",
+      "sha256": "cd3d0166bde320842cad3c91294f8d281d64e690dc75f4881d311aaaead9fe2c"
+    },
+    {
+      "kind": "synthetic-kdbx",
+      "path": "tests/fixtures/kdbx/rs41-vault-argon2id-chacha20.kdbx",
+      "reason": "既有公开合成样本；来源及凭据登记见 tests/fixtures/kdbx/rust_writer_manifest.json；本轮只核对固定字节，不解密。",
+      "sha256": "f4e5b66d2610da4e4d223bba21d0ddaa43193fc88ef9966bdcd474048cee9c39"
+    },
+    {
+      "kind": "synthetic-kdbx",
+      "path": "tests/fixtures/kdbx/upstream_kdbxweb/AesChaCha.kdbx",
+      "reason": "既有公开合成样本；来源及凭据登记见 tests/fixtures/kdbx/upstream_kdbxweb/manifest.json；本轮只核对固定字节，不解密。",
+      "sha256": "180d1620659fce95300b3c1630cd05b6b09cc1f5035b3bbe711b9387921b3ac0"
+    },
+    {
+      "kind": "synthetic-kdbx",
+      "path": "tests/fixtures/kdbx/upstream_kdbxweb/Argon2ChaCha.kdbx",
+      "reason": "既有公开合成样本；来源及凭据登记见 tests/fixtures/kdbx/upstream_kdbxweb/manifest.json；本轮只核对固定字节，不解密。",
+      "sha256": "74dd5274c320a969443684312b57b9172ffefb26d89a5b46f6b92a9e1d851484"
+    },
+    {
+      "kind": "synthetic-kdbx",
+      "path": "tests/fixtures/kdbx/upstream_kdbxweb/Argon2id.kdbx",
+      "reason": "既有公开合成样本；来源及凭据登记见 tests/fixtures/kdbx/upstream_kdbxweb/manifest.json；本轮只核对固定字节，不解密。",
+      "sha256": "4a345f2478766541bd1f32b69a529aa33be7b3809d9e9f513ebcd01c75aad501"
+    },
+    {
+      "kind": "synthetic-key",
+      "path": "tests/fixtures/kdbx/upstream_kdbxweb/demo.key",
+      "reason": "既有公开合成样本；来源及凭据登记见 tests/fixtures/kdbx/upstream_kdbxweb/manifest.json；本轮只核对固定字节，不解密。",
+      "sha256": "17ec891318bddcea6f5800962433ec0caed59f2837b3c3bded430133cdc32521"
+    },
+    {
+      "kind": "synthetic-kdbx",
+      "path": "tests/fixtures/kdbx/v31-uncompressed.kdbx",
+      "reason": "既有公开合成样本；来源及凭据登记见 tests/fixtures/kdbx/manifest.json；本轮只核对固定字节，不解密。",
+      "sha256": "8f15f474573ad0e3161b0185e28dca15204a34c5a8f552a24abdfa0e3af1c132"
+    },
+    {
+      "kind": "synthetic-kdbx",
+      "path": "tests/fixtures/kdbx/v31-vault-edit1.kdbx",
+      "reason": "既有公开合成样本；来源及凭据登记见 tests/fixtures/kdbx/vault_manifest.json；本轮只核对固定字节，不解密。",
+      "sha256": "3e2081014e8aeba6d1db81440bf410536d330a2b743197ed658ed22834176c25"
+    },
+    {
+      "kind": "synthetic-kdbx",
+      "path": "tests/fixtures/kdbx/v31-vault-edit2.kdbx",
+      "reason": "既有公开合成样本；来源及凭据登记见 tests/fixtures/kdbx/vault_manifest.json；本轮只核对固定字节，不解密。",
+      "sha256": "d148810bf1c6a79e6141d974b4652bf352d50d25c192594e2eb2163e8ba6c55a"
+    },
+    {
+      "kind": "synthetic-kdbx",
+      "path": "tests/fixtures/kdbx/v31-vault.kdbx",
+      "reason": "既有公开合成样本；来源及凭据登记见 tests/fixtures/kdbx/vault_manifest.json；本轮只核对固定字节，不解密。",
+      "sha256": "2af993e0770ed773336392a7bc0b88ed3385427e8e76e48c847f66af4008b888"
+    },
+    {
+      "kind": "synthetic-kdbx",
+      "path": "tests/fixtures/kdbx/v40-rich-aes-uncompressed.kdbx",
+      "reason": "既有公开合成样本；来源及凭据登记见 tests/fixtures/kdbx/v4_payload_manifest.json；本轮只核对固定字节，不解密。",
+      "sha256": "c643a559e9d9a3dbfc0fd873c110cf04fe424f35332fd021122d68d176d16397"
+    },
+    {
+      "kind": "synthetic-kdbx",
+      "path": "tests/fixtures/kdbx/v40-rich-chacha20-uncompressed.kdbx",
+      "reason": "既有公开合成样本；来源及凭据登记见 tests/fixtures/kdbx/v4_payload_manifest.json；本轮只核对固定字节，不解密。",
+      "sha256": "e648542ef877b3126689708ae93583dbd922011acf36511c4c21c1dbfb1b0dac"
+    },
+    {
+      "kind": "synthetic-kdbx",
+      "path": "tests/fixtures/kdbx/v40-vault-edit1.kdbx",
+      "reason": "既有公开合成样本；来源及凭据登记见 tests/fixtures/kdbx/vault_manifest.json；本轮只核对固定字节，不解密。",
+      "sha256": "f5a0f3902a7babe68bf9f037bd69b89a3eb799f3da5d94f2527691200d9dcb94"
+    },
+    {
+      "kind": "synthetic-kdbx",
+      "path": "tests/fixtures/kdbx/v40-vault-edit2.kdbx",
+      "reason": "既有公开合成样本；来源及凭据登记见 tests/fixtures/kdbx/vault_manifest.json；本轮只核对固定字节，不解密。",
+      "sha256": "fda9c5b2910b40ec77b515632a06a5fa0fdab2e33ac0446feb4b0010f720a37b"
+    },
+    {
+      "kind": "synthetic-kdbx",
+      "path": "tests/fixtures/kdbx/v40-vault.kdbx",
+      "reason": "既有公开合成样本；来源及凭据登记见 tests/fixtures/kdbx/vault_manifest.json；本轮只核对固定字节，不解密。",
+      "sha256": "44a16bf7a1037fb42e74e8c549e6f0cf082a775e5eab2270e36cadb1fb81d461"
+    },
+    {
+      "kind": "synthetic-kdbx",
+      "path": "tests/fixtures/kdbx/v41-rich-aes-uncompressed.kdbx",
+      "reason": "既有公开合成样本；来源及凭据登记见 tests/fixtures/kdbx/v4_payload_manifest.json；本轮只核对固定字节，不解密。",
+      "sha256": "1a433a95f24a419e199bb066dcfeb4fea214219a117e790b295124de0cd90101"
+    },
+    {
+      "kind": "synthetic-kdbx",
+      "path": "tests/fixtures/kdbx/v41-rich-chacha20-uncompressed.kdbx",
+      "reason": "既有公开合成样本；来源及凭据登记见 tests/fixtures/kdbx/v4_payload_manifest.json；本轮只核对固定字节，不解密。",
+      "sha256": "17aadfa644e9dc2771b6a0e7e73a9cb4bc864bab6fd009e4945644a05f7ec9e6"
+    },
+    {
+      "kind": "synthetic-kdbx",
+      "path": "tests/fixtures/kdbx/v41-vault-edit1.kdbx",
+      "reason": "既有公开合成样本；来源及凭据登记见 tests/fixtures/kdbx/vault_manifest.json；本轮只核对固定字节，不解密。",
+      "sha256": "b1e38831a853d09fe5341b6362e98c69021b9c3d4cbc256afa02fb730bb54888"
+    },
+    {
+      "kind": "synthetic-kdbx",
+      "path": "tests/fixtures/kdbx/v41-vault-edit2.kdbx",
+      "reason": "既有公开合成样本；来源及凭据登记见 tests/fixtures/kdbx/vault_manifest.json；本轮只核对固定字节，不解密。",
+      "sha256": "b754d730b1d118ffdb764dad24a0b5ecc2afd39ff501062671e30bd6a0afe3d3"
+    },
+    {
+      "kind": "synthetic-kdbx",
+      "path": "tests/fixtures/kdbx/v41-vault.kdbx",
+      "reason": "既有公开合成样本；来源及凭据登记见 tests/fixtures/kdbx/vault_manifest.json；本轮只核对固定字节，不解密。",
+      "sha256": "1026ac34982fda2a88632fcfff66851dc6c32b9623d6be42c365ab1f46d27e82"
+    }
+  ],
+  "text_exceptions": [
+    {
+      "path": "adr/design/original-sha256.json",
+      "sha256": "8c6a848c36b1555c3165658b6da3bab007be9f984587df60444f08e67f413ffe",
+      "rules": [
+        "HexHighEntropyString"
+      ],
+      "reason": "D01 原始设计11个文件的SHA-256登记值；不是凭据。"
+    },
+    {
+      "path": "adr/design/stitch_/generator/code.html",
+      "sha256": "14b98e4f5515254762ae5d39da001fb6a186f72aa2fe08b92919e9b1c4fd0e6f",
+      "rules": [
+        "Base64HighEntropyString"
+      ],
+      "reason": "锁定原稿的uppercaseChars/lowercaseChars字符字典；已在执行端确认仅为ASCII字母集合。"
+    },
+    {
+      "path": "adr/design/stitch_/github/code.html",
+      "sha256": "f4530853e7b01b45c14c5abbaa2fada173f95012c66b4ce3ac0abf9157ae0fec",
+      "rules": [
+        "KeywordDetector"
+      ],
+      "reason": "锁定原稿的rawSecret静态演示常量；来源与original-sha256登记完全一致，不作为真实账号凭据使用。"
+    },
+    {
+      "path": "adr/design/zh-CN/ios.js",
+      "sha256": "818008fb090c22d03c10816195ebfc716ebc02b6a5da3e58cd69fc1836a47905",
+      "rules": [
+        "KeywordDetector"
+      ],
+      "reason": "iOS合成交互稿的scene、passkey状态与界面文案；仅模拟流程，没有系统凭据接入。"
+    },
+    {
+      "path": "tests/fixtures/kdbx/generate.py",
+      "sha256": "37c7a20ef10ddb5340b1bdf93ac35706f1278bcb2277d6a7348b22c809ea417f",
+      "rules": [
+        "KeywordDetector"
+      ],
+      "reason": "K002显式公开合成主密码与生成参数；来源见同目录README及manifest。"
+    },
+    {
+      "path": "tests/fixtures/kdbx/manifest.json",
+      "sha256": "996f4969b6b1fcef57245f23f855ee99350387dc05dba16e431368aa86637657",
+      "rules": [
+        "HexHighEntropyString",
+        "KeywordDetector"
+      ],
+      "reason": "原37样本的公开合成密码、样本/密钥文件摘要；原清单字节与HEAD一致。"
+    },
+    {
+      "path": "tests/fixtures/kdbx/matrix_generate.py",
+      "sha256": "d41ad83f6f026e4f0d948bc2a217ee895659eb80fd0b3045feb56218aeadc8fe",
+      "rules": [
+        "KeywordDetector"
+      ],
+      "reason": "K069明确标记的keex-synthetic合成主密码前缀。"
+    },
+    {
+      "path": "tests/fixtures/kdbx/matrix_manifest.json",
+      "sha256": "170fb86d39f792939a7f770e20b3c16cdabfb97be0b0574cc5e16ee60583fc10",
+      "rules": [
+        "Base64HighEntropyString",
+        "HexHighEntropyString",
+        "KeywordDetector"
+      ],
+      "reason": "K069已验收矩阵的文件摘要、公开合成密码和精确XML节点选择器。"
+    },
+    {
+      "path": "tests/fixtures/kdbx/rust_writer_manifest.json",
+      "sha256": "8336f1a510b6ecc6ee758116005c9375f7a117a0c5081a55efe6467589a3d78b",
+      "rules": [
+        "HexHighEntropyString",
+        "KeywordDetector"
+      ],
+      "reason": "固定参考writer的来源/输出摘要、公开合成密码；不是无损写入批准。"
+    },
+    {
+      "path": "tests/fixtures/kdbx/source.py",
+      "sha256": "573dac287a1fef2ef547e2b8c0a726119ac2a6a1584c69edd9c4eddf99803769",
+      "rules": [
+        "KeywordDetector",
+        "PrivateKeyDetector"
+      ],
+      "reason": "公开种子派生合成源；仅私钥头尾模板及公开密码，不包含真实授权密钥。"
+    },
+    {
+      "path": "tests/fixtures/kdbx/upstream_kdbxweb/manifest.json",
+      "sha256": "8a1bb3581b99a1c004563218d5bf1ae46ffe282df07080fabb15401ea8728ee8",
+      "rules": [
+        "HexHighEntropyString",
+        "KeywordDetector"
+      ],
+      "reason": "固定MIT上游公开测试原件的提交/文件摘要与公开demo密码。"
+    },
+    {
+      "path": "tests/fixtures/kdbx/v4_payload_manifest.json",
+      "sha256": "cdc4873692b394bc555944efc6188c43a69f713754e4be441105ea05e9c4fd6b",
+      "rules": [
+        "HexHighEntropyString",
+        "KeywordDetector"
+      ],
+      "reason": "278个公开合成配方的来源/输出摘要及公开源密码。"
+    },
+    {
+      "path": "tests/fixtures/kdbx/v4_payload.py",
+      "sha256": "298d78a5f684fd978747f01b29391882a69fddb2837a8d530108f04a04169864",
+      "rules": [
+        "HexHighEntropyString"
+      ],
+      "reason": "固定G40/G41公开合成源的SHA-256常量。"
+    },
+    {
+      "path": "tests/fixtures/kdbx/vault_generate.py",
+      "sha256": "2b3f2096d2c1860b0b66cffb7f9f31f785a460b78184e6368b666fb40ac603ae",
+      "rules": [
+        "Base64HighEntropyString",
+        "KeywordDetector"
+      ],
+      "reason": "精确XML元数据选择器与明确合成密码前缀。"
+    },
+    {
+      "path": "tests/fixtures/kdbx/vault_manifest.json",
+      "sha256": "42cb8a6860f07c00e4c382c9a29645fa535652d5765486fc3e78df93983b1539",
+      "rules": [
+        "Base64HighEntropyString",
+        "HexHighEntropyString",
+        "KeywordDetector"
+      ],
+      "reason": "九份已验收合成领域库的来源/输出摘要、公开密码及精确XML选择器。"
+    },
+    {
+      "path": "tests/fixtures/kdbx/vault_source.py",
+      "sha256": "a0d0ddc68b8c1dc78a101a767aa74d4d9e5402f7dcd9da191ada09f4aa3272e3",
+      "rules": [
+        "KeexEsimActivation"
+      ],
+      "reason": "保留域名上的SYNTHETIC eSIM激活文本，只作字段保留测试，不请求SM-DP+。"
+    },
+    {
+      "path": "tests/kdbx_oracle/kdbx_oracle/reader.py",
+      "sha256": "af08a30bcd38cc9e599662434a7ac5df0849a0b7ccf6a5e8e4bb27ed057bc42b",
+      "rules": [
+        "HexHighEntropyString"
+      ],
+      "reason": "KDBX算法UUID常量；分别登记已提交基础版和此前已验收增量的完整文件摘要。"
+    },
+    {
+      "path": "tests/kdbx_oracle/kdbx_oracle/reader.py",
+      "sha256": "b85f850a118472e0144250d6763e63d7e68a91dee067822ce5679417e43a4209",
+      "rules": [
+        "HexHighEntropyString"
+      ],
+      "reason": "KDBX算法UUID常量；分别登记已提交基础版和此前已验收增量的完整文件摘要。"
+    },
+    {
+      "path": "tests/kdbx_oracle/tests/test_fixtures.py",
+      "sha256": "bdcfd57fcaf1e8a7c07f64cedb959c95a35fd0f26e78c9f6e6126147f76f9501",
+      "rules": [
+        "KeywordDetector"
+      ],
+      "reason": "原K002公开合成凭据与错误密码反例。"
+    },
+    {
+      "path": "tests/kdbx_oracle/tests/test_kdf_limits.py",
+      "sha256": "e812ff63d6adbdef1ba39984ab26a835842307a5b4159cc7d2ad93d2de750a13",
+      "rules": [
+        "HexHighEntropyString"
+      ],
+      "reason": "KDF算法UUID和固定派生边界的公开十六进制测试值。"
+    },
+    {
+      "path": "tests/kdbx_oracle/tests/test_reference_writer.py",
+      "sha256": "6cc8a99ffa0c6ca6aa088af4a54ec68e6b3b8872033b6b160766c12398a67ebd",
+      "rules": [
+        "Base64HighEntropyString",
+        "HexHighEntropyString",
+        "KeywordDetector"
+      ],
+      "reason": "固定来源摘要、XML选择器和不合法公开测试密码；此前15项参考保存回归。"
+    },
+    {
+      "path": "tests/kdbx_oracle/tests/test_salsa20.py",
+      "sha256": "9c1406561faf3cacc6b84dbd5c61f530a9fffae34bb8ce94098b55b9b57d83c9",
+      "rules": [
+        "HexHighEntropyString"
+      ],
+      "reason": "公开Salsa20测试向量的十六进制常量。"
+    },
+    {
+      "path": "tests/kdbx_oracle/tests/test_upstream.py",
+      "sha256": "5ebeab9bcc49d49843e9be29a1c61573555eb77edd7fe119ea6aa7500297632e",
+      "rules": [
+        "HexHighEntropyString"
+      ],
+      "reason": "固定公开上游提交及附件的摘要常量。"
+    },
+    {
+      "path": "tests/reference_writer/Cargo.lock",
+      "sha256": "cf43b1f1a75ca9a428e29728040f53ace78104dd64cef3aa7c5c1f2158a2dfa4",
+      "rules": [
+        "HexHighEntropyString"
+      ],
+      "reason": "Cargo依赖校验和；只对这份完整锁文件摘要放行熵规则。"
+    },
+    {
+      "path": "tests/reference_writer/generate.py",
+      "sha256": "49eb60008e0a24d53c7331f4520ac493a5ffbb3f3b34ebdca9829b5d1a915e37",
+      "rules": [
+        "HexHighEntropyString"
+      ],
+      "reason": "固定keepass-rs来源提交摘要。"
+    },
+    {
+      "path": "tests/secret_scan/gate.py",
+      "sha256": "28345c7663c0ba84ccebb445275731fb0c856e0ebb27256066c97db299548f2f",
+      "rules": [
+        "HexHighEntropyString"
+      ],
+      "reason": "KDBX格式魔数的公开十六进制常量。"
+    },
+    {
+      "path": "tests/secret_scan/tests/test_backend.py",
+      "sha256": "45c0ed5b5d6b542f315b463510d60945606ad81b1bc3d58156e8410a55f9bcab",
+      "rules": [
+        "Base64HighEntropyString",
+        "BasicAuthDetector",
+        "PrivateKeyDetector"
+      ],
+      "reason": "本轮现场合成的私钥头标记、保留域BasicAuth和高熵规则反例；从不联网验证。"
+    },
+    {
+      "path": "tests/secret_scan/tests/test_gate.py",
+      "sha256": "72f4be47764044edad1f094d31261251dd6d1cd91b8b497561d819f6d97c9d59",
+      "rules": [
+        "PrivateKeyDetector"
+      ],
+      "reason": "本轮现场合成的私钥头标记；替换正文/追加标记必须使整文件豁免失效。"
+    },
+    {
+      "path": "tests/vault_domain/test_contract.py",
+      "sha256": "2d66abe400407c55152bdc03cd8da3c3f3d02fdf9ee5bd8aa520b11ba8d49b9e",
+      "rules": [
+        "KeywordDetector"
+      ],
+      "reason": "明确标为SYNTHETIC的领域未知字段测试值。"
+    },
+    {
+      "path": "tests/vault_domain/test_corpus.py",
+      "sha256": "3409502549b9fe17a47451b2b04843483cf5a3500d236035ba5bc20a2e7256de",
+      "rules": [
+        "Base64HighEntropyString"
+      ],
+      "reason": "独立语义对照使用的精确XML元数据选择器。"
+    },
+    {
+      "path": "tests/vault_domain/test_matrix_generation.py",
+      "sha256": "95e513b2f8fbff6a0c28c1154449e5ac5eb944f08b15e0c6088fa6db7d823419",
+      "rules": [
+        "HexHighEntropyString"
+      ],
+      "reason": "固定源码/清单追溯测试中的十六进制摘要。"
+    }
+  ]
+}
