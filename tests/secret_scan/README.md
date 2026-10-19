@@ -42,7 +42,7 @@ python3 -B tests/secret_scan/hooks.py uninstall
 
 `status=installed` 仅表示匹配且可执行的 hook 已在位，**不表示解释器或依赖此刻可用，也不表示已完成一次扫描**。换解释器后，默认命令可能因生成的预期路径不同而返回 `HOOK_CONFLICT`；可给 `status/uninstall` 添加 `--installed-python <原解释器绝对路径>`，它只用于逐字核对旧启动器，不会执行该路径。撤销后用当前解释器重新安装。原路径可在本机查看自有 hook；不要复制个人路径到工单。
 
-支持普通非 bare 仓库、仓库内真实 `.git` 目录与 POSIX hook；linked worktree、独立 git-dir、目录/文件符号链接及其他平台尚不支持。启动器固定安装时的 Python 路径，正确引用空格与单引号；相对扫描入口允许移动整个仓库。Python 使用 `-I -S -B`，不加载用户 site、环境 Python 路径或 site 初始化文件，不写字节码。
+支持普通非 bare 仓库、仓库内真实 `.git` 目录与 POSIX hook；linked worktree、独立 git-dir、Git/hooks/扫描入口上的符号链接及其他平台尚不支持。启动器固定安装时的 Python 路径，正确引用空格与单引号；相对扫描入口允许移动整个仓库。Python 使用 `-I -S -B`，不加载用户 site、环境 Python 路径或 site 初始化文件，不写字节码。
 
 提交入口保留 Git 传入的 `GIT_INDEX_FILE`，因此普通提交、`--only`、`-a` 及备用 index 都扫描 Git 为**这次提交**准备的完整树。policy 来自同一个 index；未暂存的 policy 放宽不能影响结果。入口在扫描前后核对 `commit_hook.py`、`backend.py`、`gate.py`、`snapshot.py` 和 `requirements.lock` 的工作树字节与该 index 一致；修改这些文件时需准确暂存同一版本。
 
@@ -61,6 +61,10 @@ python3 -B tests/secret_scan/hooks.py uninstall
 每个新克隆都需显式安装；**CI 尚未启用**。范围是会调用 pre-commit 的 `git commit`，不覆盖所有自动 merge、rebase、cherry-pick 或其它生成提交的路径。用户可用 `--no-verify`、配置或修改/删除 hook 绕过它，所以这不是服务端强制门禁，也不抵御恶意本机代码。依赖、扫描代码和 policy 的修改本身仍需审查。
 
 Git 行为依据：[githooks](https://git-scm.com/docs/githooks)、[core.hooksPath](https://git-scm.com/docs/git-config#Documentation/git-config.txt-corehooksPath)、[git commit](https://git-scm.com/docs/git-commit)。验证范围仍为 CPython 3.12 / macOS arm64。
+
+## 扫描结果
+
+下表为 `scan.py` 和 `commit_hook.py` 的退出码；`hooks.py` 的退出码 0 只表示管理操作完成，需查看其 JSON `status`。
 
 | 退出码 | 含义 | 处理 |
 | --- | --- | --- |
