@@ -28,7 +28,39 @@ python3 -B tests/secret_scan/scan.py --worktree
 
 第二条用于提前检查当前工作树：范围是 tracked 文件及未被忽略的 untracked 文件。读取时拒绝符号链接，并在结束前再次核对内容摘要和文件列表。工作树不是原子快照，这条命令不能替代提交前的 index 检查。
 
-**尚未自动安装 Git hook 或启用 CI。** 上述命令需要主动运行；未运行扫描的提交不会因此被自动阻止。依赖、扫描代码和 policy 的修改本身也需要审查。
+## 启用本仓库的提交钩子
+
+安装完固定依赖后，可让普通 `git commit` 自动调用扫描器：
+
+~~~sh
+python3 -B tests/secret_scan/hooks.py install
+python3 -B tests/secret_scan/hooks.py status
+python3 -B tests/secret_scan/hooks.py uninstall
+~~~
+
+`install` 只创建本仓库的 `.git/hooks/pre-commit`，不改任何 Git 配置。它先验证入口和依赖能够初始化；只要有效的 `core.hooksPath` 已配置（包括全局、环境覆盖和空值），或已有不同的 pre-commit，就拒绝安装。其他 hooks 保留。重复安装相同版本不会重写文件，发布时不覆盖并发创建的文件；`uninstall` 只删除逐字匹配、身份未变的自有普通文件，不依赖扫描器或其依赖还能运行。
+
+`status=installed` 仅表示匹配且可执行的 hook 已在位，**不表示解释器或依赖此刻可用，也不表示已完成一次扫描**。换解释器后，默认命令可能因生成的预期路径不同而返回 `HOOK_CONFLICT`；可给 `status/uninstall` 添加 `--installed-python <原解释器绝对路径>`，它只用于逐字核对旧启动器，不会执行该路径。撤销后用当前解释器重新安装。原路径可在本机查看自有 hook；不要复制个人路径到工单。
+
+支持普通非 bare 仓库、仓库内真实 `.git` 目录与 POSIX hook；linked worktree、独立 git-dir、目录/文件符号链接及其他平台尚不支持。启动器固定安装时的 Python 路径，正确引用空格与单引号；相对扫描入口允许移动整个仓库。Python 使用 `-I -S -B`，不加载用户 site、环境 Python 路径或 site 初始化文件，不写字节码。
+
+提交入口保留 Git 传入的 `GIT_INDEX_FILE`，因此普通提交、`--only`、`-a` 及备用 index 都扫描 Git 为**这次提交**准备的完整树。policy 来自同一个 index；未暂存的 policy 放宽不能影响结果。入口在扫描前后核对 `commit_hook.py`、`backend.py`、`gate.py`、`snapshot.py` 和 `requirements.lock` 的工作树字节与该 index 一致；修改这些文件时需准确暂存同一版本。
+
+缺依赖、缺入口、源码不匹配或无法完成扫描都会阻断。入口及第三方的原始输出会被抑制，启动器对无法启动等失败追加固定的 `HOOK_ABORTED` 提示。Git 自己和其他 hooks 的输出不在本工具的脱敏范围内。
+
+| 固定码 | 处理 |
+| --- | --- |
+| HOOKS_PATH_CONFIGURED | 本机已有 hook 路径配置；保留它，在既有提交流程中人工接入扫描，不自动覆盖 |
+| HOOK_CONFLICT / HOOK_CHANGED | hook 不同或在操作期间变化；先在本机核对，安装器不会覆盖、拼接或删除它 |
+| HOOK_NOT_EXECUTABLE | 自有 hook 缺执行权限；核对后撤销并重新安装 |
+| HOOK_SOURCE_MISMATCH | 扫描源码与本次 index 不一致；准确暂存同一版本后重跑 |
+| HOOK_ENTRY / HOOK_RUNTIME / DETECTOR_INIT | 检查入口、固定解释器和项目内依赖；不自动下载或回退 |
+| GIT_LAYOUT / HOOK_OPERATION_FAILED / HOOK_SCAN_FAILED | 检查仓库布局、文件访问及入口完整性；未完成即失败 |
+| HOOK_ABORTED | 提交前扫描未通过或无法启动；结合前面的受控报告检查原因 |
+
+每个新克隆都需显式安装；**CI 尚未启用**。范围是会调用 pre-commit 的 `git commit`，不覆盖所有自动 merge、rebase、cherry-pick 或其它生成提交的路径。用户可用 `--no-verify`、配置或修改/删除 hook 绕过它，所以这不是服务端强制门禁，也不抵御恶意本机代码。依赖、扫描代码和 policy 的修改本身仍需审查。
+
+Git 行为依据：[githooks](https://git-scm.com/docs/githooks)、[core.hooksPath](https://git-scm.com/docs/git-config#Documentation/git-config.txt-corehooksPath)、[git commit](https://git-scm.com/docs/git-commit)。验证范围仍为 CPython 3.12 / macOS arm64。
 
 | 退出码 | 含义 | 处理 |
 | --- | --- | --- |
@@ -84,5 +116,5 @@ detect-secrets 1.5.0 发布于 2024-05-06，固定 tag 对应提交 `01886c8a910
 - Base64/Hex 熵阈值分别为 4.5/3.0，使用普通带引号模式。它们是启发式规则，存在误报与漏报。
 - `PrivateKeyDetector` 只识别头标记；该版本部分令牌正则只返回捕获组。因此库里的候选摘要不能作为文件内容身份。调用方应用 `allowed_rules` 前，必须核对**确切路径和整文件 SHA-256**，不能只匹配一个私钥头或令牌前缀。
 - 普通规则扫描无法证明合成来源，也不能覆盖任意编码、多行拼接、自由文字 PII、图片、归档或隐写。人工审查与真实数据规则仍适用。
-- 54 项测试（16 后端、38 门禁）覆盖正常/拒绝路径、预算、快照变化及错误脱敏。规则仍有误报和漏报；这不是生产密码学、无损 writer 或人工独立审查证据。
+- 89 项测试（16 后端、38 门禁、35 hook）覆盖正常/拒绝路径、预算、快照变化、真实 Git 提交、安装/撤销保护及错误脱敏。规则仍有误报和漏报；这不是生产密码学、无损 writer 或人工独立审查证据。
 - 不扫描 Git 历史、其他分支、忽略的未跟踪文件、仓库外文件或编辑器缓存；已批准设计二进制只核对整体身份，不检查内部图像/归档。通过结果不提升 L0，也不表示这些位置无秘密。
