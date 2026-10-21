@@ -55,18 +55,18 @@ SSH 代理、浏览器扩展填充、全局自动输入在 Android/iOS 上都是
 | 能力 | Android | iOS | 验证任务 |
 | --- | --- | --- | --- |
 | 打开外部库文件 | SAF + 持久化 URI 授权 | 文件选择器 + security-scoped URL；扩展能否访问需实测（[ADR-0002 §3](0002-mobile-credentials.md)） | K013 |
-| 快速解锁 | Keystore 密钥要求 `AUTH_BIOMETRIC_STRONG`、经 `CryptoObject` 使用；`KeyInfo` 显示不在安全硬件里的设备**不支持**（[THREAT_MODEL.md](THREAT_MODEL.md) T2） | data protection keychain + `ThisDeviceOnly` + Face ID/Touch ID，`.biometryCurrentSet` | K018 |
+| 快速解锁 | Keystore 密钥要求 `AUTH_BIOMETRIC_STRONG`、经 `CryptoObject` 使用；`KeyInfo.getSecurityLevel()`（API 31+，旧版回退已弃用的 `isInsideSecureHardware()`）显示不在 TEE/StrongBox 里的设备**不支持**（[THREAT_MODEL.md](THREAT_MODEL.md) T2） | data protection keychain + `ThisDeviceOnly` + Face ID/Touch ID，`.biometryCurrentSet` | K018 |
 | 系统事件触发锁库（锁屏、切后台） | 有 | 有 | K019 |
 | 剪贴板敏感标记 | Android 13+ `ClipDescription.EXTRA_IS_SENSITIVE`，隐藏剪贴板预览 | `UIPasteboard` 的 `.localOnly`（不进通用剪贴板）和 `.expirationDate` | K019 |
 | 截图/录屏防护 | `FLAG_SECURE` 阻止截图和不安全显示；Android 14 可检测截图，15 可检测录屏 | **不能阻止截图**；可检测录屏并遮挡内容 | K019 |
 | 任务预览遮挡 | `FLAG_SECURE` 或 `setRecentsScreenshotEnabled(false)`（Android 13+） | 进入后台前盖上遮罩视图 | K019 |
-| 对普通无障碍服务隐藏秘密 | Android 14+ `setAccessibilityDataSensitive`：没声明为无障碍工具的服务既读不到也点不了被标记的控件（TalkBack 这类工具不受影响）。“是不是工具”由服务自己声明，靠 Play 审核和 Play Protect 约束，没有 Google 服务的机型基本没有这层约束。Google 2025-12 博客把它当 Android 16 的防护介绍，并说设了 `filterTouchesWhenObscured` 的控件会自动按敏感处理（没写从哪个版本起），和 API 34 的说法有出入，待 K019 实测。Flutter 是单一视图渲染，能否按控件生效也待实测 | 不适用：第三方 App 不能像 Android 那样读取别的 App 的界面 | K019 |
-| 防悬浮窗诱导点击 | `filterTouchesWhenObscured`；Android 12+ `setHideOverlayWindows(true)` 隐藏其他应用的悬浮窗（需 `HIDE_OVERLAY_WINDOWS` 权限）。无障碍服务自己的覆盖层是否也被隐藏，没找到一手文档，待 K019 实测 | 不适用：系统不允许第三方悬浮窗 | K019 |
+| 对普通无障碍服务隐藏秘密 | Android 14+ `setAccessibilityDataSensitive`：没声明为无障碍工具的服务既读不到也点不了被标记的控件（TalkBack 这类工具不受影响）。“是不是工具”由服务自己声明，靠 Play 审核和 Play Protect 约束，没有 Google 服务的机型基本没有这层约束。API 34 起，设了 `filterTouchesWhenObscured` 的控件在默认的 AUTO 模式下自动算敏感（AOSP android14 `View.java` 原话 “Views that set filterTouchesWhenObscured default to accessibilityDataSensitive”）；Google 2025-12 博客把它当 Android 16 的防护介绍，是博客不严谨，不是版本差异。Flutter 是单一视图渲染，能否按控件生效也待实测 | 不适用：第三方 App 不能像 Android 那样读取别的 App 的界面 | K019 |
+| 防悬浮窗诱导点击 | `filterTouchesWhenObscured`；Android 12+ `setHideOverlayWindows(true)` 隐藏其他应用的悬浮窗（需 `HIDE_OVERLAY_WINDOWS` 权限）。无障碍服务自己的覆盖层不在隐藏范围（AOSP 源码只隐藏系统悬浮窗类型和 Toast，见 THREAT_MODEL），K019 真机确认 | 不适用：系统不允许第三方悬浮窗 | K019 |
 | 主密码输入不经第三方输入法 | **不支持**：不能强制使用系统输入法；`IME_FLAG_NO_PERSONALIZED_LEARNING` 只防输入法“学习”，不防恶意输入法 | 安全文本框上系统强制使用系统键盘。另可在整个 App 里禁用第三方键盘（`application(_:shouldAllowExtensionPointIdentifier:)` 拒绝 `.keyboard`），代价是用户的输入法在 keex 里都不能用，只做可选项 | K019 |
 | 系统密码自动填充 | AutofillService API 26+；键盘内候选 API 30+；API 34+ 另有 Credential Provider | 凭据提供者扩展，iOS 12+；产品基线 iOS 17+（ADR-0002） | K007、K008、K048、K049 |
 | 系统通行密钥提供者 | API 34+ `CredentialProviderService` | iOS 17+ | K007、K008、K052、K053 |
 | 系统动态口令填充 | 没有和 iOS 对等的入口；Autofill 遇到标了验证码提示的字段时尽力填充，不宣称对等（ADR-0002） | iOS 18+，增强项 | M22 |
-| 管理器间凭据交换 | Credential Transfer「待核」 | iOS 26+ | M23 |
+| 管理器间凭据交换 | Jetpack Credentials Transfer：Android 8+、仅同设备、CXF，2026-10 为 1.0.0-beta01 | iOS 26+ | M23 |
 
 ## 3. 未来桌面（资料，不在当前范围）
 

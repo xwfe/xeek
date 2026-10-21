@@ -96,14 +96,14 @@ A7 最容易被忽略：攻击者不需要拿到私钥或密码，只要能让 k
 
 | 拿走时 | 攻击者手里有 | 承诺 | 不承诺 |
 | --- | --- | --- | --- |
-| 关机或设备锁屏，keex 已锁 | 磁盘上的密文；系统安全存储里的快速解锁材料 | 不经主密码或设备认证打不开；keex 不往磁盘写明文缓存、明文搜索索引、敏感页面的任务快照；快速解锁材料由**硬件绑定密钥**封装，不能被拷出来离线猜。算硬件绑定的条件：Apple 用 data protection keychain 加 `ThisDeviceOnly` 访问级别（否则会进加密备份、跟着迁机）；Android 的 Keystore 密钥要求 `AUTH_BIOMETRIC_STRONG`、经 `CryptoObject` 使用，并用 `KeyInfo` 确认在安全硬件里。**达不到的设备不提供快速解锁**（AC-SECRET）。【桌面】Windows Hello 要有 TPM 支撑；Linux Secret Service、仅用 DPAPI、没有 TPM 的 Windows Hello 都只是软件封装，拿到磁盘就能按系统登录密码离线猜，会话解锁后同用户进程还能直接读出 | 取证工具利用系统漏洞绕过锁屏（归 T5） |
+| 关机或设备锁屏，keex 已锁 | 磁盘上的密文；系统安全存储里的快速解锁材料 | 不经主密码或设备认证打不开；keex 不往磁盘写明文缓存、明文搜索索引、敏感页面的任务快照；快速解锁材料由**硬件绑定密钥**封装，不能被拷出来离线猜。算硬件绑定的条件：Apple 用 data protection keychain 加 `ThisDeviceOnly` 访问级别（否则会进加密备份、跟着迁机）；Android 的 Keystore 密钥要求 `AUTH_BIOMETRIC_STRONG`、经 `CryptoObject` 使用，并确认在安全硬件里（API 31+ 用 `KeyInfo.getSecurityLevel()` 只接受 TEE/StrongBox；`isInsideSecureHardware()` 已弃用，仅 API 30 及以下回退使用）。**达不到的设备不提供快速解锁**（AC-SECRET）。【桌面】Windows Hello 要有 TPM 支撑；Linux Secret Service、仅用 DPAPI、没有 TPM 的 Windows Hello 都只是软件封装，拿到磁盘就能按系统登录密码离线猜，会话解锁后同用户进程还能直接读出 | 取证工具利用系统漏洞绕过锁屏（归 T5） |
 | 设备已解锁，keex 已锁 | 上面全部，外加能操作设备 | 进 keex 和响应系统凭据请求都要再认证 | 见下方“设备密码与重新录入” |
 | 设备已解锁，keex 未锁 | 屏幕上能看到的一切 | 闲置、切后台、系统锁屏后自动锁库（K019）；秘密默认遮罩 | 自动锁库之前能看、能复制、能填充的内容 |
 
 **设备密码与重新录入**：知道设备锁屏密码的人有两条路打开快速解锁——直接用设备密码回退，或者先在系统设置里录入自己的指纹或面容。所以“不允许设备密码回退”只有同时绑定“当前已录入的生物特征集合”才成立：
 
 - iOS/macOS：Keychain 访问控制用 `.biometryCurrentSet`。
-- Android：密钥设 `setInvalidatedByBiometricEnrollment(true)`，并只接受 `BIOMETRIC_STRONG`。
+- Android：密钥设 `setInvalidatedByBiometricEnrollment(true)`，并用 `setUserAuthenticationParameters(0, AUTH_BIOMETRIC_STRONG)`，即每次使用都认证。前提别漏：官方说明这项失效只对**没有设正数有效期**的密钥生效；设了 N 秒有效期，新录入指纹后密钥不会失效，本条承诺就不成立。
 - 【桌面】Windows Hello：能否禁止 PIN 回退、新增指纹会不会让密钥失效，待实测。确认之前一律按“PIN 始终可以回退”对待。
 
 K018 必须选定方案并在设置页写清后果：允许回退，就等于“知道你设备锁屏密码的人能开库”。
@@ -153,7 +153,7 @@ K018 必须选定方案并在设置页写清后果：允许回退，就等于“
 **不承诺**：
 
 - Android 上已获无障碍权限、且声明为无障碍工具的恶意服务（Android 14 以下则是任何无障碍服务）读屏幕和代点。“是不是工具”是服务自己声明的，只靠 Google Play 审核和 Play Protect 约束；没有 Google 服务的国内机型基本没有这层约束。说白了：用户给了恶意 App 无障碍权限，它基本能看到用户看到的一切。
-- 无障碍服务自己的覆盖层会不会被“隐藏其他应用的悬浮窗”一起隐藏，没找到一手文档，K019 实测前按“不会”对待。
+- 无障碍服务自己的覆盖层**不会**被“隐藏其他应用的悬浮窗”一起隐藏：AOSP android14 源码中 `setHideOverlayWindows` 只隐藏系统悬浮窗类型（TYPE_APPLICATION_OVERLAY 等）和 TYPE_TOAST，不含 TYPE_ACCESSIBILITY_OVERLAY（`WindowManager.isSystemAlertWindowType`、`WindowState.setForceHideNonSystemOverlayWindowIfNeeded`）。K019 只做真机确认。
 - 已获通知使用权的 App 读到其他 App（包括网站和银行发来的验证码短信）的通知。
 - Android 上恶意输入法记下主密码；iOS 上第三方键盘看到普通文本框里输入的秘密。
 
@@ -329,7 +329,7 @@ keex 不宣传能防住它们，也不把“越狱/Root 检测”当安全措施
 
 ## 6. 隐私：不是秘密，但不该外泄
 
-- **系统凭据索引**只放显示候选所需的最少信息（账户名、RP ID），不放密码、OTP seed、私钥、主密码或同步令牌。开启时告诉用户这些会进系统索引；停用库时清理（[ADR-0002](0002-mobile-credentials.md)）。
+- **系统凭据索引**只放显示候选所需的最少信息：账户名、RP ID，以及 iOS Passkey 候选必填的 credentialID 和 userHandle（userHandle 可能是邮箱或账号 ID），不放密码、OTP seed、私钥、主密码或同步令牌。开启时告诉用户这些会进系统索引；停用库时清理（[ADR-0002](0002-mobile-credentials.md)）。
 - **日志**默认只记事件码、耗时、字节数。本文件提议：本地日志也不写条目标题、URL、用户名、RP ID 和库文件名，调试模式的例外由 K010 定义且仍不得含秘密。
 - **崩溃报告和统计**：keex 自己的默认没有，以后要加必须用户主动开启且不含库内容。系统自带的崩溃上报（Apple 诊断、Windows 错误报告、Android 厂商上报）由系统决定；keex 尽量把自己排除在外（见 T4），但不承诺完全关掉。
 - **网站图标**默认不联网获取——每拉一次图标，就等于告诉图标服务“这个人在用哪个网站”。

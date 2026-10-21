@@ -56,7 +56,9 @@ KDBX 保持唯一权威凭据格式。主程序维护本地可用文件、加密
 
 简单 `PUT .../content` 文档未列出 If-Match 请求契约；不能仅给 SDK 添个 header 就认为有完整 CAS 保证。Upload Session 明确提供创建时版本条件，但会话创建时检查通过不自动证明最终提交时仍检查同一基线。[R10,R11]
 
-优先验证官方有条件的提交路径，包括适用账号的延迟提交；个人版与 Business 的完成方式分别实现，不混用。关键反例必须执行：A 基于 v1 创建上传会话 → B 写入 v2 → A 完成上传。只有 A 最终拒绝旧基线或进入无覆盖冲突结果，才能开放自动替换。
+官方 createUploadSession 文档另有一条**带条件的最终提交**路径：向条目路径发 PUT，请求体带 `@microsoft.graph.sourceUrl`（上传会话 URL），文档写明这次调用可照常使用 `if-match`（Example 7）。`deferCommit: true` 的完成方式按账号区分：个人版用的正是这种 PUT；Business/SharePoint 是向 uploadUrl 发零长度 POST，文档没写它能带条件（Example 4）。
+
+优先验证个人版“deferCommit + 带 If-Match 的 sourceUrl 提交”；Business 的零长度 POST 单独测，测不出最终条件就按无可靠 CAS 处理。两种完成方式分别实现，不混用。关键反例必须执行：A 基于 v1 创建上传会话 → B 写入 v2 → A 完成上传。只有 A 最终拒绝旧基线或进入无覆盖冲突结果，才能开放自动替换。
 
 尚不能证明最终条件替换安全时：保留原远端，上传可独立打开的新版本/冲突 KDBX，进入显式解决流程，或暂停上传；不以先 GET 再无条件 PUT 的方式伪装安全。辅助元数据不能成为唯有 keex 才能打开的另一种权威密码库格式。
 

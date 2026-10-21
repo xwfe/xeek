@@ -12,7 +12,7 @@
 | 通行密钥提供者 | iOS 17+ AuthenticationServices | Android 14/API 34+ CredentialProviderService | 创建、存储、识别、签名与取消 |
 | 动态口令系统填充 | iOS 18+ 可做增强 | 依赖实际请求/字段能力，不宣称全系统对等入口 | 受保护 seed、时间边界与复制/填充策略 |
 | 自动升级为通行密钥 | iOS 18+ 条件注册增强 | 按平台支持另评估 | 不替代基础注册；不能未经条件验证静默创建 |
-| 管理器间凭据迁移 | iOS 26+ 系统交换增强候选 | Credential Transfer/Provider Events 独立候选 | 一次迁移，不等于云同步或任意读取别家密码 |
+| 管理器间凭据迁移 | iOS 26+ 系统交换增强候选 | Jetpack Credentials Transfer（providerevents）：Android 8+、仅同设备、CXF 格式，2026-10 仍为 beta | 一次迁移，不等于云同步或任意读取别家密码 |
 
 版本是对应 API 的可用范围，不是已发布支持承诺。建议首批完整 iOS 产品以 17+ 为设计基线；是否同时提供较旧系统的密码-only 版本，由 K008 实验和维护成本决定。Android Autofill 与新 Credential Provider 的平台下限分别登记，不能把调用其他管理器的 Passkey 客户端兼容范围当成本应用 provider 的范围。[R03–R06,R17,R18]
 
@@ -42,7 +42,7 @@ Rust 核心应可产出 Swift/Kotlin 可调用的库，原生扩展不能依赖 
 
 处理路径包括：密码候选列表、无交互请求、需要交互的解锁/选择、Passkey 注册与断言、用户取消、缺失条目、只读库和资源不足。无交互请求无法满足授权时返回 `userInteractionRequired`，不是自行弹一个不受系统管理的认证框。最终只调用相应的系统 complete/cancel 入口一次。
 
-`ASCredentialIdentityStore` 是系统候选索引，不是存储私钥的地方。拟定索引标识为本机 `VaultBindingId + EntryUUID + CredentialID摘要`；它不是网站认证所用的 credentialId。密码、OTP seed、PEM、主密码及云令牌绝不进入该索引。账户名、RP ID 等虽不是私钥，仍有隐私价值：开启候选提示需说明，停用/移除库要清理，锁定时展示程度按用户隐私策略控制。
+`ASCredentialIdentityStore` 是系统候选索引，不是存储私钥的地方。拟定索引标识为本机 `VaultBindingId + EntryUUID + CredentialID摘要`；它不是网站认证所用的 credentialId。密码、OTP seed、PEM、主密码及云令牌绝不进入该索引。注意 Passkey 候选 `ASPasskeyCredentialIdentity`（iOS 17+）的构造参数**必须**带 `credentialID` 和 `userHandle`（`init(relyingPartyIdentifier:userName:credentialID:userHandle:recordIdentifier:)`），有的网站拿邮箱或账号 ID 当 userHandle。所以进系统索引的是账户名、RP ID、credentialID、userHandle 和 keex 自己的 recordIdentifier；它们虽不是私钥，仍有隐私价值：开启候选提示需说明，停用/移除库要清理，锁定时展示程度按用户隐私策略控制。
 
 索引更新在本地事务提交后进行；编辑、导入、同步合并、恢复、删除、主库解绑都标记 index dirty。更新失败保留可恢复状态，下次重建。每次系统请求仍从已授权的当前库校验记录和版本，不把过期索引直接当作凭据授权。系统传入的 service identifiers 是建议排序线索，不能替代真正的 Passkey 请求参数与系统信任边界。[R04]
 

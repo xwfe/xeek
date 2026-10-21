@@ -40,9 +40,9 @@ KDBX 本身不定义统一的 Passkey 条目类型。Monica、KeePassXC 等源�
 | 凭据 ID | `KPEX_PASSKEY_CREDENTIAL_ID` | 规范化为字节；兼容编码是表示层，不可改变身份 |
 | 用户句柄 | `KPEX_PASSKEY_USER_HANDLE` | 不透明字节，不能替换成邮箱；受保护存储策略 |
 | 软件私钥 | `KPEX_PASSKEY_PRIVATE_KEY_PEM` | 正确解析 PKCS#8/算法，Protected；不传给普通 UI 字段编辑器 |
-| 备份标志 | `KPEX_PASSKEY_FLAG_BE` / `KPEX_PASSKEY_FLAG_BS` | 按规范与导入来源处理；不是“绿色同步图标”的直接拷贝 |
+| 备份标志 | `KPEX_PASSKEY_FLAG_BE` / `KPEX_PASSKEY_FLAG_BS` | 按规范与导入来源处理；不是“绿色同步图标”的直接拷贝。**字段缺失时不能套用任何一个客户端的默认值**：KeePassXC 2.7.11 注册时内部用 BE=BS=0 且不写这两个字段，2.7.12 改为写 1，断言时缺字段也按 1 处理；WebAuthn L3 规定 BE 创建后不可变、RP 会核对。推断不出创建版本就进只读识别 |
 
-旧客户端还可能出现 `KPXC_PASSKEY_USERNAME`、`KPEX_PASSKEY_GENERATED_USER_ID` 和不同 marker。不能仅凭名字把 GENERATED_USER_ID 当作 userHandle；要按来源实现解码 profile。新写遵循验证过的现代映射，旧数据保留别名及其关系；冲突或未知编码进入只读识别状态，不以猜测的 normalize 后回写。[R15]
+`KPEX_PASSKEY_GENERATED_USER_ID` 和 `KPXC_PASSKEY_USERNAME` 是 KeePassXC 为兼容 StrongBox 读取的字段（2.7.12 源码注释原话 “For compatibility with StrongBox”），不是“旧客户端残留”。KeePassXC 把 GENERATED_USER_ID 当 **credentialId** 用，存在时优先于 `KPEX_PASSKEY_CREDENTIAL_ID`；`KPXC_PASSKEY_USERNAME` 是显示用户名，优先于 `KPEX_PASSKEY_USERNAME`。所以绝不能把 GENERATED_USER_ID 当作 userHandle；另外 KeePassXC 只按 `KPEX_PASSKEY` 前缀判断条目是否为 Passkey。要按来源实现解码 profile。新写遵循验证过的现代映射，旧数据保留别名及其关系；冲突或未知编码进入只读识别状态，不以猜测的 normalize 后回写。[R15]
 
 分类检测与实际可用性分开：遇到某个 KPEX 字段可归入“疑似通行密钥”；只有私钥可解析、算法可用、ID/handle/RP 等参数一致，才成为可签名候选。私钥不存在的外部硬件引用只能说明用途，不声称导入成功。
 
@@ -58,7 +58,7 @@ KDBX 本身不定义统一的 Passkey 条目类型。Monica、KeePassXC 等源�
 
 跨设备可用的软件 Passkey 需要把可恢复的私钥材料保护在 KDBX 内。Secure Enclave/Keystore 的不可导出设备 key alias 不能作为跨设备的私钥内容；OS 密钥可以保护本机解锁材料，但不能用“同步了 alias”声称另一台设备可以签名。
 
-共享认证器候选优先评估 `1Password/passkey-rs` 的 authenticator 与 CredentialStore 抽象；自定义存储接 KDBX，平台桥接提供已验证的请求。不是把供网站服务器验证登录用的库直接当作密码管理器签名器。候选算法、输入 hash 支持、授权回调、存储事务和许可证必须逐项 POC；未实现算法不在 UI 标支持。[R16]
+共享认证器候选优先评估 `1Password/passkey-rs` 的 authenticator 与 CredentialStore 抽象；自定义存储接 KDBX，平台桥接提供已验证的请求。不是把供网站服务器验证登录用的库直接当作密码管理器签名器。候选算法、输入 hash 支持、授权回调、存储事务和许可证必须逐项 POC；未实现算法不在 UI 标支持。已知限制：passkey-rs 的 Authenticator 目前只支持 ES256（README “Current Limitations”），而 KeePassXC 会生成 ES256、EdDSA、RS256 三种；采用它就必须补 EdDSA/RS256，或把这两类凭据标为只读识别，M16 按此验收。[R16]
 
 ## 5. 创建、使用与系统识别
 
@@ -72,7 +72,7 @@ KDBX 本身不定义统一的 Passkey 条目类型。Monica、KeePassXC 等源�
 
 ## 6. 凭据交换、导出与兼容矩阵
 
-FIDO CXF/系统 Credential Exchange 是可选迁移通道，不替代 KDBX 同步。Apple iOS26 与 Android Credential Transfer 的能力和 SDK 成熟度单列；用户选择、设备认证、受信任对端、临时数据范围、原子导入与失败恢复都验证后再开放。[R17,R18]
+FIDO CXF/系统 Credential Exchange 是可选迁移通道，不替代 KDBX 同步。Apple iOS26 与 Android Credential Transfer 的能力和 SDK 成熟度单列；Android 侧是 Jetpack `androidx.credentials.providerevents`，官方说明为 Android 8（API 26）起、**仅同一设备**上的提供者之间迁移，格式为 FIDO CXF，截至 2026-10-22 最新为 1.0.0-beta01（无稳定版），另有 play-services 组件，Play 服务依赖待实测；用户选择、设备认证、受信任对端、临时数据范围、原子导入与失败恢复都验证后再开放。[R17,R18]
 
 不要用 CSV、二维码或普通 JSON 默认导出 Passkey 私钥。旧 `.passkey` 文件或其他明文格式仅在明确迁移授权下处理，导入后临时材料按限制清理，不能悄悄加入云端自动备份。
 
