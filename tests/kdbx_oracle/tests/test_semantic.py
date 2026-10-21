@@ -140,6 +140,121 @@ class DiffTest(unittest.TestCase):
         (only,) = diff(canonicalize(decoded(a)), canonicalize(decoded(b)))
         self.assertEqual((only.kind, only.path.rsplit("/", 1)[1]), ("added", "String=X-Empty"))
 
+    def test_unknown_content_on_empty_standard_fields_is_preserved(self):
+        cases = [
+            '<String Future="yes"><Key>Notes</Key><Value/></String>',
+            '<String><Key Future="yes">Notes</Key><Value/></String>',
+            '<String><Key>Notes</Key><Value Future="yes"/></String>',
+            '<String><Key>Notes</Key><Value/><FutureFlag/></String>',
+            '<String><Key>Notes</Key><Value><FutureFlag/></Value></String>',
+            '<String><Key>Notes<FutureFlag/></Key><Value/></String>',
+            '<String><Key>Notes</Key><Value/><Value/></String>',
+            '<String><Key>Notes</Key><Value Protected="future"/></String>',
+        ]
+        for extra in cases:
+            with self.subTest(extra=extra):
+                a = canonicalize(decoded(database(entry(ENTRY_A, extra=extra))))
+                b = canonicalize(decoded(database(entry(ENTRY_A))))
+                self.assertTrue(diff(a, b))
+
+    def test_unknown_boolean_and_named_descendants_are_literal(self):
+        cases = [
+            ("<FutureFlag>true</FutureFlag>", "<FutureFlag>True</FutureFlag>"),
+            ("<Future><Tags>a;b</Tags></Future>", "<Future><Tags>b,a</Tags></Future>"),
+            (f"<Future><UUID>{ENTRY_A}</UUID></Future>", f"<Future><UUID> {ENTRY_A} </UUID></Future>"),
+            ("<Future><LastModificationTime>2026-01-01T00:00:00Z</LastModificationTime></Future>",
+             "<Future><LastModificationTime>2026-01-01T00:00:00.0Z</LastModificationTime></Future>"),
+            ("<Future><Entry><String><Key>Notes</Key><Value/></String></Entry></Future>",
+             "<Future><Entry/></Future>"),
+        ]
+        for before, after in cases:
+            with self.subTest(before=before):
+                self.assertTrue(diff(
+                    canonicalize(decoded(database(entry(ENTRY_A, extra=before)))),
+                    canonicalize(decoded(database(entry(ENTRY_A, extra=after))))))
+
+    def test_known_user_text_that_looks_boolean_is_literal(self):
+        for xml in (
+                database(entry(ENTRY_A), meta="<DatabaseName>true</DatabaseName>"),
+                database(entry(ENTRY_A)).replace("<Generator>x", "<Generator>true"),
+                database(entry(ENTRY_A)).replace("<Group>", "<Group><Name>true</Name><Notes>true</Notes>"),
+                database(entry(ENTRY_A, extra="<String><Key>Notes</Key><Value>true</Value></String>"))):
+            with self.subTest(xml=xml):
+                self.assertTrue(diff(canonicalize(decoded(xml)), canonicalize(decoded(xml.replace(">true<", ">True<")))))
+
+    def test_unknown_subtree_and_mixed_child_order_are_preserved(self):
+        for before, after in (
+                ("<Future><A/><B/></Future>", "<Future><B/><A/></Future>"),
+                ("<Future/><Tags>a</Tags>", "<Tags>a</Tags><Future/>"),
+                ("<Future><String><Key>X</Key><Value>a</Value></String><String><Key>Y</Key><Value>b</Value></String></Future>",
+                 "<Future><String><Key>Y</Key><Value>b</Value></String><String><Key>X</Key><Value>a</Value></String></Future>")):
+            with self.subTest(before=before):
+                self.assertTrue(diff(
+                    canonicalize(decoded(database(entry(ENTRY_A, extra=before)))),
+                    canonicalize(decoded(database(entry(ENTRY_A, extra=after))))))
+
+    def test_known_empty_children_in_mixed_parent_are_not_folded(self):
+        for middle in ("<Tags/>", "<String><Key>Notes</Key><Value/></String>"):
+            before = "<FutureStart/>" + middle + "<FutureEnd/>"
+            after = "<FutureStart/><FutureEnd/>"
+            self.assertTrue(diff(
+                canonicalize(decoded(database(entry(ENTRY_A, extra=before)))),
+                canonicalize(decoded(database(entry(ENTRY_A, extra=after))))))
+
+    def test_mixed_text_and_tail_are_preserved(self):
+        for before, after in (
+                ("<Future> x<A/> tail</Future>", "<Future>x<A/> tail</Future>"),
+                ("<Future>x<A/> tail</Future>", "<Future>x<A/>tail</Future>"),
+                ("<String><Key>X</Key><Value> x<Future/> y</Value></String>",
+                 "<String><Key>X</Key><Value>x<Future/> y</Value></String>"),
+                ("<String><Key>X</Key><Value> x<Future/> y</Value></String>",
+                 "<String><Key>X</Key><Value> x<Future/>y</Value></String>"),
+                ("<Tags>a</Tags>tail-one", "<Tags>a</Tags>tail-two")):
+            with self.subTest(before=before):
+                self.assertTrue(diff(
+                    canonicalize(decoded(database(entry(ENTRY_A, extra=before)))),
+                    canonicalize(decoded(database(entry(ENTRY_A, extra=after))))))
+
+    def test_known_structural_indentation_does_not_matter(self):
+        xml = database(entry(ENTRY_A))
+        self.assertEqual(diff(canonicalize(decoded(xml)), canonicalize(decoded(xml.replace("><", ">\n  <")))), [])
+
+    def test_unknown_protection_attributes_are_preserved_and_redacted(self):
+        a = database(entry(ENTRY_A, extra='<Future Protected="True">old-secret</Future>'))
+        b = database(entry(ENTRY_A, extra='<Future Protected="true">new-secret</Future>'))
+        changes = diff(canonicalize(decoded(a)), canonicalize(decoded(b)))
+        self.assertEqual({change.aspect for change in changes}, {"attrs", "value"})
+        self.assertNotIn("secret", str(changes))
+
+    def test_changed_value_stays_redacted_when_protection_is_lost_or_inherited(self):
+        for before, after in (
+                ('<String><Key>X</Key><Value Protected="True">old-secret</Value></String>',
+                 '<String><Key>X</Key><Value>new-secret</Value></String>'),
+                ('<Future Protected="True"><Child>old-secret</Child>tail-secret</Future>',
+                 '<Future><Child>new-secret</Child>new-tail-secret</Future>')):
+            a = canonicalize(decoded(database(entry(ENTRY_A, extra=before))))
+            b = canonicalize(decoded(database(entry(ENTRY_A, extra=after))))
+            self.assertTrue(diff(a, b))
+            self.assertNotIn("secret", str(diff(a, b)))
+            self.assertIn("new-secret", str(diff(a, b, reveal=True)))
+
+    def test_duplicate_key_and_literal_suffix_do_not_collide(self):
+        before = '<String><Key>X</Key><Value>a</Value></String><String><Key>X#1</Key><Value>c</Value></String>'
+        after = before.replace('<String><Key>X#1', '<String><Key>X</Key><Value>b</Value></String><String><Key>X#1')
+        changes = diff(canonicalize(decoded(database(entry(ENTRY_A, extra=before)))),
+                       canonicalize(decoded(database(entry(ENTRY_A, extra=after)))))
+        self.assertEqual([(change.kind, change.path.rsplit("/", 1)[-1]) for change in changes],
+                         [("added", "String=X#1")])
+        changed_literal = before.replace('<Value>c</Value>', '<Value>d</Value>')
+        changes = diff(canonicalize(decoded(database(entry(ENTRY_A, extra=before)))),
+                       canonicalize(decoded(database(entry(ENTRY_A, extra=changed_literal)))))
+        self.assertTrue(changes[0].path.endswith("String=X%231/Value"))
+
+    def test_fractional_timestamp_changes_are_not_rounded_away(self):
+        self.assertEqual(normalize_time("2026-01-01T00:00:00.100Z"), "2026-01-01T00:00:00.1Z")
+        self.assertNotEqual(normalize_time("2026-01-01T00:00:00.1Z"), normalize_time("2026-01-01T00:00:00Z"))
+        self.assertEqual(normalize_time("2026-02-30T00:00:00.100Z"), "2026-02-30T00:00:00.100Z")
+
     def test_ignore_pattern(self):
         a = canonicalize(decoded(database(entry(ENTRY_A))))
         b = canonicalize(decoded(database(entry(ENTRY_A)).replace("<Generator>x", "<Generator>y")))

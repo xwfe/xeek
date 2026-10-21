@@ -12,7 +12,7 @@
   哪些差异是“改了应该变”的，由调用方用 ignore 模式显式列出，比较器不替人猜。
 
 路径写法：`Root/Group=<uuid hex>/Entry=<uuid hex>/String=Password/Value`。同名兄弟第二个
-起加 `#1`、`#2`；键里的 `%` 和 `/` 写成 `%25`、`%2F`。ignore 用 fnmatch 匹配，
+起加 `#1`、`#2`；键里的 `%`、`/` 和 `#` 写成 `%25`、`%2F`、`%23`。ignore 用 fnmatch 匹配，
 `*` 会跨过 `/`。
 """
 
@@ -34,11 +34,15 @@ TIME_TAGS = {
     "CreationTime", "LastModificationTime", "LastAccessTime", "ExpiryTime",
     "LocationChanged", "DeletionTime",
 }
-# Meta 里以 Changed 结尾的都是时间。
-TIME_SUFFIX = "Changed"
-
-# 出现在这些元素里的文字是用户数据，不做任何规范化（比如不把 "true" 改成 "True"）。
-USER_TEXT_PARENTS = {"String", "Item"}
+# 只有已知结构里的明确布尔项才忽略大小写；Name/Notes/Generator 等文字不转换。
+BOOLEAN_CHILDREN = {
+    "Meta": {"RecycleBinEnabled", "MasterKeyChangeForceOnce"},
+    "MemoryProtection": {"ProtectTitle", "ProtectUserName", "ProtectPassword", "ProtectURL", "ProtectNotes"},
+    "Group": {"IsExpanded", "EnableAutoType", "EnableSearching"},
+    "Times": {"Expires"},
+    "Entry": {"QualityCheck"},
+    "AutoType": {"Enabled"},
+}
 
 # 按键区分的子元素：父元素 → {子元素: (键所在的子元素, 键是不是 UUID)}。
 KEYED_CHILDREN = {
@@ -105,7 +109,7 @@ KEEAGENT_SETTINGS = "KeeAgent.settings"
 STANDARD_FIELDS = {"Title", "UserName", "Password", "URL", "Notes"}
 NULL_UUID = "00000000000000000000000000000000"
 
-_ISO_TIME = re.compile(r"^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2})(?:\.\d+)?Z$")
+_ISO_TIME = re.compile(r"^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2})(\.\d+)?Z$")
 _EPOCH = datetime(1, 1, 1, tzinfo=timezone.utc)
 
 
@@ -115,6 +119,8 @@ class Node:
     text: str = ""
     attrs: dict[str, str] = field(default_factory=dict)
     protected: bool = False
+    tail: str = ""
+    preserve_order: bool = False
     children: list[tuple[str, "Node"]] = field(default_factory=list)
 
 
@@ -150,7 +156,13 @@ def normalize_time(text: str) -> str:
     text = text.strip()
     match = _ISO_TIME.match(text)
     if match:
-        return "{}-{}-{}T{}:{}:{}Z".format(*match.groups())
+        parts = match.groups()
+        try:
+            datetime(*map(int, parts[:6]))
+        except ValueError:
+            return text
+        fraction = (parts[6] or "").rstrip("0").rstrip(".")
+        return "{}-{}-{}T{}:{}:{}".format(*parts[:6]) + fraction + "Z"
     try:
         raw = base64.b64decode(text, validate=True)
     except binascii.Error:
@@ -169,11 +181,16 @@ def normalize_time(text: str) -> str:
 
 
 def _escape(key: str) -> str:
-    return key.replace("%", "%25").replace("/", "%2F")
+    return key.replace("%", "%25").replace("/", "%2F").replace("#", "%23")
 
 
 def _is_time(tag: str, parent_tag: str) -> bool:
-    return tag in TIME_TAGS or (parent_tag == "Meta" and tag.endswith(TIME_SUFFIX))
+    return (
+        (parent_tag == "Times" and tag in TIME_TAGS)
+        or (parent_tag in ("Icon", "Item") and tag == "LastModificationTime")
+        or (parent_tag == "DeletedObject" and tag == "DeletionTime")
+        or (parent_tag == "Meta" and tag in KNOWN_CHILDREN["Meta"] and tag.endswith("Changed"))
+    )
 
 
 def _binary_digest(content: bytes) -> str:
@@ -181,63 +198,68 @@ def _binary_digest(content: bytes) -> str:
 
 
 def canonicalize(decoded: DecodedKdbx) -> Node:
-    return _canon(decoded.root, None, decoded)
+    return _canon(decoded.root, None, decoded, decoded.root.tag == "KeePassFile")
 
 
-def _canon(element: ET.Element, parent: ET.Element | None, decoded: DecodedKdbx) -> Node:
+def _canon(element: ET.Element, parent: ET.Element | None, decoded: DecodedKdbx,
+           known_context: bool) -> Node:
     parent_tag = parent.tag if parent is not None else ""
     attrs = dict(element.attrib)
-    protected = False
-    for name in ("Protected", "ProtectInMemory"):
-        if name in attrs:
-            protected = attrs.pop(name).lower() == "true" or protected
-    text = (element.text or "").strip() if len(element) else (element.text or "")
+    protected = any(attrs.get(name, "").lower() == "true" for name in ("Protected", "ProtectInMemory"))
+    # 未知节点/属性原样比较，仍尊重保护标记以免差异输出泄露文本。
+    if known_context and parent_tag in ("String", "Binary") and element.tag == "Value":
+        for name in ("Protected", "ProtectInMemory"):
+            if attrs.get(name, "").lower() in ("true", "false"):
+                attrs.pop(name)
+    known = KNOWN_CHILDREN.get(element.tag, set()) if known_context else set()
+    preserve_order = not known_context or any(child.tag not in known for child in element)
+    text = element.text or ""
+    if len(element) and not preserve_order and not text.strip():
+        text = ""  # 仅丢弃已知结构容器的纯排版空白，不 strip 混合文字。
 
-    if element.tag == "Value" and parent_tag == "Binary":
-        # 附件按内容摘要比，不按池编号。摘要不是秘密，保护标记放进属性而不是 node.protected，
-        # 否则差异输出会把摘要隐去。
-        if "Ref" in attrs:
-            ref = attrs.pop("Ref")
-            if ref not in decoded.binaries:
-                text = f"missing-binary-ref:{ref}"
+    if known_context and not len(element):
+        if element.tag == "Value" and parent_tag == "Binary":
+            # 附件按内容摘要比，不按池编号；保护标记单独比较。
+            if "Ref" in attrs:
+                ref = attrs.pop("Ref")
+                if ref not in decoded.binaries:
+                    text = f"missing-binary-ref:{ref}"
+                else:
+                    content, protected = decoded.binaries[ref]
+                    text = _binary_digest(content)
             else:
-                content, protected = decoded.binaries[ref]
-                text = _binary_digest(content)
-        else:
-            # 没有 Ref 的附件是内联 base64。
-            try:
-                text = _binary_digest(base64.b64decode(text, validate=True))
-            except binascii.Error:
-                pass
-        if protected:
-            attrs["pool_protected"] = "True"
-        protected = False
-    elif _is_time(element.tag, parent_tag):
-        text = normalize_time(text)
-    elif element.tag in ("UUID", "RecycleBinUUID", "EntryTemplatesGroup", "LastSelectedGroup",
-                         "LastTopVisibleGroup", "LastTopVisibleEntry", "CustomIconUUID",
-                         "PreviousParentGroup"):
-        text = uuid_hex(text)
-    elif element.tag == "Tags":
-        # KeePass 用 ; 分隔、按输入顺序存；KeePassXC 读两种分隔符，写回时排序并改用 ,。
-        text = ",".join(sorted({tag.strip() for tag in re.split(r"[;,]", text) if tag.strip()}))
-    elif parent_tag not in USER_TEXT_PARENTS and text.lower() in ("true", "false"):
-        text = text.capitalize()
+                try:
+                    text = _binary_digest(base64.b64decode(text, validate=True))
+                except binascii.Error:
+                    pass
+            if protected:
+                attrs["pool_protected"] = "True"
+            protected = False
+        elif _is_time(element.tag, parent_tag):
+            text = normalize_time(text)
+        elif element.tag in ("UUID", "RecycleBinUUID", "EntryTemplatesGroup", "LastSelectedGroup",
+                             "LastTopVisibleGroup", "LastTopVisibleEntry", "CustomIconUUID",
+                             "PreviousParentGroup"):
+            text = uuid_hex(text)
+        elif element.tag == "Tags" and parent_tag in ("Entry", "Group"):
+            text = ",".join(sorted({tag.strip() for tag in re.split(r"[;,]", text) if tag.strip()}))
+        elif element.tag in BOOLEAN_CHILDREN.get(parent_tag, set()) and text.lower() in ("true", "false"):
+            text = text.capitalize()
 
-    node = Node(tag=element.tag, text=text, attrs=attrs, protected=protected)
-    keyed = KEYED_CHILDREN.get(element.tag, {})
-    known = KNOWN_CHILDREN.get(element.tag, set())
+    node = Node(tag=element.tag, text=text, attrs=attrs, protected=protected, preserve_order=preserve_order)
+    keyed = KEYED_CHILDREN.get(element.tag, {}) if known_context else {}
     seen: dict[str, int] = {}
     for child in element:
-        if element.tag == "Meta" and child.tag in ("Binaries", "HeaderHash"):
-            # 二进制池已经折进引用处的摘要；HeaderHash 只属于 3.1 容器，状态另记在 summary。
+        if known_context and element.tag == "Meta" and child.tag in ("Binaries", "HeaderHash"):
+            # 二进制池已经折进引用摘要；HeaderHash 是容器字段，另由解码器校验。
             continue
-        child_node = _canon(child, element, decoded)
-        if child.tag in known and (_is_empty(child_node) or _is_empty_standard_field(child_node)):
-            # KeePassXC 会把缺省的空元素、空标准字段全部补上，KeePass 读的时候两者也没有区别。
-            # 只对已知元素这样做：不认识的空元素可能是开关式的标记，丢了就是丢了。
+        child_node = _canon(child, element, decoded, known_context and child.tag in known)
+        tail = child.tail or ""
+        child_node.tail = tail if preserve_order or tail.strip() else ""
+        if not preserve_order and child.tag in known and not (element.tag == "String" and child.tag in ("Key", "Value")) and not child_node.tail and (
+                _is_empty(child_node) or _is_empty_standard_field(child_node)):
             continue
-        if child.tag in keyed and not (element.tag == "History"):
+        if child.tag in keyed:
             key_tag, is_uuid = keyed[child.tag]
             raw_key = child.findtext(key_tag)
             key = uuid_hex(raw_key) if is_uuid else (raw_key or "")
@@ -253,22 +275,27 @@ def _canon(element: ET.Element, parent: ET.Element | None, decoded: DecodedKdbx)
 
 
 def _is_empty(node: Node) -> bool:
-    return not node.text and not node.attrs and not node.protected and not node.children
+    return not node.text and not node.tail and not node.attrs and not node.protected and not node.children
 
 
 def _is_empty_standard_field(node: Node) -> bool:
-    if node.tag != "String":
+    # 仅折叠明确的普通空字段；未知属性/子节点、重复 Key/Value、混合内容必须保留。
+    if node.tag != "String" or node.text or node.attrs or node.protected or node.tail:
+        return False
+    if any(label not in ("Key", "Value") for label, _ in node.children):
         return False
     children = dict(node.children)
-    key = children.get("Key")
-    value = children.get("Value")
-    return key is not None and key.text in STANDARD_FIELDS and (value is None or not value.text)
+    key, value = children.get("Key"), children.get("Value")
+    if key is None or key.text not in STANDARD_FIELDS or key.attrs or key.protected or key.children or key.tail:
+        return False
+    # 空 Value 的标准保护标记与空值缺失的兼容行为保持不变。
+    return value is None or not (value.text or value.attrs or value.children or value.tail)
 
 
 # ---------- 比较 ----------
 
-def _show(node: Node, reveal: bool) -> str:
-    if node.protected and not reveal:
+def _show(node: Node, reveal: bool, protected_context: bool = False) -> str:
+    if (node.protected or protected_context) and not reveal:
         return f"<受保护，{len(node.text)} 字符>"
     text = node.text if len(node.text) <= 120 else node.text[:117] + "..."
     return repr(text)
@@ -285,15 +312,20 @@ def _ignored(path: str, patterns: list[str]) -> bool:
     return any(fnmatch.fnmatchcase(path, pattern) for pattern in patterns)
 
 
-def _diff(a: Node, b: Node, path: str, ignore: list[str], reveal: bool, out: list[Difference]) -> None:
+def _diff(a: Node, b: Node, path: str, ignore: list[str], reveal: bool, out: list[Difference],
+          protected_context: bool = False) -> None:
     if _ignored(path, ignore):
         return
+    protected_context = protected_context or a.protected or b.protected
     if a.text != b.text:
-        out.append(Difference("changed", path, f"{_show(a, reveal)} → {_show(b, reveal)}", "value"))
+        out.append(Difference("changed", path, f"{_show(a, reveal, protected_context)} → {_show(b, reveal, protected_context)}", "value"))
+    if a.tail != b.tail:
+        out.append(Difference("changed", path, "尾随文字变了", "tail"))
     if a.protected != b.protected:
         out.append(Difference("changed", path, f"保护标记 {a.protected} → {b.protected}", "protected"))
     if a.attrs != b.attrs:
-        out.append(Difference("changed", path, f"属性 {a.attrs} → {b.attrs}", "attrs"))
+        detail = f"属性 {a.attrs} → {b.attrs}" if reveal or not protected_context else "受保护节点的属性变了"
+        out.append(Difference("changed", path, detail, "attrs"))
 
     a_children = dict(a.children)
     b_children = dict(b.children)
@@ -303,16 +335,17 @@ def _diff(a: Node, b: Node, path: str, ignore: list[str], reveal: bool, out: lis
             if not _ignored(child_path, ignore):
                 out.append(Difference("removed", child_path, ""))
         else:
-            _diff(child, b_children[label], child_path, ignore, reveal, out)
+            _diff(child, b_children[label], child_path, ignore, reveal, out, protected_context)
     for label, _child in b.children:
         child_path = f"{path}/{label}"
         if label not in a_children and not _ignored(child_path, ignore):
             out.append(Difference("added", child_path, ""))
 
-    a_order = [label for label, child in a.children if child.tag in ORDERED_KEYED and label in b_children]
-    b_order = [label for label, child in b.children if child.tag in ORDERED_KEYED and label in a_children]
+    preserve_order = a.preserve_order or b.preserve_order
+    a_order = [label for label, child in a.children if (preserve_order or child.tag in ORDERED_KEYED) and label in b_children]
+    b_order = [label for label, child in b.children if (preserve_order or child.tag in ORDERED_KEYED) and label in a_children]
     if a_order != b_order and not _ignored(path + "#order", ignore):
-        out.append(Difference("order", path, "分组或条目的排列顺序变了"))
+        out.append(Difference("order", path, "子节点排列顺序变了" if preserve_order else "分组或条目的排列顺序变了"))
 
 
 # ---------- 摘要 ----------

@@ -1,0 +1,3224 @@
+{
+  "schema": 1,
+  "note": "public synthetic KDBX 4.1 reference outputs; remaining differences are not waived",
+  "writer": {
+    "name": "keepass-rs",
+    "version": "0.15.3",
+    "license": "MIT",
+    "source_commit": "15afd4da3d2f305069c7940795af1de9645fd81c",
+    "feature": "save_kdbx4",
+    "experimental": true
+  },
+  "reference_reader": "2.7.12",
+  "runtime": {
+    "python": "3.12.12",
+    "platform": "Darwin",
+    "machine": "arm64",
+    "cargo": "cargo 1.98.0 (797e8a9bc 2026-08-05)",
+    "cryptography": "46.0.4",
+    "argon2-cffi": "25.1.0",
+    "argon2-cffi-bindings": "26.1.0"
+  },
+  "generation_provenance": {
+    "tests/reference_writer/Cargo.toml": "541b33a24d7a88cb2ca21fd80146e063196ec26441029afb6045e50d443d88e9",
+    "tests/reference_writer/Cargo.lock": "cf43b1f1a75ca9a428e29728040f53ace78104dd64cef3aa7c5c1f2158a2dfa4",
+    "tests/reference_writer/src/main.rs": "7b4f354261621c00eeafaabf433f1bc6605da0f7e5c66d202ed5d61054ed4ae7",
+    "tests/reference_writer/generate.py": "f4426ed01e8df199819b1035690583e21efe23c5df04d259ca4446498b1647a8",
+    "tests/kdbx_oracle/kdbx_oracle/reader.py": "ed72d093e1f402ec1257832ce9dd68b8380670b14ce01786436b9fe474c1f764",
+    "tests/kdbx_oracle/kdbx_oracle/semantic.py": "e751ec5871ba294ef589f362a03c468b22b9c33ea699ad6f626cd8748888c9c5",
+    "tests/kdbx_oracle/kdbx_oracle/__init__.py": "02dc52bf368b43878f310ea71472889007a9927de3820ed22750ab65b5d8cd13",
+    "tests/kdbx_oracle/requirements-argon2-macos-arm64.lock": "63fdaf297dc096e1a67f4258ee8092d2847a163fbac3909013badc22d5ef8afc",
+    "tests/fixtures/kdbx/source.py": "573dac287a1fef2ef547e2b8c0a726119ac2a6a1584c69edd9c4eddf99803769",
+    "tests/fixtures/kdbx/generate.py": "37c7a20ef10ddb5340b1bdf93ac35706f1278bcb2277d6a7348b22c809ea417f",
+    "tests/fixtures/kdbx/vault_source.py": "a0d0ddc68b8c1dc78a101a767aa74d4d9e5402f7dcd9da191ada09f4aa3272e3",
+    "tests/fixtures/kdbx/vault_generate.py": "2b3f2096d2c1860b0b66cffb7f9f31f785a460b78184e6368b666fb40ac603ae",
+    "tests/fixtures/kdbx/matrix_source.py": "9dcdc0236ae79fa0f112c516951c12c6e674fd55275aced25e0ba692c23d51fb",
+    "tests/fixtures/kdbx/matrix_checks.py": "b12c4838b9ba55c36945df234ff0c178e77e3dd0cef28f26e8e4b8b86786d288",
+    "tests/fixtures/kdbx/vault_manifest.json": "42cb8a6860f07c00e4c382c9a29645fa535652d5765486fc3e78df93983b1539",
+    "tests/fixtures/kdbx/matrix_manifest.json": "170fb86d39f792939a7f770e20b3c16cdabfb97be0b0574cc5e16ee60583fc10",
+    "tests/vault_domain/contract.py": "e48920ca273266ba6abe3916c3dfca4defd2b51e649386e1dab4f2ad33ab3c61",
+    "tests/vault_domain/contract.json": "fc64de169203d94f5baa6fe664748606742fbaa1ad75f35b7e9e35e97950e63b"
+  },
+  "generation_binary_sha256": "ad73e6ded8b8c68cef8682d2041ff04e90ae17ab8df06ffb82fdb5b301eae652",
+  "verification_note": "After generation, the generator gained mandatory locked/offline building and case checks. Subsequent read-only oracle changes are listed in verification_revisions. Original generation hashes, binary hash and all KDBX bytes are retained; current provenance is for replay verification.",
+  "verification_revisions": [
+    {
+      "date": "2026-10-19",
+      "task_id": "f26e346131e148b29624e5712db03028",
+      "file": "tests/kdbx_oracle/kdbx_oracle/reader.py",
+      "previous_sha256": "ed72d093e1f402ec1257832ce9dd68b8380670b14ce01786436b9fe474c1f764",
+      "sha256": "af08a30bcd38cc9e599662434a7ac5df0849a0b7ccf6a5e8e4bb27ed057bc42b",
+      "reason": "Authenticated KDBX 4.x payload checks: normalize gzip/XML base64 errors and reject ambiguous inner headers; no KDBX bytes or original generation metadata changed.",
+      "evidence": "adr/evidence/K002_RESOURCES.md"
+    }
+  ],
+  "generation_build_session": "aced883b-5287-441c-852e-70e807b1e9de",
+  "generation_session": "f1730d01-ded2-40b8-a1b7-8a977186f496",
+  "provenance": {
+    "tests/reference_writer/Cargo.toml": "541b33a24d7a88cb2ca21fd80146e063196ec26441029afb6045e50d443d88e9",
+    "tests/reference_writer/Cargo.lock": "cf43b1f1a75ca9a428e29728040f53ace78104dd64cef3aa7c5c1f2158a2dfa4",
+    "tests/reference_writer/src/main.rs": "7b4f354261621c00eeafaabf433f1bc6605da0f7e5c66d202ed5d61054ed4ae7",
+    "tests/reference_writer/generate.py": "49eb60008e0a24d53c7331f4520ac493a5ffbb3f3b34ebdca9829b5d1a915e37",
+    "tests/kdbx_oracle/kdbx_oracle/reader.py": "af08a30bcd38cc9e599662434a7ac5df0849a0b7ccf6a5e8e4bb27ed057bc42b",
+    "tests/kdbx_oracle/kdbx_oracle/semantic.py": "e751ec5871ba294ef589f362a03c468b22b9c33ea699ad6f626cd8748888c9c5",
+    "tests/kdbx_oracle/kdbx_oracle/__init__.py": "02dc52bf368b43878f310ea71472889007a9927de3820ed22750ab65b5d8cd13",
+    "tests/kdbx_oracle/requirements-argon2-macos-arm64.lock": "63fdaf297dc096e1a67f4258ee8092d2847a163fbac3909013badc22d5ef8afc",
+    "tests/fixtures/kdbx/source.py": "573dac287a1fef2ef547e2b8c0a726119ac2a6a1584c69edd9c4eddf99803769",
+    "tests/fixtures/kdbx/generate.py": "37c7a20ef10ddb5340b1bdf93ac35706f1278bcb2277d6a7348b22c809ea417f",
+    "tests/fixtures/kdbx/vault_source.py": "a0d0ddc68b8c1dc78a101a767aa74d4d9e5402f7dcd9da191ada09f4aa3272e3",
+    "tests/fixtures/kdbx/vault_generate.py": "2b3f2096d2c1860b0b66cffb7f9f31f785a460b78184e6368b666fb40ac603ae",
+    "tests/fixtures/kdbx/matrix_source.py": "9dcdc0236ae79fa0f112c516951c12c6e674fd55275aced25e0ba692c23d51fb",
+    "tests/fixtures/kdbx/matrix_checks.py": "b12c4838b9ba55c36945df234ff0c178e77e3dd0cef28f26e8e4b8b86786d288",
+    "tests/fixtures/kdbx/vault_manifest.json": "42cb8a6860f07c00e4c382c9a29645fa535652d5765486fc3e78df93983b1539",
+    "tests/fixtures/kdbx/matrix_manifest.json": "170fb86d39f792939a7f770e20b3c16cdabfb97be0b0574cc5e16ee60583fc10",
+    "tests/vault_domain/contract.py": "e48920ca273266ba6abe3916c3dfca4defd2b51e649386e1dab4f2ad33ab3c61",
+    "tests/vault_domain/contract.json": "fc64de169203d94f5baa6fe664748606742fbaa1ad75f35b7e9e35e97950e63b"
+  },
+  "samples": [
+    {
+      "id": "RS41-PASSKEY-AES-KDF-AES",
+      "file": "rs41-passkey-aes-kdf-aes.kdbx",
+      "kind": "passkey",
+      "source_file": "m41-passkey-edit1.kdbx",
+      "password": "keex-synthetic-M41-PASSKEY",
+      "entry_uuid": "64f57988c982f6e4c805e9c428edbb74",
+      "new_username": "synthetic-rs41-passkey-aes-kdf-aes",
+      "kdf": "aes-kdf",
+      "cipher": "aes",
+      "source_sha256": "00201776ed5e0b8c57fdf44aa6dc284735cc41da312e2d49bcf80c87f7945411",
+      "sha256": "b86edde434a04e7ab9c62f30b5c9a89ab7dd747c21dd11a1b242c87051993df8",
+      "bytes": 39763,
+      "source_summary": {
+        "format": "4.1",
+        "cipher": "aes256-cbc",
+        "kdf": {
+          "name": "aes-kdf",
+          "rounds": 1000000
+        },
+        "compressed": true,
+        "inner_stream": "chacha20",
+        "header_hash": "not-applicable",
+        "generator": "keex-fixture-source",
+        "groups": 9,
+        "entries": 39,
+        "history_entries": 4,
+        "entries_with_history": 3,
+        "recycle_bin": {
+          "enabled": true,
+          "group_present": true,
+          "entries": 2
+        },
+        "deleted_objects": 2,
+        "custom_icons": 1,
+        "entries_with_tags": 6,
+        "attachments": {
+          "references": 9,
+          "names": [
+            "KeeAgent.settings",
+            "blob.bin",
+            "id_ed25519",
+            "notes.txt",
+            "shared.txt",
+            "合成凭据.txt"
+          ],
+          "pool_items": 6,
+          "pool_bytes": 3300,
+          "pool_protected": 6,
+          "current_references": 7,
+          "history_references": 2
+        },
+        "otp_fields": [
+          "TOTP Seed",
+          "TOTP Settings",
+          "TimeOtp-Algorithm",
+          "TimeOtp-Length",
+          "TimeOtp-Period",
+          "TimeOtp-Secret-Base32",
+          "otp"
+        ],
+        "passkey_fields": [
+          "KPEX_PASSKEY_CREDENTIAL_ID",
+          "KPEX_PASSKEY_FLAG_BE",
+          "KPEX_PASSKEY_FLAG_BS",
+          "KPEX_PASSKEY_GENERATED_USER_ID",
+          "KPEX_PASSKEY_PRIVATE_KEY_PEM",
+          "KPEX_PASSKEY_RELYING_PARTY",
+          "KPEX_PASSKEY_USERNAME",
+          "KPEX_PASSKEY_USER_HANDLE",
+          "KPXC_PASSKEY_USERNAME"
+        ],
+        "keeagent_settings": 1,
+        "meta_custom_data_keys": [
+          "KPXC_RANDOM_SLUG",
+          "_LAST_MODIFIED",
+          "keex.fixture"
+        ],
+        "unknown_elements": [],
+        "custom_fields_count": 92,
+        "custom_fields_sha256": "55a4f054b423af979b2da1d02f1d4af49fa36a8632b37c15716903823ca42b42",
+        "protected_custom_fields_count": 65,
+        "protected_custom_fields_sha256": "7dd6043bbb55773f94fc4c9dbab4685722b9ffc8efba2138137fbf379539eef5",
+        "type_counts": {
+          "document": 1,
+          "finance_account": 1,
+          "gift_card": 1,
+          "identity_document": 1,
+          "legacy": 14,
+          "login": 4,
+          "maintenance": 1,
+          "membership_card": 1,
+          "payment_card": 3,
+          "secure_note": 5,
+          "sim_profile": 3,
+          "subscription": 2,
+          "telecom_line": 1,
+          "telecom_plan": 1
+        },
+        "relations": 22,
+        "rules": 1,
+        "events": 2,
+        "diagnostics": {
+          "legacy:": 13,
+          "read_only:field_limit": 1,
+          "read_only:legacy_parent_conflict": 1,
+          "read_only:unknown_keex_field": 1,
+          "read_only:unknown_schema": 1,
+          "valid:": 21,
+          "valid:missing_target": 1
+        }
+      },
+      "summary": {
+        "format": "4.1",
+        "cipher": "aes256-cbc",
+        "kdf": {
+          "name": "aes-kdf",
+          "rounds": 1000000
+        },
+        "compressed": true,
+        "inner_stream": "chacha20",
+        "header_hash": "not-applicable",
+        "generator": "keex-fixture-source",
+        "groups": 9,
+        "entries": 39,
+        "history_entries": 5,
+        "entries_with_history": 3,
+        "recycle_bin": {
+          "enabled": true,
+          "group_present": true,
+          "entries": 2
+        },
+        "deleted_objects": 2,
+        "custom_icons": 1,
+        "entries_with_tags": 7,
+        "attachments": {
+          "references": 9,
+          "names": [
+            "KeeAgent.settings",
+            "blob.bin",
+            "id_ed25519",
+            "notes.txt",
+            "shared.txt",
+            "合成凭据.txt"
+          ],
+          "pool_items": 6,
+          "pool_bytes": 3300,
+          "pool_protected": 6,
+          "current_references": 7,
+          "history_references": 2
+        },
+        "otp_fields": [
+          "TOTP Seed",
+          "TOTP Settings",
+          "TimeOtp-Algorithm",
+          "TimeOtp-Length",
+          "TimeOtp-Period",
+          "TimeOtp-Secret-Base32",
+          "otp"
+        ],
+        "passkey_fields": [
+          "KPEX_PASSKEY_CREDENTIAL_ID",
+          "KPEX_PASSKEY_FLAG_BE",
+          "KPEX_PASSKEY_FLAG_BS",
+          "KPEX_PASSKEY_GENERATED_USER_ID",
+          "KPEX_PASSKEY_PRIVATE_KEY_PEM",
+          "KPEX_PASSKEY_RELYING_PARTY",
+          "KPEX_PASSKEY_USERNAME",
+          "KPEX_PASSKEY_USER_HANDLE",
+          "KPXC_PASSKEY_USERNAME"
+        ],
+        "keeagent_settings": 1,
+        "meta_custom_data_keys": [
+          "KPXC_RANDOM_SLUG",
+          "_LAST_MODIFIED",
+          "keex.fixture"
+        ],
+        "unknown_elements": [],
+        "custom_fields_count": 92,
+        "custom_fields_sha256": "55a4f054b423af979b2da1d02f1d4af49fa36a8632b37c15716903823ca42b42",
+        "protected_custom_fields_count": 65,
+        "protected_custom_fields_sha256": "7dd6043bbb55773f94fc4c9dbab4685722b9ffc8efba2138137fbf379539eef5",
+        "type_counts": {
+          "document": 1,
+          "finance_account": 1,
+          "gift_card": 1,
+          "identity_document": 1,
+          "legacy": 14,
+          "login": 4,
+          "maintenance": 1,
+          "membership_card": 1,
+          "payment_card": 3,
+          "secure_note": 5,
+          "sim_profile": 3,
+          "subscription": 2,
+          "telecom_line": 1,
+          "telecom_plan": 1
+        },
+        "relations": 22,
+        "rules": 1,
+        "events": 2,
+        "diagnostics": {
+          "legacy:": 13,
+          "read_only:field_limit": 1,
+          "read_only:legacy_parent_conflict": 1,
+          "read_only:unknown_keex_field": 1,
+          "read_only:unknown_schema": 1,
+          "valid:": 21,
+          "valid:missing_target": 1
+        }
+      },
+      "raw_changes": [
+        "added KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046/Group=42e8f2fbeced2a39acdaf7cc23fb1a71/Entry=64f57988c982f6e4c805e9c428edbb74/History/Entry#1",
+        "changed/value KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046/Group=42e8f2fbeced2a39acdaf7cc23fb1a71/Entry=64f57988c982f6e4c805e9c428edbb74/History/Entry/String=UserName/Value",
+        "changed/value KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046/Group=42e8f2fbeced2a39acdaf7cc23fb1a71/Entry=64f57988c982f6e4c805e9c428edbb74/History/Entry/Times/LastAccessTime",
+        "changed/value KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046/Group=42e8f2fbeced2a39acdaf7cc23fb1a71/Entry=64f57988c982f6e4c805e9c428edbb74/History/Entry/Times/LastModificationTime",
+        "changed/value KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046/Group=42e8f2fbeced2a39acdaf7cc23fb1a71/Entry=64f57988c982f6e4c805e9c428edbb74/String=UserName/Value",
+        "changed/value KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046/Group=42e8f2fbeced2a39acdaf7cc23fb1a71/Entry=64f57988c982f6e4c805e9c428edbb74/Times/LastModificationTime",
+        "order KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046",
+        "removed KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046/Group=619866709f661f4847cc86d411ca5bf1/Entry=8965805d6caa1155bdc9ed01dcb11d04/IconID",
+        "removed KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046/Group=619866709f661f4847cc86d411ca5bf1/IconID"
+      ],
+      "other_changes": [
+        "order KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046",
+        "removed KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046/Group=619866709f661f4847cc86d411ca5bf1/Entry=8965805d6caa1155bdc9ed01dcb11d04/IconID",
+        "removed KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046/Group=619866709f661f4847cc86d411ca5bf1/IconID"
+      ],
+      "history_placement": "prepend",
+      "history_snapshot_changes": [],
+      "attachment_order_changes": [
+        {
+          "entry_uuid": "8965805d6caa1155bdc9ed01dcb11d04",
+          "scope": "history/0",
+          "before": [
+            "blob.bin",
+            "shared.txt"
+          ],
+          "after": [
+            "shared.txt",
+            "blob.bin"
+          ]
+        }
+      ],
+      "lossless_roundtrip": false,
+      "verdict": "readable; original field values/protection and attachment bytes retained; semantic differences remain",
+      "helper_counts": {
+        "ok": true,
+        "entries": 39,
+        "groups": 9,
+        "attachments": 6,
+        "history_before": 4,
+        "history_after": 5,
+        "bytes": 39763
+      },
+      "reference_export": {
+        "current_entries": 39,
+        "history_entries": 5,
+        "attachment_pool_cross_checked": false
+      },
+      "elapsed_helper_and_checks_seconds": 0.398565
+    },
+    {
+      "id": "RS41-PASSKEY-AES-KDF-CHACHA20",
+      "file": "rs41-passkey-aes-kdf-chacha20.kdbx",
+      "kind": "passkey",
+      "source_file": "m41-passkey-edit1.kdbx",
+      "password": "keex-synthetic-M41-PASSKEY",
+      "entry_uuid": "64f57988c982f6e4c805e9c428edbb74",
+      "new_username": "synthetic-rs41-passkey-aes-kdf-chacha20",
+      "kdf": "aes-kdf",
+      "cipher": "chacha20",
+      "source_sha256": "00201776ed5e0b8c57fdf44aa6dc284735cc41da312e2d49bcf80c87f7945411",
+      "sha256": "e82cc0473084b0a57118499d9b1eb57f4b13032cde4eb2b5f723eecce3a6cbe0",
+      "bytes": 39690,
+      "source_summary": {
+        "format": "4.1",
+        "cipher": "aes256-cbc",
+        "kdf": {
+          "name": "aes-kdf",
+          "rounds": 1000000
+        },
+        "compressed": true,
+        "inner_stream": "chacha20",
+        "header_hash": "not-applicable",
+        "generator": "keex-fixture-source",
+        "groups": 9,
+        "entries": 39,
+        "history_entries": 4,
+        "entries_with_history": 3,
+        "recycle_bin": {
+          "enabled": true,
+          "group_present": true,
+          "entries": 2
+        },
+        "deleted_objects": 2,
+        "custom_icons": 1,
+        "entries_with_tags": 6,
+        "attachments": {
+          "references": 9,
+          "names": [
+            "KeeAgent.settings",
+            "blob.bin",
+            "id_ed25519",
+            "notes.txt",
+            "shared.txt",
+            "合成凭据.txt"
+          ],
+          "pool_items": 6,
+          "pool_bytes": 3300,
+          "pool_protected": 6,
+          "current_references": 7,
+          "history_references": 2
+        },
+        "otp_fields": [
+          "TOTP Seed",
+          "TOTP Settings",
+          "TimeOtp-Algorithm",
+          "TimeOtp-Length",
+          "TimeOtp-Period",
+          "TimeOtp-Secret-Base32",
+          "otp"
+        ],
+        "passkey_fields": [
+          "KPEX_PASSKEY_CREDENTIAL_ID",
+          "KPEX_PASSKEY_FLAG_BE",
+          "KPEX_PASSKEY_FLAG_BS",
+          "KPEX_PASSKEY_GENERATED_USER_ID",
+          "KPEX_PASSKEY_PRIVATE_KEY_PEM",
+          "KPEX_PASSKEY_RELYING_PARTY",
+          "KPEX_PASSKEY_USERNAME",
+          "KPEX_PASSKEY_USER_HANDLE",
+          "KPXC_PASSKEY_USERNAME"
+        ],
+        "keeagent_settings": 1,
+        "meta_custom_data_keys": [
+          "KPXC_RANDOM_SLUG",
+          "_LAST_MODIFIED",
+          "keex.fixture"
+        ],
+        "unknown_elements": [],
+        "custom_fields_count": 92,
+        "custom_fields_sha256": "55a4f054b423af979b2da1d02f1d4af49fa36a8632b37c15716903823ca42b42",
+        "protected_custom_fields_count": 65,
+        "protected_custom_fields_sha256": "7dd6043bbb55773f94fc4c9dbab4685722b9ffc8efba2138137fbf379539eef5",
+        "type_counts": {
+          "document": 1,
+          "finance_account": 1,
+          "gift_card": 1,
+          "identity_document": 1,
+          "legacy": 14,
+          "login": 4,
+          "maintenance": 1,
+          "membership_card": 1,
+          "payment_card": 3,
+          "secure_note": 5,
+          "sim_profile": 3,
+          "subscription": 2,
+          "telecom_line": 1,
+          "telecom_plan": 1
+        },
+        "relations": 22,
+        "rules": 1,
+        "events": 2,
+        "diagnostics": {
+          "legacy:": 13,
+          "read_only:field_limit": 1,
+          "read_only:legacy_parent_conflict": 1,
+          "read_only:unknown_keex_field": 1,
+          "read_only:unknown_schema": 1,
+          "valid:": 21,
+          "valid:missing_target": 1
+        }
+      },
+      "summary": {
+        "format": "4.1",
+        "cipher": "chacha20",
+        "kdf": {
+          "name": "aes-kdf",
+          "rounds": 1000000
+        },
+        "compressed": true,
+        "inner_stream": "chacha20",
+        "header_hash": "not-applicable",
+        "generator": "keex-fixture-source",
+        "groups": 9,
+        "entries": 39,
+        "history_entries": 5,
+        "entries_with_history": 3,
+        "recycle_bin": {
+          "enabled": true,
+          "group_present": true,
+          "entries": 2
+        },
+        "deleted_objects": 2,
+        "custom_icons": 1,
+        "entries_with_tags": 7,
+        "attachments": {
+          "references": 9,
+          "names": [
+            "KeeAgent.settings",
+            "blob.bin",
+            "id_ed25519",
+            "notes.txt",
+            "shared.txt",
+            "合成凭据.txt"
+          ],
+          "pool_items": 6,
+          "pool_bytes": 3300,
+          "pool_protected": 6,
+          "current_references": 7,
+          "history_references": 2
+        },
+        "otp_fields": [
+          "TOTP Seed",
+          "TOTP Settings",
+          "TimeOtp-Algorithm",
+          "TimeOtp-Length",
+          "TimeOtp-Period",
+          "TimeOtp-Secret-Base32",
+          "otp"
+        ],
+        "passkey_fields": [
+          "KPEX_PASSKEY_CREDENTIAL_ID",
+          "KPEX_PASSKEY_FLAG_BE",
+          "KPEX_PASSKEY_FLAG_BS",
+          "KPEX_PASSKEY_GENERATED_USER_ID",
+          "KPEX_PASSKEY_PRIVATE_KEY_PEM",
+          "KPEX_PASSKEY_RELYING_PARTY",
+          "KPEX_PASSKEY_USERNAME",
+          "KPEX_PASSKEY_USER_HANDLE",
+          "KPXC_PASSKEY_USERNAME"
+        ],
+        "keeagent_settings": 1,
+        "meta_custom_data_keys": [
+          "KPXC_RANDOM_SLUG",
+          "_LAST_MODIFIED",
+          "keex.fixture"
+        ],
+        "unknown_elements": [],
+        "custom_fields_count": 92,
+        "custom_fields_sha256": "55a4f054b423af979b2da1d02f1d4af49fa36a8632b37c15716903823ca42b42",
+        "protected_custom_fields_count": 65,
+        "protected_custom_fields_sha256": "7dd6043bbb55773f94fc4c9dbab4685722b9ffc8efba2138137fbf379539eef5",
+        "type_counts": {
+          "document": 1,
+          "finance_account": 1,
+          "gift_card": 1,
+          "identity_document": 1,
+          "legacy": 14,
+          "login": 4,
+          "maintenance": 1,
+          "membership_card": 1,
+          "payment_card": 3,
+          "secure_note": 5,
+          "sim_profile": 3,
+          "subscription": 2,
+          "telecom_line": 1,
+          "telecom_plan": 1
+        },
+        "relations": 22,
+        "rules": 1,
+        "events": 2,
+        "diagnostics": {
+          "legacy:": 13,
+          "read_only:field_limit": 1,
+          "read_only:legacy_parent_conflict": 1,
+          "read_only:unknown_keex_field": 1,
+          "read_only:unknown_schema": 1,
+          "valid:": 21,
+          "valid:missing_target": 1
+        }
+      },
+      "raw_changes": [
+        "added KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046/Group=42e8f2fbeced2a39acdaf7cc23fb1a71/Entry=64f57988c982f6e4c805e9c428edbb74/History/Entry#1",
+        "changed/value KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046/Group=42e8f2fbeced2a39acdaf7cc23fb1a71/Entry=64f57988c982f6e4c805e9c428edbb74/History/Entry/String=UserName/Value",
+        "changed/value KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046/Group=42e8f2fbeced2a39acdaf7cc23fb1a71/Entry=64f57988c982f6e4c805e9c428edbb74/History/Entry/Times/LastAccessTime",
+        "changed/value KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046/Group=42e8f2fbeced2a39acdaf7cc23fb1a71/Entry=64f57988c982f6e4c805e9c428edbb74/History/Entry/Times/LastModificationTime",
+        "changed/value KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046/Group=42e8f2fbeced2a39acdaf7cc23fb1a71/Entry=64f57988c982f6e4c805e9c428edbb74/String=UserName/Value",
+        "changed/value KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046/Group=42e8f2fbeced2a39acdaf7cc23fb1a71/Entry=64f57988c982f6e4c805e9c428edbb74/Times/LastModificationTime",
+        "order KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046",
+        "removed KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046/Group=619866709f661f4847cc86d411ca5bf1/Entry=8965805d6caa1155bdc9ed01dcb11d04/IconID",
+        "removed KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046/Group=619866709f661f4847cc86d411ca5bf1/IconID"
+      ],
+      "other_changes": [
+        "order KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046",
+        "removed KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046/Group=619866709f661f4847cc86d411ca5bf1/Entry=8965805d6caa1155bdc9ed01dcb11d04/IconID",
+        "removed KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046/Group=619866709f661f4847cc86d411ca5bf1/IconID"
+      ],
+      "history_placement": "prepend",
+      "history_snapshot_changes": [],
+      "attachment_order_changes": [],
+      "lossless_roundtrip": false,
+      "verdict": "readable; original field values/protection and attachment bytes retained; semantic differences remain",
+      "helper_counts": {
+        "ok": true,
+        "entries": 39,
+        "groups": 9,
+        "attachments": 6,
+        "history_before": 4,
+        "history_after": 5,
+        "bytes": 39690
+      },
+      "reference_export": {
+        "current_entries": 39,
+        "history_entries": 5,
+        "attachment_pool_cross_checked": false
+      },
+      "elapsed_helper_and_checks_seconds": 0.277909
+    },
+    {
+      "id": "RS41-PASSKEY-ARGON2D-AES",
+      "file": "rs41-passkey-argon2d-aes.kdbx",
+      "kind": "passkey",
+      "source_file": "m41-passkey-edit1.kdbx",
+      "password": "keex-synthetic-M41-PASSKEY",
+      "entry_uuid": "64f57988c982f6e4c805e9c428edbb74",
+      "new_username": "synthetic-rs41-passkey-argon2d-aes",
+      "kdf": "argon2d",
+      "cipher": "aes",
+      "source_sha256": "00201776ed5e0b8c57fdf44aa6dc284735cc41da312e2d49bcf80c87f7945411",
+      "sha256": "06782580f41ecee36dd64af6f97b6ab9f81581a31a571cd1b281f9df8f5c509b",
+      "bytes": 39777,
+      "source_summary": {
+        "format": "4.1",
+        "cipher": "aes256-cbc",
+        "kdf": {
+          "name": "aes-kdf",
+          "rounds": 1000000
+        },
+        "compressed": true,
+        "inner_stream": "chacha20",
+        "header_hash": "not-applicable",
+        "generator": "keex-fixture-source",
+        "groups": 9,
+        "entries": 39,
+        "history_entries": 4,
+        "entries_with_history": 3,
+        "recycle_bin": {
+          "enabled": true,
+          "group_present": true,
+          "entries": 2
+        },
+        "deleted_objects": 2,
+        "custom_icons": 1,
+        "entries_with_tags": 6,
+        "attachments": {
+          "references": 9,
+          "names": [
+            "KeeAgent.settings",
+            "blob.bin",
+            "id_ed25519",
+            "notes.txt",
+            "shared.txt",
+            "合成凭据.txt"
+          ],
+          "pool_items": 6,
+          "pool_bytes": 3300,
+          "pool_protected": 6,
+          "current_references": 7,
+          "history_references": 2
+        },
+        "otp_fields": [
+          "TOTP Seed",
+          "TOTP Settings",
+          "TimeOtp-Algorithm",
+          "TimeOtp-Length",
+          "TimeOtp-Period",
+          "TimeOtp-Secret-Base32",
+          "otp"
+        ],
+        "passkey_fields": [
+          "KPEX_PASSKEY_CREDENTIAL_ID",
+          "KPEX_PASSKEY_FLAG_BE",
+          "KPEX_PASSKEY_FLAG_BS",
+          "KPEX_PASSKEY_GENERATED_USER_ID",
+          "KPEX_PASSKEY_PRIVATE_KEY_PEM",
+          "KPEX_PASSKEY_RELYING_PARTY",
+          "KPEX_PASSKEY_USERNAME",
+          "KPEX_PASSKEY_USER_HANDLE",
+          "KPXC_PASSKEY_USERNAME"
+        ],
+        "keeagent_settings": 1,
+        "meta_custom_data_keys": [
+          "KPXC_RANDOM_SLUG",
+          "_LAST_MODIFIED",
+          "keex.fixture"
+        ],
+        "unknown_elements": [],
+        "custom_fields_count": 92,
+        "custom_fields_sha256": "55a4f054b423af979b2da1d02f1d4af49fa36a8632b37c15716903823ca42b42",
+        "protected_custom_fields_count": 65,
+        "protected_custom_fields_sha256": "7dd6043bbb55773f94fc4c9dbab4685722b9ffc8efba2138137fbf379539eef5",
+        "type_counts": {
+          "document": 1,
+          "finance_account": 1,
+          "gift_card": 1,
+          "identity_document": 1,
+          "legacy": 14,
+          "login": 4,
+          "maintenance": 1,
+          "membership_card": 1,
+          "payment_card": 3,
+          "secure_note": 5,
+          "sim_profile": 3,
+          "subscription": 2,
+          "telecom_line": 1,
+          "telecom_plan": 1
+        },
+        "relations": 22,
+        "rules": 1,
+        "events": 2,
+        "diagnostics": {
+          "legacy:": 13,
+          "read_only:field_limit": 1,
+          "read_only:legacy_parent_conflict": 1,
+          "read_only:unknown_keex_field": 1,
+          "read_only:unknown_schema": 1,
+          "valid:": 21,
+          "valid:missing_target": 1
+        }
+      },
+      "summary": {
+        "format": "4.1",
+        "cipher": "aes256-cbc",
+        "kdf": {
+          "name": "argon2d",
+          "memory": 8388608,
+          "iterations": 2,
+          "parallelism": 1
+        },
+        "compressed": true,
+        "inner_stream": "chacha20",
+        "header_hash": "not-applicable",
+        "generator": "keex-fixture-source",
+        "groups": 9,
+        "entries": 39,
+        "history_entries": 5,
+        "entries_with_history": 3,
+        "recycle_bin": {
+          "enabled": true,
+          "group_present": true,
+          "entries": 2
+        },
+        "deleted_objects": 2,
+        "custom_icons": 1,
+        "entries_with_tags": 7,
+        "attachments": {
+          "references": 9,
+          "names": [
+            "KeeAgent.settings",
+            "blob.bin",
+            "id_ed25519",
+            "notes.txt",
+            "shared.txt",
+            "合成凭据.txt"
+          ],
+          "pool_items": 6,
+          "pool_bytes": 3300,
+          "pool_protected": 6,
+          "current_references": 7,
+          "history_references": 2
+        },
+        "otp_fields": [
+          "TOTP Seed",
+          "TOTP Settings",
+          "TimeOtp-Algorithm",
+          "TimeOtp-Length",
+          "TimeOtp-Period",
+          "TimeOtp-Secret-Base32",
+          "otp"
+        ],
+        "passkey_fields": [
+          "KPEX_PASSKEY_CREDENTIAL_ID",
+          "KPEX_PASSKEY_FLAG_BE",
+          "KPEX_PASSKEY_FLAG_BS",
+          "KPEX_PASSKEY_GENERATED_USER_ID",
+          "KPEX_PASSKEY_PRIVATE_KEY_PEM",
+          "KPEX_PASSKEY_RELYING_PARTY",
+          "KPEX_PASSKEY_USERNAME",
+          "KPEX_PASSKEY_USER_HANDLE",
+          "KPXC_PASSKEY_USERNAME"
+        ],
+        "keeagent_settings": 1,
+        "meta_custom_data_keys": [
+          "KPXC_RANDOM_SLUG",
+          "_LAST_MODIFIED",
+          "keex.fixture"
+        ],
+        "unknown_elements": [],
+        "custom_fields_count": 92,
+        "custom_fields_sha256": "55a4f054b423af979b2da1d02f1d4af49fa36a8632b37c15716903823ca42b42",
+        "protected_custom_fields_count": 65,
+        "protected_custom_fields_sha256": "7dd6043bbb55773f94fc4c9dbab4685722b9ffc8efba2138137fbf379539eef5",
+        "type_counts": {
+          "document": 1,
+          "finance_account": 1,
+          "gift_card": 1,
+          "identity_document": 1,
+          "legacy": 14,
+          "login": 4,
+          "maintenance": 1,
+          "membership_card": 1,
+          "payment_card": 3,
+          "secure_note": 5,
+          "sim_profile": 3,
+          "subscription": 2,
+          "telecom_line": 1,
+          "telecom_plan": 1
+        },
+        "relations": 22,
+        "rules": 1,
+        "events": 2,
+        "diagnostics": {
+          "legacy:": 13,
+          "read_only:field_limit": 1,
+          "read_only:legacy_parent_conflict": 1,
+          "read_only:unknown_keex_field": 1,
+          "read_only:unknown_schema": 1,
+          "valid:": 21,
+          "valid:missing_target": 1
+        }
+      },
+      "raw_changes": [
+        "added KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046/Group=42e8f2fbeced2a39acdaf7cc23fb1a71/Entry=64f57988c982f6e4c805e9c428edbb74/History/Entry#1",
+        "changed/value KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046/Group=42e8f2fbeced2a39acdaf7cc23fb1a71/Entry=64f57988c982f6e4c805e9c428edbb74/History/Entry/String=UserName/Value",
+        "changed/value KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046/Group=42e8f2fbeced2a39acdaf7cc23fb1a71/Entry=64f57988c982f6e4c805e9c428edbb74/History/Entry/Times/LastAccessTime",
+        "changed/value KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046/Group=42e8f2fbeced2a39acdaf7cc23fb1a71/Entry=64f57988c982f6e4c805e9c428edbb74/History/Entry/Times/LastModificationTime",
+        "changed/value KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046/Group=42e8f2fbeced2a39acdaf7cc23fb1a71/Entry=64f57988c982f6e4c805e9c428edbb74/String=UserName/Value",
+        "changed/value KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046/Group=42e8f2fbeced2a39acdaf7cc23fb1a71/Entry=64f57988c982f6e4c805e9c428edbb74/Times/LastModificationTime",
+        "order KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046",
+        "removed KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046/Group=619866709f661f4847cc86d411ca5bf1/Entry=8965805d6caa1155bdc9ed01dcb11d04/IconID",
+        "removed KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046/Group=619866709f661f4847cc86d411ca5bf1/IconID"
+      ],
+      "other_changes": [
+        "order KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046",
+        "removed KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046/Group=619866709f661f4847cc86d411ca5bf1/Entry=8965805d6caa1155bdc9ed01dcb11d04/IconID",
+        "removed KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046/Group=619866709f661f4847cc86d411ca5bf1/IconID"
+      ],
+      "history_placement": "prepend",
+      "history_snapshot_changes": [],
+      "attachment_order_changes": [],
+      "lossless_roundtrip": false,
+      "verdict": "readable; original field values/protection and attachment bytes retained; semantic differences remain",
+      "helper_counts": {
+        "ok": true,
+        "entries": 39,
+        "groups": 9,
+        "attachments": 6,
+        "history_before": 4,
+        "history_after": 5,
+        "bytes": 39777
+      },
+      "reference_export": {
+        "current_entries": 39,
+        "history_entries": 5,
+        "attachment_pool_cross_checked": false
+      },
+      "elapsed_helper_and_checks_seconds": 0.223555
+    },
+    {
+      "id": "RS41-PASSKEY-ARGON2D-CHACHA20",
+      "file": "rs41-passkey-argon2d-chacha20.kdbx",
+      "kind": "passkey",
+      "source_file": "m41-passkey-edit1.kdbx",
+      "password": "keex-synthetic-M41-PASSKEY",
+      "entry_uuid": "64f57988c982f6e4c805e9c428edbb74",
+      "new_username": "synthetic-rs41-passkey-argon2d-chacha20",
+      "kdf": "argon2d",
+      "cipher": "chacha20",
+      "source_sha256": "00201776ed5e0b8c57fdf44aa6dc284735cc41da312e2d49bcf80c87f7945411",
+      "sha256": "7ddca848104ee63b61e7f1571283b700094d1b2de9c1aa483aa4e81f33e5d714",
+      "bytes": 39775,
+      "source_summary": {
+        "format": "4.1",
+        "cipher": "aes256-cbc",
+        "kdf": {
+          "name": "aes-kdf",
+          "rounds": 1000000
+        },
+        "compressed": true,
+        "inner_stream": "chacha20",
+        "header_hash": "not-applicable",
+        "generator": "keex-fixture-source",
+        "groups": 9,
+        "entries": 39,
+        "history_entries": 4,
+        "entries_with_history": 3,
+        "recycle_bin": {
+          "enabled": true,
+          "group_present": true,
+          "entries": 2
+        },
+        "deleted_objects": 2,
+        "custom_icons": 1,
+        "entries_with_tags": 6,
+        "attachments": {
+          "references": 9,
+          "names": [
+            "KeeAgent.settings",
+            "blob.bin",
+            "id_ed25519",
+            "notes.txt",
+            "shared.txt",
+            "合成凭据.txt"
+          ],
+          "pool_items": 6,
+          "pool_bytes": 3300,
+          "pool_protected": 6,
+          "current_references": 7,
+          "history_references": 2
+        },
+        "otp_fields": [
+          "TOTP Seed",
+          "TOTP Settings",
+          "TimeOtp-Algorithm",
+          "TimeOtp-Length",
+          "TimeOtp-Period",
+          "TimeOtp-Secret-Base32",
+          "otp"
+        ],
+        "passkey_fields": [
+          "KPEX_PASSKEY_CREDENTIAL_ID",
+          "KPEX_PASSKEY_FLAG_BE",
+          "KPEX_PASSKEY_FLAG_BS",
+          "KPEX_PASSKEY_GENERATED_USER_ID",
+          "KPEX_PASSKEY_PRIVATE_KEY_PEM",
+          "KPEX_PASSKEY_RELYING_PARTY",
+          "KPEX_PASSKEY_USERNAME",
+          "KPEX_PASSKEY_USER_HANDLE",
+          "KPXC_PASSKEY_USERNAME"
+        ],
+        "keeagent_settings": 1,
+        "meta_custom_data_keys": [
+          "KPXC_RANDOM_SLUG",
+          "_LAST_MODIFIED",
+          "keex.fixture"
+        ],
+        "unknown_elements": [],
+        "custom_fields_count": 92,
+        "custom_fields_sha256": "55a4f054b423af979b2da1d02f1d4af49fa36a8632b37c15716903823ca42b42",
+        "protected_custom_fields_count": 65,
+        "protected_custom_fields_sha256": "7dd6043bbb55773f94fc4c9dbab4685722b9ffc8efba2138137fbf379539eef5",
+        "type_counts": {
+          "document": 1,
+          "finance_account": 1,
+          "gift_card": 1,
+          "identity_document": 1,
+          "legacy": 14,
+          "login": 4,
+          "maintenance": 1,
+          "membership_card": 1,
+          "payment_card": 3,
+          "secure_note": 5,
+          "sim_profile": 3,
+          "subscription": 2,
+          "telecom_line": 1,
+          "telecom_plan": 1
+        },
+        "relations": 22,
+        "rules": 1,
+        "events": 2,
+        "diagnostics": {
+          "legacy:": 13,
+          "read_only:field_limit": 1,
+          "read_only:legacy_parent_conflict": 1,
+          "read_only:unknown_keex_field": 1,
+          "read_only:unknown_schema": 1,
+          "valid:": 21,
+          "valid:missing_target": 1
+        }
+      },
+      "summary": {
+        "format": "4.1",
+        "cipher": "chacha20",
+        "kdf": {
+          "name": "argon2d",
+          "memory": 8388608,
+          "iterations": 2,
+          "parallelism": 1
+        },
+        "compressed": true,
+        "inner_stream": "chacha20",
+        "header_hash": "not-applicable",
+        "generator": "keex-fixture-source",
+        "groups": 9,
+        "entries": 39,
+        "history_entries": 5,
+        "entries_with_history": 3,
+        "recycle_bin": {
+          "enabled": true,
+          "group_present": true,
+          "entries": 2
+        },
+        "deleted_objects": 2,
+        "custom_icons": 1,
+        "entries_with_tags": 7,
+        "attachments": {
+          "references": 9,
+          "names": [
+            "KeeAgent.settings",
+            "blob.bin",
+            "id_ed25519",
+            "notes.txt",
+            "shared.txt",
+            "合成凭据.txt"
+          ],
+          "pool_items": 6,
+          "pool_bytes": 3300,
+          "pool_protected": 6,
+          "current_references": 7,
+          "history_references": 2
+        },
+        "otp_fields": [
+          "TOTP Seed",
+          "TOTP Settings",
+          "TimeOtp-Algorithm",
+          "TimeOtp-Length",
+          "TimeOtp-Period",
+          "TimeOtp-Secret-Base32",
+          "otp"
+        ],
+        "passkey_fields": [
+          "KPEX_PASSKEY_CREDENTIAL_ID",
+          "KPEX_PASSKEY_FLAG_BE",
+          "KPEX_PASSKEY_FLAG_BS",
+          "KPEX_PASSKEY_GENERATED_USER_ID",
+          "KPEX_PASSKEY_PRIVATE_KEY_PEM",
+          "KPEX_PASSKEY_RELYING_PARTY",
+          "KPEX_PASSKEY_USERNAME",
+          "KPEX_PASSKEY_USER_HANDLE",
+          "KPXC_PASSKEY_USERNAME"
+        ],
+        "keeagent_settings": 1,
+        "meta_custom_data_keys": [
+          "KPXC_RANDOM_SLUG",
+          "_LAST_MODIFIED",
+          "keex.fixture"
+        ],
+        "unknown_elements": [],
+        "custom_fields_count": 92,
+        "custom_fields_sha256": "55a4f054b423af979b2da1d02f1d4af49fa36a8632b37c15716903823ca42b42",
+        "protected_custom_fields_count": 65,
+        "protected_custom_fields_sha256": "7dd6043bbb55773f94fc4c9dbab4685722b9ffc8efba2138137fbf379539eef5",
+        "type_counts": {
+          "document": 1,
+          "finance_account": 1,
+          "gift_card": 1,
+          "identity_document": 1,
+          "legacy": 14,
+          "login": 4,
+          "maintenance": 1,
+          "membership_card": 1,
+          "payment_card": 3,
+          "secure_note": 5,
+          "sim_profile": 3,
+          "subscription": 2,
+          "telecom_line": 1,
+          "telecom_plan": 1
+        },
+        "relations": 22,
+        "rules": 1,
+        "events": 2,
+        "diagnostics": {
+          "legacy:": 13,
+          "read_only:field_limit": 1,
+          "read_only:legacy_parent_conflict": 1,
+          "read_only:unknown_keex_field": 1,
+          "read_only:unknown_schema": 1,
+          "valid:": 21,
+          "valid:missing_target": 1
+        }
+      },
+      "raw_changes": [
+        "added KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046/Group=42e8f2fbeced2a39acdaf7cc23fb1a71/Entry=64f57988c982f6e4c805e9c428edbb74/History/Entry#1",
+        "changed/value KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046/Group=42e8f2fbeced2a39acdaf7cc23fb1a71/Entry=64f57988c982f6e4c805e9c428edbb74/History/Entry/String=UserName/Value",
+        "changed/value KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046/Group=42e8f2fbeced2a39acdaf7cc23fb1a71/Entry=64f57988c982f6e4c805e9c428edbb74/History/Entry/Times/LastAccessTime",
+        "changed/value KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046/Group=42e8f2fbeced2a39acdaf7cc23fb1a71/Entry=64f57988c982f6e4c805e9c428edbb74/History/Entry/Times/LastModificationTime",
+        "changed/value KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046/Group=42e8f2fbeced2a39acdaf7cc23fb1a71/Entry=64f57988c982f6e4c805e9c428edbb74/String=UserName/Value",
+        "changed/value KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046/Group=42e8f2fbeced2a39acdaf7cc23fb1a71/Entry=64f57988c982f6e4c805e9c428edbb74/Times/LastModificationTime",
+        "order KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046",
+        "removed KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046/Group=619866709f661f4847cc86d411ca5bf1/Entry=8965805d6caa1155bdc9ed01dcb11d04/IconID",
+        "removed KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046/Group=619866709f661f4847cc86d411ca5bf1/IconID"
+      ],
+      "other_changes": [
+        "order KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046",
+        "removed KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046/Group=619866709f661f4847cc86d411ca5bf1/Entry=8965805d6caa1155bdc9ed01dcb11d04/IconID",
+        "removed KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046/Group=619866709f661f4847cc86d411ca5bf1/IconID"
+      ],
+      "history_placement": "prepend",
+      "history_snapshot_changes": [],
+      "attachment_order_changes": [
+        {
+          "entry_uuid": "8965805d6caa1155bdc9ed01dcb11d04",
+          "scope": "current",
+          "before": [
+            "notes.txt",
+            "shared.txt"
+          ],
+          "after": [
+            "shared.txt",
+            "notes.txt"
+          ]
+        }
+      ],
+      "lossless_roundtrip": false,
+      "verdict": "readable; original field values/protection and attachment bytes retained; semantic differences remain",
+      "helper_counts": {
+        "ok": true,
+        "entries": 39,
+        "groups": 9,
+        "attachments": 6,
+        "history_before": 4,
+        "history_after": 5,
+        "bytes": 39775
+      },
+      "reference_export": {
+        "current_entries": 39,
+        "history_entries": 5,
+        "attachment_pool_cross_checked": false
+      },
+      "elapsed_helper_and_checks_seconds": 0.211384
+    },
+    {
+      "id": "RS41-PASSKEY-ARGON2ID-AES",
+      "file": "rs41-passkey-argon2id-aes.kdbx",
+      "kind": "passkey",
+      "source_file": "m41-passkey-edit1.kdbx",
+      "password": "keex-synthetic-M41-PASSKEY",
+      "entry_uuid": "64f57988c982f6e4c805e9c428edbb74",
+      "new_username": "synthetic-rs41-passkey-argon2id-aes",
+      "kdf": "argon2id",
+      "cipher": "aes",
+      "source_sha256": "00201776ed5e0b8c57fdf44aa6dc284735cc41da312e2d49bcf80c87f7945411",
+      "sha256": "e24378c2581a0f74fec714a9ee221d74cb0e08c3d16d7a742ca1fd4d0d95635f",
+      "bytes": 39793,
+      "source_summary": {
+        "format": "4.1",
+        "cipher": "aes256-cbc",
+        "kdf": {
+          "name": "aes-kdf",
+          "rounds": 1000000
+        },
+        "compressed": true,
+        "inner_stream": "chacha20",
+        "header_hash": "not-applicable",
+        "generator": "keex-fixture-source",
+        "groups": 9,
+        "entries": 39,
+        "history_entries": 4,
+        "entries_with_history": 3,
+        "recycle_bin": {
+          "enabled": true,
+          "group_present": true,
+          "entries": 2
+        },
+        "deleted_objects": 2,
+        "custom_icons": 1,
+        "entries_with_tags": 6,
+        "attachments": {
+          "references": 9,
+          "names": [
+            "KeeAgent.settings",
+            "blob.bin",
+            "id_ed25519",
+            "notes.txt",
+            "shared.txt",
+            "合成凭据.txt"
+          ],
+          "pool_items": 6,
+          "pool_bytes": 3300,
+          "pool_protected": 6,
+          "current_references": 7,
+          "history_references": 2
+        },
+        "otp_fields": [
+          "TOTP Seed",
+          "TOTP Settings",
+          "TimeOtp-Algorithm",
+          "TimeOtp-Length",
+          "TimeOtp-Period",
+          "TimeOtp-Secret-Base32",
+          "otp"
+        ],
+        "passkey_fields": [
+          "KPEX_PASSKEY_CREDENTIAL_ID",
+          "KPEX_PASSKEY_FLAG_BE",
+          "KPEX_PASSKEY_FLAG_BS",
+          "KPEX_PASSKEY_GENERATED_USER_ID",
+          "KPEX_PASSKEY_PRIVATE_KEY_PEM",
+          "KPEX_PASSKEY_RELYING_PARTY",
+          "KPEX_PASSKEY_USERNAME",
+          "KPEX_PASSKEY_USER_HANDLE",
+          "KPXC_PASSKEY_USERNAME"
+        ],
+        "keeagent_settings": 1,
+        "meta_custom_data_keys": [
+          "KPXC_RANDOM_SLUG",
+          "_LAST_MODIFIED",
+          "keex.fixture"
+        ],
+        "unknown_elements": [],
+        "custom_fields_count": 92,
+        "custom_fields_sha256": "55a4f054b423af979b2da1d02f1d4af49fa36a8632b37c15716903823ca42b42",
+        "protected_custom_fields_count": 65,
+        "protected_custom_fields_sha256": "7dd6043bbb55773f94fc4c9dbab4685722b9ffc8efba2138137fbf379539eef5",
+        "type_counts": {
+          "document": 1,
+          "finance_account": 1,
+          "gift_card": 1,
+          "identity_document": 1,
+          "legacy": 14,
+          "login": 4,
+          "maintenance": 1,
+          "membership_card": 1,
+          "payment_card": 3,
+          "secure_note": 5,
+          "sim_profile": 3,
+          "subscription": 2,
+          "telecom_line": 1,
+          "telecom_plan": 1
+        },
+        "relations": 22,
+        "rules": 1,
+        "events": 2,
+        "diagnostics": {
+          "legacy:": 13,
+          "read_only:field_limit": 1,
+          "read_only:legacy_parent_conflict": 1,
+          "read_only:unknown_keex_field": 1,
+          "read_only:unknown_schema": 1,
+          "valid:": 21,
+          "valid:missing_target": 1
+        }
+      },
+      "summary": {
+        "format": "4.1",
+        "cipher": "aes256-cbc",
+        "kdf": {
+          "name": "argon2id",
+          "memory": 8388608,
+          "iterations": 2,
+          "parallelism": 1
+        },
+        "compressed": true,
+        "inner_stream": "chacha20",
+        "header_hash": "not-applicable",
+        "generator": "keex-fixture-source",
+        "groups": 9,
+        "entries": 39,
+        "history_entries": 5,
+        "entries_with_history": 3,
+        "recycle_bin": {
+          "enabled": true,
+          "group_present": true,
+          "entries": 2
+        },
+        "deleted_objects": 2,
+        "custom_icons": 1,
+        "entries_with_tags": 7,
+        "attachments": {
+          "references": 9,
+          "names": [
+            "KeeAgent.settings",
+            "blob.bin",
+            "id_ed25519",
+            "notes.txt",
+            "shared.txt",
+            "合成凭据.txt"
+          ],
+          "pool_items": 6,
+          "pool_bytes": 3300,
+          "pool_protected": 6,
+          "current_references": 7,
+          "history_references": 2
+        },
+        "otp_fields": [
+          "TOTP Seed",
+          "TOTP Settings",
+          "TimeOtp-Algorithm",
+          "TimeOtp-Length",
+          "TimeOtp-Period",
+          "TimeOtp-Secret-Base32",
+          "otp"
+        ],
+        "passkey_fields": [
+          "KPEX_PASSKEY_CREDENTIAL_ID",
+          "KPEX_PASSKEY_FLAG_BE",
+          "KPEX_PASSKEY_FLAG_BS",
+          "KPEX_PASSKEY_GENERATED_USER_ID",
+          "KPEX_PASSKEY_PRIVATE_KEY_PEM",
+          "KPEX_PASSKEY_RELYING_PARTY",
+          "KPEX_PASSKEY_USERNAME",
+          "KPEX_PASSKEY_USER_HANDLE",
+          "KPXC_PASSKEY_USERNAME"
+        ],
+        "keeagent_settings": 1,
+        "meta_custom_data_keys": [
+          "KPXC_RANDOM_SLUG",
+          "_LAST_MODIFIED",
+          "keex.fixture"
+        ],
+        "unknown_elements": [],
+        "custom_fields_count": 92,
+        "custom_fields_sha256": "55a4f054b423af979b2da1d02f1d4af49fa36a8632b37c15716903823ca42b42",
+        "protected_custom_fields_count": 65,
+        "protected_custom_fields_sha256": "7dd6043bbb55773f94fc4c9dbab4685722b9ffc8efba2138137fbf379539eef5",
+        "type_counts": {
+          "document": 1,
+          "finance_account": 1,
+          "gift_card": 1,
+          "identity_document": 1,
+          "legacy": 14,
+          "login": 4,
+          "maintenance": 1,
+          "membership_card": 1,
+          "payment_card": 3,
+          "secure_note": 5,
+          "sim_profile": 3,
+          "subscription": 2,
+          "telecom_line": 1,
+          "telecom_plan": 1
+        },
+        "relations": 22,
+        "rules": 1,
+        "events": 2,
+        "diagnostics": {
+          "legacy:": 13,
+          "read_only:field_limit": 1,
+          "read_only:legacy_parent_conflict": 1,
+          "read_only:unknown_keex_field": 1,
+          "read_only:unknown_schema": 1,
+          "valid:": 21,
+          "valid:missing_target": 1
+        }
+      },
+      "raw_changes": [
+        "added KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046/Group=42e8f2fbeced2a39acdaf7cc23fb1a71/Entry=64f57988c982f6e4c805e9c428edbb74/History/Entry#1",
+        "changed/value KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046/Group=42e8f2fbeced2a39acdaf7cc23fb1a71/Entry=64f57988c982f6e4c805e9c428edbb74/History/Entry/String=UserName/Value",
+        "changed/value KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046/Group=42e8f2fbeced2a39acdaf7cc23fb1a71/Entry=64f57988c982f6e4c805e9c428edbb74/History/Entry/Times/LastAccessTime",
+        "changed/value KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046/Group=42e8f2fbeced2a39acdaf7cc23fb1a71/Entry=64f57988c982f6e4c805e9c428edbb74/History/Entry/Times/LastModificationTime",
+        "changed/value KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046/Group=42e8f2fbeced2a39acdaf7cc23fb1a71/Entry=64f57988c982f6e4c805e9c428edbb74/String=UserName/Value",
+        "changed/value KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046/Group=42e8f2fbeced2a39acdaf7cc23fb1a71/Entry=64f57988c982f6e4c805e9c428edbb74/Times/LastModificationTime",
+        "order KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046",
+        "removed KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046/Group=619866709f661f4847cc86d411ca5bf1/Entry=8965805d6caa1155bdc9ed01dcb11d04/IconID",
+        "removed KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046/Group=619866709f661f4847cc86d411ca5bf1/IconID"
+      ],
+      "other_changes": [
+        "order KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046",
+        "removed KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046/Group=619866709f661f4847cc86d411ca5bf1/Entry=8965805d6caa1155bdc9ed01dcb11d04/IconID",
+        "removed KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046/Group=619866709f661f4847cc86d411ca5bf1/IconID"
+      ],
+      "history_placement": "prepend",
+      "history_snapshot_changes": [],
+      "attachment_order_changes": [],
+      "lossless_roundtrip": false,
+      "verdict": "readable; original field values/protection and attachment bytes retained; semantic differences remain",
+      "helper_counts": {
+        "ok": true,
+        "entries": 39,
+        "groups": 9,
+        "attachments": 6,
+        "history_before": 4,
+        "history_after": 5,
+        "bytes": 39793
+      },
+      "reference_export": {
+        "current_entries": 39,
+        "history_entries": 5,
+        "attachment_pool_cross_checked": false
+      },
+      "elapsed_helper_and_checks_seconds": 0.34663
+    },
+    {
+      "id": "RS41-PASSKEY-ARGON2ID-CHACHA20",
+      "file": "rs41-passkey-argon2id-chacha20.kdbx",
+      "kind": "passkey",
+      "source_file": "m41-passkey-edit1.kdbx",
+      "password": "keex-synthetic-M41-PASSKEY",
+      "entry_uuid": "64f57988c982f6e4c805e9c428edbb74",
+      "new_username": "synthetic-rs41-passkey-argon2id-chacha20",
+      "kdf": "argon2id",
+      "cipher": "chacha20",
+      "source_sha256": "00201776ed5e0b8c57fdf44aa6dc284735cc41da312e2d49bcf80c87f7945411",
+      "sha256": "94b92a678bcc1612322126d2e784e2662632771098a55f0241d311a7338b71b2",
+      "bytes": 39764,
+      "source_summary": {
+        "format": "4.1",
+        "cipher": "aes256-cbc",
+        "kdf": {
+          "name": "aes-kdf",
+          "rounds": 1000000
+        },
+        "compressed": true,
+        "inner_stream": "chacha20",
+        "header_hash": "not-applicable",
+        "generator": "keex-fixture-source",
+        "groups": 9,
+        "entries": 39,
+        "history_entries": 4,
+        "entries_with_history": 3,
+        "recycle_bin": {
+          "enabled": true,
+          "group_present": true,
+          "entries": 2
+        },
+        "deleted_objects": 2,
+        "custom_icons": 1,
+        "entries_with_tags": 6,
+        "attachments": {
+          "references": 9,
+          "names": [
+            "KeeAgent.settings",
+            "blob.bin",
+            "id_ed25519",
+            "notes.txt",
+            "shared.txt",
+            "合成凭据.txt"
+          ],
+          "pool_items": 6,
+          "pool_bytes": 3300,
+          "pool_protected": 6,
+          "current_references": 7,
+          "history_references": 2
+        },
+        "otp_fields": [
+          "TOTP Seed",
+          "TOTP Settings",
+          "TimeOtp-Algorithm",
+          "TimeOtp-Length",
+          "TimeOtp-Period",
+          "TimeOtp-Secret-Base32",
+          "otp"
+        ],
+        "passkey_fields": [
+          "KPEX_PASSKEY_CREDENTIAL_ID",
+          "KPEX_PASSKEY_FLAG_BE",
+          "KPEX_PASSKEY_FLAG_BS",
+          "KPEX_PASSKEY_GENERATED_USER_ID",
+          "KPEX_PASSKEY_PRIVATE_KEY_PEM",
+          "KPEX_PASSKEY_RELYING_PARTY",
+          "KPEX_PASSKEY_USERNAME",
+          "KPEX_PASSKEY_USER_HANDLE",
+          "KPXC_PASSKEY_USERNAME"
+        ],
+        "keeagent_settings": 1,
+        "meta_custom_data_keys": [
+          "KPXC_RANDOM_SLUG",
+          "_LAST_MODIFIED",
+          "keex.fixture"
+        ],
+        "unknown_elements": [],
+        "custom_fields_count": 92,
+        "custom_fields_sha256": "55a4f054b423af979b2da1d02f1d4af49fa36a8632b37c15716903823ca42b42",
+        "protected_custom_fields_count": 65,
+        "protected_custom_fields_sha256": "7dd6043bbb55773f94fc4c9dbab4685722b9ffc8efba2138137fbf379539eef5",
+        "type_counts": {
+          "document": 1,
+          "finance_account": 1,
+          "gift_card": 1,
+          "identity_document": 1,
+          "legacy": 14,
+          "login": 4,
+          "maintenance": 1,
+          "membership_card": 1,
+          "payment_card": 3,
+          "secure_note": 5,
+          "sim_profile": 3,
+          "subscription": 2,
+          "telecom_line": 1,
+          "telecom_plan": 1
+        },
+        "relations": 22,
+        "rules": 1,
+        "events": 2,
+        "diagnostics": {
+          "legacy:": 13,
+          "read_only:field_limit": 1,
+          "read_only:legacy_parent_conflict": 1,
+          "read_only:unknown_keex_field": 1,
+          "read_only:unknown_schema": 1,
+          "valid:": 21,
+          "valid:missing_target": 1
+        }
+      },
+      "summary": {
+        "format": "4.1",
+        "cipher": "chacha20",
+        "kdf": {
+          "name": "argon2id",
+          "memory": 8388608,
+          "iterations": 2,
+          "parallelism": 1
+        },
+        "compressed": true,
+        "inner_stream": "chacha20",
+        "header_hash": "not-applicable",
+        "generator": "keex-fixture-source",
+        "groups": 9,
+        "entries": 39,
+        "history_entries": 5,
+        "entries_with_history": 3,
+        "recycle_bin": {
+          "enabled": true,
+          "group_present": true,
+          "entries": 2
+        },
+        "deleted_objects": 2,
+        "custom_icons": 1,
+        "entries_with_tags": 7,
+        "attachments": {
+          "references": 9,
+          "names": [
+            "KeeAgent.settings",
+            "blob.bin",
+            "id_ed25519",
+            "notes.txt",
+            "shared.txt",
+            "合成凭据.txt"
+          ],
+          "pool_items": 6,
+          "pool_bytes": 3300,
+          "pool_protected": 6,
+          "current_references": 7,
+          "history_references": 2
+        },
+        "otp_fields": [
+          "TOTP Seed",
+          "TOTP Settings",
+          "TimeOtp-Algorithm",
+          "TimeOtp-Length",
+          "TimeOtp-Period",
+          "TimeOtp-Secret-Base32",
+          "otp"
+        ],
+        "passkey_fields": [
+          "KPEX_PASSKEY_CREDENTIAL_ID",
+          "KPEX_PASSKEY_FLAG_BE",
+          "KPEX_PASSKEY_FLAG_BS",
+          "KPEX_PASSKEY_GENERATED_USER_ID",
+          "KPEX_PASSKEY_PRIVATE_KEY_PEM",
+          "KPEX_PASSKEY_RELYING_PARTY",
+          "KPEX_PASSKEY_USERNAME",
+          "KPEX_PASSKEY_USER_HANDLE",
+          "KPXC_PASSKEY_USERNAME"
+        ],
+        "keeagent_settings": 1,
+        "meta_custom_data_keys": [
+          "KPXC_RANDOM_SLUG",
+          "_LAST_MODIFIED",
+          "keex.fixture"
+        ],
+        "unknown_elements": [],
+        "custom_fields_count": 92,
+        "custom_fields_sha256": "55a4f054b423af979b2da1d02f1d4af49fa36a8632b37c15716903823ca42b42",
+        "protected_custom_fields_count": 65,
+        "protected_custom_fields_sha256": "7dd6043bbb55773f94fc4c9dbab4685722b9ffc8efba2138137fbf379539eef5",
+        "type_counts": {
+          "document": 1,
+          "finance_account": 1,
+          "gift_card": 1,
+          "identity_document": 1,
+          "legacy": 14,
+          "login": 4,
+          "maintenance": 1,
+          "membership_card": 1,
+          "payment_card": 3,
+          "secure_note": 5,
+          "sim_profile": 3,
+          "subscription": 2,
+          "telecom_line": 1,
+          "telecom_plan": 1
+        },
+        "relations": 22,
+        "rules": 1,
+        "events": 2,
+        "diagnostics": {
+          "legacy:": 13,
+          "read_only:field_limit": 1,
+          "read_only:legacy_parent_conflict": 1,
+          "read_only:unknown_keex_field": 1,
+          "read_only:unknown_schema": 1,
+          "valid:": 21,
+          "valid:missing_target": 1
+        }
+      },
+      "raw_changes": [
+        "added KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046/Group=42e8f2fbeced2a39acdaf7cc23fb1a71/Entry=64f57988c982f6e4c805e9c428edbb74/History/Entry#1",
+        "changed/value KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046/Group=42e8f2fbeced2a39acdaf7cc23fb1a71/Entry=64f57988c982f6e4c805e9c428edbb74/History/Entry/String=UserName/Value",
+        "changed/value KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046/Group=42e8f2fbeced2a39acdaf7cc23fb1a71/Entry=64f57988c982f6e4c805e9c428edbb74/History/Entry/Times/LastAccessTime",
+        "changed/value KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046/Group=42e8f2fbeced2a39acdaf7cc23fb1a71/Entry=64f57988c982f6e4c805e9c428edbb74/History/Entry/Times/LastModificationTime",
+        "changed/value KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046/Group=42e8f2fbeced2a39acdaf7cc23fb1a71/Entry=64f57988c982f6e4c805e9c428edbb74/String=UserName/Value",
+        "changed/value KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046/Group=42e8f2fbeced2a39acdaf7cc23fb1a71/Entry=64f57988c982f6e4c805e9c428edbb74/Times/LastModificationTime",
+        "order KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046",
+        "removed KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046/Group=619866709f661f4847cc86d411ca5bf1/Entry=8965805d6caa1155bdc9ed01dcb11d04/IconID",
+        "removed KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046/Group=619866709f661f4847cc86d411ca5bf1/IconID"
+      ],
+      "other_changes": [
+        "order KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046",
+        "removed KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046/Group=619866709f661f4847cc86d411ca5bf1/Entry=8965805d6caa1155bdc9ed01dcb11d04/IconID",
+        "removed KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046/Group=619866709f661f4847cc86d411ca5bf1/IconID"
+      ],
+      "history_placement": "prepend",
+      "history_snapshot_changes": [],
+      "attachment_order_changes": [
+        {
+          "entry_uuid": "8965805d6caa1155bdc9ed01dcb11d04",
+          "scope": "current",
+          "before": [
+            "notes.txt",
+            "shared.txt"
+          ],
+          "after": [
+            "shared.txt",
+            "notes.txt"
+          ]
+        },
+        {
+          "entry_uuid": "5304a955887e682676d4a53259a477b5",
+          "scope": "current",
+          "before": [
+            "KeeAgent.settings",
+            "id_ed25519"
+          ],
+          "after": [
+            "id_ed25519",
+            "KeeAgent.settings"
+          ]
+        }
+      ],
+      "lossless_roundtrip": false,
+      "verdict": "readable; original field values/protection and attachment bytes retained; semantic differences remain",
+      "helper_counts": {
+        "ok": true,
+        "entries": 39,
+        "groups": 9,
+        "attachments": 6,
+        "history_before": 4,
+        "history_after": 5,
+        "bytes": 39764
+      },
+      "reference_export": {
+        "current_entries": 39,
+        "history_entries": 5,
+        "attachment_pool_cross_checked": false
+      },
+      "elapsed_helper_and_checks_seconds": 0.299668
+    },
+    {
+      "id": "RS41-VAULT-AES-KDF-AES",
+      "file": "rs41-vault-aes-kdf-aes.kdbx",
+      "kind": "vault",
+      "source_file": "v41-vault-edit1.kdbx",
+      "password": "keex-synthetic-V41-VAULT",
+      "entry_uuid": "c21db8c8be768f14cae2ed1a9f6cb568",
+      "new_username": "synthetic-rs41-vault-aes-kdf-aes",
+      "kdf": "aes-kdf",
+      "cipher": "aes",
+      "source_sha256": "b1e38831a853d09fe5341b6362e98c69021b9c3d4cbc256afa02fb730bb54888",
+      "sha256": "050879fed6aeb390ba057205861a370ef07f63d939e24909a2f240adad5ef68d",
+      "bytes": 38595,
+      "source_summary": {
+        "format": "4.1",
+        "cipher": "aes256-cbc",
+        "kdf": {
+          "name": "aes-kdf",
+          "rounds": 1000000
+        },
+        "compressed": true,
+        "inner_stream": "chacha20",
+        "header_hash": "not-applicable",
+        "generator": "keex-fixture-source",
+        "groups": 9,
+        "entries": 36,
+        "history_entries": 4,
+        "entries_with_history": 3,
+        "recycle_bin": {
+          "enabled": true,
+          "group_present": true,
+          "entries": 2
+        },
+        "deleted_objects": 2,
+        "custom_icons": 1,
+        "entries_with_tags": 3,
+        "attachments": {
+          "references": 9,
+          "names": [
+            "KeeAgent.settings",
+            "blob.bin",
+            "id_ed25519",
+            "notes.txt",
+            "shared.txt",
+            "合成凭据.txt"
+          ],
+          "pool_items": 6,
+          "pool_bytes": 3300,
+          "pool_protected": 6,
+          "current_references": 7,
+          "history_references": 2
+        },
+        "otp_fields": [
+          "TOTP Seed",
+          "TOTP Settings",
+          "TimeOtp-Algorithm",
+          "TimeOtp-Length",
+          "TimeOtp-Period",
+          "TimeOtp-Secret-Base32",
+          "otp"
+        ],
+        "passkey_fields": [
+          "KPEX_PASSKEY_CREDENTIAL_ID",
+          "KPEX_PASSKEY_FLAG_BE",
+          "KPEX_PASSKEY_FLAG_BS",
+          "KPEX_PASSKEY_GENERATED_USER_ID",
+          "KPEX_PASSKEY_PRIVATE_KEY_PEM",
+          "KPEX_PASSKEY_RELYING_PARTY",
+          "KPEX_PASSKEY_USERNAME",
+          "KPEX_PASSKEY_USER_HANDLE",
+          "KPXC_PASSKEY_USERNAME"
+        ],
+        "keeagent_settings": 1,
+        "meta_custom_data_keys": [
+          "KPXC_RANDOM_SLUG",
+          "_LAST_MODIFIED",
+          "keex.fixture"
+        ],
+        "unknown_elements": [],
+        "custom_fields_count": 92,
+        "custom_fields_sha256": "55a4f054b423af979b2da1d02f1d4af49fa36a8632b37c15716903823ca42b42",
+        "protected_custom_fields_count": 65,
+        "protected_custom_fields_sha256": "7dd6043bbb55773f94fc4c9dbab4685722b9ffc8efba2138137fbf379539eef5",
+        "type_counts": {
+          "document": 1,
+          "finance_account": 1,
+          "gift_card": 1,
+          "identity_document": 1,
+          "legacy": 12,
+          "login": 3,
+          "maintenance": 1,
+          "membership_card": 1,
+          "payment_card": 3,
+          "secure_note": 5,
+          "sim_profile": 3,
+          "subscription": 2,
+          "telecom_line": 1,
+          "telecom_plan": 1
+        },
+        "relations": 22,
+        "rules": 1,
+        "events": 2,
+        "diagnostics": {
+          "legacy:": 11,
+          "read_only:field_limit": 1,
+          "read_only:legacy_parent_conflict": 1,
+          "read_only:unknown_keex_field": 1,
+          "read_only:unknown_schema": 1,
+          "valid:": 20,
+          "valid:missing_target": 1
+        }
+      },
+      "summary": {
+        "format": "4.1",
+        "cipher": "aes256-cbc",
+        "kdf": {
+          "name": "aes-kdf",
+          "rounds": 1000000
+        },
+        "compressed": true,
+        "inner_stream": "chacha20",
+        "header_hash": "not-applicable",
+        "generator": "keex-fixture-source",
+        "groups": 9,
+        "entries": 36,
+        "history_entries": 5,
+        "entries_with_history": 3,
+        "recycle_bin": {
+          "enabled": true,
+          "group_present": true,
+          "entries": 2
+        },
+        "deleted_objects": 2,
+        "custom_icons": 1,
+        "entries_with_tags": 3,
+        "attachments": {
+          "references": 9,
+          "names": [
+            "KeeAgent.settings",
+            "blob.bin",
+            "id_ed25519",
+            "notes.txt",
+            "shared.txt",
+            "合成凭据.txt"
+          ],
+          "pool_items": 6,
+          "pool_bytes": 3300,
+          "pool_protected": 6,
+          "current_references": 7,
+          "history_references": 2
+        },
+        "otp_fields": [
+          "TOTP Seed",
+          "TOTP Settings",
+          "TimeOtp-Algorithm",
+          "TimeOtp-Length",
+          "TimeOtp-Period",
+          "TimeOtp-Secret-Base32",
+          "otp"
+        ],
+        "passkey_fields": [
+          "KPEX_PASSKEY_CREDENTIAL_ID",
+          "KPEX_PASSKEY_FLAG_BE",
+          "KPEX_PASSKEY_FLAG_BS",
+          "KPEX_PASSKEY_GENERATED_USER_ID",
+          "KPEX_PASSKEY_PRIVATE_KEY_PEM",
+          "KPEX_PASSKEY_RELYING_PARTY",
+          "KPEX_PASSKEY_USERNAME",
+          "KPEX_PASSKEY_USER_HANDLE",
+          "KPXC_PASSKEY_USERNAME"
+        ],
+        "keeagent_settings": 1,
+        "meta_custom_data_keys": [
+          "KPXC_RANDOM_SLUG",
+          "_LAST_MODIFIED",
+          "keex.fixture"
+        ],
+        "unknown_elements": [],
+        "custom_fields_count": 92,
+        "custom_fields_sha256": "55a4f054b423af979b2da1d02f1d4af49fa36a8632b37c15716903823ca42b42",
+        "protected_custom_fields_count": 65,
+        "protected_custom_fields_sha256": "7dd6043bbb55773f94fc4c9dbab4685722b9ffc8efba2138137fbf379539eef5",
+        "type_counts": {
+          "document": 1,
+          "finance_account": 1,
+          "gift_card": 1,
+          "identity_document": 1,
+          "legacy": 12,
+          "login": 3,
+          "maintenance": 1,
+          "membership_card": 1,
+          "payment_card": 3,
+          "secure_note": 5,
+          "sim_profile": 3,
+          "subscription": 2,
+          "telecom_line": 1,
+          "telecom_plan": 1
+        },
+        "relations": 22,
+        "rules": 1,
+        "events": 2,
+        "diagnostics": {
+          "legacy:": 11,
+          "read_only:field_limit": 1,
+          "read_only:legacy_parent_conflict": 1,
+          "read_only:unknown_keex_field": 1,
+          "read_only:unknown_schema": 1,
+          "valid:": 20,
+          "valid:missing_target": 1
+        }
+      },
+      "raw_changes": [
+        "added KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046/Group=912008afa217d53b3a190c5e6d500909/Entry=c21db8c8be768f14cae2ed1a9f6cb568/History/Entry#1",
+        "changed/value KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046/Group=912008afa217d53b3a190c5e6d500909/Entry=c21db8c8be768f14cae2ed1a9f6cb568/History/Entry/String=UserName/Value",
+        "changed/value KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046/Group=912008afa217d53b3a190c5e6d500909/Entry=c21db8c8be768f14cae2ed1a9f6cb568/History/Entry/Times/LastAccessTime",
+        "changed/value KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046/Group=912008afa217d53b3a190c5e6d500909/Entry=c21db8c8be768f14cae2ed1a9f6cb568/History/Entry/Times/LastModificationTime",
+        "changed/value KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046/Group=912008afa217d53b3a190c5e6d500909/Entry=c21db8c8be768f14cae2ed1a9f6cb568/String=UserName/Value",
+        "changed/value KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046/Group=912008afa217d53b3a190c5e6d500909/Entry=c21db8c8be768f14cae2ed1a9f6cb568/Times/LastModificationTime",
+        "order KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046",
+        "removed KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046/Group=619866709f661f4847cc86d411ca5bf1/Entry=8965805d6caa1155bdc9ed01dcb11d04/IconID",
+        "removed KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046/Group=619866709f661f4847cc86d411ca5bf1/IconID"
+      ],
+      "other_changes": [
+        "order KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046",
+        "removed KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046/Group=619866709f661f4847cc86d411ca5bf1/Entry=8965805d6caa1155bdc9ed01dcb11d04/IconID",
+        "removed KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046/Group=619866709f661f4847cc86d411ca5bf1/IconID"
+      ],
+      "history_placement": "prepend",
+      "history_snapshot_changes": [],
+      "attachment_order_changes": [
+        {
+          "entry_uuid": "8965805d6caa1155bdc9ed01dcb11d04",
+          "scope": "history/0",
+          "before": [
+            "blob.bin",
+            "shared.txt"
+          ],
+          "after": [
+            "shared.txt",
+            "blob.bin"
+          ]
+        }
+      ],
+      "lossless_roundtrip": false,
+      "verdict": "readable; original field values/protection and attachment bytes retained; semantic differences remain",
+      "helper_counts": {
+        "ok": true,
+        "entries": 36,
+        "groups": 9,
+        "attachments": 6,
+        "history_before": 4,
+        "history_after": 5,
+        "bytes": 38595
+      },
+      "reference_export": {
+        "current_entries": 36,
+        "history_entries": 5,
+        "attachment_pool_cross_checked": false
+      },
+      "elapsed_helper_and_checks_seconds": 0.301794
+    },
+    {
+      "id": "RS41-VAULT-AES-KDF-CHACHA20",
+      "file": "rs41-vault-aes-kdf-chacha20.kdbx",
+      "kind": "vault",
+      "source_file": "v41-vault-edit1.kdbx",
+      "password": "keex-synthetic-V41-VAULT",
+      "entry_uuid": "c21db8c8be768f14cae2ed1a9f6cb568",
+      "new_username": "synthetic-rs41-vault-aes-kdf-chacha20",
+      "kdf": "aes-kdf",
+      "cipher": "chacha20",
+      "source_sha256": "b1e38831a853d09fe5341b6362e98c69021b9c3d4cbc256afa02fb730bb54888",
+      "sha256": "9fb9b6f70f640075d32820353997f3282cb01a46d677f7bfc6f6101cfb429996",
+      "bytes": 38584,
+      "source_summary": {
+        "format": "4.1",
+        "cipher": "aes256-cbc",
+        "kdf": {
+          "name": "aes-kdf",
+          "rounds": 1000000
+        },
+        "compressed": true,
+        "inner_stream": "chacha20",
+        "header_hash": "not-applicable",
+        "generator": "keex-fixture-source",
+        "groups": 9,
+        "entries": 36,
+        "history_entries": 4,
+        "entries_with_history": 3,
+        "recycle_bin": {
+          "enabled": true,
+          "group_present": true,
+          "entries": 2
+        },
+        "deleted_objects": 2,
+        "custom_icons": 1,
+        "entries_with_tags": 3,
+        "attachments": {
+          "references": 9,
+          "names": [
+            "KeeAgent.settings",
+            "blob.bin",
+            "id_ed25519",
+            "notes.txt",
+            "shared.txt",
+            "合成凭据.txt"
+          ],
+          "pool_items": 6,
+          "pool_bytes": 3300,
+          "pool_protected": 6,
+          "current_references": 7,
+          "history_references": 2
+        },
+        "otp_fields": [
+          "TOTP Seed",
+          "TOTP Settings",
+          "TimeOtp-Algorithm",
+          "TimeOtp-Length",
+          "TimeOtp-Period",
+          "TimeOtp-Secret-Base32",
+          "otp"
+        ],
+        "passkey_fields": [
+          "KPEX_PASSKEY_CREDENTIAL_ID",
+          "KPEX_PASSKEY_FLAG_BE",
+          "KPEX_PASSKEY_FLAG_BS",
+          "KPEX_PASSKEY_GENERATED_USER_ID",
+          "KPEX_PASSKEY_PRIVATE_KEY_PEM",
+          "KPEX_PASSKEY_RELYING_PARTY",
+          "KPEX_PASSKEY_USERNAME",
+          "KPEX_PASSKEY_USER_HANDLE",
+          "KPXC_PASSKEY_USERNAME"
+        ],
+        "keeagent_settings": 1,
+        "meta_custom_data_keys": [
+          "KPXC_RANDOM_SLUG",
+          "_LAST_MODIFIED",
+          "keex.fixture"
+        ],
+        "unknown_elements": [],
+        "custom_fields_count": 92,
+        "custom_fields_sha256": "55a4f054b423af979b2da1d02f1d4af49fa36a8632b37c15716903823ca42b42",
+        "protected_custom_fields_count": 65,
+        "protected_custom_fields_sha256": "7dd6043bbb55773f94fc4c9dbab4685722b9ffc8efba2138137fbf379539eef5",
+        "type_counts": {
+          "document": 1,
+          "finance_account": 1,
+          "gift_card": 1,
+          "identity_document": 1,
+          "legacy": 12,
+          "login": 3,
+          "maintenance": 1,
+          "membership_card": 1,
+          "payment_card": 3,
+          "secure_note": 5,
+          "sim_profile": 3,
+          "subscription": 2,
+          "telecom_line": 1,
+          "telecom_plan": 1
+        },
+        "relations": 22,
+        "rules": 1,
+        "events": 2,
+        "diagnostics": {
+          "legacy:": 11,
+          "read_only:field_limit": 1,
+          "read_only:legacy_parent_conflict": 1,
+          "read_only:unknown_keex_field": 1,
+          "read_only:unknown_schema": 1,
+          "valid:": 20,
+          "valid:missing_target": 1
+        }
+      },
+      "summary": {
+        "format": "4.1",
+        "cipher": "chacha20",
+        "kdf": {
+          "name": "aes-kdf",
+          "rounds": 1000000
+        },
+        "compressed": true,
+        "inner_stream": "chacha20",
+        "header_hash": "not-applicable",
+        "generator": "keex-fixture-source",
+        "groups": 9,
+        "entries": 36,
+        "history_entries": 5,
+        "entries_with_history": 3,
+        "recycle_bin": {
+          "enabled": true,
+          "group_present": true,
+          "entries": 2
+        },
+        "deleted_objects": 2,
+        "custom_icons": 1,
+        "entries_with_tags": 3,
+        "attachments": {
+          "references": 9,
+          "names": [
+            "KeeAgent.settings",
+            "blob.bin",
+            "id_ed25519",
+            "notes.txt",
+            "shared.txt",
+            "合成凭据.txt"
+          ],
+          "pool_items": 6,
+          "pool_bytes": 3300,
+          "pool_protected": 6,
+          "current_references": 7,
+          "history_references": 2
+        },
+        "otp_fields": [
+          "TOTP Seed",
+          "TOTP Settings",
+          "TimeOtp-Algorithm",
+          "TimeOtp-Length",
+          "TimeOtp-Period",
+          "TimeOtp-Secret-Base32",
+          "otp"
+        ],
+        "passkey_fields": [
+          "KPEX_PASSKEY_CREDENTIAL_ID",
+          "KPEX_PASSKEY_FLAG_BE",
+          "KPEX_PASSKEY_FLAG_BS",
+          "KPEX_PASSKEY_GENERATED_USER_ID",
+          "KPEX_PASSKEY_PRIVATE_KEY_PEM",
+          "KPEX_PASSKEY_RELYING_PARTY",
+          "KPEX_PASSKEY_USERNAME",
+          "KPEX_PASSKEY_USER_HANDLE",
+          "KPXC_PASSKEY_USERNAME"
+        ],
+        "keeagent_settings": 1,
+        "meta_custom_data_keys": [
+          "KPXC_RANDOM_SLUG",
+          "_LAST_MODIFIED",
+          "keex.fixture"
+        ],
+        "unknown_elements": [],
+        "custom_fields_count": 92,
+        "custom_fields_sha256": "55a4f054b423af979b2da1d02f1d4af49fa36a8632b37c15716903823ca42b42",
+        "protected_custom_fields_count": 65,
+        "protected_custom_fields_sha256": "7dd6043bbb55773f94fc4c9dbab4685722b9ffc8efba2138137fbf379539eef5",
+        "type_counts": {
+          "document": 1,
+          "finance_account": 1,
+          "gift_card": 1,
+          "identity_document": 1,
+          "legacy": 12,
+          "login": 3,
+          "maintenance": 1,
+          "membership_card": 1,
+          "payment_card": 3,
+          "secure_note": 5,
+          "sim_profile": 3,
+          "subscription": 2,
+          "telecom_line": 1,
+          "telecom_plan": 1
+        },
+        "relations": 22,
+        "rules": 1,
+        "events": 2,
+        "diagnostics": {
+          "legacy:": 11,
+          "read_only:field_limit": 1,
+          "read_only:legacy_parent_conflict": 1,
+          "read_only:unknown_keex_field": 1,
+          "read_only:unknown_schema": 1,
+          "valid:": 20,
+          "valid:missing_target": 1
+        }
+      },
+      "raw_changes": [
+        "added KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046/Group=912008afa217d53b3a190c5e6d500909/Entry=c21db8c8be768f14cae2ed1a9f6cb568/History/Entry#1",
+        "changed/value KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046/Group=912008afa217d53b3a190c5e6d500909/Entry=c21db8c8be768f14cae2ed1a9f6cb568/History/Entry/String=UserName/Value",
+        "changed/value KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046/Group=912008afa217d53b3a190c5e6d500909/Entry=c21db8c8be768f14cae2ed1a9f6cb568/History/Entry/Times/LastAccessTime",
+        "changed/value KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046/Group=912008afa217d53b3a190c5e6d500909/Entry=c21db8c8be768f14cae2ed1a9f6cb568/History/Entry/Times/LastModificationTime",
+        "changed/value KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046/Group=912008afa217d53b3a190c5e6d500909/Entry=c21db8c8be768f14cae2ed1a9f6cb568/String=UserName/Value",
+        "changed/value KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046/Group=912008afa217d53b3a190c5e6d500909/Entry=c21db8c8be768f14cae2ed1a9f6cb568/Times/LastModificationTime",
+        "order KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046",
+        "removed KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046/Group=619866709f661f4847cc86d411ca5bf1/Entry=8965805d6caa1155bdc9ed01dcb11d04/IconID",
+        "removed KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046/Group=619866709f661f4847cc86d411ca5bf1/IconID"
+      ],
+      "other_changes": [
+        "order KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046",
+        "removed KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046/Group=619866709f661f4847cc86d411ca5bf1/Entry=8965805d6caa1155bdc9ed01dcb11d04/IconID",
+        "removed KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046/Group=619866709f661f4847cc86d411ca5bf1/IconID"
+      ],
+      "history_placement": "prepend",
+      "history_snapshot_changes": [],
+      "attachment_order_changes": [
+        {
+          "entry_uuid": "8965805d6caa1155bdc9ed01dcb11d04",
+          "scope": "current",
+          "before": [
+            "notes.txt",
+            "shared.txt"
+          ],
+          "after": [
+            "shared.txt",
+            "notes.txt"
+          ]
+        }
+      ],
+      "lossless_roundtrip": false,
+      "verdict": "readable; original field values/protection and attachment bytes retained; semantic differences remain",
+      "helper_counts": {
+        "ok": true,
+        "entries": 36,
+        "groups": 9,
+        "attachments": 6,
+        "history_before": 4,
+        "history_after": 5,
+        "bytes": 38584
+      },
+      "reference_export": {
+        "current_entries": 36,
+        "history_entries": 5,
+        "attachment_pool_cross_checked": false
+      },
+      "elapsed_helper_and_checks_seconds": 0.316251
+    },
+    {
+      "id": "RS41-VAULT-ARGON2D-AES",
+      "file": "rs41-vault-argon2d-aes.kdbx",
+      "kind": "vault",
+      "source_file": "v41-vault-edit1.kdbx",
+      "password": "keex-synthetic-V41-VAULT",
+      "entry_uuid": "c21db8c8be768f14cae2ed1a9f6cb568",
+      "new_username": "synthetic-rs41-vault-argon2d-aes",
+      "kdf": "argon2d",
+      "cipher": "aes",
+      "source_sha256": "b1e38831a853d09fe5341b6362e98c69021b9c3d4cbc256afa02fb730bb54888",
+      "sha256": "0810c4ed1a9e0d24d55cda81414e8707346c01cecb6d70e5932324c74576749e",
+      "bytes": 38689,
+      "source_summary": {
+        "format": "4.1",
+        "cipher": "aes256-cbc",
+        "kdf": {
+          "name": "aes-kdf",
+          "rounds": 1000000
+        },
+        "compressed": true,
+        "inner_stream": "chacha20",
+        "header_hash": "not-applicable",
+        "generator": "keex-fixture-source",
+        "groups": 9,
+        "entries": 36,
+        "history_entries": 4,
+        "entries_with_history": 3,
+        "recycle_bin": {
+          "enabled": true,
+          "group_present": true,
+          "entries": 2
+        },
+        "deleted_objects": 2,
+        "custom_icons": 1,
+        "entries_with_tags": 3,
+        "attachments": {
+          "references": 9,
+          "names": [
+            "KeeAgent.settings",
+            "blob.bin",
+            "id_ed25519",
+            "notes.txt",
+            "shared.txt",
+            "合成凭据.txt"
+          ],
+          "pool_items": 6,
+          "pool_bytes": 3300,
+          "pool_protected": 6,
+          "current_references": 7,
+          "history_references": 2
+        },
+        "otp_fields": [
+          "TOTP Seed",
+          "TOTP Settings",
+          "TimeOtp-Algorithm",
+          "TimeOtp-Length",
+          "TimeOtp-Period",
+          "TimeOtp-Secret-Base32",
+          "otp"
+        ],
+        "passkey_fields": [
+          "KPEX_PASSKEY_CREDENTIAL_ID",
+          "KPEX_PASSKEY_FLAG_BE",
+          "KPEX_PASSKEY_FLAG_BS",
+          "KPEX_PASSKEY_GENERATED_USER_ID",
+          "KPEX_PASSKEY_PRIVATE_KEY_PEM",
+          "KPEX_PASSKEY_RELYING_PARTY",
+          "KPEX_PASSKEY_USERNAME",
+          "KPEX_PASSKEY_USER_HANDLE",
+          "KPXC_PASSKEY_USERNAME"
+        ],
+        "keeagent_settings": 1,
+        "meta_custom_data_keys": [
+          "KPXC_RANDOM_SLUG",
+          "_LAST_MODIFIED",
+          "keex.fixture"
+        ],
+        "unknown_elements": [],
+        "custom_fields_count": 92,
+        "custom_fields_sha256": "55a4f054b423af979b2da1d02f1d4af49fa36a8632b37c15716903823ca42b42",
+        "protected_custom_fields_count": 65,
+        "protected_custom_fields_sha256": "7dd6043bbb55773f94fc4c9dbab4685722b9ffc8efba2138137fbf379539eef5",
+        "type_counts": {
+          "document": 1,
+          "finance_account": 1,
+          "gift_card": 1,
+          "identity_document": 1,
+          "legacy": 12,
+          "login": 3,
+          "maintenance": 1,
+          "membership_card": 1,
+          "payment_card": 3,
+          "secure_note": 5,
+          "sim_profile": 3,
+          "subscription": 2,
+          "telecom_line": 1,
+          "telecom_plan": 1
+        },
+        "relations": 22,
+        "rules": 1,
+        "events": 2,
+        "diagnostics": {
+          "legacy:": 11,
+          "read_only:field_limit": 1,
+          "read_only:legacy_parent_conflict": 1,
+          "read_only:unknown_keex_field": 1,
+          "read_only:unknown_schema": 1,
+          "valid:": 20,
+          "valid:missing_target": 1
+        }
+      },
+      "summary": {
+        "format": "4.1",
+        "cipher": "aes256-cbc",
+        "kdf": {
+          "name": "argon2d",
+          "memory": 8388608,
+          "iterations": 2,
+          "parallelism": 1
+        },
+        "compressed": true,
+        "inner_stream": "chacha20",
+        "header_hash": "not-applicable",
+        "generator": "keex-fixture-source",
+        "groups": 9,
+        "entries": 36,
+        "history_entries": 5,
+        "entries_with_history": 3,
+        "recycle_bin": {
+          "enabled": true,
+          "group_present": true,
+          "entries": 2
+        },
+        "deleted_objects": 2,
+        "custom_icons": 1,
+        "entries_with_tags": 3,
+        "attachments": {
+          "references": 9,
+          "names": [
+            "KeeAgent.settings",
+            "blob.bin",
+            "id_ed25519",
+            "notes.txt",
+            "shared.txt",
+            "合成凭据.txt"
+          ],
+          "pool_items": 6,
+          "pool_bytes": 3300,
+          "pool_protected": 6,
+          "current_references": 7,
+          "history_references": 2
+        },
+        "otp_fields": [
+          "TOTP Seed",
+          "TOTP Settings",
+          "TimeOtp-Algorithm",
+          "TimeOtp-Length",
+          "TimeOtp-Period",
+          "TimeOtp-Secret-Base32",
+          "otp"
+        ],
+        "passkey_fields": [
+          "KPEX_PASSKEY_CREDENTIAL_ID",
+          "KPEX_PASSKEY_FLAG_BE",
+          "KPEX_PASSKEY_FLAG_BS",
+          "KPEX_PASSKEY_GENERATED_USER_ID",
+          "KPEX_PASSKEY_PRIVATE_KEY_PEM",
+          "KPEX_PASSKEY_RELYING_PARTY",
+          "KPEX_PASSKEY_USERNAME",
+          "KPEX_PASSKEY_USER_HANDLE",
+          "KPXC_PASSKEY_USERNAME"
+        ],
+        "keeagent_settings": 1,
+        "meta_custom_data_keys": [
+          "KPXC_RANDOM_SLUG",
+          "_LAST_MODIFIED",
+          "keex.fixture"
+        ],
+        "unknown_elements": [],
+        "custom_fields_count": 92,
+        "custom_fields_sha256": "55a4f054b423af979b2da1d02f1d4af49fa36a8632b37c15716903823ca42b42",
+        "protected_custom_fields_count": 65,
+        "protected_custom_fields_sha256": "7dd6043bbb55773f94fc4c9dbab4685722b9ffc8efba2138137fbf379539eef5",
+        "type_counts": {
+          "document": 1,
+          "finance_account": 1,
+          "gift_card": 1,
+          "identity_document": 1,
+          "legacy": 12,
+          "login": 3,
+          "maintenance": 1,
+          "membership_card": 1,
+          "payment_card": 3,
+          "secure_note": 5,
+          "sim_profile": 3,
+          "subscription": 2,
+          "telecom_line": 1,
+          "telecom_plan": 1
+        },
+        "relations": 22,
+        "rules": 1,
+        "events": 2,
+        "diagnostics": {
+          "legacy:": 11,
+          "read_only:field_limit": 1,
+          "read_only:legacy_parent_conflict": 1,
+          "read_only:unknown_keex_field": 1,
+          "read_only:unknown_schema": 1,
+          "valid:": 20,
+          "valid:missing_target": 1
+        }
+      },
+      "raw_changes": [
+        "added KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046/Group=912008afa217d53b3a190c5e6d500909/Entry=c21db8c8be768f14cae2ed1a9f6cb568/History/Entry#1",
+        "changed/value KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046/Group=912008afa217d53b3a190c5e6d500909/Entry=c21db8c8be768f14cae2ed1a9f6cb568/History/Entry/String=UserName/Value",
+        "changed/value KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046/Group=912008afa217d53b3a190c5e6d500909/Entry=c21db8c8be768f14cae2ed1a9f6cb568/History/Entry/Times/LastAccessTime",
+        "changed/value KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046/Group=912008afa217d53b3a190c5e6d500909/Entry=c21db8c8be768f14cae2ed1a9f6cb568/History/Entry/Times/LastModificationTime",
+        "changed/value KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046/Group=912008afa217d53b3a190c5e6d500909/Entry=c21db8c8be768f14cae2ed1a9f6cb568/String=UserName/Value",
+        "changed/value KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046/Group=912008afa217d53b3a190c5e6d500909/Entry=c21db8c8be768f14cae2ed1a9f6cb568/Times/LastModificationTime",
+        "order KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046",
+        "removed KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046/Group=619866709f661f4847cc86d411ca5bf1/Entry=8965805d6caa1155bdc9ed01dcb11d04/IconID",
+        "removed KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046/Group=619866709f661f4847cc86d411ca5bf1/IconID"
+      ],
+      "other_changes": [
+        "order KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046",
+        "removed KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046/Group=619866709f661f4847cc86d411ca5bf1/Entry=8965805d6caa1155bdc9ed01dcb11d04/IconID",
+        "removed KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046/Group=619866709f661f4847cc86d411ca5bf1/IconID"
+      ],
+      "history_placement": "prepend",
+      "history_snapshot_changes": [],
+      "attachment_order_changes": [
+        {
+          "entry_uuid": "8965805d6caa1155bdc9ed01dcb11d04",
+          "scope": "current",
+          "before": [
+            "notes.txt",
+            "shared.txt"
+          ],
+          "after": [
+            "shared.txt",
+            "notes.txt"
+          ]
+        },
+        {
+          "entry_uuid": "5304a955887e682676d4a53259a477b5",
+          "scope": "current",
+          "before": [
+            "KeeAgent.settings",
+            "id_ed25519"
+          ],
+          "after": [
+            "id_ed25519",
+            "KeeAgent.settings"
+          ]
+        }
+      ],
+      "lossless_roundtrip": false,
+      "verdict": "readable; original field values/protection and attachment bytes retained; semantic differences remain",
+      "helper_counts": {
+        "ok": true,
+        "entries": 36,
+        "groups": 9,
+        "attachments": 6,
+        "history_before": 4,
+        "history_after": 5,
+        "bytes": 38689
+      },
+      "reference_export": {
+        "current_entries": 36,
+        "history_entries": 5,
+        "attachment_pool_cross_checked": false
+      },
+      "elapsed_helper_and_checks_seconds": 0.226623
+    },
+    {
+      "id": "RS41-VAULT-ARGON2D-CHACHA20",
+      "file": "rs41-vault-argon2d-chacha20.kdbx",
+      "kind": "vault",
+      "source_file": "v41-vault-edit1.kdbx",
+      "password": "keex-synthetic-V41-VAULT",
+      "entry_uuid": "c21db8c8be768f14cae2ed1a9f6cb568",
+      "new_username": "synthetic-rs41-vault-argon2d-chacha20",
+      "kdf": "argon2d",
+      "cipher": "chacha20",
+      "source_sha256": "b1e38831a853d09fe5341b6362e98c69021b9c3d4cbc256afa02fb730bb54888",
+      "sha256": "350ed914d16dc4bdfce26c387d2d190d0dea38b117e1a6ce42a403c00c4bf2c5",
+      "bytes": 38636,
+      "source_summary": {
+        "format": "4.1",
+        "cipher": "aes256-cbc",
+        "kdf": {
+          "name": "aes-kdf",
+          "rounds": 1000000
+        },
+        "compressed": true,
+        "inner_stream": "chacha20",
+        "header_hash": "not-applicable",
+        "generator": "keex-fixture-source",
+        "groups": 9,
+        "entries": 36,
+        "history_entries": 4,
+        "entries_with_history": 3,
+        "recycle_bin": {
+          "enabled": true,
+          "group_present": true,
+          "entries": 2
+        },
+        "deleted_objects": 2,
+        "custom_icons": 1,
+        "entries_with_tags": 3,
+        "attachments": {
+          "references": 9,
+          "names": [
+            "KeeAgent.settings",
+            "blob.bin",
+            "id_ed25519",
+            "notes.txt",
+            "shared.txt",
+            "合成凭据.txt"
+          ],
+          "pool_items": 6,
+          "pool_bytes": 3300,
+          "pool_protected": 6,
+          "current_references": 7,
+          "history_references": 2
+        },
+        "otp_fields": [
+          "TOTP Seed",
+          "TOTP Settings",
+          "TimeOtp-Algorithm",
+          "TimeOtp-Length",
+          "TimeOtp-Period",
+          "TimeOtp-Secret-Base32",
+          "otp"
+        ],
+        "passkey_fields": [
+          "KPEX_PASSKEY_CREDENTIAL_ID",
+          "KPEX_PASSKEY_FLAG_BE",
+          "KPEX_PASSKEY_FLAG_BS",
+          "KPEX_PASSKEY_GENERATED_USER_ID",
+          "KPEX_PASSKEY_PRIVATE_KEY_PEM",
+          "KPEX_PASSKEY_RELYING_PARTY",
+          "KPEX_PASSKEY_USERNAME",
+          "KPEX_PASSKEY_USER_HANDLE",
+          "KPXC_PASSKEY_USERNAME"
+        ],
+        "keeagent_settings": 1,
+        "meta_custom_data_keys": [
+          "KPXC_RANDOM_SLUG",
+          "_LAST_MODIFIED",
+          "keex.fixture"
+        ],
+        "unknown_elements": [],
+        "custom_fields_count": 92,
+        "custom_fields_sha256": "55a4f054b423af979b2da1d02f1d4af49fa36a8632b37c15716903823ca42b42",
+        "protected_custom_fields_count": 65,
+        "protected_custom_fields_sha256": "7dd6043bbb55773f94fc4c9dbab4685722b9ffc8efba2138137fbf379539eef5",
+        "type_counts": {
+          "document": 1,
+          "finance_account": 1,
+          "gift_card": 1,
+          "identity_document": 1,
+          "legacy": 12,
+          "login": 3,
+          "maintenance": 1,
+          "membership_card": 1,
+          "payment_card": 3,
+          "secure_note": 5,
+          "sim_profile": 3,
+          "subscription": 2,
+          "telecom_line": 1,
+          "telecom_plan": 1
+        },
+        "relations": 22,
+        "rules": 1,
+        "events": 2,
+        "diagnostics": {
+          "legacy:": 11,
+          "read_only:field_limit": 1,
+          "read_only:legacy_parent_conflict": 1,
+          "read_only:unknown_keex_field": 1,
+          "read_only:unknown_schema": 1,
+          "valid:": 20,
+          "valid:missing_target": 1
+        }
+      },
+      "summary": {
+        "format": "4.1",
+        "cipher": "chacha20",
+        "kdf": {
+          "name": "argon2d",
+          "memory": 8388608,
+          "iterations": 2,
+          "parallelism": 1
+        },
+        "compressed": true,
+        "inner_stream": "chacha20",
+        "header_hash": "not-applicable",
+        "generator": "keex-fixture-source",
+        "groups": 9,
+        "entries": 36,
+        "history_entries": 5,
+        "entries_with_history": 3,
+        "recycle_bin": {
+          "enabled": true,
+          "group_present": true,
+          "entries": 2
+        },
+        "deleted_objects": 2,
+        "custom_icons": 1,
+        "entries_with_tags": 3,
+        "attachments": {
+          "references": 9,
+          "names": [
+            "KeeAgent.settings",
+            "blob.bin",
+            "id_ed25519",
+            "notes.txt",
+            "shared.txt",
+            "合成凭据.txt"
+          ],
+          "pool_items": 6,
+          "pool_bytes": 3300,
+          "pool_protected": 6,
+          "current_references": 7,
+          "history_references": 2
+        },
+        "otp_fields": [
+          "TOTP Seed",
+          "TOTP Settings",
+          "TimeOtp-Algorithm",
+          "TimeOtp-Length",
+          "TimeOtp-Period",
+          "TimeOtp-Secret-Base32",
+          "otp"
+        ],
+        "passkey_fields": [
+          "KPEX_PASSKEY_CREDENTIAL_ID",
+          "KPEX_PASSKEY_FLAG_BE",
+          "KPEX_PASSKEY_FLAG_BS",
+          "KPEX_PASSKEY_GENERATED_USER_ID",
+          "KPEX_PASSKEY_PRIVATE_KEY_PEM",
+          "KPEX_PASSKEY_RELYING_PARTY",
+          "KPEX_PASSKEY_USERNAME",
+          "KPEX_PASSKEY_USER_HANDLE",
+          "KPXC_PASSKEY_USERNAME"
+        ],
+        "keeagent_settings": 1,
+        "meta_custom_data_keys": [
+          "KPXC_RANDOM_SLUG",
+          "_LAST_MODIFIED",
+          "keex.fixture"
+        ],
+        "unknown_elements": [],
+        "custom_fields_count": 92,
+        "custom_fields_sha256": "55a4f054b423af979b2da1d02f1d4af49fa36a8632b37c15716903823ca42b42",
+        "protected_custom_fields_count": 65,
+        "protected_custom_fields_sha256": "7dd6043bbb55773f94fc4c9dbab4685722b9ffc8efba2138137fbf379539eef5",
+        "type_counts": {
+          "document": 1,
+          "finance_account": 1,
+          "gift_card": 1,
+          "identity_document": 1,
+          "legacy": 12,
+          "login": 3,
+          "maintenance": 1,
+          "membership_card": 1,
+          "payment_card": 3,
+          "secure_note": 5,
+          "sim_profile": 3,
+          "subscription": 2,
+          "telecom_line": 1,
+          "telecom_plan": 1
+        },
+        "relations": 22,
+        "rules": 1,
+        "events": 2,
+        "diagnostics": {
+          "legacy:": 11,
+          "read_only:field_limit": 1,
+          "read_only:legacy_parent_conflict": 1,
+          "read_only:unknown_keex_field": 1,
+          "read_only:unknown_schema": 1,
+          "valid:": 20,
+          "valid:missing_target": 1
+        }
+      },
+      "raw_changes": [
+        "added KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046/Group=912008afa217d53b3a190c5e6d500909/Entry=c21db8c8be768f14cae2ed1a9f6cb568/History/Entry#1",
+        "changed/value KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046/Group=912008afa217d53b3a190c5e6d500909/Entry=c21db8c8be768f14cae2ed1a9f6cb568/History/Entry/String=UserName/Value",
+        "changed/value KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046/Group=912008afa217d53b3a190c5e6d500909/Entry=c21db8c8be768f14cae2ed1a9f6cb568/History/Entry/Times/LastAccessTime",
+        "changed/value KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046/Group=912008afa217d53b3a190c5e6d500909/Entry=c21db8c8be768f14cae2ed1a9f6cb568/History/Entry/Times/LastModificationTime",
+        "changed/value KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046/Group=912008afa217d53b3a190c5e6d500909/Entry=c21db8c8be768f14cae2ed1a9f6cb568/String=UserName/Value",
+        "changed/value KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046/Group=912008afa217d53b3a190c5e6d500909/Entry=c21db8c8be768f14cae2ed1a9f6cb568/Times/LastModificationTime",
+        "order KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046",
+        "removed KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046/Group=619866709f661f4847cc86d411ca5bf1/Entry=8965805d6caa1155bdc9ed01dcb11d04/IconID",
+        "removed KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046/Group=619866709f661f4847cc86d411ca5bf1/IconID"
+      ],
+      "other_changes": [
+        "order KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046",
+        "removed KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046/Group=619866709f661f4847cc86d411ca5bf1/Entry=8965805d6caa1155bdc9ed01dcb11d04/IconID",
+        "removed KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046/Group=619866709f661f4847cc86d411ca5bf1/IconID"
+      ],
+      "history_placement": "prepend",
+      "history_snapshot_changes": [],
+      "attachment_order_changes": [
+        {
+          "entry_uuid": "8965805d6caa1155bdc9ed01dcb11d04",
+          "scope": "current",
+          "before": [
+            "notes.txt",
+            "shared.txt"
+          ],
+          "after": [
+            "shared.txt",
+            "notes.txt"
+          ]
+        }
+      ],
+      "lossless_roundtrip": false,
+      "verdict": "readable; original field values/protection and attachment bytes retained; semantic differences remain",
+      "helper_counts": {
+        "ok": true,
+        "entries": 36,
+        "groups": 9,
+        "attachments": 6,
+        "history_before": 4,
+        "history_after": 5,
+        "bytes": 38636
+      },
+      "reference_export": {
+        "current_entries": 36,
+        "history_entries": 5,
+        "attachment_pool_cross_checked": false
+      },
+      "elapsed_helper_and_checks_seconds": 0.215614
+    },
+    {
+      "id": "RS41-VAULT-ARGON2ID-AES",
+      "file": "rs41-vault-argon2id-aes.kdbx",
+      "kind": "vault",
+      "source_file": "v41-vault-edit1.kdbx",
+      "password": "keex-synthetic-V41-VAULT",
+      "entry_uuid": "c21db8c8be768f14cae2ed1a9f6cb568",
+      "new_username": "synthetic-rs41-vault-argon2id-aes",
+      "kdf": "argon2id",
+      "cipher": "aes",
+      "source_sha256": "b1e38831a853d09fe5341b6362e98c69021b9c3d4cbc256afa02fb730bb54888",
+      "sha256": "cd3d0166bde320842cad3c91294f8d281d64e690dc75f4881d311aaaead9fe2c",
+      "bytes": 38625,
+      "source_summary": {
+        "format": "4.1",
+        "cipher": "aes256-cbc",
+        "kdf": {
+          "name": "aes-kdf",
+          "rounds": 1000000
+        },
+        "compressed": true,
+        "inner_stream": "chacha20",
+        "header_hash": "not-applicable",
+        "generator": "keex-fixture-source",
+        "groups": 9,
+        "entries": 36,
+        "history_entries": 4,
+        "entries_with_history": 3,
+        "recycle_bin": {
+          "enabled": true,
+          "group_present": true,
+          "entries": 2
+        },
+        "deleted_objects": 2,
+        "custom_icons": 1,
+        "entries_with_tags": 3,
+        "attachments": {
+          "references": 9,
+          "names": [
+            "KeeAgent.settings",
+            "blob.bin",
+            "id_ed25519",
+            "notes.txt",
+            "shared.txt",
+            "合成凭据.txt"
+          ],
+          "pool_items": 6,
+          "pool_bytes": 3300,
+          "pool_protected": 6,
+          "current_references": 7,
+          "history_references": 2
+        },
+        "otp_fields": [
+          "TOTP Seed",
+          "TOTP Settings",
+          "TimeOtp-Algorithm",
+          "TimeOtp-Length",
+          "TimeOtp-Period",
+          "TimeOtp-Secret-Base32",
+          "otp"
+        ],
+        "passkey_fields": [
+          "KPEX_PASSKEY_CREDENTIAL_ID",
+          "KPEX_PASSKEY_FLAG_BE",
+          "KPEX_PASSKEY_FLAG_BS",
+          "KPEX_PASSKEY_GENERATED_USER_ID",
+          "KPEX_PASSKEY_PRIVATE_KEY_PEM",
+          "KPEX_PASSKEY_RELYING_PARTY",
+          "KPEX_PASSKEY_USERNAME",
+          "KPEX_PASSKEY_USER_HANDLE",
+          "KPXC_PASSKEY_USERNAME"
+        ],
+        "keeagent_settings": 1,
+        "meta_custom_data_keys": [
+          "KPXC_RANDOM_SLUG",
+          "_LAST_MODIFIED",
+          "keex.fixture"
+        ],
+        "unknown_elements": [],
+        "custom_fields_count": 92,
+        "custom_fields_sha256": "55a4f054b423af979b2da1d02f1d4af49fa36a8632b37c15716903823ca42b42",
+        "protected_custom_fields_count": 65,
+        "protected_custom_fields_sha256": "7dd6043bbb55773f94fc4c9dbab4685722b9ffc8efba2138137fbf379539eef5",
+        "type_counts": {
+          "document": 1,
+          "finance_account": 1,
+          "gift_card": 1,
+          "identity_document": 1,
+          "legacy": 12,
+          "login": 3,
+          "maintenance": 1,
+          "membership_card": 1,
+          "payment_card": 3,
+          "secure_note": 5,
+          "sim_profile": 3,
+          "subscription": 2,
+          "telecom_line": 1,
+          "telecom_plan": 1
+        },
+        "relations": 22,
+        "rules": 1,
+        "events": 2,
+        "diagnostics": {
+          "legacy:": 11,
+          "read_only:field_limit": 1,
+          "read_only:legacy_parent_conflict": 1,
+          "read_only:unknown_keex_field": 1,
+          "read_only:unknown_schema": 1,
+          "valid:": 20,
+          "valid:missing_target": 1
+        }
+      },
+      "summary": {
+        "format": "4.1",
+        "cipher": "aes256-cbc",
+        "kdf": {
+          "name": "argon2id",
+          "memory": 8388608,
+          "iterations": 2,
+          "parallelism": 1
+        },
+        "compressed": true,
+        "inner_stream": "chacha20",
+        "header_hash": "not-applicable",
+        "generator": "keex-fixture-source",
+        "groups": 9,
+        "entries": 36,
+        "history_entries": 5,
+        "entries_with_history": 3,
+        "recycle_bin": {
+          "enabled": true,
+          "group_present": true,
+          "entries": 2
+        },
+        "deleted_objects": 2,
+        "custom_icons": 1,
+        "entries_with_tags": 3,
+        "attachments": {
+          "references": 9,
+          "names": [
+            "KeeAgent.settings",
+            "blob.bin",
+            "id_ed25519",
+            "notes.txt",
+            "shared.txt",
+            "合成凭据.txt"
+          ],
+          "pool_items": 6,
+          "pool_bytes": 3300,
+          "pool_protected": 6,
+          "current_references": 7,
+          "history_references": 2
+        },
+        "otp_fields": [
+          "TOTP Seed",
+          "TOTP Settings",
+          "TimeOtp-Algorithm",
+          "TimeOtp-Length",
+          "TimeOtp-Period",
+          "TimeOtp-Secret-Base32",
+          "otp"
+        ],
+        "passkey_fields": [
+          "KPEX_PASSKEY_CREDENTIAL_ID",
+          "KPEX_PASSKEY_FLAG_BE",
+          "KPEX_PASSKEY_FLAG_BS",
+          "KPEX_PASSKEY_GENERATED_USER_ID",
+          "KPEX_PASSKEY_PRIVATE_KEY_PEM",
+          "KPEX_PASSKEY_RELYING_PARTY",
+          "KPEX_PASSKEY_USERNAME",
+          "KPEX_PASSKEY_USER_HANDLE",
+          "KPXC_PASSKEY_USERNAME"
+        ],
+        "keeagent_settings": 1,
+        "meta_custom_data_keys": [
+          "KPXC_RANDOM_SLUG",
+          "_LAST_MODIFIED",
+          "keex.fixture"
+        ],
+        "unknown_elements": [],
+        "custom_fields_count": 92,
+        "custom_fields_sha256": "55a4f054b423af979b2da1d02f1d4af49fa36a8632b37c15716903823ca42b42",
+        "protected_custom_fields_count": 65,
+        "protected_custom_fields_sha256": "7dd6043bbb55773f94fc4c9dbab4685722b9ffc8efba2138137fbf379539eef5",
+        "type_counts": {
+          "document": 1,
+          "finance_account": 1,
+          "gift_card": 1,
+          "identity_document": 1,
+          "legacy": 12,
+          "login": 3,
+          "maintenance": 1,
+          "membership_card": 1,
+          "payment_card": 3,
+          "secure_note": 5,
+          "sim_profile": 3,
+          "subscription": 2,
+          "telecom_line": 1,
+          "telecom_plan": 1
+        },
+        "relations": 22,
+        "rules": 1,
+        "events": 2,
+        "diagnostics": {
+          "legacy:": 11,
+          "read_only:field_limit": 1,
+          "read_only:legacy_parent_conflict": 1,
+          "read_only:unknown_keex_field": 1,
+          "read_only:unknown_schema": 1,
+          "valid:": 20,
+          "valid:missing_target": 1
+        }
+      },
+      "raw_changes": [
+        "added KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046/Group=912008afa217d53b3a190c5e6d500909/Entry=c21db8c8be768f14cae2ed1a9f6cb568/History/Entry#1",
+        "changed/value KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046/Group=912008afa217d53b3a190c5e6d500909/Entry=c21db8c8be768f14cae2ed1a9f6cb568/History/Entry/String=UserName/Value",
+        "changed/value KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046/Group=912008afa217d53b3a190c5e6d500909/Entry=c21db8c8be768f14cae2ed1a9f6cb568/History/Entry/Times/LastAccessTime",
+        "changed/value KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046/Group=912008afa217d53b3a190c5e6d500909/Entry=c21db8c8be768f14cae2ed1a9f6cb568/History/Entry/Times/LastModificationTime",
+        "changed/value KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046/Group=912008afa217d53b3a190c5e6d500909/Entry=c21db8c8be768f14cae2ed1a9f6cb568/String=UserName/Value",
+        "changed/value KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046/Group=912008afa217d53b3a190c5e6d500909/Entry=c21db8c8be768f14cae2ed1a9f6cb568/Times/LastModificationTime",
+        "order KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046",
+        "removed KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046/Group=619866709f661f4847cc86d411ca5bf1/Entry=8965805d6caa1155bdc9ed01dcb11d04/IconID",
+        "removed KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046/Group=619866709f661f4847cc86d411ca5bf1/IconID"
+      ],
+      "other_changes": [
+        "order KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046",
+        "removed KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046/Group=619866709f661f4847cc86d411ca5bf1/Entry=8965805d6caa1155bdc9ed01dcb11d04/IconID",
+        "removed KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046/Group=619866709f661f4847cc86d411ca5bf1/IconID"
+      ],
+      "history_placement": "prepend",
+      "history_snapshot_changes": [],
+      "attachment_order_changes": [
+        {
+          "entry_uuid": "5304a955887e682676d4a53259a477b5",
+          "scope": "current",
+          "before": [
+            "KeeAgent.settings",
+            "id_ed25519"
+          ],
+          "after": [
+            "id_ed25519",
+            "KeeAgent.settings"
+          ]
+        }
+      ],
+      "lossless_roundtrip": false,
+      "verdict": "readable; original field values/protection and attachment bytes retained; semantic differences remain",
+      "helper_counts": {
+        "ok": true,
+        "entries": 36,
+        "groups": 9,
+        "attachments": 6,
+        "history_before": 4,
+        "history_after": 5,
+        "bytes": 38625
+      },
+      "reference_export": {
+        "current_entries": 36,
+        "history_entries": 5,
+        "attachment_pool_cross_checked": false
+      },
+      "elapsed_helper_and_checks_seconds": 0.304177
+    },
+    {
+      "id": "RS41-VAULT-ARGON2ID-CHACHA20",
+      "file": "rs41-vault-argon2id-chacha20.kdbx",
+      "kind": "vault",
+      "source_file": "v41-vault-edit1.kdbx",
+      "password": "keex-synthetic-V41-VAULT",
+      "entry_uuid": "c21db8c8be768f14cae2ed1a9f6cb568",
+      "new_username": "synthetic-rs41-vault-argon2id-chacha20",
+      "kdf": "argon2id",
+      "cipher": "chacha20",
+      "source_sha256": "b1e38831a853d09fe5341b6362e98c69021b9c3d4cbc256afa02fb730bb54888",
+      "sha256": "f4e5b66d2610da4e4d223bba21d0ddaa43193fc88ef9966bdcd474048cee9c39",
+      "bytes": 38639,
+      "source_summary": {
+        "format": "4.1",
+        "cipher": "aes256-cbc",
+        "kdf": {
+          "name": "aes-kdf",
+          "rounds": 1000000
+        },
+        "compressed": true,
+        "inner_stream": "chacha20",
+        "header_hash": "not-applicable",
+        "generator": "keex-fixture-source",
+        "groups": 9,
+        "entries": 36,
+        "history_entries": 4,
+        "entries_with_history": 3,
+        "recycle_bin": {
+          "enabled": true,
+          "group_present": true,
+          "entries": 2
+        },
+        "deleted_objects": 2,
+        "custom_icons": 1,
+        "entries_with_tags": 3,
+        "attachments": {
+          "references": 9,
+          "names": [
+            "KeeAgent.settings",
+            "blob.bin",
+            "id_ed25519",
+            "notes.txt",
+            "shared.txt",
+            "合成凭据.txt"
+          ],
+          "pool_items": 6,
+          "pool_bytes": 3300,
+          "pool_protected": 6,
+          "current_references": 7,
+          "history_references": 2
+        },
+        "otp_fields": [
+          "TOTP Seed",
+          "TOTP Settings",
+          "TimeOtp-Algorithm",
+          "TimeOtp-Length",
+          "TimeOtp-Period",
+          "TimeOtp-Secret-Base32",
+          "otp"
+        ],
+        "passkey_fields": [
+          "KPEX_PASSKEY_CREDENTIAL_ID",
+          "KPEX_PASSKEY_FLAG_BE",
+          "KPEX_PASSKEY_FLAG_BS",
+          "KPEX_PASSKEY_GENERATED_USER_ID",
+          "KPEX_PASSKEY_PRIVATE_KEY_PEM",
+          "KPEX_PASSKEY_RELYING_PARTY",
+          "KPEX_PASSKEY_USERNAME",
+          "KPEX_PASSKEY_USER_HANDLE",
+          "KPXC_PASSKEY_USERNAME"
+        ],
+        "keeagent_settings": 1,
+        "meta_custom_data_keys": [
+          "KPXC_RANDOM_SLUG",
+          "_LAST_MODIFIED",
+          "keex.fixture"
+        ],
+        "unknown_elements": [],
+        "custom_fields_count": 92,
+        "custom_fields_sha256": "55a4f054b423af979b2da1d02f1d4af49fa36a8632b37c15716903823ca42b42",
+        "protected_custom_fields_count": 65,
+        "protected_custom_fields_sha256": "7dd6043bbb55773f94fc4c9dbab4685722b9ffc8efba2138137fbf379539eef5",
+        "type_counts": {
+          "document": 1,
+          "finance_account": 1,
+          "gift_card": 1,
+          "identity_document": 1,
+          "legacy": 12,
+          "login": 3,
+          "maintenance": 1,
+          "membership_card": 1,
+          "payment_card": 3,
+          "secure_note": 5,
+          "sim_profile": 3,
+          "subscription": 2,
+          "telecom_line": 1,
+          "telecom_plan": 1
+        },
+        "relations": 22,
+        "rules": 1,
+        "events": 2,
+        "diagnostics": {
+          "legacy:": 11,
+          "read_only:field_limit": 1,
+          "read_only:legacy_parent_conflict": 1,
+          "read_only:unknown_keex_field": 1,
+          "read_only:unknown_schema": 1,
+          "valid:": 20,
+          "valid:missing_target": 1
+        }
+      },
+      "summary": {
+        "format": "4.1",
+        "cipher": "chacha20",
+        "kdf": {
+          "name": "argon2id",
+          "memory": 8388608,
+          "iterations": 2,
+          "parallelism": 1
+        },
+        "compressed": true,
+        "inner_stream": "chacha20",
+        "header_hash": "not-applicable",
+        "generator": "keex-fixture-source",
+        "groups": 9,
+        "entries": 36,
+        "history_entries": 5,
+        "entries_with_history": 3,
+        "recycle_bin": {
+          "enabled": true,
+          "group_present": true,
+          "entries": 2
+        },
+        "deleted_objects": 2,
+        "custom_icons": 1,
+        "entries_with_tags": 3,
+        "attachments": {
+          "references": 9,
+          "names": [
+            "KeeAgent.settings",
+            "blob.bin",
+            "id_ed25519",
+            "notes.txt",
+            "shared.txt",
+            "合成凭据.txt"
+          ],
+          "pool_items": 6,
+          "pool_bytes": 3300,
+          "pool_protected": 6,
+          "current_references": 7,
+          "history_references": 2
+        },
+        "otp_fields": [
+          "TOTP Seed",
+          "TOTP Settings",
+          "TimeOtp-Algorithm",
+          "TimeOtp-Length",
+          "TimeOtp-Period",
+          "TimeOtp-Secret-Base32",
+          "otp"
+        ],
+        "passkey_fields": [
+          "KPEX_PASSKEY_CREDENTIAL_ID",
+          "KPEX_PASSKEY_FLAG_BE",
+          "KPEX_PASSKEY_FLAG_BS",
+          "KPEX_PASSKEY_GENERATED_USER_ID",
+          "KPEX_PASSKEY_PRIVATE_KEY_PEM",
+          "KPEX_PASSKEY_RELYING_PARTY",
+          "KPEX_PASSKEY_USERNAME",
+          "KPEX_PASSKEY_USER_HANDLE",
+          "KPXC_PASSKEY_USERNAME"
+        ],
+        "keeagent_settings": 1,
+        "meta_custom_data_keys": [
+          "KPXC_RANDOM_SLUG",
+          "_LAST_MODIFIED",
+          "keex.fixture"
+        ],
+        "unknown_elements": [],
+        "custom_fields_count": 92,
+        "custom_fields_sha256": "55a4f054b423af979b2da1d02f1d4af49fa36a8632b37c15716903823ca42b42",
+        "protected_custom_fields_count": 65,
+        "protected_custom_fields_sha256": "7dd6043bbb55773f94fc4c9dbab4685722b9ffc8efba2138137fbf379539eef5",
+        "type_counts": {
+          "document": 1,
+          "finance_account": 1,
+          "gift_card": 1,
+          "identity_document": 1,
+          "legacy": 12,
+          "login": 3,
+          "maintenance": 1,
+          "membership_card": 1,
+          "payment_card": 3,
+          "secure_note": 5,
+          "sim_profile": 3,
+          "subscription": 2,
+          "telecom_line": 1,
+          "telecom_plan": 1
+        },
+        "relations": 22,
+        "rules": 1,
+        "events": 2,
+        "diagnostics": {
+          "legacy:": 11,
+          "read_only:field_limit": 1,
+          "read_only:legacy_parent_conflict": 1,
+          "read_only:unknown_keex_field": 1,
+          "read_only:unknown_schema": 1,
+          "valid:": 20,
+          "valid:missing_target": 1
+        }
+      },
+      "raw_changes": [
+        "added KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046/Group=912008afa217d53b3a190c5e6d500909/Entry=c21db8c8be768f14cae2ed1a9f6cb568/History/Entry#1",
+        "changed/value KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046/Group=912008afa217d53b3a190c5e6d500909/Entry=c21db8c8be768f14cae2ed1a9f6cb568/History/Entry/String=UserName/Value",
+        "changed/value KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046/Group=912008afa217d53b3a190c5e6d500909/Entry=c21db8c8be768f14cae2ed1a9f6cb568/History/Entry/Times/LastAccessTime",
+        "changed/value KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046/Group=912008afa217d53b3a190c5e6d500909/Entry=c21db8c8be768f14cae2ed1a9f6cb568/History/Entry/Times/LastModificationTime",
+        "changed/value KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046/Group=912008afa217d53b3a190c5e6d500909/Entry=c21db8c8be768f14cae2ed1a9f6cb568/String=UserName/Value",
+        "changed/value KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046/Group=912008afa217d53b3a190c5e6d500909/Entry=c21db8c8be768f14cae2ed1a9f6cb568/Times/LastModificationTime",
+        "order KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046",
+        "removed KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046/Group=619866709f661f4847cc86d411ca5bf1/Entry=8965805d6caa1155bdc9ed01dcb11d04/IconID",
+        "removed KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046/Group=619866709f661f4847cc86d411ca5bf1/IconID"
+      ],
+      "other_changes": [
+        "order KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046",
+        "removed KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046/Group=619866709f661f4847cc86d411ca5bf1/Entry=8965805d6caa1155bdc9ed01dcb11d04/IconID",
+        "removed KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046/Group=619866709f661f4847cc86d411ca5bf1/IconID"
+      ],
+      "history_placement": "prepend",
+      "history_snapshot_changes": [],
+      "attachment_order_changes": [
+        {
+          "entry_uuid": "8965805d6caa1155bdc9ed01dcb11d04",
+          "scope": "current",
+          "before": [
+            "notes.txt",
+            "shared.txt"
+          ],
+          "after": [
+            "shared.txt",
+            "notes.txt"
+          ]
+        },
+        {
+          "entry_uuid": "5304a955887e682676d4a53259a477b5",
+          "scope": "current",
+          "before": [
+            "KeeAgent.settings",
+            "id_ed25519"
+          ],
+          "after": [
+            "id_ed25519",
+            "KeeAgent.settings"
+          ]
+        }
+      ],
+      "lossless_roundtrip": false,
+      "verdict": "readable; original field values/protection and attachment bytes retained; semantic differences remain",
+      "helper_counts": {
+        "ok": true,
+        "entries": 36,
+        "groups": 9,
+        "attachments": 6,
+        "history_before": 4,
+        "history_after": 5,
+        "bytes": 38639
+      },
+      "reference_export": {
+        "current_entries": 36,
+        "history_entries": 5,
+        "attachment_pool_cross_checked": false
+      },
+      "elapsed_helper_and_checks_seconds": 0.297761
+    }
+  ]
+}

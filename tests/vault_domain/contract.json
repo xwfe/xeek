@@ -1,0 +1,822 @@
+{
+  "schemaVersion": 1,
+  "scope": "test-contract-only",
+  "types": {
+    "login": "登录/服务账户",
+    "secure_note": "安全备注",
+    "finance_account": "金融账户",
+    "payment_card": "支付卡",
+    "telecom_line": "通信线路",
+    "sim_profile": "SIM/eSIM 配置",
+    "telecom_plan": "通信套餐",
+    "subscription": "订阅",
+    "identity_document": "证件",
+    "document": "重要文档",
+    "membership_card": "会员卡",
+    "gift_card": "礼品卡",
+    "maintenance": "维护事项"
+  },
+  "entryUuidEncoding": "lowercase-hex-32",
+  "required": [
+    "Title",
+    "keex.record.schema",
+    "keex.record.type"
+  ],
+  "currencies": [
+    "AUD",
+    "CAD",
+    "CHF",
+    "CNY",
+    "EUR",
+    "GBP",
+    "HKD",
+    "JPY",
+    "KRW",
+    "NZD",
+    "SGD",
+    "USD"
+  ],
+  "limits": {
+    "fieldBytes": 65536,
+    "jsonDepth": 16,
+    "jsonNodes": 1024,
+    "decimalDigits": 38,
+    "decimalScale": 18,
+    "relationsPerEntry": 256,
+    "eventsPerEntry": 512
+  },
+  "sources": [
+    "user_entry",
+    "user_verified",
+    "file_import"
+  ],
+  "confidence": [
+    "unknown",
+    "user_asserted",
+    "user_verified"
+  ],
+  "fields": {
+    "keex.record.schema": {
+      "label": "字段契约版本",
+      "kind": "schema",
+      "types": [
+        "*"
+      ],
+      "protected": false
+    },
+    "keex.record.type": {
+      "label": "资料类型",
+      "kind": "enum",
+      "types": [
+        "*"
+      ],
+      "protected": false,
+      "values": [
+        "login",
+        "secure_note",
+        "finance_account",
+        "payment_card",
+        "telecom_line",
+        "sim_profile",
+        "telecom_plan",
+        "subscription",
+        "identity_document",
+        "document",
+        "membership_card",
+        "gift_card",
+        "maintenance"
+      ]
+    },
+    "keex.record.status": {
+      "label": "资料归档状态",
+      "kind": "enum",
+      "types": [
+        "*"
+      ],
+      "protected": false,
+      "values": [
+        "active",
+        "archived"
+      ]
+    },
+    "keex.record.purpose": {
+      "label": "用途",
+      "kind": "text",
+      "types": [
+        "*"
+      ],
+      "protected": false
+    },
+    "keex.record.registeredRegion": {
+      "label": "注册地区",
+      "kind": "text",
+      "types": [
+        "login"
+      ],
+      "protected": false
+    },
+    "keex.record.provenance": {
+      "label": "资料来源",
+      "kind": "provenance",
+      "types": [
+        "*"
+      ],
+      "protected": true
+    },
+    "keex.record.serviceState": {
+      "label": "手工服务状态",
+      "kind": "service_fact",
+      "types": [
+        "*"
+      ],
+      "protected": true
+    },
+    "keex.finance.institution": {
+      "label": "金融机构",
+      "kind": "text",
+      "types": [
+        "finance_account",
+        "payment_card"
+      ],
+      "protected": false
+    },
+    "keex.finance.accountHolder": {
+      "label": "账户持有人",
+      "kind": "text",
+      "types": [
+        "finance_account"
+      ],
+      "protected": true
+    },
+    "keex.finance.accountId": {
+      "label": "账户标识",
+      "kind": "text",
+      "types": [
+        "finance_account"
+      ],
+      "protected": true
+    },
+    "keex.finance.accountKind": {
+      "label": "账户类型",
+      "kind": "enum",
+      "types": [
+        "finance_account"
+      ],
+      "protected": false,
+      "values": [
+        "bank",
+        "payment",
+        "other"
+      ]
+    },
+    "keex.finance.currencies": {
+      "label": "账户币种集合",
+      "kind": "currencies",
+      "types": [
+        "finance_account"
+      ],
+      "protected": true
+    },
+    "keex.finance.openingRegion": {
+      "label": "开户地区",
+      "kind": "text",
+      "types": [
+        "finance_account"
+      ],
+      "protected": false
+    },
+    "keex.finance.form": {
+      "label": "卡片形态",
+      "kind": "enum",
+      "types": [
+        "payment_card"
+      ],
+      "protected": false,
+      "values": [
+        "physical",
+        "virtual"
+      ]
+    },
+    "keex.finance.holder": {
+      "label": "持卡人",
+      "kind": "text",
+      "types": [
+        "payment_card"
+      ],
+      "protected": true
+    },
+    "keex.finance.network": {
+      "label": "卡组织",
+      "kind": "text",
+      "types": [
+        "payment_card"
+      ],
+      "protected": false
+    },
+    "keex.finance.number": {
+      "label": "完整卡号",
+      "kind": "text",
+      "types": [
+        "payment_card"
+      ],
+      "protected": true
+    },
+    "keex.finance.expires": {
+      "label": "卡片到期月份",
+      "kind": "year_month",
+      "types": [
+        "payment_card"
+      ],
+      "protected": true
+    },
+    "keex.finance.issuerRegion": {
+      "label": "发卡地区",
+      "kind": "text",
+      "types": [
+        "payment_card"
+      ],
+      "protected": false
+    },
+    "keex.finance.billingAddress": {
+      "label": "账单地址",
+      "kind": "text",
+      "types": [
+        "payment_card"
+      ],
+      "protected": true
+    },
+    "keex.finance.cvv": {
+      "label": "CVV",
+      "kind": "text",
+      "types": [
+        "payment_card"
+      ],
+      "protected": true
+    },
+    "keex.finance.pin": {
+      "label": "卡片 PIN",
+      "kind": "text",
+      "types": [
+        "payment_card"
+      ],
+      "protected": true
+    },
+    "keex.finance.balance": {
+      "label": "手工余额快照",
+      "kind": "money_fact",
+      "types": [
+        "finance_account",
+        "payment_card",
+        "gift_card"
+      ],
+      "protected": true
+    },
+    "keex.finance.limit": {
+      "label": "手工限额快照",
+      "kind": "money_fact",
+      "types": [
+        "finance_account",
+        "payment_card"
+      ],
+      "protected": true
+    },
+    "keex.finance.fee": {
+      "label": "手工费用记录",
+      "kind": "money_fact",
+      "types": [
+        "finance_account",
+        "payment_card"
+      ],
+      "protected": true
+    },
+    "keex.telecom.number": {
+      "label": "完整号码",
+      "kind": "text",
+      "types": [
+        "telecom_line"
+      ],
+      "protected": true
+    },
+    "keex.telecom.homeRegion": {
+      "label": "号码归属地区",
+      "kind": "text",
+      "types": [
+        "telecom_line"
+      ],
+      "protected": false
+    },
+    "keex.telecom.operator": {
+      "label": "运营商/供应商",
+      "kind": "text",
+      "types": [
+        "telecom_line",
+        "sim_profile",
+        "telecom_plan"
+      ],
+      "protected": false
+    },
+    "keex.telecom.profileKind": {
+      "label": "配置形态",
+      "kind": "enum",
+      "types": [
+        "sim_profile"
+      ],
+      "protected": false,
+      "values": [
+        "physical",
+        "esim"
+      ]
+    },
+    "keex.telecom.iccid": {
+      "label": "ICCID",
+      "kind": "text",
+      "types": [
+        "sim_profile"
+      ],
+      "protected": true
+    },
+    "keex.telecom.eid": {
+      "label": "EID",
+      "kind": "text",
+      "types": [
+        "sim_profile"
+      ],
+      "protected": true
+    },
+    "keex.telecom.deviceLabel": {
+      "label": "安装设备说明",
+      "kind": "text",
+      "types": [
+        "sim_profile"
+      ],
+      "protected": true
+    },
+    "keex.telecom.activationCode": {
+      "label": "激活文本",
+      "kind": "text",
+      "types": [
+        "sim_profile"
+      ],
+      "protected": true
+    },
+    "keex.telecom.simPin": {
+      "label": "SIM PIN",
+      "kind": "text",
+      "types": [
+        "sim_profile"
+      ],
+      "protected": true
+    },
+    "keex.telecom.puk": {
+      "label": "PUK",
+      "kind": "text",
+      "types": [
+        "sim_profile"
+      ],
+      "protected": true
+    },
+    "keex.telecom.installState": {
+      "label": "手工安装状态",
+      "kind": "install_fact",
+      "types": [
+        "sim_profile"
+      ],
+      "protected": true
+    },
+    "keex.telecom.coverage": {
+      "label": "套餐覆盖地区",
+      "kind": "text_list",
+      "types": [
+        "telecom_plan"
+      ],
+      "protected": true
+    },
+    "keex.telecom.allowances": {
+      "label": "流量/语音/SMS 描述",
+      "kind": "text",
+      "types": [
+        "telecom_plan"
+      ],
+      "protected": false
+    },
+    "keex.telecom.remaining": {
+      "label": "手工余量快照",
+      "kind": "quantity_fact",
+      "types": [
+        "telecom_plan"
+      ],
+      "protected": true
+    },
+    "keex.telecom.smsCapability": {
+      "label": "手工核实短信能力",
+      "kind": "capability_fact",
+      "types": [
+        "telecom_line",
+        "telecom_plan"
+      ],
+      "protected": true
+    },
+    "keex.telecom.verificationCapability": {
+      "label": "手工核实验证用途",
+      "kind": "capability_fact",
+      "types": [
+        "telecom_line",
+        "telecom_plan"
+      ],
+      "protected": true
+    },
+    "keex.telecom.activationRule": {
+      "label": "套餐激活规则",
+      "kind": "activation",
+      "types": [
+        "telecom_plan"
+      ],
+      "protected": true
+    },
+    "keex.telecom.validFrom": {
+      "label": "套餐开始日期",
+      "kind": "date",
+      "types": [
+        "telecom_plan"
+      ],
+      "protected": true
+    },
+    "keex.telecom.validUntil": {
+      "label": "套餐截止日期",
+      "kind": "date",
+      "types": [
+        "telecom_plan"
+      ],
+      "protected": true
+    },
+    "keex.telecom.price": {
+      "label": "套餐价格",
+      "kind": "money_fact",
+      "types": [
+        "telecom_plan"
+      ],
+      "protected": true
+    },
+    "keex.subscription.plan": {
+      "label": "订阅套餐",
+      "kind": "text",
+      "types": [
+        "subscription"
+      ],
+      "protected": false
+    },
+    "keex.subscription.billing": {
+      "label": "价格与计费规则",
+      "kind": "billing",
+      "types": [
+        "subscription"
+      ],
+      "protected": true
+    },
+    "keex.subscription.trialEnds": {
+      "label": "试用截止日期",
+      "kind": "date",
+      "types": [
+        "subscription"
+      ],
+      "protected": true
+    },
+    "keex.subscription.nextDue": {
+      "label": "用户指定下次日期",
+      "kind": "date",
+      "types": [
+        "subscription"
+      ],
+      "protected": true
+    },
+    "keex.subscription.renewalIntent": {
+      "label": "自动续费意向",
+      "kind": "enum",
+      "types": [
+        "subscription"
+      ],
+      "protected": false,
+      "values": [
+        "unknown",
+        "enabled",
+        "disabled"
+      ]
+    },
+    "keex.subscription.cancellation": {
+      "label": "手工取消状态",
+      "kind": "cancellation_fact",
+      "types": [
+        "subscription"
+      ],
+      "protected": true
+    },
+    "keex.subscription.cancelInstructions": {
+      "label": "取消说明",
+      "kind": "text",
+      "types": [
+        "subscription"
+      ],
+      "protected": true
+    },
+    "keex.document.kind": {
+      "label": "证件/文档/卡券类型",
+      "kind": "text",
+      "types": [
+        "identity_document",
+        "document",
+        "membership_card",
+        "gift_card"
+      ],
+      "protected": false
+    },
+    "keex.document.identifier": {
+      "label": "证件/卡券标识",
+      "kind": "text",
+      "types": [
+        "identity_document",
+        "document",
+        "membership_card",
+        "gift_card"
+      ],
+      "protected": true
+    },
+    "keex.document.holder": {
+      "label": "持有人",
+      "kind": "text",
+      "types": [
+        "identity_document",
+        "document",
+        "membership_card",
+        "gift_card"
+      ],
+      "protected": true
+    },
+    "keex.document.issuer": {
+      "label": "签发机构",
+      "kind": "text",
+      "types": [
+        "identity_document",
+        "document",
+        "membership_card",
+        "gift_card"
+      ],
+      "protected": false
+    },
+    "keex.document.issuingRegion": {
+      "label": "签发地区",
+      "kind": "text",
+      "types": [
+        "identity_document",
+        "document",
+        "membership_card",
+        "gift_card"
+      ],
+      "protected": false
+    },
+    "keex.document.issued": {
+      "label": "签发日期",
+      "kind": "date",
+      "types": [
+        "identity_document",
+        "document",
+        "membership_card",
+        "gift_card"
+      ],
+      "protected": true
+    },
+    "keex.document.expires": {
+      "label": "有效日期",
+      "kind": "date",
+      "types": [
+        "identity_document",
+        "document",
+        "membership_card",
+        "gift_card"
+      ],
+      "protected": true
+    },
+    "keex.document.address": {
+      "label": "地址",
+      "kind": "text",
+      "types": [
+        "identity_document",
+        "document"
+      ],
+      "protected": true
+    },
+    "keex.document.barcode": {
+      "label": "条码原文",
+      "kind": "text",
+      "types": [
+        "membership_card",
+        "gift_card"
+      ],
+      "protected": true
+    },
+    "keex.maintenance.kind": {
+      "label": "维护种类",
+      "kind": "enum",
+      "types": [
+        "maintenance"
+      ],
+      "protected": false,
+      "values": [
+        "renew",
+        "keep_number",
+        "update_document",
+        "replace_card",
+        "review",
+        "manual"
+      ]
+    }
+  },
+  "relations": {
+    "belongsTo": {
+      "sources": [
+        "payment_card"
+      ],
+      "targets": [
+        "finance_account"
+      ],
+      "maxActive": 1
+    },
+    "paidBy": {
+      "sources": [
+        "subscription"
+      ],
+      "targets": [
+        "payment_card",
+        "finance_account"
+      ],
+      "maxActive": 1
+    },
+    "verifiedBy": {
+      "sources": [
+        "login",
+        "finance_account"
+      ],
+      "targets": [
+        "telecom_line",
+        "identity_document"
+      ],
+      "maxActive": null
+    },
+    "recoveredBy": {
+      "sources": [
+        "login",
+        "finance_account"
+      ],
+      "targets": [
+        "telecom_line",
+        "login"
+      ],
+      "maxActive": null
+    },
+    "usesProfile": {
+      "sources": [
+        "telecom_line"
+      ],
+      "targets": [
+        "sim_profile"
+      ],
+      "maxActive": 1
+    },
+    "usesPlan": {
+      "sources": [
+        "telecom_line",
+        "sim_profile"
+      ],
+      "targets": [
+        "telecom_plan"
+      ],
+      "maxActive": null
+    },
+    "documentedBy": {
+      "sources": [
+        "login",
+        "secure_note",
+        "finance_account",
+        "payment_card",
+        "telecom_line",
+        "sim_profile",
+        "telecom_plan",
+        "subscription",
+        "identity_document",
+        "document",
+        "membership_card",
+        "gift_card"
+      ],
+      "targets": [
+        "identity_document",
+        "document"
+      ],
+      "maxActive": null
+    },
+    "replaces": {
+      "sources": [
+        "login",
+        "secure_note",
+        "finance_account",
+        "payment_card",
+        "telecom_line",
+        "sim_profile",
+        "telecom_plan",
+        "subscription",
+        "identity_document",
+        "document",
+        "membership_card",
+        "gift_card"
+      ],
+      "targets": [
+        "$same"
+      ],
+      "maxActive": 1
+    },
+    "maintains": {
+      "sources": [
+        "maintenance"
+      ],
+      "targets": [
+        "login",
+        "secure_note",
+        "finance_account",
+        "payment_card",
+        "telecom_line",
+        "sim_profile",
+        "telecom_plan",
+        "subscription",
+        "identity_document",
+        "document",
+        "membership_card",
+        "gift_card"
+      ],
+      "maxActive": 1
+    },
+    "credentialOf": {
+      "sources": [
+        "login"
+      ],
+      "targets": [
+        "login"
+      ],
+      "maxActive": 1
+    },
+    "serviceAccount": {
+      "sources": [
+        "subscription",
+        "telecom_line",
+        "finance_account"
+      ],
+      "targets": [
+        "login"
+      ],
+      "maxActive": 1
+    }
+  },
+  "dynamicFields": {
+    "keex.relation.<id>": {
+      "kind": "relation",
+      "protected": true,
+      "atomic": "whole-field"
+    },
+    "keex.lifecycle.rule.<id>": {
+      "kind": "rule",
+      "protected": true,
+      "types": [
+        "maintenance"
+      ],
+      "atomic": "whole-field"
+    },
+    "keex.lifecycle.event.<id>": {
+      "kind": "event",
+      "protected": true,
+      "types": [
+        "maintenance"
+      ],
+      "atomic": "whole-field"
+    }
+  },
+  "atomicGroups": {
+    "default": "one-string-including-protection",
+    "recordIdentity": [
+      "keex.record.schema",
+      "keex.record.type"
+    ],
+    "typeMigration": "all-domain-fields-and-relations-explicit-transaction",
+    "compound": "whole-json-including-unknown-members-and-provenance",
+    "billing": "price-currency-period-anchor-zone-and-provenance",
+    "relationConstraint": "validate-slots-across-ids-after-merge"
+  },
+  "legacyAliases": {
+    "keex.parentEntryUuid": {
+      "relation": "credentialOf",
+      "readEncodings": [
+        "hex32",
+        "uuid-hyphen",
+        "base64-16"
+      ],
+      "write": "preserve-until-explicit-migration"
+    }
+  },
+  "unknownPolicy": "preserve-original-fields-values-protection-and-history; read_only for unknown keex schema/type/field/enum/member; no normalization or write capability"
+}

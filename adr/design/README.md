@@ -1,5 +1,9 @@
 # 中文设计修订 v1
 
+## 个人数据保险柜增量（2026-10-16）
+
+后续产品范围按 [ADR-0006](../0006-personal-data-vault.md)、[领域规格](../PERSONAL_VAULT_SPEC.md) 与 [Web 决策](../0007-web-vault-client.md) 扩展：五导航不改，以二级分类和全局筛选容纳金融账户、通信资料、订阅及维护事项。以下表格及现有 HTML 是基础密码管理原型，**尚未实现这些新流程或 Web 安全能力**；生产 UI 增量由 K080/K085 承接，不把本轮文字方案当成新设计稿验收。
+
 ## 移动体验参考增补（2026-10-15）
 
 [Bitwarden移动端参考](BITWARDEN_MOBILE_REFERENCE.md)规定两端UI与功能的采纳范围。iOS原型已增加可操作的搜索/筛选与模板/操作布局；通用稿及未来Flutter/Android实现按U01–U08对齐，未标记为已实现。生成器仍不占一级tab，原始Stitch资源不改。
@@ -10,7 +14,7 @@
 
 专项验证命令：`python3 adr/design/verify_ios.py`。浏览器通过本地预览加载 `tests/ios-checks.js` 后调用 `runKeexIosChecks()`，在320/390/844/1440宽度复跑；记录见 [iOS验证说明](IOS_VALIDATION.md)。这不是Swift/Kotlin/Flutter功能验收。
 
-日期：2026-10-12。产品名称：**keex**。实现目标：Flutter iOS/Android 应用；桌面三端留给未来的 Rust 应用（[ADR-0005](../0005-mobile-first-scope.md)），本说明里的宽屏/桌面内容只作参考。
+日期：2026-10-12（基础原型）。产品名称：**keex**。当前目标增加独立验收 Web；Flutter iOS/Android 保留，原生桌面三端留给未来 Rust 应用（[ADR-0005](../0005-mobile-first-scope.md)）。本说明里的宽屏交互可供 Web 参考，不代表浏览器功能已实现。
 
 ## 1. 文件与基准
 

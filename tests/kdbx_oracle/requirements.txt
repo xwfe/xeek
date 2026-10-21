@@ -1,2 +1,4 @@
 # 只用于 kdbx_oracle 测试工具，不进 keex 产品。登记信息见 README.md 的“依赖登记”。
 cryptography==46.0.4
+argon2-cffi==25.1.0
+argon2-cffi-bindings==26.1.0

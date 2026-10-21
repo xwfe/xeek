@@ -6,9 +6,9 @@ KeePassXC 读两边的文件，KeePassXC 读的时候自己丢掉的东西（例
 只把受保护字段还原成明文。
 
 边界：
-- 只读，不写。密码学原语来自 cryptography 库；Salsa20 见 salsa20.py。
-- 不支持 Argon2d（cryptography 只有 Argon2id）、Twofish、ArcFour 内层流，
-  遇到直接报 KdbxUnsupported，不猜。
+- 只读，不写。原语来自 cryptography / argon2-cffi；Salsa20 见 salsa20.py。
+- Argon2d 支持 v16/v19，但非空 K/A 参数仍拒绝；Twofish、ArcFour 内层流
+  直接报 KdbxUnsupported，不猜。
 - 上限只为防止测试被大文件卡死，不是生产的资源策略（那是 K015）。
 """
 
@@ -28,6 +28,12 @@ from uuid import UUID
 from cryptography.hazmat.primitives import padding
 from cryptography.hazmat.primitives.ciphers import Cipher, algorithms, modes
 from cryptography.hazmat.primitives.kdf.argon2 import Argon2id
+
+try:
+    from argon2 import low_level as _argon2_backend
+    from argon2.exceptions import HashingError as _Argon2HashingError
+except ImportError:
+    _argon2_backend = None
 
 from .salsa20 import Salsa20
 
@@ -57,7 +63,10 @@ MAX_XML_BYTES = 256 << 20
 MAX_XML_DEPTH = 256
 MAX_AES_ROUNDS = 1 << 32
 MAX_ARGON2_MEMORY = 1 << 30
-MAX_ARGON2_ITERATIONS = 1 << 16
+MAX_ARGON2_ITERATIONS = 64
+MAX_ARGON2_PARALLELISM = 16
+MAX_ARGON2_WORK_KIB = 2 << 20  # 内存 KiB * 迭代次数，最多 2 GiB-pass。
+MAX_ARGON2_INPUT_BYTES = 1 << 20  # 盐和可选 K/A 各自的测试上限。
 _AES_CHUNK_BLOCKS = 1 << 16
 
 # 外层头部字段编号（KDBX 规范）
@@ -196,28 +205,54 @@ def _aes_kdf(composite: bytes, seed: bytes, rounds: int) -> bytes:
     return _sha256(result)
 
 
-def _argon2id(composite: bytes, params: dict) -> bytes:
+def _argon2_parameters(params: dict, *, argon2d: bool = False) -> tuple:
+    # 4.x 的无密钥头部 SHA-256 可被重算；必须在原生分配/线程创建之前校验。
+    for key, expected_type in (("S", 0x42), ("P", 0x04), ("M", 0x05),
+                               ("I", 0x05), ("V", 0x04)):
+        if key not in params or params[key][0] != expected_type:
+            raise KdbxFormatError(f"Argon2 参数 {key} 缺失或类型不符")
     salt = _vd_bytes(params, "S")
-    lanes = _vd_int(params, "P")
-    memory = _vd_int(params, "M")
-    iterations = _vd_int(params, "I")
-    version = _vd_int(params, "V")
-    if version != 0x13:
-        raise KdbxUnsupported(f"Argon2 版本 0x{version:x} 不支持，只支持 0x13")
-    if memory > MAX_ARGON2_MEMORY or iterations > MAX_ARGON2_ITERATIONS:
+    lanes, memory = _vd_int(params, "P"), _vd_int(params, "M")
+    iterations, version = _vd_int(params, "I"), _vd_int(params, "V")
+    secret = _vd_bytes(params, "K") if "K" in params else b""
+    associated = _vd_bytes(params, "A") if "A" in params else b""
+    supported_versions = (0x10, 0x13) if argon2d else (0x13,)
+    if version not in supported_versions:
+        raise KdbxUnsupported(f"Argon2 版本 0x{version:x} 不支持")
+    if len(salt) < 8 or lanes < 1 or iterations < 1 or memory // 1024 < 8 * lanes:
+        raise KdbxFormatError("Argon2 参数无效：盐、次数、并行度或最低内存")
+    if (memory > MAX_ARGON2_MEMORY or iterations > MAX_ARGON2_ITERATIONS
+            or lanes > MAX_ARGON2_PARALLELISM
+            or (memory // 1024) * iterations > MAX_ARGON2_WORK_KIB
+            or any(len(value) > MAX_ARGON2_INPUT_BYTES for value in (salt, secret, associated))):
         raise KdbxUnsupported("Argon2 参数超过测试上限")
-    secret = params.get("K", (None, None))[1]
-    associated = params.get("A", (None, None))[1]
+    # KeePassXC 也用 M // 1024；保留文件中的字节值，不自行对齐到 4 * P。
+    return salt, lanes, memory, iterations, version, secret, associated
+
+
+def _argon2id(composite: bytes, params: dict) -> bytes:
+    salt, lanes, memory, iterations, _, secret, associated = _argon2_parameters(params)
     kdf = Argon2id(
-        salt=salt,
-        length=32,
-        iterations=iterations,
-        lanes=lanes,
-        memory_cost=memory // 1024,
-        ad=associated or None,
-        secret=secret or None,
+        salt=salt, length=32, iterations=iterations, lanes=lanes,
+        memory_cost=memory // 1024, ad=associated or None, secret=secret or None,
     )
     return kdf.derive(composite)
+
+
+def _argon2d(composite: bytes, params: dict) -> bytes:
+    salt, lanes, memory, iterations, version, secret, associated = _argon2_parameters(params, argon2d=True)
+    if secret or associated:
+        raise KdbxUnsupported("Argon2d 非空 K/A 参数尚不支持")
+    if _argon2_backend is None:
+        raise KdbxUnsupported("Argon2d 需要已登记的 argon2-cffi 测试依赖")
+    try:
+        return _argon2_backend.hash_secret_raw(
+            secret=composite, salt=salt, time_cost=iterations,
+            memory_cost=memory // 1024, parallelism=lanes, hash_len=32,
+            type=_argon2_backend.Type.D, version=version,
+        )
+    except _Argon2HashingError as exc:
+        raise KdbxUnsupported("Argon2d 后端无法完成派生") from exc
 
 
 # ---------- 头部 ----------
@@ -288,44 +323,53 @@ def parse_variant_dictionary(data: bytes) -> dict[str, tuple[int, object]]:
         value_type = data[pos]
         pos += 1
         if value_type == 0:
-            break
-        if pos + 4 > len(data):
-            raise KdbxFormatError("VariantDictionary 被截断")
-        (key_length,) = struct.unpack_from("<i", data, pos)
-        pos += 4
-        key = data[pos : pos + key_length].decode("utf-8")
-        pos += key_length
-        (value_length,) = struct.unpack_from("<i", data, pos)
-        pos += 4
-        raw = data[pos : pos + value_length]
-        if key_length < 0 or value_length < 0 or len(raw) != value_length:
-            raise KdbxFormatError("VariantDictionary 被截断")
-        pos += value_length
-        if value_type in _VD_TYPES:
-            fmt = _VD_TYPES[value_type]
-            if struct.calcsize(fmt) != value_length:
-                raise KdbxFormatError(f"VariantDictionary 项 {key} 长度不对")
-            (value,) = struct.unpack(fmt, raw)
-        elif value_type == 0x18:
-            value = raw.decode("utf-8")
-        elif value_type == 0x42:
-            value = raw
-        else:
-            raise KdbxUnsupported(f"VariantDictionary 类型 0x{value_type:02x} 不支持")
+            if pos != len(data):
+                raise KdbxFormatError("VariantDictionary 结束标记后有多余内容")
+            return items
+        parts = []
+        for _ in range(2):  # key 和 value 都是有符号长度前缀，先检查再读取。
+            if pos + 4 > len(data):
+                raise KdbxFormatError("VariantDictionary 长度被截断")
+            (length,) = struct.unpack_from("<i", data, pos)
+            pos += 4
+            if length < 0 or length > len(data) - pos:
+                raise KdbxFormatError("VariantDictionary 长度无效或内容被截断")
+            parts.append(data[pos:pos + length])
+            pos += length
+        key_raw, raw = parts
+        try:
+            key = key_raw.decode("utf-8")
+            if value_type in _VD_TYPES:
+                fmt = _VD_TYPES[value_type]
+                if struct.calcsize(fmt) != len(raw):
+                    raise KdbxFormatError("VariantDictionary 数值长度不对")
+                (value,) = struct.unpack(fmt, raw)
+            elif value_type == 0x18:
+                value = raw.decode("utf-8")
+            elif value_type == 0x42:
+                value = raw
+            else:
+                raise KdbxUnsupported(f"VariantDictionary 类型 0x{value_type:02x} 不支持")
+        except UnicodeDecodeError as exc:
+            raise KdbxFormatError("VariantDictionary 文字不是 UTF-8") from exc
+        if key in items:
+            raise KdbxFormatError("VariantDictionary 包含重复键")
         items[key] = (value_type, value)
-    return items
 
 
 def _vd_bytes(params: dict, key: str) -> bytes:
-    if key not in params or not isinstance(params[key][1], bytes):
-        raise KdbxFormatError(f"KDF 参数缺少 {key}")
+    if key not in params or params[key][0] != 0x42 or not isinstance(params[key][1], bytes):
+        raise KdbxFormatError(f"KDF 参数 {key} 缺失或不是字节数组")
     return params[key][1]
 
 
 def _vd_int(params: dict, key: str) -> int:
-    if key not in params or not isinstance(params[key][1], int):
-        raise KdbxFormatError(f"KDF 参数缺少 {key}")
-    return params[key][1]
+    if key not in params or params[key][0] not in (0x04, 0x05) or type(params[key][1]) is not int:
+        raise KdbxFormatError(f"KDF 参数 {key} 缺失或不是无符号整数")
+    value = params[key][1]
+    if not 0 <= value < (1 << (32 if params[key][0] == 0x04 else 64)):
+        raise KdbxFormatError(f"KDF 参数 {key} 超过编码范围")
+    return value
 
 
 def _derive_transformed_key(major: int, fields: dict[int, bytes], composite: bytes) -> tuple[bytes, dict]:
@@ -334,20 +378,22 @@ def _derive_transformed_key(major: int, fields: dict[int, bytes], composite: byt
         (rounds,) = struct.unpack("<Q", _require(fields, H_TRANSFORM_ROUNDS, 8))
         return _aes_kdf(composite, seed, rounds), {"name": "aes-kdf", "rounds": rounds}
     params = parse_variant_dictionary(_require(fields, H_KDF))
-    kdf_uuid = UUID(bytes=_vd_bytes(params, "$UUID"))
+    identifier = _vd_bytes(params, "$UUID")
+    if len(identifier) != 16:
+        raise KdbxFormatError("KDF 参数 $UUID 必须是 16 字节")
+    kdf_uuid = UUID(bytes=identifier)
     if kdf_uuid in KDF_AES:
         rounds = _vd_int(params, "R")
         return _aes_kdf(composite, _vd_bytes(params, "S"), rounds), {"name": "aes-kdf", "rounds": rounds}
-    if kdf_uuid == KDF_ARGON2ID:
-        info = {
-            "name": "argon2id",
+    if kdf_uuid in (KDF_ARGON2ID, KDF_ARGON2D):
+        derive = _argon2d if kdf_uuid == KDF_ARGON2D else _argon2id
+        transformed = derive(composite, params)
+        return transformed, {
+            "name": "argon2d" if kdf_uuid == KDF_ARGON2D else "argon2id",
             "memory": _vd_int(params, "M"),
             "iterations": _vd_int(params, "I"),
             "parallelism": _vd_int(params, "P"),
         }
-        return _argon2id(composite, params), info
-    if kdf_uuid == KDF_ARGON2D:
-        raise KdbxUnsupported("Argon2d 暂不支持：cryptography 只提供 Argon2id")
     raise KdbxUnsupported(f"未知 KDF {kdf_uuid}")
 
 
@@ -395,8 +441,13 @@ def _unpad(cipher_uuid: UUID, data: bytes) -> bytes:
 
 
 def _gunzip(data: bytes, limit: int = MAX_XML_BYTES) -> bytes:
+    if type(limit) is not int or not 1 <= limit <= MAX_XML_BYTES:
+        raise ValueError("解压上限必须是测试最大值以内的正整数")
     decompressor = zlib.decompressobj(16 + zlib.MAX_WBITS)
-    out = decompressor.decompress(data, limit + 1)
+    try:
+        out = decompressor.decompress(data, limit + 1)
+    except zlib.error as exc:
+        raise KdbxIntegrityError("gzip 数据损坏：校验或压缩流无效") from exc
     if len(out) > limit or decompressor.unconsumed_tail:
         raise KdbxUnsupported("解压后超过测试上限，疑似压缩炸弹")
     if not decompressor.eof:
@@ -486,6 +537,7 @@ def _inner_stream(stream_id: int, key: bytes):
 
 
 def _parse_inner_header(data: bytes) -> tuple[int, bytes, list[tuple[bytes, bool]], int]:
+    # 本 oracle 拒绝重复流配置和带值的结束字段，避免静默覆盖/丢弃；不是完整 schema 校验。
     pos = 0
     stream_id = None
     stream_key = None
@@ -501,12 +553,18 @@ def _parse_inner_header(data: bytes) -> tuple[int, bytes, list[tuple[bytes, bool
         value = data[pos : pos + size]
         pos += size
         if field_id == 0:
+            if size != 0:
+                raise KdbxFormatError("内层头部结束字段必须为空")
             break
         if field_id == 1:
+            if stream_id is not None:
+                raise KdbxFormatError("内层头部字段 1 重复：保护流配置存在歧义")
             if size != 4:
                 raise KdbxFormatError("内层流编号应为 4 字节")
             (stream_id,) = struct.unpack("<I", value)
         elif field_id == 2:
+            if stream_key is not None:
+                raise KdbxFormatError("内层头部字段 2 重复：保护流配置存在歧义")
             stream_key = value
         elif field_id == 3:
             if size < 1:
@@ -555,6 +613,14 @@ def _parse_xml(xml_bytes: bytes) -> ET.Element:
     return root
 
 
+def _xml_base64(value: str) -> bytes:
+    try:
+        return base64.b64decode(value, validate=True)
+    except (binascii.Error, ValueError) as exc:
+        # 错误文本不带输入值；涵盖非法字符和非 ASCII 文本。
+        raise KdbxFormatError("XML 值不是合法的 base64") from exc
+
+
 def _unprotect(root: ET.Element, stream, binaries: dict[str, tuple[bytes, bool]]) -> None:
     """按文档顺序把 Protected="True" 的值还原成明文。
 
@@ -566,7 +632,7 @@ def _unprotect(root: ET.Element, stream, binaries: dict[str, tuple[bytes, bool]]
     for element in root.iter():
         protected = (element.get("Protected") or "").lower() == "true"
         if element in meta_binary_nodes:
-            raw = base64.b64decode(element.text or "", validate=True)
+            raw = _xml_base64(element.text or "")
             if protected:
                 if stream is None:
                     raise KdbxFormatError("存在受保护值但未声明保护流")
@@ -579,7 +645,7 @@ def _unprotect(root: ET.Element, stream, binaries: dict[str, tuple[bytes, bool]]
             continue
         if stream is None:
             raise KdbxFormatError("存在受保护值但未声明保护流")
-        raw = base64.b64decode(element.text or "", validate=True)
+        raw = _xml_base64(element.text or "")
         plain = bytes(a ^ b for a, b in zip(raw, stream.keystream(len(raw))))
         try:
             element.text = plain.decode("utf-8")
@@ -599,7 +665,7 @@ def read_plain_xml(xml_bytes: bytes) -> DecodedKdbx:
         raise KdbxFormatError("XML 根元素不是 KeePassFile")
     binaries: dict[str, tuple[bytes, bool]] = {}
     for element in root.findall("Meta/Binaries/Binary"):
-        raw = base64.b64decode(element.text or "", validate=True)
+        raw = _xml_base64(element.text or "")
         if (element.get("Compressed") or "").lower() == "true":
             raw = _gunzip(raw)
         binaries[element.get("ID", "")] = (raw, (element.get("Protected") or "").lower() == "true")
@@ -626,6 +692,8 @@ def read_kdbx(
 
     max_xml_bytes 只是为了让压缩炸弹测试不必真的解出 256 MiB，不是 keex 的上限（那是 K015）。
     """
+    if type(max_xml_bytes) is not int or not 1 <= max_xml_bytes <= MAX_XML_BYTES:
+        raise ValueError("max_xml_bytes 必须是测试最大值以内的正整数")
     if len(data) > MAX_FILE_BYTES:
         raise KdbxUnsupported("文件超过测试上限")
     major, minor, fields, header_end = _parse_outer_header(data)
@@ -696,7 +764,7 @@ def read_kdbx(
         stored = root.findtext("Meta/HeaderHash")
         if stored is None or not stored.strip():
             header_hash_status = "missing"
-        elif base64.b64decode(stored.strip(), validate=True) != _sha256(header_bytes):
+        elif _xml_base64(stored.strip()) != _sha256(header_bytes):
             raise KdbxIntegrityError("HeaderHash 不符：头部被改，拒绝打开")
         else:
             header_hash_status = "match"

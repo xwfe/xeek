@@ -1,6 +1,6 @@
 # 架构与实施资料
 
-更新：2026-10-16。
+更新：2026-10-18。
 
 | 文件 | 用途 |
 | --- | --- |
@@ -8,7 +8,14 @@
 | [0002-mobile-credentials.md](0002-mobile-credentials.md) | iOS/Android提供者、原生扩展、索引与共享授权 |
 | [0003-cloud-sync.md](0003-cloud-sync.md) | WebDAV/OneDrive权限、最终条件提交、冲突与后台 |
 | [0004-kdbx-advanced-passkeys.md](0004-kdbx-advanced-passkeys.md) | 高级字段、附件池、历史、KPEX映射与Passkey签名 |
-| [0005-mobile-first-scope.md](0005-mobile-first-scope.md) | 当前只做 iOS/Android；桌面端留给未来 Rust 应用，桌面资料索引 |
+| [0005-mobile-first-scope.md](0005-mobile-first-scope.md) | 原生移动优先、未来 Rust 桌面边界；Web 后续安排已被 ADR-0007 部分取代 |
+| [0006-personal-data-vault.md](0006-personal-data-vault.md) | 个人数据保险柜定位、范围、五导航与并入现有架构的决策 |
+| [0007-web-vault-client.md](0007-web-vault-client.md) | 独立 Web 客户端、浏览器保存/授权/同步和 GW0–GW2 门槛 |
+| [PERSONAL_VAULT_SPEC.md](PERSONAL_VAULT_SPEC.md) | 金融、通信、卡片、资料关系、维护规则及安全数据契约 |
+| [K068_FIELD_CONTRACT.md](K068_FIELD_CONTRACT.md) | v1 字段编码、保护、业务原子组、关系和日期的可执行合成契约 |
+| [PERSONAL_VAULT_PLAN.md](PERSONAL_VAULT_PLAN.md) | 增量阶段、K068–K089 任务细化、18 个验收场景及交接入口 |
+| [research/personal-vault-2026-10-16.md](research/personal-vault-2026-10-16.md) | 16 组一手来源、复用边界与未核实事项 |
+| [evidence/D06.md](evidence/D06.md) | 2026-10-16 方案落盘与文档静态验证，不是功能实现证据 |
 | [MOBILE_SYNC_TASKS.md](MOBILE_SYNC_TASKS.md) | 对应主任务的24项专项实施子任务 |
 | [research/mobile-sync-2026-10-12.md](research/mobile-sync-2026-10-12.md) | Monica/Bitwarden等源码证据、官方资料与研究限制 |
 | [design/IOS_DESIGN.md](design/IOS_DESIGN.md) | iOS专项页面、状态与Flutter/原生交接 |

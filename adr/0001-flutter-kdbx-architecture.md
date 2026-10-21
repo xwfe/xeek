@@ -2,13 +2,13 @@
 
 日期：2026-10-12。状态：**产品边界已确定；核心库和原生扩展实现需通过 P0 实验后批准**。
 
-**2026-10-16 范围收窄**：当前只交付 iOS/Android，桌面端留给未来的 Rust 应用，见 [ADR-0005](0005-mobile-first-scope.md)。本文中的桌面内容（§2 桌面层与 agent-core、§6 代理部分、§7 桌面浏览器段、§9 桌面三列）只作未来资料，已在原处标注。
+**2026-10-16 最新增量**：[ADR-0006](0006-personal-data-vault.md) 将产品扩展为个人数据保险柜，[ADR-0007](0007-web-vault-client.md) 将 Web 纳入独立验收路线。Android/iOS 保留；[ADR-0005](0005-mobile-first-scope.md) 的未来 Rust 桌面边界继续有效。本文桌面内容（§2 桌面层与 agent-core、§6 代理部分、§7 桌面浏览器段、§9 桌面三列）只作未来资料；Web 不复用这些原生桌面能力承诺。
 
 细化设计以 [ADR-0002](0002-mobile-credentials.md)、[ADR-0003](0003-cloud-sync.md)、[ADR-0004](0004-kdbx-advanced-passkeys.md) 为准：iOS与Android同期验证，OneDrive进入P3；高级字段/附件/Passkey在写入门槛中验证。
 
 ## 1. 已确定与未确定
 
-已确定：Flutter 主界面，当前只交付 iOS/Android（桌面三端留给未来的 Rust 应用）；中文优先、五项导航；本地优先；KDBX 唯一权威数据；KeeAgent 数据无损保留、密钥可解析（SSH 代理签名属未来桌面）；系统自动填充；TOTP/恢复码/Passkey；可选自托管同步。
+已确定：Flutter 移动主界面，Android/iOS 与独立验收 Web 路线（桌面三端留给未来 Rust 应用）；中文优先、五项导航；个人资料/关系/维护事项扩展；本地优先；KDBX 唯一权威数据；KeeAgent 数据无损保留、密钥可解析（SSH 代理签名属未来桌面）；移动系统自动填充；TOTP/恢复码/Passkey；可选自托管同步。
 
 未确定：具体 KDBX 写入库、Rust/Dart 边界最终落点、各端最低系统版本、浏览器扩展实现路径、通行密钥跨客户端字段映射、发行许可证。它们不能由演示稿或一个 pub/crates 包的标签代替验证。
 
@@ -35,7 +35,7 @@ Flutter 应用（Dart）
 加密 .kdbx 文件 + 加密版本快照；OS 安全存储仅放设备授权材料
 ```
 
-Rust 有利于共享协议与控制密钥生命周期，但并不自动保证安全；Flutter/Dart、系统框架和 FFI 仍可能产生短期副本。首选 `flutter_rust_bridge` 验证 Flutter 桥接，原生扩展用稳定 C ABI/合适绑定调用同一核心；这不是承诺一份 Dart 引擎可运行于所有扩展。依据 S02–S04、S10。
+Rust 有利于共享协议与控制密钥生命周期，但并不自动保证安全；Flutter/Dart、系统框架和 FFI 仍可能产生短期副本。首选 `flutter_rust_bridge` 验证 Flutter 桥接，原生扩展用稳定 C ABI/合适绑定调用同一核心；这不是承诺一份 Dart 引擎可运行于所有扩展。依据 S02–S04、S10。Web 增加浏览器核心运行时、文件/密文缓存和授权适配，按 ADR-0007 验证，不能直接复用原生 FFI。新领域 `records/relations/lifecycle/templates` 先以模块加入现有核心/应用，不独立建库或服务。
 
 暂定目录（尚未创建应用代码）：`apps/keex/`、`packages/keex_platform/`、`crates/vault_core/`、`crates/credential_core/`、`crates/sync_core/`、`native/apple/`、`native/android/`、`tests/fixtures/`（K002 已建）；未来桌面再加 `crates/agent_core/`、`extensions/browser/`。初期可合并少量 crate，按边界而不是按文件数量拆分，不先造通用插件市场或微服务系统。
 
@@ -103,7 +103,7 @@ Apple 使用 Credential Provider Extension / AuthenticationServices，由 Swift 
 
 ## 8. 同步策略
 
-KDBX 本地文件为唯一数据源；自托管是“自己选择密文文件存储”，不是强制运行账户后端。首个云同步阶段同时覆盖 WebDAV 与 OneDrive；每库只启用一个双向源，iOS文件提供者与云直连不竞争写同一对象。用户历史提及的小程序/Web 保留为后续受限入口研究，不承诺运行原生 SSH 或拥有完整私钥库，不作为当前移动端安全核心的先决条件。
+KDBX 本地文件为唯一数据源；自托管是“自己选择密文文件存储”，不是强制运行账户后端。首个云同步阶段同时覆盖 WebDAV 与 OneDrive；每库只启用一个双向源，iOS文件提供者与云直连不竞争写同一对象。Web 已按 ADR-0007 提升为独立客户端路线，需浏览器运行时、存储及双云的专属验证；小程序仍是 K066 后续受限研究。Web 不承诺原生 SSH/系统提供者，未通过浏览器门槛不开放真实库写入。
 
 Provider 只处理加密对象、版本号/ETag、条件读取写入、超时重试。服务器凭据存设备安全存储，避免仅存于尚未能下载的同一库造成首次同步循环依赖；不把同步访问令牌和主密码混为一谈。跨源重定向不转发认证头；TLS 错误默认拒绝。
 

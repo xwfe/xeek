@@ -1,0 +1,88 @@
+{
+  "schema": 1,
+  "repository": "keeweb/kdbxweb",
+  "commit": "7601e45d2a437f35a7fa3d767164eab60bc05d42",
+  "license": "MIT",
+  "original_writer": null,
+  "original_writer_version": null,
+  "note": "Unmodified upstream public test fixtures, not user credentials. Generator is self-reported metadata, not writer-version evidence. URLs inside original upstream examples are inert historical test data; never followed or registered. No kdbxweb dependency or executable code is installed.",
+  "credentials": {
+    "password": "demo",
+    "keyfile": "demo.key"
+  },
+  "credentials_source": "https://github.com/keeweb/kdbxweb/blob/7601e45d2a437f35a7fa3d767164eab60bc05d42/test/format/kdbx.spec.ts",
+  "files": [
+    {
+      "file": "Argon2id.kdbx",
+      "bytes": 3973,
+      "sha256": "4a345f2478766541bd1f32b69a529aa33be7b3809d9e9f513ebcd01c75aad501",
+      "git_blob_sha1": "45a93b01ac167fff8e0f75ae99296467d1efb8df",
+      "source_url": "https://github.com/keeweb/kdbxweb/blob/7601e45d2a437f35a7fa3d767164eab60bc05d42/resources/Argon2id.kdbx"
+    },
+    {
+      "file": "AesChaCha.kdbx",
+      "bytes": 3877,
+      "sha256": "180d1620659fce95300b3c1630cd05b6b09cc1f5035b3bbe711b9387921b3ac0",
+      "git_blob_sha1": "118b524de212a55256950e1255eddf6d7d306f1d",
+      "source_url": "https://github.com/keeweb/kdbxweb/blob/7601e45d2a437f35a7fa3d767164eab60bc05d42/resources/AesChaCha.kdbx"
+    },
+    {
+      "file": "Argon2ChaCha.kdbx",
+      "bytes": 3960,
+      "sha256": "74dd5274c320a969443684312b57b9172ffefb26d89a5b46f6b92a9e1d851484",
+      "git_blob_sha1": "83a8571ff1f9127d5d3a43982d77ecc6560cdf95",
+      "source_url": "https://github.com/keeweb/kdbxweb/blob/7601e45d2a437f35a7fa3d767164eab60bc05d42/resources/Argon2ChaCha.kdbx"
+    },
+    {
+      "file": "demo.key",
+      "bytes": 187,
+      "sha256": "17ec891318bddcea6f5800962433ec0caed59f2837b3c3bded430133cdc32521",
+      "git_blob_sha1": "1853d79fe5ba33bc05464a05b82c4f3c820e3ed7",
+      "source_url": "https://github.com/keeweb/kdbxweb/blob/7601e45d2a437f35a7fa3d767164eab60bc05d42/resources/demo.key"
+    },
+    {
+      "file": "LICENSE",
+      "bytes": 1056,
+      "sha256": "32c189179b7bc0d9b30d0c93eace7ef8382972444534061b93e865b6bc806eb4",
+      "git_blob_sha1": "9615fea17af6996b1dcada8c59005d787e204d3d",
+      "source_url": "https://github.com/keeweb/kdbxweb/blob/7601e45d2a437f35a7fa3d767164eab60bc05d42/LICENSE"
+    }
+  ],
+  "algorithms": {
+    "Argon2id.kdbx": {
+      "format": "4.0",
+      "cipher": "aes256-cbc",
+      "kdf": {
+        "name": "argon2id",
+        "version": 19,
+        "memory": 8192,
+        "iterations": 3,
+        "parallelism": 1
+      },
+      "oracle": "supported"
+    },
+    "AesChaCha.kdbx": {
+      "format": "3.1",
+      "cipher": "chacha20",
+      "kdf": {
+        "name": "aes-kdf",
+        "rounds": 6000
+      },
+      "oracle": "supported"
+    },
+    "Argon2ChaCha.kdbx": {
+      "format": "4.0",
+      "cipher": "chacha20",
+      "kdf": {
+        "name": "argon2d",
+        "version": 19,
+        "memory": 24576,
+        "iterations": 2,
+        "parallelism": 3
+      },
+      "oracle": "supported",
+      "oracle_before_argon2_cffi": "unsupported"
+    }
+  }
+}
+

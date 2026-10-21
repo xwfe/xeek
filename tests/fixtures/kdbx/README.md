@@ -1,12 +1,23 @@
-# K002 合成 KDBX 样本
+# KDBX 合成与公开测试样本
 
-这里的 `.kdbx`、`.keyx`、`.key` 全是合成数据，密码和密钥公开写在 `manifest.json` 里，只用于测试。里面的 SSH 私钥和 Passkey 私钥从公开种子派生，**绝不能**加进任何 `authorized_keys` 或注册到任何网站。
+这里的 `.kdbx`、`.keyx`、`.key` 都是合成或上游已公开的测试原件，公开凭据记录在各自清单中。keex 自行生成的 SSH/Passkey 私钥由公开种子派生，只测编码和保留，**绝不能**授权给任何主机或注册到网站。
 
 ## 怎么用
 
+原 K002 的37份样本使用 manifest.json；K069 首批九份 v*-vault 文件使用 vault_manifest.json；新增17份 m*-passkey / m41-scale 文件使用 matrix_manifest.json。入口见 [领域测试说明](../../vault_domain/README.md) / [规模证据](../../../adr/evidence/K069_MATRIX.md)。另有三份固定算法原件及密钥文件，使用 [upstream_kdbxweb/manifest.json](upstream_kdbxweb/manifest.json)，来源和限制见 [算法证据](../../../adr/evidence/K002_ALGORITHMS.md)。另有 12 份 rs41-*.kdbx 使用 [rust_writer_manifest.json](rust_writer_manifest.json)，由固定 keepass 0.15.3 生成；参数、剩余差异和失败保护见 [成熟库实验](../../../adr/evidence/K002_LIBRARIES.md)。新增四份 v4*-rich-*-uncompressed.kdbx 使用 [v4_payload_manifest.json](v4_payload_manifest.json)，包含 278 个可重建配方；见 [4.x 资源证据](../../../adr/evidence/K002_RESOURCES.md)。当前共 82 份留存 KDBX，原 78 份字节保留。以下旧样本表及生成命令专指原 K002。
+
 - 每个样本的密码、密钥文件、SHA-256、预期结果和结构摘要都在 `manifest.json`。摘要由 [kdbx_oracle](../../kdbx_oracle/README.md) 算出，不含字段值。
-- 回归测试：`cd tests/kdbx_oracle && python3 -m unittest discover -s tests`。会核对文件哈希、摘要、KeePassXC 的写入差异、关键明文值、损坏样本的拒绝原因；装了 keepassxc-cli 时还会把解码结果和 KeePassXC 自己导出的内容对照。实测结果记在 [evidence/K002.md](../../../adr/evidence/K002.md)。
+- 回归测试：从仓库根目录执行 python3 -B tests/run_python_tests.py --suite oracle。核对哈希、摘要、参考写入差异、关键字段与保护、损坏拒绝及 CLI 交叉读；固定依赖和当前 131 项入口见 [oracle 说明](../../kdbx_oracle/README.md)。领域与规模另执行 --suite domain，共 93 项。
 - 给 keex 自己的测试（K003 起）用时，以 manifest 里的 `expect` 为准，用 `kdbx_oracle diff` 对比语义。
+
+## 4.x 认证负载增量
+
+~~~sh
+python3 -B tests/run_python_tests.py --suite oracle --pattern test_v4_payload.py
+python3 -B tests/fixtures/kdbx/v4_payload.py
+~~~
+
+278 个配方中有 8 个正例和 270 个负例。四份不压缩正例留存，其余现场重建，不把配方数当成留存文件数或 unittest 方法数。工具只读固定公开源，生成时复用公开密钥/确定 IV；它是测试变异器，不提供用户库保存能力。清单固定源/代码/实际运行时版本及每案哈希。已有清单重跑不写入，未登记输出或不同清单拒绝覆盖；普通异常只清理本次创建的文件，不承诺强杀恢复。
 
 ## 怎么重新生成
 
@@ -17,7 +28,7 @@ python3 -I tests/fixtures/kdbx/generate.py --only G41-RICH --force   # 重做指
 
 需要 `keepassxc-cli`（现有样本用 2.7.12 生成）和 Python `cryptography`。**重做一定会改变文件字节**（KeePassXC 每次随机生成种子和 IV），提交前要说明原因；用别的 KeePassXC 版本重做时，`writer_changes` 可能变，那本身就是要记录的兼容性信息。
 
-`*.kdbx`、`*.keyx`、`*.key` 在 `.gitignore` 里，新样本要逐个 `git add -f`。
+密码库和密钥默认被 .gitignore 排除。原 K002 已登记文件保持现状；新增公开样本核对来源和哈希后仅逐文件添加精确放行规则，不放开任意密码库。
 
 损坏样本由 `mutate.py` 从黄金样本变异而来，字节完全确定：
 
@@ -112,9 +123,9 @@ python3 -I tests/fixtures/kdbx/mutate.py
 
 | 缺口 | 原因 | 怎么补 |
 | --- | --- | --- |
-| Argon2d / Argon2id KDF、ChaCha20 外层加密 | keepassxc-cli 不能选算法，只写 AES-256 + AES-KDF；kdbx_oracle 也不支持 Argon2d。解码器里 Argon2id 和 ChaCha20 外层的代码没有任何端到端验证 | 用 KeePassXC 图形界面手工生成并登记，或经批准引入带 Argon2d 的库 |
-| 参考客户端写的不压缩库、4.x 不压缩 | keepassxc-cli 不能关压缩。V31-UNCOMPRESSED 是变异工具重新加密的，KeePassXC 能打开，但不是它写的 | 和上一行一起用图形界面生成 |
+| 未覆盖的 KDF 参数及其它算法组合 | Argon2d v16/v19 与三份上游原件已验证；新增 4.1 三种 KDF × 两种外层密码参考保存。Argon2d 非空 K/A 等仍拒绝，参考保存尚有顺序/IconID 差异 | 继续补固定版本官方/移动客户端与参数范围；本轮已授权依赖及限制见 K002_LIBRARIES |
+| 参考客户端写的不压缩库 | 3.1 和新增四份 4.x 不压缩变体均由测试工具重新封装，KeePassXC 可打开；没有新增客户端原生写出证据 | 用有版本的参考客户端生成并登记 |
 | KeePass 2.x（官方）写的样本 | 本机没有 .NET/Mono | 在装了 KeePass 的机器上生成后登记 |
 | 移动端客户端（KeePassDX、KeePassium、Strongbox）写的样本 | 需要真机或模拟器 | K003 前后在测试机上生成 |
 | KeeAgent 本体读取验证、带口令的 SSH 私钥 | 没有 KeePass/KeeAgent；加密 OpenSSH 私钥需要 bcrypt 库 | KeeAgent 设置目前按格式手写，只验证了字节保留 |
-| 4.x 的压缩炸弹和 XML 攻击 | 要重算 HMAC 块，变异工具只做了 3.1 重新加密；两者的解压和 XML 解析是同一层 | 需要时给 mutate.py 加 4.x 重新加密 |
+| 其余 4.x 参数/资源组合 | 已新增 278 案，包含 AES-KDF 下 4.0/4.1、AES/ChaCha20 的认证后 gzip/XML 攻击；详见 K002_RESOURCES | 后续补其它 KDF/参数、候选 writer、模糊测试和设备预算，不把当前范围外推 |

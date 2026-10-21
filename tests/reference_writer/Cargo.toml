@@ -1,0 +1,9 @@
+[package]
+name = "keex-reference-writer"
+version = "0.1.0"
+edition = "2021"
+rust-version = "1.89"
+publish = false
+
+[dependencies]
+keepass = { version = "=0.15.3", default-features = false, features = ["save_kdbx4"] }

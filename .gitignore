@@ -9,6 +9,10 @@ __pycache__/
 /tests/secret_scan/.deps/
 /tests/secret_scan/.scratch/
 /tests/secret_scan/.resolve.json
+# K002 隔离测试依赖；源码、固定版本和校验锁文件仍保留。
+/tests/kdbx_oracle/.venv/
+/tests/kdbx_oracle/.venv-argon2/
+/tests/kdbx_oracle/.deps-argon2/
 .dart_tool/
 .flutter-plugins
 .flutter-plugins-dependencies
@@ -49,3 +53,57 @@ android/key.properties
 
 # 原始Stitch设计、源码、依赖锁文件应保留；不全局忽略zip/png/lock。
 # .gitignore不是秘密扫描或访问控制，不能阻止强制添加敏感文件。
+
+# K069：逐文件核对公开合成源与 vault_manifest.json 哈希后的九份样本。
+!/tests/fixtures/kdbx/v31-vault.kdbx
+!/tests/fixtures/kdbx/v31-vault-edit1.kdbx
+!/tests/fixtures/kdbx/v31-vault-edit2.kdbx
+!/tests/fixtures/kdbx/v40-vault.kdbx
+!/tests/fixtures/kdbx/v40-vault-edit1.kdbx
+!/tests/fixtures/kdbx/v40-vault-edit2.kdbx
+!/tests/fixtures/kdbx/v41-vault.kdbx
+!/tests/fixtures/kdbx/v41-vault-edit1.kdbx
+!/tests/fixtures/kdbx/v41-vault-edit2.kdbx
+
+# K002/K069 增量：已核对 matrix_manifest 及固定上游提交的公开测试原件。
+!/tests/fixtures/kdbx/m31-passkey.kdbx
+!/tests/fixtures/kdbx/m31-passkey-edit1.kdbx
+!/tests/fixtures/kdbx/m31-passkey-edit2.kdbx
+!/tests/fixtures/kdbx/m40-passkey.kdbx
+!/tests/fixtures/kdbx/m40-passkey-edit1.kdbx
+!/tests/fixtures/kdbx/m40-passkey-edit2.kdbx
+!/tests/fixtures/kdbx/m41-passkey.kdbx
+!/tests/fixtures/kdbx/m41-passkey-edit1.kdbx
+!/tests/fixtures/kdbx/m41-passkey-edit2.kdbx
+!/tests/fixtures/kdbx/m41-scale-1000-small.kdbx
+!/tests/fixtures/kdbx/m41-scale-1000-small-edit1.kdbx
+!/tests/fixtures/kdbx/m41-scale-1000-large.kdbx
+!/tests/fixtures/kdbx/m41-scale-1000-large-edit1.kdbx
+!/tests/fixtures/kdbx/m41-scale-10000-small.kdbx
+!/tests/fixtures/kdbx/m41-scale-10000-small-edit1.kdbx
+!/tests/fixtures/kdbx/m41-scale-10000-large.kdbx
+!/tests/fixtures/kdbx/m41-scale-10000-large-edit1.kdbx
+!/tests/fixtures/kdbx/upstream_kdbxweb/Argon2id.kdbx
+!/tests/fixtures/kdbx/upstream_kdbxweb/AesChaCha.kdbx
+!/tests/fixtures/kdbx/upstream_kdbxweb/Argon2ChaCha.kdbx
+!/tests/fixtures/kdbx/upstream_kdbxweb/demo.key
+
+# K002/K069：固定 keepass-rs 0.15.3 的 12 份公开合成参考输出，哈希见 rust_writer_manifest。
+!/tests/fixtures/kdbx/rs41-passkey-aes-kdf-aes.kdbx
+!/tests/fixtures/kdbx/rs41-passkey-aes-kdf-chacha20.kdbx
+!/tests/fixtures/kdbx/rs41-passkey-argon2d-aes.kdbx
+!/tests/fixtures/kdbx/rs41-passkey-argon2d-chacha20.kdbx
+!/tests/fixtures/kdbx/rs41-passkey-argon2id-aes.kdbx
+!/tests/fixtures/kdbx/rs41-passkey-argon2id-chacha20.kdbx
+!/tests/fixtures/kdbx/rs41-vault-aes-kdf-aes.kdbx
+!/tests/fixtures/kdbx/rs41-vault-aes-kdf-chacha20.kdbx
+!/tests/fixtures/kdbx/rs41-vault-argon2d-aes.kdbx
+!/tests/fixtures/kdbx/rs41-vault-argon2d-chacha20.kdbx
+!/tests/fixtures/kdbx/rs41-vault-argon2id-aes.kdbx
+!/tests/fixtures/kdbx/rs41-vault-argon2id-chacha20.kdbx
+
+# K002：四份公开合成的 4.x 不压缩正例，固定配方与哈希见 v4_payload_manifest。
+!/tests/fixtures/kdbx/v40-rich-aes-uncompressed.kdbx
+!/tests/fixtures/kdbx/v40-rich-chacha20-uncompressed.kdbx
+!/tests/fixtures/kdbx/v41-rich-aes-uncompressed.kdbx
+!/tests/fixtures/kdbx/v41-rich-chacha20-uncompressed.kdbx

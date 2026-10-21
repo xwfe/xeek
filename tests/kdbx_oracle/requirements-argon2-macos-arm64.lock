@@ -1,0 +1,7 @@
+# 2026-10-19：本机 CPython 3.12 / macOS arm64 的最小增量安装。
+# 安装到项目 .deps-argon2 目录；沿用原有 cryptography 46.0.4、
+# cffi 2.0.0、pycparser 3.0，不升级全局包。不用于其它平台或生产。
+# 两份 wheel 的 SHA-256 来自对应固定版本的官方 PyPI 发布页。
+# 使用 --only-binary=:all: --require-hashes --no-deps，禁止退回源码构建。
+argon2-cffi==25.1.0 --hash=sha256:fdc8b074db390fccb6eb4a3604ae7231f219aa669a2652e0f20e16ba513d5741
+argon2-cffi-bindings==26.1.0 --hash=sha256:21ca0396fe5ec995dd54431c32698189666f9224810acfa752e50d2bd94d9df2
