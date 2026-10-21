@@ -1,0 +1,4230 @@
+{
+  "schema": 1,
+  "note": "public synthetic K003 candidate outputs; differences and unsupported inputs are not waived",
+  "writer": {
+    "name": "kdbx (kdbx.dart)",
+    "version": "2.5.0",
+    "license": "GPL-3.0",
+    "archive_sha256": "8cded0bd122c17b1c1b9398ea6589ed79b34830baba9873d688646cb009bea88",
+    "argon2_backend": "pointycastle pure Dart (KdbxFormat default)"
+  },
+  "reference_reader": "2.7.12",
+  "runtime": {
+    "python": "3.12.12",
+    "platform": "Darwin",
+    "machine": "arm64",
+    "dart": "Dart SDK version: 3.13.5 (stable) (Tue Sep 29 01:00:52 2026 -0700) on \"macos_arm64\"",
+    "cryptography": "46.0.4",
+    "argon2-cffi": "25.1.0"
+  },
+  "provenance": {
+    "tests/dart_candidate/pubspec.yaml": "b38f0fcc4edc297199f599eae5ba823fbb3ef59a5d0a975dcbc518af653d77c5",
+    "tests/dart_candidate/pubspec.lock": "6647a146217201dd1811366d79e9a90bdca1e384232b8180d13a2aa462fb6a68",
+    "tests/dart_candidate/bin/keex_dart_candidate.dart": "2e2363b0c2ec2a71a90d96fa8c93de48ce34a3ca96fa5a5b19f10765b3215429",
+    "tests/dart_candidate/generate.py": "aca0047933c3540145a6a6b6dac0235105fca76b52b791e61343c5aeae430860",
+    "tests/reference_writer/generate.py": "49eb60008e0a24d53c7331f4520ac493a5ffbb3f3b34ebdca9829b5d1a915e37",
+    "tests/kdbx_oracle/kdbx_oracle/reader.py": "af08a30bcd38cc9e599662434a7ac5df0849a0b7ccf6a5e8e4bb27ed057bc42b",
+    "tests/kdbx_oracle/kdbx_oracle/semantic.py": "e751ec5871ba294ef589f362a03c468b22b9c33ea699ad6f626cd8748888c9c5",
+    "tests/kdbx_oracle/kdbx_oracle/__init__.py": "02dc52bf368b43878f310ea71472889007a9927de3820ed22750ab65b5d8cd13",
+    "tests/fixtures/kdbx/generate.py": "37c7a20ef10ddb5340b1bdf93ac35706f1278bcb2277d6a7348b22c809ea417f",
+    "tests/fixtures/kdbx/matrix_checks.py": "b12c4838b9ba55c36945df234ff0c178e77e3dd0cef28f26e8e4b8b86786d288",
+    "tests/fixtures/kdbx/vault_manifest.json": "42cb8a6860f07c00e4c382c9a29645fa535652d5765486fc3e78df93983b1539",
+    "tests/fixtures/kdbx/matrix_manifest.json": "170fb86d39f792939a7f770e20b3c16cdabfb97be0b0574cc5e16ee60583fc10",
+    "tests/fixtures/kdbx/rust_writer_manifest.json": "8336f1a510b6ecc6ee758116005c9375f7a117a0c5081a55efe6467589a3d78b",
+    "tests/fixtures/kdbx/upstream_kdbxweb/manifest.json": "8a1bb3581b99a1c004563218d5bf1ae46ffe282df07080fabb15401ea8728ee8"
+  },
+  "generation_provenance": {
+    "tests/dart_candidate/pubspec.yaml": "b38f0fcc4edc297199f599eae5ba823fbb3ef59a5d0a975dcbc518af653d77c5",
+    "tests/dart_candidate/pubspec.lock": "6647a146217201dd1811366d79e9a90bdca1e384232b8180d13a2aa462fb6a68",
+    "tests/dart_candidate/bin/keex_dart_candidate.dart": "2e2363b0c2ec2a71a90d96fa8c93de48ce34a3ca96fa5a5b19f10765b3215429",
+    "tests/dart_candidate/generate.py": "aca0047933c3540145a6a6b6dac0235105fca76b52b791e61343c5aeae430860",
+    "tests/reference_writer/generate.py": "49eb60008e0a24d53c7331f4520ac493a5ffbb3f3b34ebdca9829b5d1a915e37",
+    "tests/kdbx_oracle/kdbx_oracle/reader.py": "af08a30bcd38cc9e599662434a7ac5df0849a0b7ccf6a5e8e4bb27ed057bc42b",
+    "tests/kdbx_oracle/kdbx_oracle/semantic.py": "e751ec5871ba294ef589f362a03c468b22b9c33ea699ad6f626cd8748888c9c5",
+    "tests/kdbx_oracle/kdbx_oracle/__init__.py": "02dc52bf368b43878f310ea71472889007a9927de3820ed22750ab65b5d8cd13",
+    "tests/fixtures/kdbx/generate.py": "37c7a20ef10ddb5340b1bdf93ac35706f1278bcb2277d6a7348b22c809ea417f",
+    "tests/fixtures/kdbx/matrix_checks.py": "b12c4838b9ba55c36945df234ff0c178e77e3dd0cef28f26e8e4b8b86786d288",
+    "tests/fixtures/kdbx/vault_manifest.json": "42cb8a6860f07c00e4c382c9a29645fa535652d5765486fc3e78df93983b1539",
+    "tests/fixtures/kdbx/matrix_manifest.json": "170fb86d39f792939a7f770e20b3c16cdabfb97be0b0574cc5e16ee60583fc10",
+    "tests/fixtures/kdbx/rust_writer_manifest.json": "8336f1a510b6ecc6ee758116005c9375f7a117a0c5081a55efe6467589a3d78b",
+    "tests/fixtures/kdbx/upstream_kdbxweb/manifest.json": "8a1bb3581b99a1c004563218d5bf1ae46ffe282df07080fabb15401ea8728ee8"
+  },
+  "generation_binary_sha256": "532e9f4b41d6cedd92e17689c2a549912855d5e36050594ed6158035ee207408",
+  "samples": [
+    {
+      "id": "DK31-VAULT",
+      "file": "dk31-vault.kdbx",
+      "source_file": "v31-vault-edit1.kdbx",
+      "source_writer": "KeePassXC 2.7.12",
+      "password": "keex-synthetic-V31-VAULT",
+      "keyfile": null,
+      "entry_uuid": "c21db8c8be768f14cae2ed1a9f6cb568",
+      "entry_path": "合成资料/合成服务账户",
+      "new_username": "synthetic-dk31-vault",
+      "source_sha256": "3e2081014e8aeba6d1db81440bf410536d330a2b743197ed658ed22834176c25",
+      "sha256": "c98f642abba3741eeaae8e2c2dd0cc6473305275ca2d88262df9f315f8a4b88f",
+      "bytes": 37610,
+      "version": "3.1",
+      "cipher": "aes256-cbc",
+      "kdf": {
+        "name": "aes-kdf",
+        "rounds": 1000000
+      },
+      "inner_stream": "salsa20",
+      "kdf_salt_rotated": true,
+      "source_summary": {
+        "format": "3.1",
+        "cipher": "aes256-cbc",
+        "kdf": {
+          "name": "aes-kdf",
+          "rounds": 1000000
+        },
+        "compressed": true,
+        "inner_stream": "salsa20",
+        "header_hash": "match",
+        "generator": "keex-fixture-source",
+        "groups": 9,
+        "entries": 36,
+        "history_entries": 4,
+        "entries_with_history": 3,
+        "recycle_bin": {
+          "enabled": true,
+          "group_present": true,
+          "entries": 2
+        },
+        "deleted_objects": 2,
+        "custom_icons": 1,
+        "entries_with_tags": 3,
+        "attachments": {
+          "references": 9,
+          "names": [
+            "KeeAgent.settings",
+            "blob.bin",
+            "id_ed25519",
+            "notes.txt",
+            "shared.txt",
+            "合成凭据.txt"
+          ],
+          "pool_items": 6,
+          "pool_bytes": 3300,
+          "pool_protected": 0,
+          "current_references": 7,
+          "history_references": 2
+        },
+        "otp_fields": [
+          "TOTP Seed",
+          "TOTP Settings",
+          "TimeOtp-Algorithm",
+          "TimeOtp-Length",
+          "TimeOtp-Period",
+          "TimeOtp-Secret-Base32",
+          "otp"
+        ],
+        "passkey_fields": [
+          "KPEX_PASSKEY_CREDENTIAL_ID",
+          "KPEX_PASSKEY_FLAG_BE",
+          "KPEX_PASSKEY_FLAG_BS",
+          "KPEX_PASSKEY_GENERATED_USER_ID",
+          "KPEX_PASSKEY_PRIVATE_KEY_PEM",
+          "KPEX_PASSKEY_RELYING_PARTY",
+          "KPEX_PASSKEY_USERNAME",
+          "KPEX_PASSKEY_USER_HANDLE",
+          "KPXC_PASSKEY_USERNAME"
+        ],
+        "keeagent_settings": 1,
+        "meta_custom_data_keys": [
+          "KPXC_RANDOM_SLUG",
+          "_LAST_MODIFIED"
+        ],
+        "unknown_elements": [],
+        "custom_fields_count": 92,
+        "custom_fields_sha256": "55a4f054b423af979b2da1d02f1d4af49fa36a8632b37c15716903823ca42b42",
+        "protected_custom_fields_count": 65,
+        "protected_custom_fields_sha256": "7dd6043bbb55773f94fc4c9dbab4685722b9ffc8efba2138137fbf379539eef5",
+        "type_counts": {
+          "document": 1,
+          "finance_account": 1,
+          "gift_card": 1,
+          "identity_document": 1,
+          "legacy": 12,
+          "login": 3,
+          "maintenance": 1,
+          "membership_card": 1,
+          "payment_card": 3,
+          "secure_note": 5,
+          "sim_profile": 3,
+          "subscription": 2,
+          "telecom_line": 1,
+          "telecom_plan": 1
+        },
+        "relations": 22,
+        "rules": 1,
+        "events": 2,
+        "diagnostics": {
+          "legacy:": 11,
+          "read_only:field_limit": 1,
+          "read_only:legacy_parent_conflict": 1,
+          "read_only:unknown_keex_field": 1,
+          "read_only:unknown_schema": 1,
+          "valid:": 20,
+          "valid:missing_target": 1
+        }
+      },
+      "summary": {
+        "format": "3.1",
+        "cipher": "aes256-cbc",
+        "kdf": {
+          "name": "aes-kdf",
+          "rounds": 1000000
+        },
+        "compressed": true,
+        "inner_stream": "salsa20",
+        "header_hash": "match",
+        "generator": "keex-fixture-source",
+        "groups": 9,
+        "entries": 36,
+        "history_entries": 5,
+        "entries_with_history": 3,
+        "recycle_bin": {
+          "enabled": true,
+          "group_present": true,
+          "entries": 2
+        },
+        "deleted_objects": 2,
+        "custom_icons": 1,
+        "entries_with_tags": 3,
+        "attachments": {
+          "references": 9,
+          "names": [
+            "KeeAgent.settings",
+            "blob.bin",
+            "id_ed25519",
+            "notes.txt",
+            "shared.txt",
+            "合成凭据.txt"
+          ],
+          "pool_items": 6,
+          "pool_bytes": 3300,
+          "pool_protected": 0,
+          "current_references": 7,
+          "history_references": 2
+        },
+        "otp_fields": [
+          "TOTP Seed",
+          "TOTP Settings",
+          "TimeOtp-Algorithm",
+          "TimeOtp-Length",
+          "TimeOtp-Period",
+          "TimeOtp-Secret-Base32",
+          "otp"
+        ],
+        "passkey_fields": [
+          "KPEX_PASSKEY_CREDENTIAL_ID",
+          "KPEX_PASSKEY_FLAG_BE",
+          "KPEX_PASSKEY_FLAG_BS",
+          "KPEX_PASSKEY_GENERATED_USER_ID",
+          "KPEX_PASSKEY_PRIVATE_KEY_PEM",
+          "KPEX_PASSKEY_RELYING_PARTY",
+          "KPEX_PASSKEY_USERNAME",
+          "KPEX_PASSKEY_USER_HANDLE",
+          "KPXC_PASSKEY_USERNAME"
+        ],
+        "keeagent_settings": 1,
+        "meta_custom_data_keys": [
+          "KPXC_RANDOM_SLUG",
+          "_LAST_MODIFIED"
+        ],
+        "unknown_elements": [],
+        "custom_fields_count": 92,
+        "custom_fields_sha256": "55a4f054b423af979b2da1d02f1d4af49fa36a8632b37c15716903823ca42b42",
+        "protected_custom_fields_count": 65,
+        "protected_custom_fields_sha256": "7dd6043bbb55773f94fc4c9dbab4685722b9ffc8efba2138137fbf379539eef5",
+        "type_counts": {
+          "document": 1,
+          "finance_account": 1,
+          "gift_card": 1,
+          "identity_document": 1,
+          "legacy": 12,
+          "login": 3,
+          "maintenance": 1,
+          "membership_card": 1,
+          "payment_card": 3,
+          "secure_note": 5,
+          "sim_profile": 3,
+          "subscription": 2,
+          "telecom_line": 1,
+          "telecom_plan": 1
+        },
+        "relations": 22,
+        "rules": 1,
+        "events": 2,
+        "diagnostics": {
+          "legacy:": 11,
+          "read_only:field_limit": 1,
+          "read_only:legacy_parent_conflict": 1,
+          "read_only:unknown_keex_field": 1,
+          "read_only:unknown_schema": 1,
+          "valid:": 20,
+          "valid:missing_target": 1
+        }
+      },
+      "raw_changes": [
+        "added KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046/Group=912008afa217d53b3a190c5e6d500909/Entry=c21db8c8be768f14cae2ed1a9f6cb568/History/Entry#1",
+        "changed/value KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046/Group=912008afa217d53b3a190c5e6d500909/Entry=c21db8c8be768f14cae2ed1a9f6cb568/String=UserName/Value",
+        "changed/value KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046/Group=912008afa217d53b3a190c5e6d500909/Entry=c21db8c8be768f14cae2ed1a9f6cb568/Times/LastAccessTime",
+        "changed/value KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046/Group=912008afa217d53b3a190c5e6d500909/Entry=c21db8c8be768f14cae2ed1a9f6cb568/Times/LastModificationTime",
+        "order KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046"
+      ],
+      "other_changes": [
+        "order KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046"
+      ],
+      "history_placement": "append",
+      "history_snapshot_changes": [],
+      "attachment_order_changes": [],
+      "empty_standard_protection_changes": [
+        {
+          "entry_uuid": "b60c874bddd62dee9d25213b32821b07",
+          "scope": "current",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        },
+        {
+          "entry_uuid": "45a58f6b5f168dbdbd0bbd394c93fab7",
+          "scope": "current",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        },
+        {
+          "entry_uuid": "c06f0715a6437c8db6dd1ae48160fd2c",
+          "scope": "current",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        },
+        {
+          "entry_uuid": "24f9ecc5363c11bf73da2b5b89f59aa6",
+          "scope": "current",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        },
+        {
+          "entry_uuid": "64f57988c982f6e4c805e9c428edbb74",
+          "scope": "current",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        },
+        {
+          "entry_uuid": "57ca0acb13a304ddeffaa1e9827da3c7",
+          "scope": "current",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        },
+        {
+          "entry_uuid": "5304a955887e682676d4a53259a477b5",
+          "scope": "current",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        },
+        {
+          "entry_uuid": "6e199a0d941d6227727247951a56d4e1",
+          "scope": "current",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        },
+        {
+          "entry_uuid": "3236cc383145c49b453c5cd6899f2e0a",
+          "scope": "current",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        },
+        {
+          "entry_uuid": "f1f772a182c075d25c6e3700202dd9ed",
+          "scope": "current",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        },
+        {
+          "entry_uuid": "f1f772a182c075d25c6e3700202dd9ed",
+          "scope": "history/0",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        },
+        {
+          "entry_uuid": "80dc0ef64f1b20c7738e2d1f3525dbd7",
+          "scope": "current",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        },
+        {
+          "entry_uuid": "4c5dbd689727b3b3dcf7f1274e0ce090",
+          "scope": "current",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        },
+        {
+          "entry_uuid": "1bb14da312a9d8c68ff47ddfd71ff373",
+          "scope": "current",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        },
+        {
+          "entry_uuid": "919ec46eaf650f7faf9b1be903be52d7",
+          "scope": "current",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        },
+        {
+          "entry_uuid": "ad4bf94d8aa17368f4a75f9375a35591",
+          "scope": "current",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        },
+        {
+          "entry_uuid": "289e2a1f0d4f7d0503a93b4ec9879053",
+          "scope": "current",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        },
+        {
+          "entry_uuid": "b049c0d964a457e01bbba48fdf673e9b",
+          "scope": "current",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        },
+        {
+          "entry_uuid": "8a070f2c0b00ac2c54b471bae3b32fdd",
+          "scope": "current",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        },
+        {
+          "entry_uuid": "c77954d729e62c0ae8cf3b581344a267",
+          "scope": "current",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        },
+        {
+          "entry_uuid": "ec6a8e49f27660d0a4848add1fba5a8b",
+          "scope": "current",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        },
+        {
+          "entry_uuid": "4f16934a4d37ebc24da4bae205b3d543",
+          "scope": "current",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        },
+        {
+          "entry_uuid": "70829203d9a1e1aa20bf6c77b081b3b3",
+          "scope": "current",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        },
+        {
+          "entry_uuid": "1972a2f77061b0a9db1b7f993bc69a6f",
+          "scope": "current",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        },
+        {
+          "entry_uuid": "5cc3bb6674e10e524b115bf075415297",
+          "scope": "current",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        },
+        {
+          "entry_uuid": "098f25524f5c86a9488abdc8a5b64c0c",
+          "scope": "current",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        },
+        {
+          "entry_uuid": "89e70329d1536a1ef722d28c2f58cf68",
+          "scope": "current",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        },
+        {
+          "entry_uuid": "847da829ffae651672d8d576f58ee434",
+          "scope": "current",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        },
+        {
+          "entry_uuid": "939b18ee7f02fa5edbb005e4e31fb424",
+          "scope": "current",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        },
+        {
+          "entry_uuid": "3e1a7c8c2b8d9f603595afbdc53fa891",
+          "scope": "current",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        },
+        {
+          "entry_uuid": "bab11ec6a451dd2d07aa57db4bd4aa99",
+          "scope": "current",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        }
+      ],
+      "lossless_roundtrip": false,
+      "helper_counts": {
+        "ok": true,
+        "version": "3.1",
+        "entries": 36,
+        "groups": 9,
+        "attachments": 6,
+        "history_before": 4,
+        "history_after": 5,
+        "bytes": 37610
+      },
+      "helper_resources": {
+        "wall_seconds": 12.514,
+        "max_rss_bytes": 55312384
+      },
+      "keepassxc_export": {
+        "current_entries": 36,
+        "history_entries": 5,
+        "empty_standard_protection_changes": 31,
+        "attachment_pool_cross_checked": false
+      },
+      "keepassxc_reedit": {
+        "version": "3.1",
+        "history_entries": 6,
+        "reference_client_changes": [
+          "changed/value KeePassFile/Meta/CustomData/Item=KPXC_RANDOM_SLUG/Value",
+          "changed/value KeePassFile/Meta/CustomData/Item=_LAST_MODIFIED/Value",
+          "order KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046"
+        ]
+      }
+    },
+    {
+      "id": "DK31-PASSKEY",
+      "file": "dk31-passkey.kdbx",
+      "source_file": "m31-passkey-edit1.kdbx",
+      "source_writer": "KeePassXC 2.7.12",
+      "password": "keex-synthetic-M31-PASSKEY",
+      "keyfile": null,
+      "entry_uuid": "64f57988c982f6e4c805e9c428edbb74",
+      "entry_path": "Passkey/Passkey KeePassXC 字段",
+      "new_username": "synthetic-dk31-passkey",
+      "source_sha256": "186dd1153f42976fe3f2eee2efb8a07b97680e228faf03ee2e277a10c2b1305e",
+      "sha256": "88b118824014fe4f440faab92feb99b1c5846eeeaac9e1abed1abb254d08d8a0",
+      "bytes": 38730,
+      "version": "3.1",
+      "cipher": "aes256-cbc",
+      "kdf": {
+        "name": "aes-kdf",
+        "rounds": 1000000
+      },
+      "inner_stream": "salsa20",
+      "kdf_salt_rotated": true,
+      "source_summary": {
+        "format": "3.1",
+        "cipher": "aes256-cbc",
+        "kdf": {
+          "name": "aes-kdf",
+          "rounds": 1000000
+        },
+        "compressed": true,
+        "inner_stream": "salsa20",
+        "header_hash": "match",
+        "generator": "keex-fixture-source",
+        "groups": 9,
+        "entries": 39,
+        "history_entries": 4,
+        "entries_with_history": 3,
+        "recycle_bin": {
+          "enabled": true,
+          "group_present": true,
+          "entries": 2
+        },
+        "deleted_objects": 2,
+        "custom_icons": 1,
+        "entries_with_tags": 6,
+        "attachments": {
+          "references": 9,
+          "names": [
+            "KeeAgent.settings",
+            "blob.bin",
+            "id_ed25519",
+            "notes.txt",
+            "shared.txt",
+            "合成凭据.txt"
+          ],
+          "pool_items": 6,
+          "pool_bytes": 3300,
+          "pool_protected": 0,
+          "current_references": 7,
+          "history_references": 2
+        },
+        "otp_fields": [
+          "TOTP Seed",
+          "TOTP Settings",
+          "TimeOtp-Algorithm",
+          "TimeOtp-Length",
+          "TimeOtp-Period",
+          "TimeOtp-Secret-Base32",
+          "otp"
+        ],
+        "passkey_fields": [
+          "KPEX_PASSKEY_CREDENTIAL_ID",
+          "KPEX_PASSKEY_FLAG_BE",
+          "KPEX_PASSKEY_FLAG_BS",
+          "KPEX_PASSKEY_GENERATED_USER_ID",
+          "KPEX_PASSKEY_PRIVATE_KEY_PEM",
+          "KPEX_PASSKEY_RELYING_PARTY",
+          "KPEX_PASSKEY_USERNAME",
+          "KPEX_PASSKEY_USER_HANDLE",
+          "KPXC_PASSKEY_USERNAME"
+        ],
+        "keeagent_settings": 1,
+        "meta_custom_data_keys": [
+          "KPXC_RANDOM_SLUG",
+          "_LAST_MODIFIED"
+        ],
+        "unknown_elements": [],
+        "custom_fields_count": 92,
+        "custom_fields_sha256": "55a4f054b423af979b2da1d02f1d4af49fa36a8632b37c15716903823ca42b42",
+        "protected_custom_fields_count": 65,
+        "protected_custom_fields_sha256": "7dd6043bbb55773f94fc4c9dbab4685722b9ffc8efba2138137fbf379539eef5",
+        "type_counts": {
+          "document": 1,
+          "finance_account": 1,
+          "gift_card": 1,
+          "identity_document": 1,
+          "legacy": 14,
+          "login": 4,
+          "maintenance": 1,
+          "membership_card": 1,
+          "payment_card": 3,
+          "secure_note": 5,
+          "sim_profile": 3,
+          "subscription": 2,
+          "telecom_line": 1,
+          "telecom_plan": 1
+        },
+        "relations": 22,
+        "rules": 1,
+        "events": 2,
+        "diagnostics": {
+          "legacy:": 13,
+          "read_only:field_limit": 1,
+          "read_only:legacy_parent_conflict": 1,
+          "read_only:unknown_keex_field": 1,
+          "read_only:unknown_schema": 1,
+          "valid:": 21,
+          "valid:missing_target": 1
+        }
+      },
+      "summary": {
+        "format": "3.1",
+        "cipher": "aes256-cbc",
+        "kdf": {
+          "name": "aes-kdf",
+          "rounds": 1000000
+        },
+        "compressed": true,
+        "inner_stream": "salsa20",
+        "header_hash": "match",
+        "generator": "keex-fixture-source",
+        "groups": 9,
+        "entries": 39,
+        "history_entries": 5,
+        "entries_with_history": 3,
+        "recycle_bin": {
+          "enabled": true,
+          "group_present": true,
+          "entries": 2
+        },
+        "deleted_objects": 2,
+        "custom_icons": 1,
+        "entries_with_tags": 7,
+        "attachments": {
+          "references": 9,
+          "names": [
+            "KeeAgent.settings",
+            "blob.bin",
+            "id_ed25519",
+            "notes.txt",
+            "shared.txt",
+            "合成凭据.txt"
+          ],
+          "pool_items": 6,
+          "pool_bytes": 3300,
+          "pool_protected": 0,
+          "current_references": 7,
+          "history_references": 2
+        },
+        "otp_fields": [
+          "TOTP Seed",
+          "TOTP Settings",
+          "TimeOtp-Algorithm",
+          "TimeOtp-Length",
+          "TimeOtp-Period",
+          "TimeOtp-Secret-Base32",
+          "otp"
+        ],
+        "passkey_fields": [
+          "KPEX_PASSKEY_CREDENTIAL_ID",
+          "KPEX_PASSKEY_FLAG_BE",
+          "KPEX_PASSKEY_FLAG_BS",
+          "KPEX_PASSKEY_GENERATED_USER_ID",
+          "KPEX_PASSKEY_PRIVATE_KEY_PEM",
+          "KPEX_PASSKEY_RELYING_PARTY",
+          "KPEX_PASSKEY_USERNAME",
+          "KPEX_PASSKEY_USER_HANDLE",
+          "KPXC_PASSKEY_USERNAME"
+        ],
+        "keeagent_settings": 1,
+        "meta_custom_data_keys": [
+          "KPXC_RANDOM_SLUG",
+          "_LAST_MODIFIED"
+        ],
+        "unknown_elements": [],
+        "custom_fields_count": 92,
+        "custom_fields_sha256": "55a4f054b423af979b2da1d02f1d4af49fa36a8632b37c15716903823ca42b42",
+        "protected_custom_fields_count": 65,
+        "protected_custom_fields_sha256": "7dd6043bbb55773f94fc4c9dbab4685722b9ffc8efba2138137fbf379539eef5",
+        "type_counts": {
+          "document": 1,
+          "finance_account": 1,
+          "gift_card": 1,
+          "identity_document": 1,
+          "legacy": 14,
+          "login": 4,
+          "maintenance": 1,
+          "membership_card": 1,
+          "payment_card": 3,
+          "secure_note": 5,
+          "sim_profile": 3,
+          "subscription": 2,
+          "telecom_line": 1,
+          "telecom_plan": 1
+        },
+        "relations": 22,
+        "rules": 1,
+        "events": 2,
+        "diagnostics": {
+          "legacy:": 13,
+          "read_only:field_limit": 1,
+          "read_only:legacy_parent_conflict": 1,
+          "read_only:unknown_keex_field": 1,
+          "read_only:unknown_schema": 1,
+          "valid:": 21,
+          "valid:missing_target": 1
+        }
+      },
+      "raw_changes": [
+        "added KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046/Group=42e8f2fbeced2a39acdaf7cc23fb1a71/Entry=64f57988c982f6e4c805e9c428edbb74/History/Entry#1",
+        "changed/value KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046/Group=42e8f2fbeced2a39acdaf7cc23fb1a71/Entry=64f57988c982f6e4c805e9c428edbb74/String=UserName/Value",
+        "changed/value KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046/Group=42e8f2fbeced2a39acdaf7cc23fb1a71/Entry=64f57988c982f6e4c805e9c428edbb74/Times/LastAccessTime",
+        "changed/value KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046/Group=42e8f2fbeced2a39acdaf7cc23fb1a71/Entry=64f57988c982f6e4c805e9c428edbb74/Times/LastModificationTime",
+        "order KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046"
+      ],
+      "other_changes": [
+        "order KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046"
+      ],
+      "history_placement": "append",
+      "history_snapshot_changes": [],
+      "attachment_order_changes": [],
+      "empty_standard_protection_changes": [
+        {
+          "entry_uuid": "b60c874bddd62dee9d25213b32821b07",
+          "scope": "current",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        },
+        {
+          "entry_uuid": "45a58f6b5f168dbdbd0bbd394c93fab7",
+          "scope": "current",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        },
+        {
+          "entry_uuid": "c06f0715a6437c8db6dd1ae48160fd2c",
+          "scope": "current",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        },
+        {
+          "entry_uuid": "24f9ecc5363c11bf73da2b5b89f59aa6",
+          "scope": "current",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        },
+        {
+          "entry_uuid": "64f57988c982f6e4c805e9c428edbb74",
+          "scope": "current",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        },
+        {
+          "entry_uuid": "64f57988c982f6e4c805e9c428edbb74",
+          "scope": "history/0",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        },
+        {
+          "entry_uuid": "64f57988c982f6e4c805e9c428edbb74",
+          "scope": "history/1",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        },
+        {
+          "entry_uuid": "57ca0acb13a304ddeffaa1e9827da3c7",
+          "scope": "current",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        },
+        {
+          "entry_uuid": "3158126c23f1612bfd516750dad3cb11",
+          "scope": "current",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        },
+        {
+          "entry_uuid": "aa6a57f62365be722cfcb3a5b573f87e",
+          "scope": "current",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        },
+        {
+          "entry_uuid": "5304a955887e682676d4a53259a477b5",
+          "scope": "current",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        },
+        {
+          "entry_uuid": "6e199a0d941d6227727247951a56d4e1",
+          "scope": "current",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        },
+        {
+          "entry_uuid": "3236cc383145c49b453c5cd6899f2e0a",
+          "scope": "current",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        },
+        {
+          "entry_uuid": "f1f772a182c075d25c6e3700202dd9ed",
+          "scope": "current",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        },
+        {
+          "entry_uuid": "f1f772a182c075d25c6e3700202dd9ed",
+          "scope": "history/0",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        },
+        {
+          "entry_uuid": "80dc0ef64f1b20c7738e2d1f3525dbd7",
+          "scope": "current",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        },
+        {
+          "entry_uuid": "4c5dbd689727b3b3dcf7f1274e0ce090",
+          "scope": "current",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        },
+        {
+          "entry_uuid": "1bb14da312a9d8c68ff47ddfd71ff373",
+          "scope": "current",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        },
+        {
+          "entry_uuid": "919ec46eaf650f7faf9b1be903be52d7",
+          "scope": "current",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        },
+        {
+          "entry_uuid": "ad4bf94d8aa17368f4a75f9375a35591",
+          "scope": "current",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        },
+        {
+          "entry_uuid": "289e2a1f0d4f7d0503a93b4ec9879053",
+          "scope": "current",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        },
+        {
+          "entry_uuid": "b049c0d964a457e01bbba48fdf673e9b",
+          "scope": "current",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        },
+        {
+          "entry_uuid": "8a070f2c0b00ac2c54b471bae3b32fdd",
+          "scope": "current",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        },
+        {
+          "entry_uuid": "c77954d729e62c0ae8cf3b581344a267",
+          "scope": "current",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        },
+        {
+          "entry_uuid": "ec6a8e49f27660d0a4848add1fba5a8b",
+          "scope": "current",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        },
+        {
+          "entry_uuid": "4f16934a4d37ebc24da4bae205b3d543",
+          "scope": "current",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        },
+        {
+          "entry_uuid": "70829203d9a1e1aa20bf6c77b081b3b3",
+          "scope": "current",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        },
+        {
+          "entry_uuid": "1972a2f77061b0a9db1b7f993bc69a6f",
+          "scope": "current",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        },
+        {
+          "entry_uuid": "5cc3bb6674e10e524b115bf075415297",
+          "scope": "current",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        },
+        {
+          "entry_uuid": "098f25524f5c86a9488abdc8a5b64c0c",
+          "scope": "current",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        },
+        {
+          "entry_uuid": "89e70329d1536a1ef722d28c2f58cf68",
+          "scope": "current",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        },
+        {
+          "entry_uuid": "847da829ffae651672d8d576f58ee434",
+          "scope": "current",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        },
+        {
+          "entry_uuid": "939b18ee7f02fa5edbb005e4e31fb424",
+          "scope": "current",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        },
+        {
+          "entry_uuid": "3e1a7c8c2b8d9f603595afbdc53fa891",
+          "scope": "current",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        },
+        {
+          "entry_uuid": "bab11ec6a451dd2d07aa57db4bd4aa99",
+          "scope": "current",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        }
+      ],
+      "lossless_roundtrip": false,
+      "helper_counts": {
+        "ok": true,
+        "version": "3.1",
+        "entries": 39,
+        "groups": 9,
+        "attachments": 6,
+        "history_before": 4,
+        "history_after": 5,
+        "bytes": 38730
+      },
+      "helper_resources": {
+        "wall_seconds": 15.523,
+        "max_rss_bytes": 55246848
+      },
+      "keepassxc_export": {
+        "current_entries": 39,
+        "history_entries": 5,
+        "empty_standard_protection_changes": 35,
+        "attachment_pool_cross_checked": false
+      },
+      "keepassxc_reedit": {
+        "version": "3.1",
+        "history_entries": 6,
+        "reference_client_changes": [
+          "changed/value KeePassFile/Meta/CustomData/Item=KPXC_RANDOM_SLUG/Value",
+          "changed/value KeePassFile/Meta/CustomData/Item=_LAST_MODIFIED/Value",
+          "order KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046"
+        ]
+      }
+    },
+    {
+      "id": "DK40-VAULT",
+      "file": "dk40-vault.kdbx",
+      "source_file": "v40-vault-edit1.kdbx",
+      "source_writer": "KeePassXC 2.7.12",
+      "password": "keex-synthetic-V40-VAULT",
+      "keyfile": null,
+      "entry_uuid": "c21db8c8be768f14cae2ed1a9f6cb568",
+      "entry_path": "合成资料/合成服务账户",
+      "new_username": "synthetic-dk40-vault",
+      "source_sha256": "f5a0f3902a7babe68bf9f037bd69b89a3eb799f3da5d94f2527691200d9dcb94",
+      "sha256": "78f9f8b20993d52c6cab926512cfbf31381a6eb145ab4c1176c75f5c572e7889",
+      "bytes": 38115,
+      "version": "4.0",
+      "cipher": "aes256-cbc",
+      "kdf": {
+        "name": "aes-kdf",
+        "rounds": 1000000
+      },
+      "inner_stream": "chacha20",
+      "kdf_salt_rotated": true,
+      "source_summary": {
+        "format": "4.0",
+        "cipher": "aes256-cbc",
+        "kdf": {
+          "name": "aes-kdf",
+          "rounds": 1000000
+        },
+        "compressed": true,
+        "inner_stream": "chacha20",
+        "header_hash": "not-applicable",
+        "generator": "keex-fixture-source",
+        "groups": 9,
+        "entries": 36,
+        "history_entries": 4,
+        "entries_with_history": 3,
+        "recycle_bin": {
+          "enabled": true,
+          "group_present": true,
+          "entries": 2
+        },
+        "deleted_objects": 2,
+        "custom_icons": 1,
+        "entries_with_tags": 3,
+        "attachments": {
+          "references": 9,
+          "names": [
+            "KeeAgent.settings",
+            "blob.bin",
+            "id_ed25519",
+            "notes.txt",
+            "shared.txt",
+            "合成凭据.txt"
+          ],
+          "pool_items": 6,
+          "pool_bytes": 3300,
+          "pool_protected": 6,
+          "current_references": 7,
+          "history_references": 2
+        },
+        "otp_fields": [
+          "TOTP Seed",
+          "TOTP Settings",
+          "TimeOtp-Algorithm",
+          "TimeOtp-Length",
+          "TimeOtp-Period",
+          "TimeOtp-Secret-Base32",
+          "otp"
+        ],
+        "passkey_fields": [
+          "KPEX_PASSKEY_CREDENTIAL_ID",
+          "KPEX_PASSKEY_FLAG_BE",
+          "KPEX_PASSKEY_FLAG_BS",
+          "KPEX_PASSKEY_GENERATED_USER_ID",
+          "KPEX_PASSKEY_PRIVATE_KEY_PEM",
+          "KPEX_PASSKEY_RELYING_PARTY",
+          "KPEX_PASSKEY_USERNAME",
+          "KPEX_PASSKEY_USER_HANDLE",
+          "KPXC_PASSKEY_USERNAME"
+        ],
+        "keeagent_settings": 1,
+        "meta_custom_data_keys": [
+          "KPXC_RANDOM_SLUG",
+          "_LAST_MODIFIED",
+          "keex.fixture"
+        ],
+        "unknown_elements": [],
+        "custom_fields_count": 92,
+        "custom_fields_sha256": "55a4f054b423af979b2da1d02f1d4af49fa36a8632b37c15716903823ca42b42",
+        "protected_custom_fields_count": 65,
+        "protected_custom_fields_sha256": "7dd6043bbb55773f94fc4c9dbab4685722b9ffc8efba2138137fbf379539eef5",
+        "type_counts": {
+          "document": 1,
+          "finance_account": 1,
+          "gift_card": 1,
+          "identity_document": 1,
+          "legacy": 12,
+          "login": 3,
+          "maintenance": 1,
+          "membership_card": 1,
+          "payment_card": 3,
+          "secure_note": 5,
+          "sim_profile": 3,
+          "subscription": 2,
+          "telecom_line": 1,
+          "telecom_plan": 1
+        },
+        "relations": 22,
+        "rules": 1,
+        "events": 2,
+        "diagnostics": {
+          "legacy:": 11,
+          "read_only:field_limit": 1,
+          "read_only:legacy_parent_conflict": 1,
+          "read_only:unknown_keex_field": 1,
+          "read_only:unknown_schema": 1,
+          "valid:": 20,
+          "valid:missing_target": 1
+        }
+      },
+      "summary": {
+        "format": "4.0",
+        "cipher": "aes256-cbc",
+        "kdf": {
+          "name": "aes-kdf",
+          "rounds": 1000000
+        },
+        "compressed": true,
+        "inner_stream": "chacha20",
+        "header_hash": "not-applicable",
+        "generator": "keex-fixture-source",
+        "groups": 9,
+        "entries": 36,
+        "history_entries": 5,
+        "entries_with_history": 3,
+        "recycle_bin": {
+          "enabled": true,
+          "group_present": true,
+          "entries": 2
+        },
+        "deleted_objects": 2,
+        "custom_icons": 1,
+        "entries_with_tags": 3,
+        "attachments": {
+          "references": 9,
+          "names": [
+            "KeeAgent.settings",
+            "blob.bin",
+            "id_ed25519",
+            "notes.txt",
+            "shared.txt",
+            "合成凭据.txt"
+          ],
+          "pool_items": 6,
+          "pool_bytes": 3300,
+          "pool_protected": 6,
+          "current_references": 7,
+          "history_references": 2
+        },
+        "otp_fields": [
+          "TOTP Seed",
+          "TOTP Settings",
+          "TimeOtp-Algorithm",
+          "TimeOtp-Length",
+          "TimeOtp-Period",
+          "TimeOtp-Secret-Base32",
+          "otp"
+        ],
+        "passkey_fields": [
+          "KPEX_PASSKEY_CREDENTIAL_ID",
+          "KPEX_PASSKEY_FLAG_BE",
+          "KPEX_PASSKEY_FLAG_BS",
+          "KPEX_PASSKEY_GENERATED_USER_ID",
+          "KPEX_PASSKEY_PRIVATE_KEY_PEM",
+          "KPEX_PASSKEY_RELYING_PARTY",
+          "KPEX_PASSKEY_USERNAME",
+          "KPEX_PASSKEY_USER_HANDLE",
+          "KPXC_PASSKEY_USERNAME"
+        ],
+        "keeagent_settings": 1,
+        "meta_custom_data_keys": [
+          "KPXC_RANDOM_SLUG",
+          "_LAST_MODIFIED",
+          "keex.fixture"
+        ],
+        "unknown_elements": [],
+        "custom_fields_count": 92,
+        "custom_fields_sha256": "55a4f054b423af979b2da1d02f1d4af49fa36a8632b37c15716903823ca42b42",
+        "protected_custom_fields_count": 65,
+        "protected_custom_fields_sha256": "7dd6043bbb55773f94fc4c9dbab4685722b9ffc8efba2138137fbf379539eef5",
+        "type_counts": {
+          "document": 1,
+          "finance_account": 1,
+          "gift_card": 1,
+          "identity_document": 1,
+          "legacy": 12,
+          "login": 3,
+          "maintenance": 1,
+          "membership_card": 1,
+          "payment_card": 3,
+          "secure_note": 5,
+          "sim_profile": 3,
+          "subscription": 2,
+          "telecom_line": 1,
+          "telecom_plan": 1
+        },
+        "relations": 22,
+        "rules": 1,
+        "events": 2,
+        "diagnostics": {
+          "legacy:": 11,
+          "read_only:field_limit": 1,
+          "read_only:legacy_parent_conflict": 1,
+          "read_only:unknown_keex_field": 1,
+          "read_only:unknown_schema": 1,
+          "valid:": 20,
+          "valid:missing_target": 1
+        }
+      },
+      "raw_changes": [
+        "added KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046/Group=912008afa217d53b3a190c5e6d500909/Entry=c21db8c8be768f14cae2ed1a9f6cb568/History/Entry#1",
+        "changed/value KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046/Group=912008afa217d53b3a190c5e6d500909/Entry=c21db8c8be768f14cae2ed1a9f6cb568/String=UserName/Value",
+        "changed/value KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046/Group=912008afa217d53b3a190c5e6d500909/Entry=c21db8c8be768f14cae2ed1a9f6cb568/Times/LastAccessTime",
+        "changed/value KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046/Group=912008afa217d53b3a190c5e6d500909/Entry=c21db8c8be768f14cae2ed1a9f6cb568/Times/LastModificationTime",
+        "order KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046"
+      ],
+      "other_changes": [
+        "order KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046"
+      ],
+      "history_placement": "append",
+      "history_snapshot_changes": [],
+      "attachment_order_changes": [],
+      "empty_standard_protection_changes": [
+        {
+          "entry_uuid": "b60c874bddd62dee9d25213b32821b07",
+          "scope": "current",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        },
+        {
+          "entry_uuid": "45a58f6b5f168dbdbd0bbd394c93fab7",
+          "scope": "current",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        },
+        {
+          "entry_uuid": "c06f0715a6437c8db6dd1ae48160fd2c",
+          "scope": "current",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        },
+        {
+          "entry_uuid": "24f9ecc5363c11bf73da2b5b89f59aa6",
+          "scope": "current",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        },
+        {
+          "entry_uuid": "64f57988c982f6e4c805e9c428edbb74",
+          "scope": "current",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        },
+        {
+          "entry_uuid": "57ca0acb13a304ddeffaa1e9827da3c7",
+          "scope": "current",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        },
+        {
+          "entry_uuid": "5304a955887e682676d4a53259a477b5",
+          "scope": "current",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        },
+        {
+          "entry_uuid": "6e199a0d941d6227727247951a56d4e1",
+          "scope": "current",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        },
+        {
+          "entry_uuid": "3236cc383145c49b453c5cd6899f2e0a",
+          "scope": "current",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        },
+        {
+          "entry_uuid": "f1f772a182c075d25c6e3700202dd9ed",
+          "scope": "current",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        },
+        {
+          "entry_uuid": "f1f772a182c075d25c6e3700202dd9ed",
+          "scope": "history/0",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        },
+        {
+          "entry_uuid": "80dc0ef64f1b20c7738e2d1f3525dbd7",
+          "scope": "current",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        },
+        {
+          "entry_uuid": "4c5dbd689727b3b3dcf7f1274e0ce090",
+          "scope": "current",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        },
+        {
+          "entry_uuid": "1bb14da312a9d8c68ff47ddfd71ff373",
+          "scope": "current",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        },
+        {
+          "entry_uuid": "919ec46eaf650f7faf9b1be903be52d7",
+          "scope": "current",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        },
+        {
+          "entry_uuid": "ad4bf94d8aa17368f4a75f9375a35591",
+          "scope": "current",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        },
+        {
+          "entry_uuid": "289e2a1f0d4f7d0503a93b4ec9879053",
+          "scope": "current",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        },
+        {
+          "entry_uuid": "b049c0d964a457e01bbba48fdf673e9b",
+          "scope": "current",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        },
+        {
+          "entry_uuid": "8a070f2c0b00ac2c54b471bae3b32fdd",
+          "scope": "current",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        },
+        {
+          "entry_uuid": "c77954d729e62c0ae8cf3b581344a267",
+          "scope": "current",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        },
+        {
+          "entry_uuid": "ec6a8e49f27660d0a4848add1fba5a8b",
+          "scope": "current",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        },
+        {
+          "entry_uuid": "4f16934a4d37ebc24da4bae205b3d543",
+          "scope": "current",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        },
+        {
+          "entry_uuid": "70829203d9a1e1aa20bf6c77b081b3b3",
+          "scope": "current",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        },
+        {
+          "entry_uuid": "1972a2f77061b0a9db1b7f993bc69a6f",
+          "scope": "current",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        },
+        {
+          "entry_uuid": "5cc3bb6674e10e524b115bf075415297",
+          "scope": "current",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        },
+        {
+          "entry_uuid": "098f25524f5c86a9488abdc8a5b64c0c",
+          "scope": "current",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        },
+        {
+          "entry_uuid": "89e70329d1536a1ef722d28c2f58cf68",
+          "scope": "current",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        },
+        {
+          "entry_uuid": "847da829ffae651672d8d576f58ee434",
+          "scope": "current",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        },
+        {
+          "entry_uuid": "939b18ee7f02fa5edbb005e4e31fb424",
+          "scope": "current",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        },
+        {
+          "entry_uuid": "3e1a7c8c2b8d9f603595afbdc53fa891",
+          "scope": "current",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        },
+        {
+          "entry_uuid": "bab11ec6a451dd2d07aa57db4bd4aa99",
+          "scope": "current",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        }
+      ],
+      "lossless_roundtrip": false,
+      "helper_counts": {
+        "ok": true,
+        "version": "4.0",
+        "entries": 36,
+        "groups": 9,
+        "attachments": 6,
+        "history_before": 4,
+        "history_after": 5,
+        "bytes": 38115
+      },
+      "helper_resources": {
+        "wall_seconds": 9.58,
+        "max_rss_bytes": 51675136
+      },
+      "keepassxc_export": {
+        "current_entries": 36,
+        "history_entries": 5,
+        "empty_standard_protection_changes": 31,
+        "attachment_pool_cross_checked": false
+      },
+      "keepassxc_reedit": {
+        "version": "4.0",
+        "history_entries": 6,
+        "reference_client_changes": [
+          "changed/value KeePassFile/Meta/CustomData/Item=KPXC_RANDOM_SLUG/Value",
+          "changed/value KeePassFile/Meta/CustomData/Item=_LAST_MODIFIED/Value",
+          "changed/value KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046/Group=619866709f661f4847cc86d411ca5bf1/CustomData/Item=_LAST_MODIFIED/Value",
+          "changed/value KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046/Group=619866709f661f4847cc86d411ca5bf1/Entry=8965805d6caa1155bdc9ed01dcb11d04/CustomData/Item=_LAST_MODIFIED/Value",
+          "order KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046"
+        ]
+      }
+    },
+    {
+      "id": "DK40-PASSKEY",
+      "file": "dk40-passkey.kdbx",
+      "source_file": "m40-passkey-edit1.kdbx",
+      "source_writer": "KeePassXC 2.7.12",
+      "password": "keex-synthetic-M40-PASSKEY",
+      "keyfile": null,
+      "entry_uuid": "64f57988c982f6e4c805e9c428edbb74",
+      "entry_path": "Passkey/Passkey KeePassXC 字段",
+      "new_username": "synthetic-dk40-passkey",
+      "source_sha256": "e4d281b028d1e8ccd317b987fbe4d895511bf60cb1aa19b983fe4a0621b1d121",
+      "sha256": "3e2202862bd6b09d2be7a8e638b159caf4fefd63c64ed818461e9e9e9a782f07",
+      "bytes": 39011,
+      "version": "4.0",
+      "cipher": "aes256-cbc",
+      "kdf": {
+        "name": "aes-kdf",
+        "rounds": 1000000
+      },
+      "inner_stream": "chacha20",
+      "kdf_salt_rotated": true,
+      "source_summary": {
+        "format": "4.0",
+        "cipher": "aes256-cbc",
+        "kdf": {
+          "name": "aes-kdf",
+          "rounds": 1000000
+        },
+        "compressed": true,
+        "inner_stream": "chacha20",
+        "header_hash": "not-applicable",
+        "generator": "keex-fixture-source",
+        "groups": 9,
+        "entries": 39,
+        "history_entries": 4,
+        "entries_with_history": 3,
+        "recycle_bin": {
+          "enabled": true,
+          "group_present": true,
+          "entries": 2
+        },
+        "deleted_objects": 2,
+        "custom_icons": 1,
+        "entries_with_tags": 6,
+        "attachments": {
+          "references": 9,
+          "names": [
+            "KeeAgent.settings",
+            "blob.bin",
+            "id_ed25519",
+            "notes.txt",
+            "shared.txt",
+            "合成凭据.txt"
+          ],
+          "pool_items": 6,
+          "pool_bytes": 3300,
+          "pool_protected": 6,
+          "current_references": 7,
+          "history_references": 2
+        },
+        "otp_fields": [
+          "TOTP Seed",
+          "TOTP Settings",
+          "TimeOtp-Algorithm",
+          "TimeOtp-Length",
+          "TimeOtp-Period",
+          "TimeOtp-Secret-Base32",
+          "otp"
+        ],
+        "passkey_fields": [
+          "KPEX_PASSKEY_CREDENTIAL_ID",
+          "KPEX_PASSKEY_FLAG_BE",
+          "KPEX_PASSKEY_FLAG_BS",
+          "KPEX_PASSKEY_GENERATED_USER_ID",
+          "KPEX_PASSKEY_PRIVATE_KEY_PEM",
+          "KPEX_PASSKEY_RELYING_PARTY",
+          "KPEX_PASSKEY_USERNAME",
+          "KPEX_PASSKEY_USER_HANDLE",
+          "KPXC_PASSKEY_USERNAME"
+        ],
+        "keeagent_settings": 1,
+        "meta_custom_data_keys": [
+          "KPXC_RANDOM_SLUG",
+          "_LAST_MODIFIED",
+          "keex.fixture"
+        ],
+        "unknown_elements": [],
+        "custom_fields_count": 92,
+        "custom_fields_sha256": "55a4f054b423af979b2da1d02f1d4af49fa36a8632b37c15716903823ca42b42",
+        "protected_custom_fields_count": 65,
+        "protected_custom_fields_sha256": "7dd6043bbb55773f94fc4c9dbab4685722b9ffc8efba2138137fbf379539eef5",
+        "type_counts": {
+          "document": 1,
+          "finance_account": 1,
+          "gift_card": 1,
+          "identity_document": 1,
+          "legacy": 14,
+          "login": 4,
+          "maintenance": 1,
+          "membership_card": 1,
+          "payment_card": 3,
+          "secure_note": 5,
+          "sim_profile": 3,
+          "subscription": 2,
+          "telecom_line": 1,
+          "telecom_plan": 1
+        },
+        "relations": 22,
+        "rules": 1,
+        "events": 2,
+        "diagnostics": {
+          "legacy:": 13,
+          "read_only:field_limit": 1,
+          "read_only:legacy_parent_conflict": 1,
+          "read_only:unknown_keex_field": 1,
+          "read_only:unknown_schema": 1,
+          "valid:": 21,
+          "valid:missing_target": 1
+        }
+      },
+      "summary": {
+        "format": "4.0",
+        "cipher": "aes256-cbc",
+        "kdf": {
+          "name": "aes-kdf",
+          "rounds": 1000000
+        },
+        "compressed": true,
+        "inner_stream": "chacha20",
+        "header_hash": "not-applicable",
+        "generator": "keex-fixture-source",
+        "groups": 9,
+        "entries": 39,
+        "history_entries": 5,
+        "entries_with_history": 3,
+        "recycle_bin": {
+          "enabled": true,
+          "group_present": true,
+          "entries": 2
+        },
+        "deleted_objects": 2,
+        "custom_icons": 1,
+        "entries_with_tags": 7,
+        "attachments": {
+          "references": 9,
+          "names": [
+            "KeeAgent.settings",
+            "blob.bin",
+            "id_ed25519",
+            "notes.txt",
+            "shared.txt",
+            "合成凭据.txt"
+          ],
+          "pool_items": 6,
+          "pool_bytes": 3300,
+          "pool_protected": 6,
+          "current_references": 7,
+          "history_references": 2
+        },
+        "otp_fields": [
+          "TOTP Seed",
+          "TOTP Settings",
+          "TimeOtp-Algorithm",
+          "TimeOtp-Length",
+          "TimeOtp-Period",
+          "TimeOtp-Secret-Base32",
+          "otp"
+        ],
+        "passkey_fields": [
+          "KPEX_PASSKEY_CREDENTIAL_ID",
+          "KPEX_PASSKEY_FLAG_BE",
+          "KPEX_PASSKEY_FLAG_BS",
+          "KPEX_PASSKEY_GENERATED_USER_ID",
+          "KPEX_PASSKEY_PRIVATE_KEY_PEM",
+          "KPEX_PASSKEY_RELYING_PARTY",
+          "KPEX_PASSKEY_USERNAME",
+          "KPEX_PASSKEY_USER_HANDLE",
+          "KPXC_PASSKEY_USERNAME"
+        ],
+        "keeagent_settings": 1,
+        "meta_custom_data_keys": [
+          "KPXC_RANDOM_SLUG",
+          "_LAST_MODIFIED",
+          "keex.fixture"
+        ],
+        "unknown_elements": [],
+        "custom_fields_count": 92,
+        "custom_fields_sha256": "55a4f054b423af979b2da1d02f1d4af49fa36a8632b37c15716903823ca42b42",
+        "protected_custom_fields_count": 65,
+        "protected_custom_fields_sha256": "7dd6043bbb55773f94fc4c9dbab4685722b9ffc8efba2138137fbf379539eef5",
+        "type_counts": {
+          "document": 1,
+          "finance_account": 1,
+          "gift_card": 1,
+          "identity_document": 1,
+          "legacy": 14,
+          "login": 4,
+          "maintenance": 1,
+          "membership_card": 1,
+          "payment_card": 3,
+          "secure_note": 5,
+          "sim_profile": 3,
+          "subscription": 2,
+          "telecom_line": 1,
+          "telecom_plan": 1
+        },
+        "relations": 22,
+        "rules": 1,
+        "events": 2,
+        "diagnostics": {
+          "legacy:": 13,
+          "read_only:field_limit": 1,
+          "read_only:legacy_parent_conflict": 1,
+          "read_only:unknown_keex_field": 1,
+          "read_only:unknown_schema": 1,
+          "valid:": 21,
+          "valid:missing_target": 1
+        }
+      },
+      "raw_changes": [
+        "added KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046/Group=42e8f2fbeced2a39acdaf7cc23fb1a71/Entry=64f57988c982f6e4c805e9c428edbb74/History/Entry#1",
+        "changed/value KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046/Group=42e8f2fbeced2a39acdaf7cc23fb1a71/Entry=64f57988c982f6e4c805e9c428edbb74/String=UserName/Value",
+        "changed/value KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046/Group=42e8f2fbeced2a39acdaf7cc23fb1a71/Entry=64f57988c982f6e4c805e9c428edbb74/Times/LastAccessTime",
+        "changed/value KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046/Group=42e8f2fbeced2a39acdaf7cc23fb1a71/Entry=64f57988c982f6e4c805e9c428edbb74/Times/LastModificationTime",
+        "order KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046"
+      ],
+      "other_changes": [
+        "order KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046"
+      ],
+      "history_placement": "append",
+      "history_snapshot_changes": [],
+      "attachment_order_changes": [],
+      "empty_standard_protection_changes": [
+        {
+          "entry_uuid": "b60c874bddd62dee9d25213b32821b07",
+          "scope": "current",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        },
+        {
+          "entry_uuid": "45a58f6b5f168dbdbd0bbd394c93fab7",
+          "scope": "current",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        },
+        {
+          "entry_uuid": "c06f0715a6437c8db6dd1ae48160fd2c",
+          "scope": "current",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        },
+        {
+          "entry_uuid": "24f9ecc5363c11bf73da2b5b89f59aa6",
+          "scope": "current",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        },
+        {
+          "entry_uuid": "64f57988c982f6e4c805e9c428edbb74",
+          "scope": "current",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        },
+        {
+          "entry_uuid": "64f57988c982f6e4c805e9c428edbb74",
+          "scope": "history/0",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        },
+        {
+          "entry_uuid": "64f57988c982f6e4c805e9c428edbb74",
+          "scope": "history/1",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        },
+        {
+          "entry_uuid": "57ca0acb13a304ddeffaa1e9827da3c7",
+          "scope": "current",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        },
+        {
+          "entry_uuid": "3158126c23f1612bfd516750dad3cb11",
+          "scope": "current",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        },
+        {
+          "entry_uuid": "aa6a57f62365be722cfcb3a5b573f87e",
+          "scope": "current",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        },
+        {
+          "entry_uuid": "5304a955887e682676d4a53259a477b5",
+          "scope": "current",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        },
+        {
+          "entry_uuid": "6e199a0d941d6227727247951a56d4e1",
+          "scope": "current",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        },
+        {
+          "entry_uuid": "3236cc383145c49b453c5cd6899f2e0a",
+          "scope": "current",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        },
+        {
+          "entry_uuid": "f1f772a182c075d25c6e3700202dd9ed",
+          "scope": "current",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        },
+        {
+          "entry_uuid": "f1f772a182c075d25c6e3700202dd9ed",
+          "scope": "history/0",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        },
+        {
+          "entry_uuid": "80dc0ef64f1b20c7738e2d1f3525dbd7",
+          "scope": "current",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        },
+        {
+          "entry_uuid": "4c5dbd689727b3b3dcf7f1274e0ce090",
+          "scope": "current",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        },
+        {
+          "entry_uuid": "1bb14da312a9d8c68ff47ddfd71ff373",
+          "scope": "current",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        },
+        {
+          "entry_uuid": "919ec46eaf650f7faf9b1be903be52d7",
+          "scope": "current",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        },
+        {
+          "entry_uuid": "ad4bf94d8aa17368f4a75f9375a35591",
+          "scope": "current",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        },
+        {
+          "entry_uuid": "289e2a1f0d4f7d0503a93b4ec9879053",
+          "scope": "current",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        },
+        {
+          "entry_uuid": "b049c0d964a457e01bbba48fdf673e9b",
+          "scope": "current",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        },
+        {
+          "entry_uuid": "8a070f2c0b00ac2c54b471bae3b32fdd",
+          "scope": "current",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        },
+        {
+          "entry_uuid": "c77954d729e62c0ae8cf3b581344a267",
+          "scope": "current",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        },
+        {
+          "entry_uuid": "ec6a8e49f27660d0a4848add1fba5a8b",
+          "scope": "current",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        },
+        {
+          "entry_uuid": "4f16934a4d37ebc24da4bae205b3d543",
+          "scope": "current",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        },
+        {
+          "entry_uuid": "70829203d9a1e1aa20bf6c77b081b3b3",
+          "scope": "current",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        },
+        {
+          "entry_uuid": "1972a2f77061b0a9db1b7f993bc69a6f",
+          "scope": "current",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        },
+        {
+          "entry_uuid": "5cc3bb6674e10e524b115bf075415297",
+          "scope": "current",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        },
+        {
+          "entry_uuid": "098f25524f5c86a9488abdc8a5b64c0c",
+          "scope": "current",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        },
+        {
+          "entry_uuid": "89e70329d1536a1ef722d28c2f58cf68",
+          "scope": "current",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        },
+        {
+          "entry_uuid": "847da829ffae651672d8d576f58ee434",
+          "scope": "current",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        },
+        {
+          "entry_uuid": "939b18ee7f02fa5edbb005e4e31fb424",
+          "scope": "current",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        },
+        {
+          "entry_uuid": "3e1a7c8c2b8d9f603595afbdc53fa891",
+          "scope": "current",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        },
+        {
+          "entry_uuid": "bab11ec6a451dd2d07aa57db4bd4aa99",
+          "scope": "current",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        }
+      ],
+      "lossless_roundtrip": false,
+      "helper_counts": {
+        "ok": true,
+        "version": "4.0",
+        "entries": 39,
+        "groups": 9,
+        "attachments": 6,
+        "history_before": 4,
+        "history_after": 5,
+        "bytes": 39011
+      },
+      "helper_resources": {
+        "wall_seconds": 11.661,
+        "max_rss_bytes": 51331072
+      },
+      "keepassxc_export": {
+        "current_entries": 39,
+        "history_entries": 5,
+        "empty_standard_protection_changes": 35,
+        "attachment_pool_cross_checked": false
+      },
+      "keepassxc_reedit": {
+        "version": "4.0",
+        "history_entries": 6,
+        "reference_client_changes": [
+          "changed/value KeePassFile/Meta/CustomData/Item=KPXC_RANDOM_SLUG/Value",
+          "changed/value KeePassFile/Meta/CustomData/Item=_LAST_MODIFIED/Value",
+          "changed/value KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046/Group=619866709f661f4847cc86d411ca5bf1/CustomData/Item=_LAST_MODIFIED/Value",
+          "changed/value KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046/Group=619866709f661f4847cc86d411ca5bf1/Entry=8965805d6caa1155bdc9ed01dcb11d04/CustomData/Item=_LAST_MODIFIED/Value",
+          "order KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046"
+        ]
+      }
+    },
+    {
+      "id": "DK41-VAULT",
+      "file": "dk41-vault.kdbx",
+      "source_file": "v41-vault-edit1.kdbx",
+      "source_writer": "KeePassXC 2.7.12",
+      "password": "keex-synthetic-V41-VAULT",
+      "keyfile": null,
+      "entry_uuid": "c21db8c8be768f14cae2ed1a9f6cb568",
+      "entry_path": "合成资料/合成服务账户",
+      "new_username": "synthetic-dk41-vault",
+      "source_sha256": "b1e38831a853d09fe5341b6362e98c69021b9c3d4cbc256afa02fb730bb54888",
+      "sha256": "552276ccd578b5dc19d5b010d80dfa0976b4fd22c7d91f8547707016a81134de",
+      "bytes": 38227,
+      "version": "4.1",
+      "cipher": "aes256-cbc",
+      "kdf": {
+        "name": "aes-kdf",
+        "rounds": 1000000
+      },
+      "inner_stream": "chacha20",
+      "kdf_salt_rotated": true,
+      "source_summary": {
+        "format": "4.1",
+        "cipher": "aes256-cbc",
+        "kdf": {
+          "name": "aes-kdf",
+          "rounds": 1000000
+        },
+        "compressed": true,
+        "inner_stream": "chacha20",
+        "header_hash": "not-applicable",
+        "generator": "keex-fixture-source",
+        "groups": 9,
+        "entries": 36,
+        "history_entries": 4,
+        "entries_with_history": 3,
+        "recycle_bin": {
+          "enabled": true,
+          "group_present": true,
+          "entries": 2
+        },
+        "deleted_objects": 2,
+        "custom_icons": 1,
+        "entries_with_tags": 3,
+        "attachments": {
+          "references": 9,
+          "names": [
+            "KeeAgent.settings",
+            "blob.bin",
+            "id_ed25519",
+            "notes.txt",
+            "shared.txt",
+            "合成凭据.txt"
+          ],
+          "pool_items": 6,
+          "pool_bytes": 3300,
+          "pool_protected": 6,
+          "current_references": 7,
+          "history_references": 2
+        },
+        "otp_fields": [
+          "TOTP Seed",
+          "TOTP Settings",
+          "TimeOtp-Algorithm",
+          "TimeOtp-Length",
+          "TimeOtp-Period",
+          "TimeOtp-Secret-Base32",
+          "otp"
+        ],
+        "passkey_fields": [
+          "KPEX_PASSKEY_CREDENTIAL_ID",
+          "KPEX_PASSKEY_FLAG_BE",
+          "KPEX_PASSKEY_FLAG_BS",
+          "KPEX_PASSKEY_GENERATED_USER_ID",
+          "KPEX_PASSKEY_PRIVATE_KEY_PEM",
+          "KPEX_PASSKEY_RELYING_PARTY",
+          "KPEX_PASSKEY_USERNAME",
+          "KPEX_PASSKEY_USER_HANDLE",
+          "KPXC_PASSKEY_USERNAME"
+        ],
+        "keeagent_settings": 1,
+        "meta_custom_data_keys": [
+          "KPXC_RANDOM_SLUG",
+          "_LAST_MODIFIED",
+          "keex.fixture"
+        ],
+        "unknown_elements": [],
+        "custom_fields_count": 92,
+        "custom_fields_sha256": "55a4f054b423af979b2da1d02f1d4af49fa36a8632b37c15716903823ca42b42",
+        "protected_custom_fields_count": 65,
+        "protected_custom_fields_sha256": "7dd6043bbb55773f94fc4c9dbab4685722b9ffc8efba2138137fbf379539eef5",
+        "type_counts": {
+          "document": 1,
+          "finance_account": 1,
+          "gift_card": 1,
+          "identity_document": 1,
+          "legacy": 12,
+          "login": 3,
+          "maintenance": 1,
+          "membership_card": 1,
+          "payment_card": 3,
+          "secure_note": 5,
+          "sim_profile": 3,
+          "subscription": 2,
+          "telecom_line": 1,
+          "telecom_plan": 1
+        },
+        "relations": 22,
+        "rules": 1,
+        "events": 2,
+        "diagnostics": {
+          "legacy:": 11,
+          "read_only:field_limit": 1,
+          "read_only:legacy_parent_conflict": 1,
+          "read_only:unknown_keex_field": 1,
+          "read_only:unknown_schema": 1,
+          "valid:": 20,
+          "valid:missing_target": 1
+        }
+      },
+      "summary": {
+        "format": "4.1",
+        "cipher": "aes256-cbc",
+        "kdf": {
+          "name": "aes-kdf",
+          "rounds": 1000000
+        },
+        "compressed": true,
+        "inner_stream": "chacha20",
+        "header_hash": "not-applicable",
+        "generator": "keex-fixture-source",
+        "groups": 9,
+        "entries": 36,
+        "history_entries": 5,
+        "entries_with_history": 3,
+        "recycle_bin": {
+          "enabled": true,
+          "group_present": true,
+          "entries": 2
+        },
+        "deleted_objects": 2,
+        "custom_icons": 1,
+        "entries_with_tags": 3,
+        "attachments": {
+          "references": 9,
+          "names": [
+            "KeeAgent.settings",
+            "blob.bin",
+            "id_ed25519",
+            "notes.txt",
+            "shared.txt",
+            "合成凭据.txt"
+          ],
+          "pool_items": 6,
+          "pool_bytes": 3300,
+          "pool_protected": 6,
+          "current_references": 7,
+          "history_references": 2
+        },
+        "otp_fields": [
+          "TOTP Seed",
+          "TOTP Settings",
+          "TimeOtp-Algorithm",
+          "TimeOtp-Length",
+          "TimeOtp-Period",
+          "TimeOtp-Secret-Base32",
+          "otp"
+        ],
+        "passkey_fields": [
+          "KPEX_PASSKEY_CREDENTIAL_ID",
+          "KPEX_PASSKEY_FLAG_BE",
+          "KPEX_PASSKEY_FLAG_BS",
+          "KPEX_PASSKEY_GENERATED_USER_ID",
+          "KPEX_PASSKEY_PRIVATE_KEY_PEM",
+          "KPEX_PASSKEY_RELYING_PARTY",
+          "KPEX_PASSKEY_USERNAME",
+          "KPEX_PASSKEY_USER_HANDLE",
+          "KPXC_PASSKEY_USERNAME"
+        ],
+        "keeagent_settings": 1,
+        "meta_custom_data_keys": [
+          "KPXC_RANDOM_SLUG",
+          "_LAST_MODIFIED",
+          "keex.fixture"
+        ],
+        "unknown_elements": [],
+        "custom_fields_count": 92,
+        "custom_fields_sha256": "55a4f054b423af979b2da1d02f1d4af49fa36a8632b37c15716903823ca42b42",
+        "protected_custom_fields_count": 65,
+        "protected_custom_fields_sha256": "7dd6043bbb55773f94fc4c9dbab4685722b9ffc8efba2138137fbf379539eef5",
+        "type_counts": {
+          "document": 1,
+          "finance_account": 1,
+          "gift_card": 1,
+          "identity_document": 1,
+          "legacy": 12,
+          "login": 3,
+          "maintenance": 1,
+          "membership_card": 1,
+          "payment_card": 3,
+          "secure_note": 5,
+          "sim_profile": 3,
+          "subscription": 2,
+          "telecom_line": 1,
+          "telecom_plan": 1
+        },
+        "relations": 22,
+        "rules": 1,
+        "events": 2,
+        "diagnostics": {
+          "legacy:": 11,
+          "read_only:field_limit": 1,
+          "read_only:legacy_parent_conflict": 1,
+          "read_only:unknown_keex_field": 1,
+          "read_only:unknown_schema": 1,
+          "valid:": 20,
+          "valid:missing_target": 1
+        }
+      },
+      "raw_changes": [
+        "added KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046/Group=912008afa217d53b3a190c5e6d500909/Entry=c21db8c8be768f14cae2ed1a9f6cb568/History/Entry#1",
+        "changed/value KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046/Group=912008afa217d53b3a190c5e6d500909/Entry=c21db8c8be768f14cae2ed1a9f6cb568/String=UserName/Value",
+        "changed/value KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046/Group=912008afa217d53b3a190c5e6d500909/Entry=c21db8c8be768f14cae2ed1a9f6cb568/Times/LastAccessTime",
+        "changed/value KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046/Group=912008afa217d53b3a190c5e6d500909/Entry=c21db8c8be768f14cae2ed1a9f6cb568/Times/LastModificationTime",
+        "order KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046",
+        "removed KeePassFile/Meta/CustomData/Item=KPXC_RANDOM_SLUG/LastModificationTime",
+        "removed KeePassFile/Meta/CustomData/Item=keex.fixture/LastModificationTime",
+        "removed KeePassFile/Meta/CustomIcons/Icon=e64d2ddb6063d2ca56280dce11b188c4/LastModificationTime",
+        "removed KeePassFile/Meta/CustomIcons/Icon=e64d2ddb6063d2ca56280dce11b188c4/Name"
+      ],
+      "other_changes": [
+        "order KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046",
+        "removed KeePassFile/Meta/CustomData/Item=KPXC_RANDOM_SLUG/LastModificationTime",
+        "removed KeePassFile/Meta/CustomData/Item=keex.fixture/LastModificationTime",
+        "removed KeePassFile/Meta/CustomIcons/Icon=e64d2ddb6063d2ca56280dce11b188c4/LastModificationTime",
+        "removed KeePassFile/Meta/CustomIcons/Icon=e64d2ddb6063d2ca56280dce11b188c4/Name"
+      ],
+      "history_placement": "append",
+      "history_snapshot_changes": [],
+      "attachment_order_changes": [],
+      "empty_standard_protection_changes": [
+        {
+          "entry_uuid": "b60c874bddd62dee9d25213b32821b07",
+          "scope": "current",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        },
+        {
+          "entry_uuid": "45a58f6b5f168dbdbd0bbd394c93fab7",
+          "scope": "current",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        },
+        {
+          "entry_uuid": "c06f0715a6437c8db6dd1ae48160fd2c",
+          "scope": "current",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        },
+        {
+          "entry_uuid": "24f9ecc5363c11bf73da2b5b89f59aa6",
+          "scope": "current",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        },
+        {
+          "entry_uuid": "64f57988c982f6e4c805e9c428edbb74",
+          "scope": "current",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        },
+        {
+          "entry_uuid": "57ca0acb13a304ddeffaa1e9827da3c7",
+          "scope": "current",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        },
+        {
+          "entry_uuid": "5304a955887e682676d4a53259a477b5",
+          "scope": "current",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        },
+        {
+          "entry_uuid": "6e199a0d941d6227727247951a56d4e1",
+          "scope": "current",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        },
+        {
+          "entry_uuid": "3236cc383145c49b453c5cd6899f2e0a",
+          "scope": "current",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        },
+        {
+          "entry_uuid": "f1f772a182c075d25c6e3700202dd9ed",
+          "scope": "current",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        },
+        {
+          "entry_uuid": "f1f772a182c075d25c6e3700202dd9ed",
+          "scope": "history/0",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        },
+        {
+          "entry_uuid": "80dc0ef64f1b20c7738e2d1f3525dbd7",
+          "scope": "current",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        },
+        {
+          "entry_uuid": "4c5dbd689727b3b3dcf7f1274e0ce090",
+          "scope": "current",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        },
+        {
+          "entry_uuid": "1bb14da312a9d8c68ff47ddfd71ff373",
+          "scope": "current",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        },
+        {
+          "entry_uuid": "919ec46eaf650f7faf9b1be903be52d7",
+          "scope": "current",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        },
+        {
+          "entry_uuid": "ad4bf94d8aa17368f4a75f9375a35591",
+          "scope": "current",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        },
+        {
+          "entry_uuid": "289e2a1f0d4f7d0503a93b4ec9879053",
+          "scope": "current",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        },
+        {
+          "entry_uuid": "b049c0d964a457e01bbba48fdf673e9b",
+          "scope": "current",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        },
+        {
+          "entry_uuid": "8a070f2c0b00ac2c54b471bae3b32fdd",
+          "scope": "current",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        },
+        {
+          "entry_uuid": "c77954d729e62c0ae8cf3b581344a267",
+          "scope": "current",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        },
+        {
+          "entry_uuid": "ec6a8e49f27660d0a4848add1fba5a8b",
+          "scope": "current",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        },
+        {
+          "entry_uuid": "4f16934a4d37ebc24da4bae205b3d543",
+          "scope": "current",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        },
+        {
+          "entry_uuid": "70829203d9a1e1aa20bf6c77b081b3b3",
+          "scope": "current",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        },
+        {
+          "entry_uuid": "1972a2f77061b0a9db1b7f993bc69a6f",
+          "scope": "current",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        },
+        {
+          "entry_uuid": "5cc3bb6674e10e524b115bf075415297",
+          "scope": "current",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        },
+        {
+          "entry_uuid": "098f25524f5c86a9488abdc8a5b64c0c",
+          "scope": "current",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        },
+        {
+          "entry_uuid": "89e70329d1536a1ef722d28c2f58cf68",
+          "scope": "current",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        },
+        {
+          "entry_uuid": "847da829ffae651672d8d576f58ee434",
+          "scope": "current",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        },
+        {
+          "entry_uuid": "939b18ee7f02fa5edbb005e4e31fb424",
+          "scope": "current",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        },
+        {
+          "entry_uuid": "3e1a7c8c2b8d9f603595afbdc53fa891",
+          "scope": "current",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        },
+        {
+          "entry_uuid": "bab11ec6a451dd2d07aa57db4bd4aa99",
+          "scope": "current",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        }
+      ],
+      "lossless_roundtrip": false,
+      "helper_counts": {
+        "ok": true,
+        "version": "4.1",
+        "entries": 36,
+        "groups": 9,
+        "attachments": 6,
+        "history_before": 4,
+        "history_after": 5,
+        "bytes": 38227
+      },
+      "helper_resources": {
+        "wall_seconds": 8.913,
+        "max_rss_bytes": 51249152
+      },
+      "keepassxc_export": {
+        "current_entries": 36,
+        "history_entries": 5,
+        "empty_standard_protection_changes": 31,
+        "attachment_pool_cross_checked": false
+      },
+      "keepassxc_reedit": {
+        "version": "4.1",
+        "history_entries": 6,
+        "reference_client_changes": [
+          "added KeePassFile/Meta/CustomData/Item=KPXC_RANDOM_SLUG/LastModificationTime",
+          "added KeePassFile/Meta/CustomData/Item=keex.fixture/LastModificationTime",
+          "changed/value KeePassFile/Meta/CustomData/Item=KPXC_RANDOM_SLUG/Value",
+          "changed/value KeePassFile/Meta/CustomData/Item=_LAST_MODIFIED/Value",
+          "changed/value KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046/Group=619866709f661f4847cc86d411ca5bf1/CustomData/Item=_LAST_MODIFIED/Value",
+          "changed/value KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046/Group=619866709f661f4847cc86d411ca5bf1/Entry=8965805d6caa1155bdc9ed01dcb11d04/CustomData/Item=_LAST_MODIFIED/Value",
+          "order KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046"
+        ]
+      }
+    },
+    {
+      "id": "DK41-PASSKEY",
+      "file": "dk41-passkey.kdbx",
+      "source_file": "m41-passkey-edit1.kdbx",
+      "source_writer": "KeePassXC 2.7.12",
+      "password": "keex-synthetic-M41-PASSKEY",
+      "keyfile": null,
+      "entry_uuid": "64f57988c982f6e4c805e9c428edbb74",
+      "entry_path": "Passkey/Passkey KeePassXC 字段",
+      "new_username": "synthetic-dk41-passkey",
+      "source_sha256": "00201776ed5e0b8c57fdf44aa6dc284735cc41da312e2d49bcf80c87f7945411",
+      "sha256": "03134203d0503c88813f3552e77b549b552da206f2eae2613d1a3c8d47077edf",
+      "bytes": 39267,
+      "version": "4.1",
+      "cipher": "aes256-cbc",
+      "kdf": {
+        "name": "aes-kdf",
+        "rounds": 1000000
+      },
+      "inner_stream": "chacha20",
+      "kdf_salt_rotated": true,
+      "source_summary": {
+        "format": "4.1",
+        "cipher": "aes256-cbc",
+        "kdf": {
+          "name": "aes-kdf",
+          "rounds": 1000000
+        },
+        "compressed": true,
+        "inner_stream": "chacha20",
+        "header_hash": "not-applicable",
+        "generator": "keex-fixture-source",
+        "groups": 9,
+        "entries": 39,
+        "history_entries": 4,
+        "entries_with_history": 3,
+        "recycle_bin": {
+          "enabled": true,
+          "group_present": true,
+          "entries": 2
+        },
+        "deleted_objects": 2,
+        "custom_icons": 1,
+        "entries_with_tags": 6,
+        "attachments": {
+          "references": 9,
+          "names": [
+            "KeeAgent.settings",
+            "blob.bin",
+            "id_ed25519",
+            "notes.txt",
+            "shared.txt",
+            "合成凭据.txt"
+          ],
+          "pool_items": 6,
+          "pool_bytes": 3300,
+          "pool_protected": 6,
+          "current_references": 7,
+          "history_references": 2
+        },
+        "otp_fields": [
+          "TOTP Seed",
+          "TOTP Settings",
+          "TimeOtp-Algorithm",
+          "TimeOtp-Length",
+          "TimeOtp-Period",
+          "TimeOtp-Secret-Base32",
+          "otp"
+        ],
+        "passkey_fields": [
+          "KPEX_PASSKEY_CREDENTIAL_ID",
+          "KPEX_PASSKEY_FLAG_BE",
+          "KPEX_PASSKEY_FLAG_BS",
+          "KPEX_PASSKEY_GENERATED_USER_ID",
+          "KPEX_PASSKEY_PRIVATE_KEY_PEM",
+          "KPEX_PASSKEY_RELYING_PARTY",
+          "KPEX_PASSKEY_USERNAME",
+          "KPEX_PASSKEY_USER_HANDLE",
+          "KPXC_PASSKEY_USERNAME"
+        ],
+        "keeagent_settings": 1,
+        "meta_custom_data_keys": [
+          "KPXC_RANDOM_SLUG",
+          "_LAST_MODIFIED",
+          "keex.fixture"
+        ],
+        "unknown_elements": [],
+        "custom_fields_count": 92,
+        "custom_fields_sha256": "55a4f054b423af979b2da1d02f1d4af49fa36a8632b37c15716903823ca42b42",
+        "protected_custom_fields_count": 65,
+        "protected_custom_fields_sha256": "7dd6043bbb55773f94fc4c9dbab4685722b9ffc8efba2138137fbf379539eef5",
+        "type_counts": {
+          "document": 1,
+          "finance_account": 1,
+          "gift_card": 1,
+          "identity_document": 1,
+          "legacy": 14,
+          "login": 4,
+          "maintenance": 1,
+          "membership_card": 1,
+          "payment_card": 3,
+          "secure_note": 5,
+          "sim_profile": 3,
+          "subscription": 2,
+          "telecom_line": 1,
+          "telecom_plan": 1
+        },
+        "relations": 22,
+        "rules": 1,
+        "events": 2,
+        "diagnostics": {
+          "legacy:": 13,
+          "read_only:field_limit": 1,
+          "read_only:legacy_parent_conflict": 1,
+          "read_only:unknown_keex_field": 1,
+          "read_only:unknown_schema": 1,
+          "valid:": 21,
+          "valid:missing_target": 1
+        }
+      },
+      "summary": {
+        "format": "4.1",
+        "cipher": "aes256-cbc",
+        "kdf": {
+          "name": "aes-kdf",
+          "rounds": 1000000
+        },
+        "compressed": true,
+        "inner_stream": "chacha20",
+        "header_hash": "not-applicable",
+        "generator": "keex-fixture-source",
+        "groups": 9,
+        "entries": 39,
+        "history_entries": 5,
+        "entries_with_history": 3,
+        "recycle_bin": {
+          "enabled": true,
+          "group_present": true,
+          "entries": 2
+        },
+        "deleted_objects": 2,
+        "custom_icons": 1,
+        "entries_with_tags": 7,
+        "attachments": {
+          "references": 9,
+          "names": [
+            "KeeAgent.settings",
+            "blob.bin",
+            "id_ed25519",
+            "notes.txt",
+            "shared.txt",
+            "合成凭据.txt"
+          ],
+          "pool_items": 6,
+          "pool_bytes": 3300,
+          "pool_protected": 6,
+          "current_references": 7,
+          "history_references": 2
+        },
+        "otp_fields": [
+          "TOTP Seed",
+          "TOTP Settings",
+          "TimeOtp-Algorithm",
+          "TimeOtp-Length",
+          "TimeOtp-Period",
+          "TimeOtp-Secret-Base32",
+          "otp"
+        ],
+        "passkey_fields": [
+          "KPEX_PASSKEY_CREDENTIAL_ID",
+          "KPEX_PASSKEY_FLAG_BE",
+          "KPEX_PASSKEY_FLAG_BS",
+          "KPEX_PASSKEY_GENERATED_USER_ID",
+          "KPEX_PASSKEY_PRIVATE_KEY_PEM",
+          "KPEX_PASSKEY_RELYING_PARTY",
+          "KPEX_PASSKEY_USERNAME",
+          "KPEX_PASSKEY_USER_HANDLE",
+          "KPXC_PASSKEY_USERNAME"
+        ],
+        "keeagent_settings": 1,
+        "meta_custom_data_keys": [
+          "KPXC_RANDOM_SLUG",
+          "_LAST_MODIFIED",
+          "keex.fixture"
+        ],
+        "unknown_elements": [],
+        "custom_fields_count": 92,
+        "custom_fields_sha256": "55a4f054b423af979b2da1d02f1d4af49fa36a8632b37c15716903823ca42b42",
+        "protected_custom_fields_count": 65,
+        "protected_custom_fields_sha256": "7dd6043bbb55773f94fc4c9dbab4685722b9ffc8efba2138137fbf379539eef5",
+        "type_counts": {
+          "document": 1,
+          "finance_account": 1,
+          "gift_card": 1,
+          "identity_document": 1,
+          "legacy": 14,
+          "login": 4,
+          "maintenance": 1,
+          "membership_card": 1,
+          "payment_card": 3,
+          "secure_note": 5,
+          "sim_profile": 3,
+          "subscription": 2,
+          "telecom_line": 1,
+          "telecom_plan": 1
+        },
+        "relations": 22,
+        "rules": 1,
+        "events": 2,
+        "diagnostics": {
+          "legacy:": 13,
+          "read_only:field_limit": 1,
+          "read_only:legacy_parent_conflict": 1,
+          "read_only:unknown_keex_field": 1,
+          "read_only:unknown_schema": 1,
+          "valid:": 21,
+          "valid:missing_target": 1
+        }
+      },
+      "raw_changes": [
+        "added KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046/Group=42e8f2fbeced2a39acdaf7cc23fb1a71/Entry=64f57988c982f6e4c805e9c428edbb74/History/Entry#1",
+        "changed/value KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046/Group=42e8f2fbeced2a39acdaf7cc23fb1a71/Entry=64f57988c982f6e4c805e9c428edbb74/String=UserName/Value",
+        "changed/value KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046/Group=42e8f2fbeced2a39acdaf7cc23fb1a71/Entry=64f57988c982f6e4c805e9c428edbb74/Times/LastAccessTime",
+        "changed/value KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046/Group=42e8f2fbeced2a39acdaf7cc23fb1a71/Entry=64f57988c982f6e4c805e9c428edbb74/Times/LastModificationTime",
+        "order KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046",
+        "removed KeePassFile/Meta/CustomData/Item=KPXC_RANDOM_SLUG/LastModificationTime",
+        "removed KeePassFile/Meta/CustomData/Item=keex.fixture/LastModificationTime",
+        "removed KeePassFile/Meta/CustomIcons/Icon=e64d2ddb6063d2ca56280dce11b188c4/LastModificationTime",
+        "removed KeePassFile/Meta/CustomIcons/Icon=e64d2ddb6063d2ca56280dce11b188c4/Name"
+      ],
+      "other_changes": [
+        "order KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046",
+        "removed KeePassFile/Meta/CustomData/Item=KPXC_RANDOM_SLUG/LastModificationTime",
+        "removed KeePassFile/Meta/CustomData/Item=keex.fixture/LastModificationTime",
+        "removed KeePassFile/Meta/CustomIcons/Icon=e64d2ddb6063d2ca56280dce11b188c4/LastModificationTime",
+        "removed KeePassFile/Meta/CustomIcons/Icon=e64d2ddb6063d2ca56280dce11b188c4/Name"
+      ],
+      "history_placement": "append",
+      "history_snapshot_changes": [],
+      "attachment_order_changes": [],
+      "empty_standard_protection_changes": [
+        {
+          "entry_uuid": "b60c874bddd62dee9d25213b32821b07",
+          "scope": "current",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        },
+        {
+          "entry_uuid": "45a58f6b5f168dbdbd0bbd394c93fab7",
+          "scope": "current",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        },
+        {
+          "entry_uuid": "c06f0715a6437c8db6dd1ae48160fd2c",
+          "scope": "current",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        },
+        {
+          "entry_uuid": "24f9ecc5363c11bf73da2b5b89f59aa6",
+          "scope": "current",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        },
+        {
+          "entry_uuid": "64f57988c982f6e4c805e9c428edbb74",
+          "scope": "current",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        },
+        {
+          "entry_uuid": "64f57988c982f6e4c805e9c428edbb74",
+          "scope": "history/0",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        },
+        {
+          "entry_uuid": "64f57988c982f6e4c805e9c428edbb74",
+          "scope": "history/1",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        },
+        {
+          "entry_uuid": "57ca0acb13a304ddeffaa1e9827da3c7",
+          "scope": "current",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        },
+        {
+          "entry_uuid": "3158126c23f1612bfd516750dad3cb11",
+          "scope": "current",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        },
+        {
+          "entry_uuid": "aa6a57f62365be722cfcb3a5b573f87e",
+          "scope": "current",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        },
+        {
+          "entry_uuid": "5304a955887e682676d4a53259a477b5",
+          "scope": "current",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        },
+        {
+          "entry_uuid": "6e199a0d941d6227727247951a56d4e1",
+          "scope": "current",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        },
+        {
+          "entry_uuid": "3236cc383145c49b453c5cd6899f2e0a",
+          "scope": "current",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        },
+        {
+          "entry_uuid": "f1f772a182c075d25c6e3700202dd9ed",
+          "scope": "current",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        },
+        {
+          "entry_uuid": "f1f772a182c075d25c6e3700202dd9ed",
+          "scope": "history/0",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        },
+        {
+          "entry_uuid": "80dc0ef64f1b20c7738e2d1f3525dbd7",
+          "scope": "current",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        },
+        {
+          "entry_uuid": "4c5dbd689727b3b3dcf7f1274e0ce090",
+          "scope": "current",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        },
+        {
+          "entry_uuid": "1bb14da312a9d8c68ff47ddfd71ff373",
+          "scope": "current",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        },
+        {
+          "entry_uuid": "919ec46eaf650f7faf9b1be903be52d7",
+          "scope": "current",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        },
+        {
+          "entry_uuid": "ad4bf94d8aa17368f4a75f9375a35591",
+          "scope": "current",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        },
+        {
+          "entry_uuid": "289e2a1f0d4f7d0503a93b4ec9879053",
+          "scope": "current",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        },
+        {
+          "entry_uuid": "b049c0d964a457e01bbba48fdf673e9b",
+          "scope": "current",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        },
+        {
+          "entry_uuid": "8a070f2c0b00ac2c54b471bae3b32fdd",
+          "scope": "current",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        },
+        {
+          "entry_uuid": "c77954d729e62c0ae8cf3b581344a267",
+          "scope": "current",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        },
+        {
+          "entry_uuid": "ec6a8e49f27660d0a4848add1fba5a8b",
+          "scope": "current",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        },
+        {
+          "entry_uuid": "4f16934a4d37ebc24da4bae205b3d543",
+          "scope": "current",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        },
+        {
+          "entry_uuid": "70829203d9a1e1aa20bf6c77b081b3b3",
+          "scope": "current",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        },
+        {
+          "entry_uuid": "1972a2f77061b0a9db1b7f993bc69a6f",
+          "scope": "current",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        },
+        {
+          "entry_uuid": "5cc3bb6674e10e524b115bf075415297",
+          "scope": "current",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        },
+        {
+          "entry_uuid": "098f25524f5c86a9488abdc8a5b64c0c",
+          "scope": "current",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        },
+        {
+          "entry_uuid": "89e70329d1536a1ef722d28c2f58cf68",
+          "scope": "current",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        },
+        {
+          "entry_uuid": "847da829ffae651672d8d576f58ee434",
+          "scope": "current",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        },
+        {
+          "entry_uuid": "939b18ee7f02fa5edbb005e4e31fb424",
+          "scope": "current",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        },
+        {
+          "entry_uuid": "3e1a7c8c2b8d9f603595afbdc53fa891",
+          "scope": "current",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        },
+        {
+          "entry_uuid": "bab11ec6a451dd2d07aa57db4bd4aa99",
+          "scope": "current",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        }
+      ],
+      "lossless_roundtrip": false,
+      "helper_counts": {
+        "ok": true,
+        "version": "4.1",
+        "entries": 39,
+        "groups": 9,
+        "attachments": 6,
+        "history_before": 4,
+        "history_after": 5,
+        "bytes": 39267
+      },
+      "helper_resources": {
+        "wall_seconds": 7.53,
+        "max_rss_bytes": 51642368
+      },
+      "keepassxc_export": {
+        "current_entries": 39,
+        "history_entries": 5,
+        "empty_standard_protection_changes": 35,
+        "attachment_pool_cross_checked": false
+      },
+      "keepassxc_reedit": {
+        "version": "4.1",
+        "history_entries": 6,
+        "reference_client_changes": [
+          "added KeePassFile/Meta/CustomData/Item=KPXC_RANDOM_SLUG/LastModificationTime",
+          "added KeePassFile/Meta/CustomData/Item=keex.fixture/LastModificationTime",
+          "changed/value KeePassFile/Meta/CustomData/Item=KPXC_RANDOM_SLUG/Value",
+          "changed/value KeePassFile/Meta/CustomData/Item=_LAST_MODIFIED/Value",
+          "changed/value KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046/Group=619866709f661f4847cc86d411ca5bf1/CustomData/Item=_LAST_MODIFIED/Value",
+          "changed/value KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046/Group=619866709f661f4847cc86d411ca5bf1/Entry=8965805d6caa1155bdc9ed01dcb11d04/CustomData/Item=_LAST_MODIFIED/Value",
+          "order KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046"
+        ]
+      }
+    },
+    {
+      "id": "DK40-UPSTREAM-ARGON2D-CHACHA20",
+      "file": "dk40-upstream-argon2d-chacha20.kdbx",
+      "source_file": "upstream_kdbxweb/Argon2ChaCha.kdbx",
+      "source_writer": "kdbxweb public fixture (writer unknown)",
+      "password": "demo",
+      "keyfile": "upstream_kdbxweb/demo.key",
+      "entry_uuid": "1f3605b271829042b2acfb4e6ba6cd30",
+      "entry_path": "Sample Entry",
+      "new_username": "synthetic-dk40-upstream-argon2d-chacha20",
+      "source_sha256": "74dd5274c320a969443684312b57b9172ffefb26d89a5b46f6b92a9e1d851484",
+      "sha256": "09931c2a2572bfd0c79f435f1c97baf3f6394c3e56d6544a9cedba6d3d20e28d",
+      "bytes": 3865,
+      "version": "4.0",
+      "cipher": "chacha20",
+      "kdf": {
+        "name": "argon2d",
+        "memory": 24576,
+        "iterations": 2,
+        "parallelism": 3
+      },
+      "inner_stream": "chacha20",
+      "kdf_salt_rotated": true,
+      "source_summary": {
+        "format": "4.0",
+        "cipher": "chacha20",
+        "kdf": {
+          "name": "argon2d",
+          "memory": 24576,
+          "iterations": 2,
+          "parallelism": 3
+        },
+        "compressed": true,
+        "inner_stream": "chacha20",
+        "header_hash": "not-applicable",
+        "generator": "KeePass",
+        "groups": 8,
+        "entries": 4,
+        "history_entries": 2,
+        "entries_with_history": 2,
+        "recycle_bin": {
+          "enabled": true,
+          "group_present": true,
+          "entries": 1
+        },
+        "deleted_objects": 1,
+        "custom_icons": 1,
+        "entries_with_tags": 2,
+        "attachments": {
+          "references": 2,
+          "names": [
+            "attachment"
+          ],
+          "pool_items": 1,
+          "pool_bytes": 15,
+          "pool_protected": 0,
+          "current_references": 1,
+          "history_references": 1
+        },
+        "otp_fields": [],
+        "passkey_fields": [],
+        "keeagent_settings": 0,
+        "meta_custom_data_keys": [],
+        "unknown_elements": [],
+        "custom_fields_count": 2,
+        "custom_fields_sha256": "55a375b2f1fa7478d785a3ac51db81db9e330aea3949b9f852d0ef2759a7a469",
+        "protected_custom_fields_count": 1,
+        "protected_custom_fields_sha256": "78f71149cdc92f94b80ac328f96ec970cc094ac43ccb7aafdcb346281fa51928",
+        "type_counts": {
+          "legacy": 4
+        },
+        "relations": 0,
+        "rules": 0,
+        "events": 0,
+        "diagnostics": {
+          "legacy:": 4
+        }
+      },
+      "summary": {
+        "format": "4.0",
+        "cipher": "chacha20",
+        "kdf": {
+          "name": "argon2d",
+          "memory": 24576,
+          "iterations": 2,
+          "parallelism": 3
+        },
+        "compressed": true,
+        "inner_stream": "chacha20",
+        "header_hash": "not-applicable",
+        "generator": "KeePass",
+        "groups": 8,
+        "entries": 4,
+        "history_entries": 3,
+        "entries_with_history": 2,
+        "recycle_bin": {
+          "enabled": true,
+          "group_present": true,
+          "entries": 1
+        },
+        "deleted_objects": 1,
+        "custom_icons": 1,
+        "entries_with_tags": 2,
+        "attachments": {
+          "references": 2,
+          "names": [
+            "attachment"
+          ],
+          "pool_items": 1,
+          "pool_bytes": 15,
+          "pool_protected": 0,
+          "current_references": 1,
+          "history_references": 1
+        },
+        "otp_fields": [],
+        "passkey_fields": [],
+        "keeagent_settings": 0,
+        "meta_custom_data_keys": [],
+        "unknown_elements": [],
+        "custom_fields_count": 2,
+        "custom_fields_sha256": "55a375b2f1fa7478d785a3ac51db81db9e330aea3949b9f852d0ef2759a7a469",
+        "protected_custom_fields_count": 1,
+        "protected_custom_fields_sha256": "78f71149cdc92f94b80ac328f96ec970cc094ac43ccb7aafdcb346281fa51928",
+        "type_counts": {
+          "legacy": 4
+        },
+        "relations": 0,
+        "rules": 0,
+        "events": 0,
+        "diagnostics": {
+          "legacy:": 4
+        }
+      },
+      "raw_changes": [
+        "added KeePassFile/Root/Group=2d622f7bc335c54baface44275879180/Entry=1f3605b271829042b2acfb4e6ba6cd30/History/Entry#1",
+        "changed/value KeePassFile/Root/Group=2d622f7bc335c54baface44275879180/Entry=1f3605b271829042b2acfb4e6ba6cd30/String=UserName/Value",
+        "changed/value KeePassFile/Root/Group=2d622f7bc335c54baface44275879180/Entry=1f3605b271829042b2acfb4e6ba6cd30/Times/LastAccessTime",
+        "changed/value KeePassFile/Root/Group=2d622f7bc335c54baface44275879180/Entry=1f3605b271829042b2acfb4e6ba6cd30/Times/LastModificationTime",
+        "order KeePassFile/Root/Group=2d622f7bc335c54baface44275879180",
+        "order KeePassFile/Root/Group=2d622f7bc335c54baface44275879180/Group=7d9eeaf54e13054fb956899e5b705939"
+      ],
+      "other_changes": [
+        "order KeePassFile/Root/Group=2d622f7bc335c54baface44275879180",
+        "order KeePassFile/Root/Group=2d622f7bc335c54baface44275879180/Group=7d9eeaf54e13054fb956899e5b705939"
+      ],
+      "history_placement": "append",
+      "history_snapshot_changes": [],
+      "attachment_order_changes": [],
+      "empty_standard_protection_changes": [],
+      "lossless_roundtrip": false,
+      "helper_counts": {
+        "ok": true,
+        "version": "4.0",
+        "entries": 4,
+        "groups": 8,
+        "attachments": 1,
+        "history_before": 2,
+        "history_after": 3,
+        "bytes": 3865
+      },
+      "helper_resources": {
+        "wall_seconds": 0.217,
+        "max_rss_bytes": 20021248
+      },
+      "keepassxc_export": {
+        "current_entries": 4,
+        "history_entries": 3,
+        "empty_standard_protection_changes": 0,
+        "attachment_pool_cross_checked": false
+      },
+      "keepassxc_reedit": {
+        "version": "4.0",
+        "history_entries": 4,
+        "reference_client_changes": [
+          "added KeePassFile/Meta/CustomData",
+          "changed/attrs KeePassFile/Root/Group=2d622f7bc335c54baface44275879180/Group=19a3784763cad54eb77243950f34d8eb/Entry=bea7280af13dfe4e8f4a0bad288eac9f/Binary=attachment/Value",
+          "changed/attrs KeePassFile/Root/Group=2d622f7bc335c54baface44275879180/Group=19a3784763cad54eb77243950f34d8eb/Entry=bea7280af13dfe4e8f4a0bad288eac9f/History/Entry/Binary=attachment/Value",
+          "order KeePassFile/Root/Group=2d622f7bc335c54baface44275879180",
+          "order KeePassFile/Root/Group=2d622f7bc335c54baface44275879180/Group=7d9eeaf54e13054fb956899e5b705939"
+        ]
+      }
+    },
+    {
+      "id": "DK41-RS-VAULT-ARGON2D-CHACHA20",
+      "file": "dk41-rs-vault-argon2d-chacha20.kdbx",
+      "source_file": "rs41-vault-argon2d-chacha20.kdbx",
+      "source_writer": "keepass-rs 0.15.3 reference output",
+      "password": "keex-synthetic-V41-VAULT",
+      "keyfile": null,
+      "entry_uuid": "c21db8c8be768f14cae2ed1a9f6cb568",
+      "entry_path": "合成资料/合成服务账户",
+      "new_username": "synthetic-dk41-rs-vault-argon2d-chacha20",
+      "source_sha256": "350ed914d16dc4bdfce26c387d2d190d0dea38b117e1a6ce42a403c00c4bf2c5",
+      "sha256": "fc81eb64b3bf8c34034c31bfd6e27dedbf7f6484d1031c9ec0f1eb3b3de2ebb4",
+      "bytes": 36623,
+      "version": "4.1",
+      "cipher": "chacha20",
+      "kdf": {
+        "name": "argon2d",
+        "memory": 8388608,
+        "iterations": 2,
+        "parallelism": 1
+      },
+      "inner_stream": "chacha20",
+      "kdf_salt_rotated": true,
+      "source_summary": {
+        "format": "4.1",
+        "cipher": "chacha20",
+        "kdf": {
+          "name": "argon2d",
+          "memory": 8388608,
+          "iterations": 2,
+          "parallelism": 1
+        },
+        "compressed": true,
+        "inner_stream": "chacha20",
+        "header_hash": "not-applicable",
+        "generator": "keex-fixture-source",
+        "groups": 9,
+        "entries": 36,
+        "history_entries": 5,
+        "entries_with_history": 3,
+        "recycle_bin": {
+          "enabled": true,
+          "group_present": true,
+          "entries": 2
+        },
+        "deleted_objects": 2,
+        "custom_icons": 1,
+        "entries_with_tags": 3,
+        "attachments": {
+          "references": 9,
+          "names": [
+            "KeeAgent.settings",
+            "blob.bin",
+            "id_ed25519",
+            "notes.txt",
+            "shared.txt",
+            "合成凭据.txt"
+          ],
+          "pool_items": 6,
+          "pool_bytes": 3300,
+          "pool_protected": 6,
+          "current_references": 7,
+          "history_references": 2
+        },
+        "otp_fields": [
+          "TOTP Seed",
+          "TOTP Settings",
+          "TimeOtp-Algorithm",
+          "TimeOtp-Length",
+          "TimeOtp-Period",
+          "TimeOtp-Secret-Base32",
+          "otp"
+        ],
+        "passkey_fields": [
+          "KPEX_PASSKEY_CREDENTIAL_ID",
+          "KPEX_PASSKEY_FLAG_BE",
+          "KPEX_PASSKEY_FLAG_BS",
+          "KPEX_PASSKEY_GENERATED_USER_ID",
+          "KPEX_PASSKEY_PRIVATE_KEY_PEM",
+          "KPEX_PASSKEY_RELYING_PARTY",
+          "KPEX_PASSKEY_USERNAME",
+          "KPEX_PASSKEY_USER_HANDLE",
+          "KPXC_PASSKEY_USERNAME"
+        ],
+        "keeagent_settings": 1,
+        "meta_custom_data_keys": [
+          "KPXC_RANDOM_SLUG",
+          "_LAST_MODIFIED",
+          "keex.fixture"
+        ],
+        "unknown_elements": [],
+        "custom_fields_count": 92,
+        "custom_fields_sha256": "55a4f054b423af979b2da1d02f1d4af49fa36a8632b37c15716903823ca42b42",
+        "protected_custom_fields_count": 65,
+        "protected_custom_fields_sha256": "7dd6043bbb55773f94fc4c9dbab4685722b9ffc8efba2138137fbf379539eef5",
+        "type_counts": {
+          "document": 1,
+          "finance_account": 1,
+          "gift_card": 1,
+          "identity_document": 1,
+          "legacy": 12,
+          "login": 3,
+          "maintenance": 1,
+          "membership_card": 1,
+          "payment_card": 3,
+          "secure_note": 5,
+          "sim_profile": 3,
+          "subscription": 2,
+          "telecom_line": 1,
+          "telecom_plan": 1
+        },
+        "relations": 22,
+        "rules": 1,
+        "events": 2,
+        "diagnostics": {
+          "legacy:": 11,
+          "read_only:field_limit": 1,
+          "read_only:legacy_parent_conflict": 1,
+          "read_only:unknown_keex_field": 1,
+          "read_only:unknown_schema": 1,
+          "valid:": 20,
+          "valid:missing_target": 1
+        }
+      },
+      "summary": {
+        "format": "4.1",
+        "cipher": "chacha20",
+        "kdf": {
+          "name": "argon2d",
+          "memory": 8388608,
+          "iterations": 2,
+          "parallelism": 1
+        },
+        "compressed": true,
+        "inner_stream": "chacha20",
+        "header_hash": "not-applicable",
+        "generator": "keex-fixture-source",
+        "groups": 9,
+        "entries": 36,
+        "history_entries": 6,
+        "entries_with_history": 3,
+        "recycle_bin": {
+          "enabled": true,
+          "group_present": true,
+          "entries": 2
+        },
+        "deleted_objects": 2,
+        "custom_icons": 1,
+        "entries_with_tags": 3,
+        "attachments": {
+          "references": 9,
+          "names": [
+            "KeeAgent.settings",
+            "blob.bin",
+            "id_ed25519",
+            "notes.txt",
+            "shared.txt",
+            "合成凭据.txt"
+          ],
+          "pool_items": 6,
+          "pool_bytes": 3300,
+          "pool_protected": 6,
+          "current_references": 7,
+          "history_references": 2
+        },
+        "otp_fields": [
+          "TOTP Seed",
+          "TOTP Settings",
+          "TimeOtp-Algorithm",
+          "TimeOtp-Length",
+          "TimeOtp-Period",
+          "TimeOtp-Secret-Base32",
+          "otp"
+        ],
+        "passkey_fields": [
+          "KPEX_PASSKEY_CREDENTIAL_ID",
+          "KPEX_PASSKEY_FLAG_BE",
+          "KPEX_PASSKEY_FLAG_BS",
+          "KPEX_PASSKEY_GENERATED_USER_ID",
+          "KPEX_PASSKEY_PRIVATE_KEY_PEM",
+          "KPEX_PASSKEY_RELYING_PARTY",
+          "KPEX_PASSKEY_USERNAME",
+          "KPEX_PASSKEY_USER_HANDLE",
+          "KPXC_PASSKEY_USERNAME"
+        ],
+        "keeagent_settings": 1,
+        "meta_custom_data_keys": [
+          "KPXC_RANDOM_SLUG",
+          "_LAST_MODIFIED",
+          "keex.fixture"
+        ],
+        "unknown_elements": [],
+        "custom_fields_count": 92,
+        "custom_fields_sha256": "55a4f054b423af979b2da1d02f1d4af49fa36a8632b37c15716903823ca42b42",
+        "protected_custom_fields_count": 65,
+        "protected_custom_fields_sha256": "7dd6043bbb55773f94fc4c9dbab4685722b9ffc8efba2138137fbf379539eef5",
+        "type_counts": {
+          "document": 1,
+          "finance_account": 1,
+          "gift_card": 1,
+          "identity_document": 1,
+          "legacy": 12,
+          "login": 3,
+          "maintenance": 1,
+          "membership_card": 1,
+          "payment_card": 3,
+          "secure_note": 5,
+          "sim_profile": 3,
+          "subscription": 2,
+          "telecom_line": 1,
+          "telecom_plan": 1
+        },
+        "relations": 22,
+        "rules": 1,
+        "events": 2,
+        "diagnostics": {
+          "legacy:": 11,
+          "read_only:field_limit": 1,
+          "read_only:legacy_parent_conflict": 1,
+          "read_only:unknown_keex_field": 1,
+          "read_only:unknown_schema": 1,
+          "valid:": 20,
+          "valid:missing_target": 1
+        }
+      },
+      "raw_changes": [
+        "added KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046/Group=912008afa217d53b3a190c5e6d500909/Entry=c21db8c8be768f14cae2ed1a9f6cb568/History/Entry#2",
+        "changed/value KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046/Group=912008afa217d53b3a190c5e6d500909/Entry=c21db8c8be768f14cae2ed1a9f6cb568/String=UserName/Value",
+        "changed/value KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046/Group=912008afa217d53b3a190c5e6d500909/Entry=c21db8c8be768f14cae2ed1a9f6cb568/Times/LastAccessTime",
+        "changed/value KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046/Group=912008afa217d53b3a190c5e6d500909/Entry=c21db8c8be768f14cae2ed1a9f6cb568/Times/LastModificationTime",
+        "removed KeePassFile/Meta/CustomData/Item=KPXC_RANDOM_SLUG/LastModificationTime",
+        "removed KeePassFile/Meta/CustomData/Item=keex.fixture/LastModificationTime",
+        "removed KeePassFile/Meta/CustomIcons/Icon=e64d2ddb6063d2ca56280dce11b188c4/LastModificationTime",
+        "removed KeePassFile/Meta/CustomIcons/Icon=e64d2ddb6063d2ca56280dce11b188c4/Name"
+      ],
+      "other_changes": [
+        "removed KeePassFile/Meta/CustomData/Item=KPXC_RANDOM_SLUG/LastModificationTime",
+        "removed KeePassFile/Meta/CustomData/Item=keex.fixture/LastModificationTime",
+        "removed KeePassFile/Meta/CustomIcons/Icon=e64d2ddb6063d2ca56280dce11b188c4/LastModificationTime",
+        "removed KeePassFile/Meta/CustomIcons/Icon=e64d2ddb6063d2ca56280dce11b188c4/Name"
+      ],
+      "history_placement": "append",
+      "history_snapshot_changes": [],
+      "attachment_order_changes": [],
+      "empty_standard_protection_changes": [
+        {
+          "entry_uuid": "b60c874bddd62dee9d25213b32821b07",
+          "scope": "current",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        },
+        {
+          "entry_uuid": "45a58f6b5f168dbdbd0bbd394c93fab7",
+          "scope": "current",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        },
+        {
+          "entry_uuid": "c06f0715a6437c8db6dd1ae48160fd2c",
+          "scope": "current",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        },
+        {
+          "entry_uuid": "24f9ecc5363c11bf73da2b5b89f59aa6",
+          "scope": "current",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        },
+        {
+          "entry_uuid": "64f57988c982f6e4c805e9c428edbb74",
+          "scope": "current",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        },
+        {
+          "entry_uuid": "57ca0acb13a304ddeffaa1e9827da3c7",
+          "scope": "current",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        },
+        {
+          "entry_uuid": "5304a955887e682676d4a53259a477b5",
+          "scope": "current",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        },
+        {
+          "entry_uuid": "6e199a0d941d6227727247951a56d4e1",
+          "scope": "current",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        },
+        {
+          "entry_uuid": "3236cc383145c49b453c5cd6899f2e0a",
+          "scope": "current",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        },
+        {
+          "entry_uuid": "f1f772a182c075d25c6e3700202dd9ed",
+          "scope": "current",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        },
+        {
+          "entry_uuid": "f1f772a182c075d25c6e3700202dd9ed",
+          "scope": "history/0",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        },
+        {
+          "entry_uuid": "80dc0ef64f1b20c7738e2d1f3525dbd7",
+          "scope": "current",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        },
+        {
+          "entry_uuid": "4c5dbd689727b3b3dcf7f1274e0ce090",
+          "scope": "current",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        },
+        {
+          "entry_uuid": "1bb14da312a9d8c68ff47ddfd71ff373",
+          "scope": "current",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        },
+        {
+          "entry_uuid": "919ec46eaf650f7faf9b1be903be52d7",
+          "scope": "current",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        },
+        {
+          "entry_uuid": "ad4bf94d8aa17368f4a75f9375a35591",
+          "scope": "current",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        },
+        {
+          "entry_uuid": "289e2a1f0d4f7d0503a93b4ec9879053",
+          "scope": "current",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        },
+        {
+          "entry_uuid": "b049c0d964a457e01bbba48fdf673e9b",
+          "scope": "current",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        },
+        {
+          "entry_uuid": "8a070f2c0b00ac2c54b471bae3b32fdd",
+          "scope": "current",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        },
+        {
+          "entry_uuid": "c77954d729e62c0ae8cf3b581344a267",
+          "scope": "current",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        },
+        {
+          "entry_uuid": "ec6a8e49f27660d0a4848add1fba5a8b",
+          "scope": "current",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        },
+        {
+          "entry_uuid": "4f16934a4d37ebc24da4bae205b3d543",
+          "scope": "current",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        },
+        {
+          "entry_uuid": "70829203d9a1e1aa20bf6c77b081b3b3",
+          "scope": "current",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        },
+        {
+          "entry_uuid": "1972a2f77061b0a9db1b7f993bc69a6f",
+          "scope": "current",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        },
+        {
+          "entry_uuid": "5cc3bb6674e10e524b115bf075415297",
+          "scope": "current",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        },
+        {
+          "entry_uuid": "098f25524f5c86a9488abdc8a5b64c0c",
+          "scope": "current",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        },
+        {
+          "entry_uuid": "89e70329d1536a1ef722d28c2f58cf68",
+          "scope": "current",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        },
+        {
+          "entry_uuid": "847da829ffae651672d8d576f58ee434",
+          "scope": "current",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        },
+        {
+          "entry_uuid": "939b18ee7f02fa5edbb005e4e31fb424",
+          "scope": "current",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        },
+        {
+          "entry_uuid": "3e1a7c8c2b8d9f603595afbdc53fa891",
+          "scope": "current",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        },
+        {
+          "entry_uuid": "bab11ec6a451dd2d07aa57db4bd4aa99",
+          "scope": "current",
+          "field": "Password",
+          "protected": [
+            true,
+            false
+          ]
+        }
+      ],
+      "lossless_roundtrip": false,
+      "helper_counts": {
+        "ok": true,
+        "version": "4.1",
+        "entries": 36,
+        "groups": 9,
+        "attachments": 6,
+        "history_before": 5,
+        "history_after": 6,
+        "bytes": 36623
+      },
+      "helper_resources": {
+        "wall_seconds": 4.521,
+        "max_rss_bytes": 43253760
+      },
+      "keepassxc_export": {
+        "current_entries": 36,
+        "history_entries": 6,
+        "empty_standard_protection_changes": 31,
+        "attachment_pool_cross_checked": false
+      },
+      "keepassxc_reedit": {
+        "version": "4.1",
+        "history_entries": 7,
+        "reference_client_changes": [
+          "added KeePassFile/Meta/CustomData/Item=KPXC_RANDOM_SLUG/LastModificationTime",
+          "added KeePassFile/Meta/CustomData/Item=keex.fixture/LastModificationTime",
+          "added KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046/Group=619866709f661f4847cc86d411ca5bf1/Entry=8965805d6caa1155bdc9ed01dcb11d04/IconID",
+          "added KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046/Group=619866709f661f4847cc86d411ca5bf1/IconID",
+          "changed/value KeePassFile/Meta/CustomData/Item=KPXC_RANDOM_SLUG/Value",
+          "changed/value KeePassFile/Meta/CustomData/Item=_LAST_MODIFIED/Value",
+          "changed/value KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046/Group=619866709f661f4847cc86d411ca5bf1/CustomData/Item=_LAST_MODIFIED/Value",
+          "changed/value KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046/Group=619866709f661f4847cc86d411ca5bf1/Entry=8965805d6caa1155bdc9ed01dcb11d04/CustomData/Item=_LAST_MODIFIED/Value",
+          "order KeePassFile/Root/Group=6f542f7e7f8288660938b7000a25e046"
+        ]
+      }
+    }
+  ],
+  "unsupported": [
+    {
+      "id": "DK-UNSUPPORTED-ARGON2ID-4.0",
+      "source_file": "upstream_kdbxweb/Argon2id.kdbx",
+      "password": "demo",
+      "keyfile": "upstream_kdbxweb/demo.key",
+      "entry_uuid": "1f3605b271829042b2acfb4e6ba6cd30",
+      "expected_error": "database_open_failed",
+      "cause": "key_encrypter_kdf.dart 只登记 Argon2d 与 AES-KDF 的 KDF UUID；Argon2id 抛 Invalid KDF UUID",
+      "source_sha256": "4a345f2478766541bd1f32b69a529aa33be7b3809d9e9f513ebcd01c75aad501",
+      "observed_error": "database_open_failed"
+    },
+    {
+      "id": "DK-UNSUPPORTED-ARGON2ID-4.1",
+      "source_file": "rs41-vault-argon2id-aes.kdbx",
+      "password": "keex-synthetic-V41-VAULT",
+      "keyfile": null,
+      "entry_uuid": "c21db8c8be768f14cae2ed1a9f6cb568",
+      "expected_error": "database_open_failed",
+      "cause": "同上；KDBX 4.1 + Argon2id 同样无法打开",
+      "source_sha256": "cd3d0166bde320842cad3c91294f8d281d64e690dc75f4881d311aaaead9fe2c",
+      "observed_error": "database_open_failed"
+    },
+    {
+      "id": "DK-UNSUPPORTED-KDBX31-CHACHA20",
+      "source_file": "upstream_kdbxweb/AesChaCha.kdbx",
+      "password": "demo",
+      "keyfile": "upstream_kdbxweb/demo.key",
+      "entry_uuid": "1f3605b271829042b2acfb4e6ba6cd30",
+      "expected_error": "database_open_failed",
+      "cause": "_loadV3 固定用 AES-CBC 解密；3.1 外层 ChaCha20 的 12 字节 IV 被 pointycastle 拒绝",
+      "source_sha256": "180d1620659fce95300b3c1630cd05b6b09cc1f5035b3bbe711b9387921b3ac0",
+      "observed_error": "database_open_failed"
+    }
+  ]
+}

@@ -38,6 +38,8 @@ UI与基础功能的验收增量采用 [Bitwarden移动体验参考](design/BITW
 
 2026-10-19：K002 本地秘密与合成样本扫描及仓库级 pre-commit 接入已交付；89 项工具测试通过，本仓库 hook 已显式安装。完整暂存区、部分提交、启用/撤销及限制见[扫描说明](../tests/secret_scan/README.md)，基础扫描见 [K002_SECRETS](evidence/K002_SECRETS.md)，真实提交验收见 [K002_HOOKS](evidence/K002_HOOKS.md)。下述早期计划中的本地秘密扫描缺口由此交付覆盖；CI、其他 Git 生成提交路径、人工复核、候选无损和真实数据门槛仍需分别完成。
 
+2026-10-22：K003 双候选预实验已启动（DOING），keepass-rs 0.15.3 与 kdbx.dart 2.5.0 同样本读改写都未达无损，写入闸门关闭；kdbx.dart 为 GPL-3.0 且不支持 Argon2id，keepass-rs 只能保存 4.1，K009 需先定发行许可证与旧库升级策略，见 [K003](evidence/K003.md)。K002/K069 剩余的官方 KeePass/KeeAgent/手机参考客户端样本缺 Mono/Windows 与真机，记为资源阻塞。
+
 第一批：K001/K068 的人工独立复核仍待完成。K002 已验证 Argon2d/id、外层 ChaCha20 公开原件与派生前参数边界；K069 已有三格式领域库、同 RP 多 Passkey 和 1k/10k 矩阵，另用固定 keepass 0.15.3 完成 12 组 4.1 参考保存，仍有明确语义差异。继续补未覆盖参数、官方 KeePass/KeeAgent/移动参考客户端、其余 4.x 参数/资源组合和秘密扫描；完成相应门槛后进入 K003 双候选无损比较。4.x 不压缩、认证负载与读取器修复已补 278 案，见 [K002_RESOURCES](evidence/K002_RESOURCES.md)。资源记录见 [K069_MATRIX](evidence/K069_MATRIX.md)，当前库接入与限制见 [K002_LIBRARIES](evidence/K002_LIBRARIES.md)。K007/K008 原生 provider 实验仍前置。
 
 Web 同期先做 K071 文件/密文缓存与多标签、K072 浏览器双云授权/CORS/最终条件提交；K070 在候选对照后验证真实浏览器 KDF/writer。不要等移动 UI 全部完成才发现浏览器基础不可行，也不要因某浏览器受限而降低移动端安全要求。各任务以 TASKS 的依赖和资源授权为准。

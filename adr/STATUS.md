@@ -1,6 +1,19 @@
 # 项目状态
 
-## 2026-10-19 当前增量：本仓库提交前扫描接入
+## 2026-10-22 当前增量：K003 双候选预实验与计划事实修正
+
+K003 进入 DOING。K002/K069 剩余项（官方 KeePass、KeeAgent、手机参考客户端）需要 Mono/Windows 或 Android/iOS 设备，本机都没有，属资源阻塞；所以先做不依赖其结论的 K003 预实验。结论：**keepass-rs 0.15.3 与 kdbx.dart 2.5.0 都没达到无损**，写入闸门保持关闭。详见 [K003 证据](evidence/K003.md)。
+
+- **kdbx.dart**：新增固定 2.5.0 的 Dart helper、生成器和 8 份合成输出。版本/算法保持、KDF 盐轮换、KeePassXC 可重开并再编辑；但丢空标准字段的保护标记、丢 4.1 的 Meta 元数据，不支持 Argon2id 和 3.1 外层 ChaCha20，GPL-3.0，同输入读+存 7.9–11.2 秒（keepass-rs 0.14–0.23 秒）。
+- **keepass-rs**：源码确认只能保存 KDBX 4.1；本轮补上 12 份参考输出的 KeePassXC 再编辑，全部成功。
+- **计划事实修正**：候选库许可/写入范围（ADR-0001、RESEARCH S03/S04）；子代理逐条查一手来源、主会话复核后修正 KeePassXC Passkey 别名与 BE/BS 默认值、iOS Passkey 索引必填字段、Android 指纹失效前提与 KeyInfo API、无障碍敏感 AUTO 规则、悬浮窗隐藏范围、OneDrive 带 If-Match 的最终提交路径、passkey-rs 只支持 ES256、Android Credential Transfer 现状（ADR-0002/0003/0004/0007、THREAT_MODEL、CAPABILITIES、M07）。
+- **验证**：新增 18 项回归；全量入口 149 项 oracle + 93 项领域，共 242 项通过（其中 241 项一次全跑约 5 分钟，后加的 keepass-rs 再编辑项单独复跑通过）。两个生成器无操作核对通过，未重写产物。
+
+依赖 kdbx 2.5.0 及 38 个传递依赖装在 `tests/dart_candidate/.pub-cache/`，未改全局环境。K001/K002/K068 仍 REVIEW、K069 仍 DOING；没有人工独立复核，没有真实数据。
+
+Git：平台与协议事实修正单独提交为 `eac03f6`（只含本轮改动，门禁 0 命中）。K003 依赖此前一直未提交的 K002/K068/K069 改动，按用户决定先把那批改动原样提交为基线 `95d5b4c`：116 个文件，内容不改，原有登记已覆盖、门禁 0 命中，导出该 index 的快照上 224 项回归全部通过。基线里有 14 个文件末尾多一行空行，`upstream_kdbxweb/demo.key` 是上游原件的 CRLF 换行（哈希已登记），均保持原样；该提交说明误写成“16 个文件”，以此处为准。K003 随后单独提交，新增 8 份样本和 4 个文本文件的门禁登记（policy 现为 103 份文件、35 个文本例外版本）。
+
+## 2026-10-19 上一增量：本仓库提交前扫描接入
 
 K002 的 pre-commit 实现已独立提交为 `493376d`，本仓库已显式安装；普通 `git commit` 会扫描本次完整 index，支持 `--only`、`-a` 和备用 index。安装/撤销保留既有配置与其他 hooks，遇到冲突拒绝覆盖。89 项扫描工具回归通过，其中 35 项新增 hook 用例包含真实 Git 提交；三类安装缺陷先复现再修复。详见 [K002_HOOKS](evidence/K002_HOOKS.md) 和[使用说明](../tests/secret_scan/README.md)。
 

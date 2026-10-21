@@ -21,6 +21,7 @@ PV03 — **kdbx.dart 上游**
 - 来源：https://github.com/authpass/kdbx.dart
 - 这是 Dart 的 KDBX 实现，适合作为现有 K003 对照候选；“纯 Dart”不能代替浏览器、保护字段、附件、历史的实际验证。
 - 不在本次确定版本、许可证兼容性或跨端写入结论。
+- 2026-10-22 补充（K003 源码与实测）：2.5.0 为 GPL-3.0；不支持 Argon2id，所以浏览器里走 Dart 路线也打不开 Argon2id 库；默认纯 Dart Argon2，本机 AES-KDF 100 万轮读+存需 8–11 秒。见 [K003 证据](../evidence/K003.md)。
 
 PV04 — **Flutter 官方 Web 说明与 FAQ**
 

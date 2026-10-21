@@ -8,8 +8,8 @@
 | --- | --- | --- |
 | S01 | https://keepass.info/help/kb/kdbx.html | 最新 KDBX 4.1；内外层结构、KDF、AES-CBC/ChaCha20、HMAC、扩展字段、保护流。不能用 AES-GCM 替代仍称兼容 KDBX |
 | S02 | https://docs.flutter.dev/reference/supported-platforms | Flutter 五端界面可行；不说明每项系统 API 全端同等可用 |
-| S03 | https://docs.rs/keepass/latest/keepass/ | Rust 候选 keepass-rs；核对页面显示 0.13.17、4.1 写入仍标为 experimental。必须先做无损写入门槛 |
-| S04 | https://pub.dev/packages/kdbx 和 https://github.com/authpass/kdbx.dart | Dart 对照实现；页面宣称 3.x/4.x，不等于所有 4.1/第三方字段无损；不可凭平台标签替代真机测试 |
+| S03 | https://docs.rs/keepass/latest/keepass/ | Rust 候选 keepass-rs，MIT；4.1 写入仍标 experimental。2026-10-22 更正：原记“0.13.17”已过时，K002/K003 实测固定 0.15.3；其保存只接受 KDBX 4.1（3.x/4.0 返回 UnsupportedVersion）。必须先做无损写入门槛 |
+| S04 | https://pub.dev/packages/kdbx 和 https://github.com/authpass/kdbx.dart | Dart 对照实现；页面宣称 3.x/4.x，不等于所有 4.1/第三方字段无损。2026-10-22 补充：2.5.0（约 2026-08 发布）为 **GPL-3.0**；KDF 只认 Argon2d 与 AES-KDF，**不支持 Argon2id**，3.x 只认外层 AES；默认用 pointycastle 纯 Dart Argon2（README 所说“需 argon2 ffi”已不准确）；2.5.0 前保存不轮换 KDF 盐。实测见 [K003](evidence/K003.md) |
 | S05 | https://github.com/dlech/KeeAgent 和 https://keeagent.readthedocs.io/en/latest/ | KeePass 插件与自有/外部代理模式；参考配置和 SSH 行为，不直接加载 .NET 插件 |
 | S06 | https://developer.android.com/identity/sign-in/credential-provider | Android 14+ 密码管理器 provider API；与“使用其他管理器的 passkey 登录”的客户端 API 区分 |
 | S07 | https://developer.apple.com/documentation/authenticationservices/ascredentialproviderviewcontroller/ | Apple 凭据扩展、密码/Passkey/OTP API 与 entitlement；按 API availability 和真机预算验收 |

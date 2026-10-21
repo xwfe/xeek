@@ -11,7 +11,7 @@ python3 -B tests/run_python_tests.py --suite oracle
 python3 -B tests/run_python_tests.py --suite domain
 ~~~
 
-当前 oracle 入口 131 项，领域 93 项，共 224 项。缺少 Argon2 后端时入口直接报错；缺少 keepassxc-cli 或已构建的 Rust helper 时，相应交叉读/live 测试明确跳过，不算完整验收。本轮分项测试没有跳过。
+当前 oracle 入口 149 项，领域 93 项，共 242 项。缺少 Argon2 后端时入口直接报错；缺少 keepassxc-cli 或已构建的 Rust helper 时，相应交叉读/live 测试明确跳过，不算完整验收。本轮分项测试没有跳过。
 
 本机使用项目内 --target 安装，复用现有 cryptography/cffi/pycparser，不改全局包。macOS arm64 固定 wheel 锁的复现命令：
 
@@ -87,3 +87,4 @@ AGENTS.md 要求登记版本、许可证、维护情况和替换边界。以下�
 | [argon2-cffi](https://pypi.org/project/argon2-cffi/25.1.0/) | MIT | 25.1.0 | 官方固定发布版；本轮按用户授权装在项目测试目录 | 仅 reader.py 的 Type.D / 显式版本 raw KDF 适配 |
 | [argon2-cffi-bindings](https://pypi.org/project/argon2-cffi-bindings/26.1.0/) | MIT，捆绑实现许可证随 wheel 保留 | 26.1.0 | 官方 2026-08-20 发布；macOS arm64 wheel SHA-256 固定 | 复用 cffi 2.0.0 / pycparser 3.0，不安装 C 工具链 |
 | [keepass 参考 helper](../reference_writer/README.md) | MIT | =0.15.3 + Cargo.lock | 固定源码与实际构建已验证；上游保存仍标实验性且仅写 4.1 | 独立合成参考进程，不影响 oracle 只读职责，不代表生产选型 |
+| [kdbx.dart 候选 helper](../dart_candidate/README.md) | **GPL-3.0** | kdbx 2.5.0 + pubspec.lock（38 个传递依赖） | 2.5.0 约 2026-08 发布；依赖装在项目内 `.pub-cache/` | 独立 K003 候选进程，不链接进 oracle 或产品；实测见 [K003](../../adr/evidence/K003.md) |

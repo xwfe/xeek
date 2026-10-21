@@ -570,6 +570,54 @@
       "path": "tests/fixtures/kdbx/v41-vault.kdbx",
       "reason": "既有公开合成样本；来源及凭据登记见 tests/fixtures/kdbx/vault_manifest.json；本轮只核对固定字节，不解密。",
       "sha256": "1026ac34982fda2a88632fcfff66851dc6c32b9623d6be42c365ab1f46d27e82"
+    },
+    {
+      "kind": "synthetic-kdbx",
+      "path": "tests/fixtures/kdbx/dk31-passkey.kdbx",
+      "reason": "K003 kdbx.dart 2.5.0 候选的公开合成输出；输入、公开合成密码及哈希见 tests/fixtures/kdbx/dart_writer_manifest.json；本轮只核对固定字节，不解密。",
+      "sha256": "88b118824014fe4f440faab92feb99b1c5846eeeaac9e1abed1abb254d08d8a0"
+    },
+    {
+      "kind": "synthetic-kdbx",
+      "path": "tests/fixtures/kdbx/dk31-vault.kdbx",
+      "reason": "K003 kdbx.dart 2.5.0 候选的公开合成输出；输入、公开合成密码及哈希见 tests/fixtures/kdbx/dart_writer_manifest.json；本轮只核对固定字节，不解密。",
+      "sha256": "c98f642abba3741eeaae8e2c2dd0cc6473305275ca2d88262df9f315f8a4b88f"
+    },
+    {
+      "kind": "synthetic-kdbx",
+      "path": "tests/fixtures/kdbx/dk40-passkey.kdbx",
+      "reason": "K003 kdbx.dart 2.5.0 候选的公开合成输出；输入、公开合成密码及哈希见 tests/fixtures/kdbx/dart_writer_manifest.json；本轮只核对固定字节，不解密。",
+      "sha256": "3e2202862bd6b09d2be7a8e638b159caf4fefd63c64ed818461e9e9e9a782f07"
+    },
+    {
+      "kind": "synthetic-kdbx",
+      "path": "tests/fixtures/kdbx/dk40-upstream-argon2d-chacha20.kdbx",
+      "reason": "K003 kdbx.dart 2.5.0 候选的公开合成输出；输入、公开合成密码及哈希见 tests/fixtures/kdbx/dart_writer_manifest.json；本轮只核对固定字节，不解密。",
+      "sha256": "09931c2a2572bfd0c79f435f1c97baf3f6394c3e56d6544a9cedba6d3d20e28d"
+    },
+    {
+      "kind": "synthetic-kdbx",
+      "path": "tests/fixtures/kdbx/dk40-vault.kdbx",
+      "reason": "K003 kdbx.dart 2.5.0 候选的公开合成输出；输入、公开合成密码及哈希见 tests/fixtures/kdbx/dart_writer_manifest.json；本轮只核对固定字节，不解密。",
+      "sha256": "78f9f8b20993d52c6cab926512cfbf31381a6eb145ab4c1176c75f5c572e7889"
+    },
+    {
+      "kind": "synthetic-kdbx",
+      "path": "tests/fixtures/kdbx/dk41-passkey.kdbx",
+      "reason": "K003 kdbx.dart 2.5.0 候选的公开合成输出；输入、公开合成密码及哈希见 tests/fixtures/kdbx/dart_writer_manifest.json；本轮只核对固定字节，不解密。",
+      "sha256": "03134203d0503c88813f3552e77b549b552da206f2eae2613d1a3c8d47077edf"
+    },
+    {
+      "kind": "synthetic-kdbx",
+      "path": "tests/fixtures/kdbx/dk41-rs-vault-argon2d-chacha20.kdbx",
+      "reason": "K003 kdbx.dart 2.5.0 候选的公开合成输出；输入、公开合成密码及哈希见 tests/fixtures/kdbx/dart_writer_manifest.json；本轮只核对固定字节，不解密。",
+      "sha256": "fc81eb64b3bf8c34034c31bfd6e27dedbf7f6484d1031c9ec0f1eb3b3de2ebb4"
+    },
+    {
+      "kind": "synthetic-kdbx",
+      "path": "tests/fixtures/kdbx/dk41-vault.kdbx",
+      "reason": "K003 kdbx.dart 2.5.0 候选的公开合成输出；输入、公开合成密码及哈希见 tests/fixtures/kdbx/dart_writer_manifest.json；本轮只核对固定字节，不解密。",
+      "sha256": "552276ccd578b5dc19d5b010d80dfa0976b4fd22c7d91f8547707016a81134de"
     }
   ],
   "text_exceptions": [
@@ -834,6 +882,41 @@
         "HexHighEntropyString"
       ],
       "reason": "固定源码/清单追溯测试中的十六进制摘要。"
+    },
+    {
+      "path": "tests/dart_candidate/generate.py",
+      "sha256": "aca0047933c3540145a6a6b6dac0235105fca76b52b791e61343c5aeae430860",
+      "rules": [
+        "HexHighEntropyString",
+        "KeywordDetector"
+      ],
+      "reason": "固定 kdbx 归档摘要、上游原件条目 UUID 与公开合成密码（keex-synthetic-*、demo）。"
+    },
+    {
+      "path": "tests/dart_candidate/pubspec.lock",
+      "sha256": "6647a146217201dd1811366d79e9a90bdca1e384232b8180d13a2aa462fb6a68",
+      "rules": [
+        "HexHighEntropyString"
+      ],
+      "reason": "pub 依赖校验和；只对这份完整锁文件摘要放行熵规则。"
+    },
+    {
+      "path": "tests/fixtures/kdbx/dart_writer_manifest.json",
+      "sha256": "5be1ddd5fc69d974dd201375f1072a2f8193f17f7febf4b2bb7bbe11ebb466d1",
+      "rules": [
+        "HexHighEntropyString",
+        "KeywordDetector"
+      ],
+      "reason": "K003 候选输出的来源/产物摘要与公开合成密码；不是无损写入批准。"
+    },
+    {
+      "path": "tests/kdbx_oracle/tests/test_dart_candidate.py",
+      "sha256": "ff93e85048f426c9616ef5301a461c86cd500660da2b643f6a50c235e3a3924f",
+      "rules": [
+        "Base64HighEntropyString",
+        "KeywordDetector"
+      ],
+      "reason": "分组 UUID 路径与故意写错的公开测试密码。"
     }
   ]
 }

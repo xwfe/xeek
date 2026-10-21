@@ -13,6 +13,8 @@ __pycache__/
 /tests/kdbx_oracle/.venv/
 /tests/kdbx_oracle/.venv-argon2/
 /tests/kdbx_oracle/.deps-argon2/
+# K003 kdbx.dart 候选的项目内 pub 缓存；pubspec.lock 提交。
+/tests/dart_candidate/.pub-cache/
 .dart_tool/
 .flutter-plugins
 .flutter-plugins-dependencies
@@ -107,3 +109,13 @@ android/key.properties
 !/tests/fixtures/kdbx/v40-rich-chacha20-uncompressed.kdbx
 !/tests/fixtures/kdbx/v41-rich-aes-uncompressed.kdbx
 !/tests/fixtures/kdbx/v41-rich-chacha20-uncompressed.kdbx
+
+# K003：固定 kdbx.dart 2.5.0 的 8 份公开合成候选输出，哈希见 dart_writer_manifest。
+!/tests/fixtures/kdbx/dk31-vault.kdbx
+!/tests/fixtures/kdbx/dk31-passkey.kdbx
+!/tests/fixtures/kdbx/dk40-vault.kdbx
+!/tests/fixtures/kdbx/dk40-passkey.kdbx
+!/tests/fixtures/kdbx/dk41-vault.kdbx
+!/tests/fixtures/kdbx/dk41-passkey.kdbx
+!/tests/fixtures/kdbx/dk40-upstream-argon2d-chacha20.kdbx
+!/tests/fixtures/kdbx/dk41-rs-vault-argon2d-chacha20.kdbx

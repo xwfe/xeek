@@ -1,6 +1,6 @@
 # 任务拆解
 
-更新：2026-10-19。**K001 为 REVIEW**（含本轮资料/Web 独立模型增量审查，仍待人工独立复核，见 [evidence/K001.md](evidence/K001.md)）；**K002 为 REVIEW**（比较器漏检修正；已补 Argon2d/id、外层 ChaCha20 原件读取与派生前参数检查、4.x 不压缩/认证负载 278 案及错误处理修复；固定库参考实验仍有语义差异，剩余参数/来源及人工复核保留，见 [evidence/K002.md](evidence/K002.md)）；**K068 为 REVIEW**（可执行字段契约和反例，见 [evidence/K068.md](evidence/K068.md)）；**K069 为 DOING**（首批九份领域库、17份多 Passkey/1k/10k 样本及12份固定 Rust 参考输出已核对；尚未判定无损，剩余多客户端/参数/设备资源覆盖待补齐，见 [evidence/K069.md](evidence/K069.md)）。**K003–K067、K070–K089 为 TODO，未开始生产实现。** 本轮仅推进不依赖门槛通过的合成准备，不把 REVIEW 依赖视为 DONE。K068–K089 为个人资料/Web 增量，详见 [专项计划](PERSONAL_VAULT_PLAN.md)。表中 P0/P1/P2 为紧急度，S/M/L 为相对规模，均不是阶段编号或人日承诺。
+更新：2026-10-22。**K001 为 REVIEW**（含本轮资料/Web 独立模型增量审查，仍待人工独立复核，见 [evidence/K001.md](evidence/K001.md)）；**K002 为 REVIEW**（比较器漏检修正；已补 Argon2d/id、外层 ChaCha20 原件读取与派生前参数检查、4.x 不压缩/认证负载 278 案及错误处理修复；固定库参考实验仍有语义差异，剩余参数/来源及人工复核保留，见 [evidence/K002.md](evidence/K002.md)）；**K068 为 REVIEW**（可执行字段契约和反例，见 [evidence/K068.md](evidence/K068.md)）；**K069 为 DOING**（首批九份领域库、17份多 Passkey/1k/10k 样本及12份固定 Rust 参考输出已核对；尚未判定无损，剩余多客户端/参数/设备资源覆盖待补齐，见 [evidence/K069.md](evidence/K069.md)）；**K003 为 DOING**（依赖未 DONE 下的合成预实验：keepass-rs 与 kdbx.dart 同样本读改写均未达无损，写入闸门关闭，见 [evidence/K003.md](evidence/K003.md)）。**K004–K067、K070–K089 为 TODO，未开始生产实现。** 本轮仅推进不依赖门槛通过的合成准备，不把 REVIEW 依赖视为 DONE。K068–K089 为个人资料/Web 增量，详见 [专项计划](PERSONAL_VAULT_PLAN.md)。表中 P0/P1/P2 为紧急度，S/M/L 为相对规模，均不是阶段编号或人日承诺。
 
 优先级栏写“桌面”的任务属于未来的 Rust 桌面应用（[ADR-0005](0005-mobile-first-scope.md)）：编号和内容保留作资料，不在当前移动端关键链上，现在不要领取。
 

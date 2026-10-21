@@ -1,0 +1,10 @@
+name: keex_dart_candidate
+description: K003 对照候选 kdbx.dart 的合成样本读改写 helper；只用于测试，不进 keex 产品。
+publish_to: none
+
+environment:
+  sdk: '>=3.9.0 <4.0.0'
+
+dependencies:
+  # 精确版本：2.5.0 才修复 kdbx4 保存时不轮换 KDF salt 的缺陷（见上游 CHANGELOG）。
+  kdbx: 2.5.0
