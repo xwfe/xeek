@@ -1,6 +1,6 @@
 # 架构与实施资料
 
-更新：2026-10-18。
+更新：2026-10-25。
 
 | 文件 | 用途 |
 | --- | --- |
@@ -15,19 +15,38 @@
 | [K068_FIELD_CONTRACT.md](K068_FIELD_CONTRACT.md) | v1 字段编码、保护、业务原子组、关系和日期的可执行合成契约 |
 | [PERSONAL_VAULT_PLAN.md](PERSONAL_VAULT_PLAN.md) | 增量阶段、K068–K089 任务细化、18 个验收场景及交接入口 |
 | [research/personal-vault-2026-10-16.md](research/personal-vault-2026-10-16.md) | 16 组一手来源、复用边界与未核实事项 |
-| [evidence/D06.md](evidence/D06.md) | 2026-10-16 方案落盘与文档静态验证，不是功能实现证据 |
 | [MOBILE_SYNC_TASKS.md](MOBILE_SYNC_TASKS.md) | 对应主任务的24项专项实施子任务 |
 | [research/mobile-sync-2026-10-12.md](research/mobile-sync-2026-10-12.md) | Monica/Bitwarden等源码证据、官方资料与研究限制 |
 | [design/IOS_DESIGN.md](design/IOS_DESIGN.md) | iOS专项页面、状态与Flutter/原生交接 |
 | [design/BITWARDEN_MOBILE_REFERENCE.md](design/BITWARDEN_MOBILE_REFERENCE.md) | 移动UI/功能取舍与U01–U08验收细化 |
+| [design/IOS_VALIDATION.md](design/IOS_VALIDATION.md) | iOS 交互原型的浏览器验证范围、命令与限制 |
 | [THREAT_MODEL.md](THREAT_MODEL.md) | K001：要防谁、防到什么程度、锁库语义；功能和文案只能承诺这里写的 |
 | [CAPABILITIES.md](CAPABILITIES.md) | K001：能力六种状态的判定规则，iOS/Android 平台前置条件（桌面三端另列为未来资料） |
 | [REAL_DATA_RULES.md](REAL_DATA_RULES.md) | K001：什么算真实数据、合成数据怎么造、真实库分级接入、泄露处理 |
 | [IMPLEMENTATION_PLAN.md](IMPLEMENTATION_PLAN.md) | 阶段、发布门槛、关键依赖与首批行动 |
-| [TASKS.md](TASKS.md) | 可独立领取的任务、交付物和验收标准 |
+| [TASKS.md](TASKS.md) | 任务状态表，以及可独立领取的任务、交付物和验收标准 |
 | [ACCEPTANCE.md](ACCEPTANCE.md) | 兼容性、安全、原生功能、同步与性能测试 |
 | [RESEARCH.md](RESEARCH.md) | 官方资料、社区复用点与限制 |
-| [STATUS.md](STATUS.md) | 实际完成内容、执行证据与未完成事项 |
+| [STATUS.md](STATUS.md) | 现在在哪、卡在哪，以及各批工作的历史记录；任务状态以 TASKS 顶部为准 |
 | [design/README.md](design/README.md) | 中文设计基准与原稿修改对照 |
+
+## 证据（evidence/）
+
+每项任务的执行记录：做了什么、怎么跑、结果、失败和没覆盖的范围。证据不等于任务已 DONE，状态以 [TASKS.md](TASKS.md) 为准。
+
+| 文件 | 内容 |
+| --- | --- |
+| [evidence/D06.md](evidence/D06.md) | 2026-10-16 方案落盘与文档静态验证，不是功能实现证据 |
+| [evidence/K001.md](evidence/K001.md) | 威胁模型、能力矩阵、真实数据规则的交付与复核 |
+| [evidence/K002.md](evidence/K002.md) | 合成黄金样本、只读 oracle 与语义比较器的交付、复核与修正 |
+| [evidence/K002_ALGORITHMS.md](evidence/K002_ALGORITHMS.md) | 固定 kdbxweb 公开原件：Argon2 与外层 ChaCha20 读取 |
+| [evidence/K002_LIBRARIES.md](evidence/K002_LIBRARIES.md) | Argon2d 后端与固定 keepass-rs 0.15.3 的参考保存实验 |
+| [evidence/K002_RESOURCES.md](evidence/K002_RESOURCES.md) | 4.x 认证负载 278 案、资源边界与读取器修复 |
+| [evidence/K002_SECRETS.md](evidence/K002_SECRETS.md) | 本地秘密与合成样本扫描 |
+| [evidence/K002_HOOKS.md](evidence/K002_HOOKS.md) | 提交前扫描接入与真实提交验收 |
+| [evidence/K003.md](evidence/K003.md) | keepass-rs 与 kdbx.dart 同样本读改写预实验，两者都未达无损 |
+| [evidence/K068.md](evidence/K068.md) | 字段契约 v1 的检查器与反例 |
+| [evidence/K069.md](evidence/K069.md) | 个人资料合成库与参考客户端逐阶段对照 |
+| [evidence/K069_MATRIX.md](evidence/K069_MATRIX.md) | 同 RP 多 Passkey、1k/10k 规模矩阵与本机资源记录 |
 
 `stitch_` 是输入材料，不是架构事实来源。界面出现的安全徽章、网络节点、算法参数或“已连接”不等于相应能力已实现。
