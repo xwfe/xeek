@@ -1,6 +1,6 @@
 # 个人数据保险柜：实施方案与任务交接
 
-日期：2026-10-16。范围：[ADR-0006](0006-personal-data-vault.md) + [ADR-0007](0007-web-vault-client.md)。**这里只细化交付，不维护第二套任务状态；唯一主任务表为 [TASKS.md](TASKS.md)。** 2026-10-19 已完成 K068 合成契约与 K069 三格式、多 Passkey、1k/10k 本机样本验证及 12 组固定库参考保存；Argon2d 与剩余差异见 [最新实验](evidence/K002_LIBRARIES.md)；生产客户端和 writer 尚未启动。
+日期：2026-10-16。范围：[ADR-0006](0006-personal-data-vault.md) + [ADR-0007](0007-web-vault-client.md)。**这里只细化交付，不维护第二套任务状态；唯一主任务表为 [TASKS.md](TASKS.md)。** 进度见 [STATUS](STATUS.md)。
 
 先读 [领域规格](PERSONAL_VAULT_SPEC.md)、[威胁模型](THREAT_MODEL.md)、[真实数据规则](REAL_DATA_RULES.md) 和 [能力矩阵](CAPABILITIES.md)。研究依据见 [一手资料](research/personal-vault-2026-10-16.md)。
 
@@ -127,7 +127,7 @@ Web 文件 API 不足：允许明确导出新副本或已验证密文缓存；�
 
 ## 7. 下一位实施者的起点
 
-续接时先读 [K068 字段契约](K068_FIELD_CONTRACT.md) 和 K068/K069 证据，不重复已有字典与样本。K001/K002 的人工复核与缺失算法/来源继续保留；K069 补齐剩余覆盖后再进入 K003。K071/K072 可在其明确依赖满足后并行，K070 需要 writer 对照结果。原有 K007/K008 与 M01–M07 继续前置，不因为新业务改成最后再做。
+续接时先读 [K068 字段契约](K068_FIELD_CONTRACT.md) 和 K068/K069 证据，不重复已有字典与样本。K001/K002 的人工复核与缺失算法/来源继续保留；K003 两个候选的预实验已做，都没达到无损（[K003 证据](evidence/K003.md)）；K002/K069 补齐剩余来源后两个候选重跑全矩阵。K071/K072 可在其明确依赖满足后并行，K070 要等 K003/K009 的 writer 裁决。原有 K007/K008 与 M01–M07 继续前置，不因为新业务改成最后再做。
 
 ```text
 任务目标：只领取 TASKS.md 中一个已满足依赖的任务。
