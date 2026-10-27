@@ -1,6 +1,6 @@
 # 实施路线与交接计划
 
-日期：2026-10-12，更新：2026-10-25。当前按 [ADR-0006](0006-personal-data-vault.md) 扩展为个人数据保险柜，Android/iOS 保留，[ADR-0007](0007-web-vault-client.md) 增加独立验收的 Web 客户端；原生桌面仍按 [ADR-0005](0005-mobile-first-scope.md) 留给未来 Rust 应用。当前仅有设计/方案与合成测试工具，生产实现尚未开始。任务状态以 [TASKS.md](TASKS.md) 顶部状态表为准，进度见 [STATUS.md](STATUS.md)；新增 K068–K089 的阶段、模块和反例见 [专项实施计划](PERSONAL_VAULT_PLAN.md)。
+日期：2026-10-12，更新：2026-10-27。当前按 [ADR-0006](0006-personal-data-vault.md) 扩展为个人数据保险柜，Android/iOS 保留，[ADR-0007](0007-web-vault-client.md) 增加独立验收的 Web 客户端；原生桌面仍按 [ADR-0005](0005-mobile-first-scope.md) 留给未来 Rust 应用。当前仅有设计/方案与合成测试工具，生产实现尚未开始。任务状态以 [TASKS.md](TASKS.md) 顶部状态表为准，进度见 [STATUS.md](STATUS.md)；新增 K068–K089 的阶段、模块和反例见 [专项实施计划](PERSONAL_VAULT_PLAN.md)。
 
 ## 1. 交付层级
 
@@ -40,7 +40,7 @@ UI与基础功能的验收增量采用 [Bitwarden移动体验参考](design/BITW
 
 第一批（进行中）：
 
-1. **K003 差异 → 补丁成本。** 把两个候选的已知差异各写成最小反例，评估“上游修复 / 自行打补丁 / 换库”的成本（§6 的失败路线）。keepass-rs：根分组重排、默认 IconID 被删、新历史插在开头、只能保存 4.1；kdbx.dart：空标准字段丢保护标记、丢 4.1 Meta 元数据、不支持 Argon2id 和 3.1 外层 ChaCha20。结论交给 K009，与发行许可证（kdbx.dart 为 GPL-3.0）一起裁决。证据见 [K003](evidence/K003.md)。
+1. **K003 隔离的 Rust 保留补丁实验。** 以已完成的[最小反例与修补范围](evidence/K003_MINIMAL.md)为输入，先处理图标双字段保留和历史顺序，再处理跨类型子节点混排；每个补丁分别复跑最小反例和原大样本。只在隔离补丁副本中验证，不直接改包缓存，不放宽 oracle。旧格式只读/显式升级策略与发行许可证仍交 K009 裁决；若模型修补超出可维护边界，再按 §6 转向换库。候选未真正通过全矩阵前，生产 writer 继续关闭。
 2. **人工独立复核。** K001、K002、K068 停在 REVIEW，要由人复核后才能进 DONE。
 3. **补齐来源。** K002/K069 还缺官方 KeePass、KeeAgent 和手机参考客户端写的样本、尚未覆盖的 KDF/压缩参数组合，以及真机、iOS 扩展的资源数据；参数组合可在本机先补，需要 Mono 或 Windows、Android/iOS 设备，到位后补，补完两个候选重跑全矩阵。
 4. **原生 provider 实验仍前置。** K007/K008 需要 Android 14+ 与 iOS 真机及签名资源，不等写入库裁决。

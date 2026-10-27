@@ -1,6 +1,6 @@
 # 架构与实施资料
 
-更新：2026-10-25。
+更新：2026-10-27。
 
 | 文件 | 用途 |
 | --- | --- |
@@ -45,6 +45,7 @@
 | [evidence/K002_SECRETS.md](evidence/K002_SECRETS.md) | 本地秘密与合成样本扫描 |
 | [evidence/K002_HOOKS.md](evidence/K002_HOOKS.md) | 提交前扫描接入与真实提交验收 |
 | [evidence/K003.md](evidence/K003.md) | keepass-rs 与 kdbx.dart 同样本读改写预实验，两者都未达无损 |
+| [evidence/K003_MINIMAL.md](evidence/K003_MINIMAL.md) | 真实最小反例、直接上游版本探针、缺陷范围修正与修补成本 |
 | [evidence/K068.md](evidence/K068.md) | 字段契约 v1 的检查器与反例 |
 | [evidence/K069.md](evidence/K069.md) | 个人资料合成库与参考客户端逐阶段对照 |
 | [evidence/K069_MATRIX.md](evidence/K069_MATRIX.md) | 同 RP 多 Passkey、1k/10k 规模矩阵与本机资源记录 |

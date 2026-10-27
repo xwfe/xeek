@@ -11,7 +11,16 @@ python3 -B tests/run_python_tests.py --suite oracle
 python3 -B tests/run_python_tests.py --suite domain
 ~~~
 
-当前 oracle 入口 149 项，领域 93 项，共 242 项。缺少 Argon2 后端时入口直接报错；缺少 keepassxc-cli 或已构建的 Rust helper 时，相应交叉读/live 测试明确跳过，不算完整验收。本轮分项测试没有跳过。
+当前 oracle 入口 160 项，领域 93 项，共 253 项；另有 Rust 保存版本探针 3 项，不混入 Python 数量。缺少 Argon2 后端时入口直接报错。旧交叉读/live 类仍有明确跳过条件，跳过不算完整验收；新增 K003 最小反例集要求已有 Cargo、Dart、KeePassXC 和固定项目缓存，缺任一项直接失败。只跑领域检查仍可使用 --suite domain。
+
+K003 最小反例及直接上游版本探针：
+
+~~~sh
+python3 -B tests/run_python_tests.py --suite oracle --pattern test_candidate_minimal.py -v
+cargo test --locked --offline --release --manifest-path tests/reference_writer/Cargo.toml --target-dir tests/reference_writer/target --test save_versions
+~~~
+
+最小反例集每次先按锁文件离线构建两个真实 helper，再现场构造小输入；Dart 构建仅在子进程将 PUB_HOSTED_URL 固定为锁文件的 https://pub.dev，不继承其它镜像的缓存目录，也不更改全局环境。KeePassXC 只验证输入可打开，丢失判断使用独立 oracle；新密码库只放临时目录并自动清理。**测试通过表示固定版本的缺陷被准确复现，不能解释为 writer 无损通过。** 反例、源码定位与修补范围见 [K003 最小反例证据](../../adr/evidence/K003_MINIMAL.md)。
 
 本机使用项目内 --target 安装，复用现有 cryptography/cffi/pycparser，不改全局包。macOS arm64 固定 wheel 锁的复现命令：
 
