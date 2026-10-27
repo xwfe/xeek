@@ -1,0 +1,79 @@
+--- a/src/db/types/history.rs
++++ b/src/db/types/history.rs
+@@ -8,16 +8,16 @@
+ }
+
+ impl History {
+-    /// Add a new entry to the history
++    /// Append a snapshot without reordering existing history entries.
+     pub fn add_entry(&mut self, mut entry: Entry) {
+-        // DISCUSS: should we make sure that the last modification time is not the same
+-        // or older than the entry at the top of the history?
++        // This preservation experiment enables save_kdbx4 only. The optional
++        // _merge implementation has a separate newest-first history contract.
+
+         // Remove the history from the new history entry to avoid having
+         // an exponential number of history entries.
+         entry.history.take();
+
+-        self.entries.insert(0, entry);
++        self.entries.push(entry);
+     }
+
+     /// Get the history entries
+--- a/src/db/types/entry.rs
++++ b/src/db/types/entry.rs
+@@ -846,8 +846,23 @@
+         if let Some(entry) = self.database.entries.get_mut(&self.id) {
+             let parent_id = entry.parent;
+             let historical = std::mem::replace(&mut self.historical, Entry::new(parent_id));
+-
+-            entry.history.get_or_insert_default().add_entry(historical);
++            let history = entry.history.get_or_insert_default();
++            let history_index = history.entries.len();
++
++            // Appending keeps existing indexes stable. Register the new snapshot
++            // at its final index before moving it into history.
++            for attachment_id in historical.attachments.values() {
++                if let Some(attachment) = self.database.attachments.get_mut(attachment_id) {
++                    attachment.entries.insert((self.id, Some(history_index)));
++                }
++            }
++            if let Some(icon_id) = historical.icon.as_ref().and_then(Icon::custom_id) {
++                if let Some(icon) = self.database.custom_icons.get_mut(&icon_id) {
++                    icon.entries.insert((self.id, Some(history_index)));
++                }
++            }
++
++            history.add_entry(historical);
+         }
+     }
+ }
+--- a/src/format/xml_db/mod.rs
++++ b/src/format/xml_db/mod.rs
+@@ -168,6 +168,25 @@
+
+         db.attachments = attachments;
+         db.custom_icons = custom_icons;
++
++        // Rebuild attachment references for current and historical entry versions.
++        for (&entry_id, entry) in &db.entries {
++            for attachment_id in entry.attachments.values() {
++                if let Some(attachment) = db.attachments.get_mut(attachment_id) {
++                    attachment.entries.insert((entry_id, None));
++                }
++            }
++
++            if let Some(history) = &entry.history {
++                for (index, historical) in history.entries.iter().enumerate() {
++                    for attachment_id in historical.attachments.values() {
++                        if let Some(attachment) = db.attachments.get_mut(attachment_id) {
++                            attachment.entries.insert((entry_id, Some(index)));
++                        }
++                    }
++                }
++            }
++        }
+
+         // Re-populate CustomIcon back-reference sets.
+         //

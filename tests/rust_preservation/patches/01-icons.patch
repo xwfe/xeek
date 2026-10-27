@@ -1,0 +1,252 @@
+diff --git a/src/db/types/entry.rs b/src/db/types/entry.rs
+--- a/src/db/types/entry.rs
++++ b/src/db/types/entry.rs
+@@ -283,7 +283,7 @@
+
+     /// Get the custom icon of this entry, if it exists and is a custom icon.
+     pub fn custom_icon(&self) -> Option<CustomIconRef<'_>> {
+-        if let Some(Icon::Custom(custom_icon_id)) = self.icon {
++        if let Some(custom_icon_id) = self.icon.as_ref().and_then(Icon::custom_id) {
+             Some(CustomIconRef::new(self.database, custom_icon_id))
+         } else {
+             None
+@@ -501,7 +501,7 @@
+         let id = self.id;
+         let history_index = self.history_index;
+
+-        if let Some(Icon::Custom(custom_icon_id)) = self.icon {
++        if let Some(custom_icon_id) = self.icon.as_ref().and_then(Icon::custom_id) {
+             // if this entry had a custom icon, remove this entry from the icon's reference list
+             if let Some(mut custom_icon) = self.database.custom_icon_mut(custom_icon_id) {
+                 custom_icon.entries.retain(|&(entry_id, entry_history_index)| {
+@@ -568,7 +568,7 @@
+     /// Get a mutable reference to the custom icon of this entry, if it exists and is a custom
+     /// icon.
+     pub fn custom_icon_mut(&mut self) -> Option<CustomIconMut<'_>> {
+-        if let Some(Icon::Custom(custom_icon_id)) = self.icon {
++        if let Some(custom_icon_id) = self.icon.as_ref().and_then(Icon::custom_id) {
+             Some(CustomIconMut::new(self.database, custom_icon_id))
+         } else {
+             None
+diff --git a/src/db/types/group.rs b/src/db/types/group.rs
+--- a/src/db/types/group.rs
++++ b/src/db/types/group.rs
+@@ -259,7 +259,7 @@
+
+     /// Get a reference to the custom icon of this group, if it has one and it is a custom icon
+     pub fn custom_icon(&self) -> Option<CustomIconRef<'_>> {
+-        if let Some(Icon::Custom(cid)) = self.icon {
++        if let Some(cid) = self.icon.as_ref().and_then(Icon::custom_id) {
+             Some(CustomIconRef::new(self.database, cid))
+         } else {
+             None
+@@ -478,7 +478,7 @@
+     pub fn set_icon_none(&mut self) {
+         let id = self.id;
+
+-        if let Some(Icon::Custom(custom_icon_id)) = self.icon {
++        if let Some(custom_icon_id) = self.icon.as_ref().and_then(Icon::custom_id) {
+             // if this group had a custom icon, remove this group from the icon's reference list
+             if let Some(mut custom_icon) = self.database.custom_icon_mut(custom_icon_id) {
+                 custom_icon.groups.retain(|&group_id| group_id != id);
+@@ -541,7 +541,7 @@
+     /// Get a mutable reference to the custom icon of this group, if it exists and is a custom
+     /// icon.
+     pub fn custom_icon_mut(&mut self) -> Option<CustomIconMut<'_>> {
+-        if let Some(Icon::Custom(custom_icon_id)) = self.icon {
++        if let Some(custom_icon_id) = self.icon.as_ref().and_then(Icon::custom_id) {
+             Some(CustomIconMut::new(self.database, custom_icon_id))
+         } else {
+             None
+diff --git a/src/db/types/icon.rs b/src/db/types/icon.rs
+--- a/src/db/types/icon.rs
++++ b/src/db/types/icon.rs
+@@ -21,8 +21,29 @@
+
+     /// The icon is a custom icon specified by a [CustomIconId]
+     Custom(CustomIconId),
++
++    /// Both icon fields are present. Preserve the built-in ID alongside the custom icon.
++    BuiltInAndCustom(usize, CustomIconId),
+ }
+
++impl Icon {
++    /// Get the built-in ID, if the entry or group specifies one.
++    pub fn built_in_id(&self) -> Option<usize> {
++        match self {
++            Self::BuiltIn(id) | Self::BuiltInAndCustom(id, _) => Some(*id),
++            Self::Custom(_) => None,
++        }
++    }
++
++    /// Get the custom icon ID, if the entry or group specifies one.
++    pub fn custom_id(&self) -> Option<CustomIconId> {
++        match self {
++            Self::Custom(id) | Self::BuiltInAndCustom(_, id) => Some(*id),
++            Self::BuiltIn(_) => None,
++        }
++    }
++}
++
+ /// A unique identifier for a [CustomIcon]
+ #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
+ #[cfg_attr(feature = "serialization", derive(serde::Serialize))]
+@@ -208,16 +229,16 @@
+
+         self.foreach_entry_mut(
+             |mut entry| {
+-                if entry.icon == Some(Icon::Custom(id)) {
+-                    entry.icon = None;
++                if entry.icon.as_ref().and_then(Icon::custom_id) == Some(id) {
++                    entry.icon = entry.icon.as_ref().and_then(Icon::built_in_id).map(Icon::BuiltIn);
+                 }
+             },
+             true,
+         );
+
+         self.foreach_group_mut(|mut group| {
+-            if group.icon == Some(Icon::Custom(id)) {
+-                group.icon = None;
++            if group.icon.as_ref().and_then(Icon::custom_id) == Some(id) {
++                group.icon = group.icon.as_ref().and_then(Icon::built_in_id).map(Icon::BuiltIn);
+             }
+         });
+
+diff --git a/src/format/xml_db/entry.rs b/src/format/xml_db/entry.rs
+--- a/src/format/xml_db/entry.rs
++++ b/src/format/xml_db/entry.rs
+@@ -86,13 +86,15 @@
+         custom_icons: &HashMap<crate::db::CustomIconId, crate::db::CustomIcon>,
+         inner_decryptor: &mut dyn Cipher,
+     ) -> Result<(), UnprotectError> {
+-        target.icon = if let Some(ci) = self.custom_icon_uuid.and_then(|ci| {
++        let custom_icon_id = self.custom_icon_uuid.and_then(|ci| {
+             let icon_id = crate::db::CustomIconId::from_uuid(ci.0);
+             custom_icons.contains_key(&icon_id).then_some(icon_id)
+-        }) {
+-            Some(crate::db::Icon::Custom(ci))
+-        } else {
+-            self.icon_id.map(crate::db::Icon::BuiltIn)
++        });
++        target.icon = match (self.icon_id, custom_icon_id) {
++            (Some(id), Some(custom_id)) => Some(crate::db::Icon::BuiltInAndCustom(id, custom_id)),
++            (Some(id), None) => Some(crate::db::Icon::BuiltIn(id)),
++            (None, Some(custom_id)) => Some(crate::db::Icon::Custom(custom_id)),
++            (None, None) => None,
+         };
+
+         target.foreground_color = self.foreground_color;
+@@ -159,11 +161,12 @@
+         db: crate::db::EntryRef<'_>,
+         inner_encryptor: &mut dyn Cipher,
+     ) -> Result<Self, CryptographyError> {
+-        let (icon_id, custom_icon_uuid) = match db.icon {
+-            Some(crate::db::Icon::Custom(cid)) => (None, Some(UUID(cid.uuid()))),
+-            Some(crate::db::Icon::BuiltIn(i)) => (Some(i), None),
+-            _ => (None, None),
+-        };
++        let icon_id = db.icon.as_ref().and_then(crate::db::Icon::built_in_id);
++        let custom_icon_uuid = db
++            .icon
++            .as_ref()
++            .and_then(crate::db::Icon::custom_id)
++            .map(|id| UUID(id.uuid()));
+
+         let mut string_fields = Vec::with_capacity(db.fields.len());
+         for (k, v) in &db.fields {
+diff --git a/src/format/xml_db/group.rs b/src/format/xml_db/group.rs
+--- a/src/format/xml_db/group.rs
++++ b/src/format/xml_db/group.rs
+@@ -89,13 +89,15 @@
+         target.notes = self.notes;
+         target.tags = self.tags.as_deref().map(split_tags).unwrap_or_default();
+
+-        target.icon = if let Some(ci) = self.custom_icon_uuid.and_then(|ci| {
++        let custom_icon_id = self.custom_icon_uuid.and_then(|ci| {
+             let icon_id = crate::db::CustomIconId::from_uuid(ci.0);
+             custom_icons.contains_key(&icon_id).then_some(icon_id)
+-        }) {
+-            Some(crate::db::Icon::Custom(ci))
+-        } else {
+-            self.icon_id.map(crate::db::Icon::BuiltIn)
++        });
++        target.icon = match (self.icon_id, custom_icon_id) {
++            (Some(id), Some(custom_id)) => Some(crate::db::Icon::BuiltInAndCustom(id, custom_id)),
++            (Some(id), None) => Some(crate::db::Icon::BuiltIn(id)),
++            (None, Some(custom_id)) => Some(crate::db::Icon::Custom(custom_id)),
++            (None, None) => None,
+         };
+
+         target.times = self.times.map(|t| t.into()).unwrap_or_default();
+@@ -148,11 +150,12 @@
+             Some(source.custom_data.clone().into())
+         };
+
+-        let (icon_id, custom_icon_uuid) = match source.icon {
+-            Some(crate::db::Icon::Custom(cid)) => (None, Some(UUID(cid.uuid()))),
+-            Some(crate::db::Icon::BuiltIn(i)) => (Some(i), None),
+-            _ => (None, None),
+-        };
++        let icon_id = source.icon.as_ref().and_then(crate::db::Icon::built_in_id);
++        let custom_icon_uuid = source
++            .icon
++            .as_ref()
++            .and_then(crate::db::Icon::custom_id)
++            .map(|id| UUID(id.uuid()));
+
+         Ok(Group {
+             uuid: UUID(source.id().uuid()),
+diff --git a/src/format/xml_db/mod.rs b/src/format/xml_db/mod.rs
+--- a/src/format/xml_db/mod.rs
++++ b/src/format/xml_db/mod.rs
+@@ -178,10 +178,13 @@
+         let entry_ids: Vec<crate::db::EntryId> = db.entries.keys().copied().collect();
+         for entry_id in entry_ids {
+             // current version
+-            if let Some(crate::db::Icon::Custom(icon_id)) =
+-                db.entries.get(&entry_id).and_then(|e| e.icon.as_ref())
++            if let Some(icon_id) = db
++                .entries
++                .get(&entry_id)
++                .and_then(|e| e.icon.as_ref())
++                .and_then(crate::db::Icon::custom_id)
+             {
+-                if let Some(icon) = db.custom_icons.get_mut(icon_id) {
++                if let Some(icon) = db.custom_icons.get_mut(&icon_id) {
+                     icon.entries.insert((entry_id, None));
+                 }
+             }
+@@ -192,10 +195,13 @@
+
+                 for i in 0..history_len {
+                     #[allow(clippy::indexing_slicing)] // We just checked that the index is in bounds
+-                    if let Some(crate::db::Icon::Custom(icon_id)) =
+-                        entry.history.as_ref().and_then(|h| h.entries[i].icon.as_ref())
++                    if let Some(icon_id) = entry
++                        .history
++                        .as_ref()
++                        .and_then(|h| h.entries[i].icon.as_ref())
++                        .and_then(crate::db::Icon::custom_id)
+                     {
+-                        if let Some(icon) = db.custom_icons.get_mut(icon_id) {
++                        if let Some(icon) = db.custom_icons.get_mut(&icon_id) {
+                             icon.entries.insert((entry_id, Some(i)));
+                         }
+                     }
+@@ -205,10 +211,13 @@
+
+         let group_ids: Vec<crate::db::GroupId> = db.groups.keys().copied().collect();
+         for group_id in group_ids {
+-            if let Some(crate::db::Icon::Custom(icon_id)) =
+-                db.groups.get(&group_id).and_then(|g| g.icon.as_ref())
++            if let Some(icon_id) = db
++                .groups
++                .get(&group_id)
++                .and_then(|g| g.icon.as_ref())
++                .and_then(crate::db::Icon::custom_id)
+             {
+-                if let Some(icon) = db.custom_icons.get_mut(icon_id) {
++                if let Some(icon) = db.custom_icons.get_mut(&icon_id) {
+                     icon.groups.insert(group_id);
+                 }
+             }
