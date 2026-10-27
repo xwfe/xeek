@@ -10,7 +10,7 @@
 | --- | --- | --- | --- |
 | [K001](evidence/K001.md) | REVIEW | 威胁模型、能力矩阵、真实数据规则，含个人资料/Web 增量 | 人工独立复核（目前只有同型号模型复核） |
 | [K002](evidence/K002.md) | REVIEW | 合成样本、只读 oracle 与语义比较器；Argon2d/id 与外层 ChaCha20 读取；4.x 认证负载 278 案；提交前秘密扫描 | 官方 KeePass、KeeAgent、手机客户端写的样本及剩余参数；人工独立复核 |
-| [K003](evidence/K003.md) | DOING | 双候选大样本对照、真实最小反例、直接上游版本探针与[修补范围](evidence/K003_MINIMAL.md)；写入闸门关闭 | 优先做隔离的 Rust 保留补丁实验并重跑全矩阵；依赖 K002/K069 尚未 DONE |
+| [K003](evidence/K003.md) | DOING | 双候选对照与最小反例；[隔离 Rust 图标/历史补丁](evidence/K003_RUST_PATCH.md)通过本批往返，修复重开附件引用；写入闸门关闭 | 优先修附件删除/替换的历史引用生命周期，再处理跨类型混排并重跑矩阵；依赖 K002/K069 尚未 DONE |
 | [K068](evidence/K068.md) | REVIEW | v1 字段契约与可执行检查器 | 人工独立复核 |
 | [K069](evidence/K069.md) | DOING | 三格式领域库、同 RP 多 Passkey、1k/10k 规模矩阵；尚未判定无损 | 多客户端来源，真机、iOS 扩展和浏览器的资源实测 |
 
