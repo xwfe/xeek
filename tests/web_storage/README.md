@@ -26,6 +26,19 @@ open -a Safari "http://127.0.0.1:47110/index.html?auto=safari&cap=512"
 
 **授权后的文件写回**只能人点，打开 `/manual.html` 按页面步骤走，用页面下载的合成库，不要选真实密码库。
 
+## K072：WebDAV
+
+结论见 [K072 证据](../../adr/evidence/K072.md)。先装测试服务器（只装在这个目录），再跑：
+
+~~~sh
+python3 -m venv .wsgidav
+.wsgidav/bin/python -m pip install --only-binary=:all: -r webdav-requirements.txt
+node drive-webdav.mjs                 # 全部可驱动的浏览器
+node drive-webdav.mjs --serve 47111   # 只起服务，把打印的地址贴进 Safari 或真机
+~~~
+
+Apache 用 macOS 自带的 `/usr/sbin/httpd`，别的系统要改 `webdav-servers.mjs`。测试密码每次运行随机生成，只在本机回环地址上用，运行结束就没了。
+
 ## 文件
 
 | 文件 | 作用 |
@@ -33,6 +46,10 @@ open -a Safari "http://127.0.0.1:47110/index.html?auto=safari&cap=512"
 | [site/cipher-cache.js](site/cipher-cache.js) | 被测实现：密文缓存、写锁、文件写回、保存状态 |
 | [site/lab.js](site/lab.js) | 探针页，能自己跑完并上报 |
 | [site/manual.js](site/manual.js) | 手动核对页 |
+| [site/webdav-client.js](site/webdav-client.js) | 被测实现：WebDAV 能力探针和条件提交 |
+| [site/webdav-lab.js](site/webdav-lab.js) | WebDAV 探针页 |
+| [webdav-servers.mjs](webdav-servers.mjs) | 测试服务器：Apache、WsgiDAV、故意出错的脚本服务器 |
+| [drive-webdav.mjs](drive-webdav.mjs) | WebDAV 驱动，并用裸 socket 测服务器本身的行为 |
 | [drive.mjs](drive.mjs) | 做页面做不到的事：杀进程、调配额、取消下载、重启浏览器 |
 | [server.mjs](server.mjs) | 本机静态服务，带 ADR-0007 要求的严格 CSP |
 
@@ -46,4 +63,5 @@ open -a Safari "http://127.0.0.1:47110/index.html?auto=safari&cap=512"
 
 - `Executable doesn't exist at .../.browsers/...`：没跑上面第二条，或 Playwright 版本变了要重新下载。
 - `探针两分钟内没有上报`：页面卡住了。这一项会记成失败，别的场景继续跑。
+- 驱动没有任何输出就退出：看是不是自己改过 `spawnGroup`。Apache 停止时向整个进程组发 SIGTERM，同组会把驱动一起杀掉。
 - 开着真实 Chrome 时运行不受影响：每个场景都用临时配置目录，结束后删除。

@@ -12,17 +12,19 @@ const FIXTURES = join(HERE, "..", "fixtures", "kdbx");
 const TYPES = { ".html": "text/html; charset=utf-8", ".js": "text/javascript; charset=utf-8" };
 
 // 探针和被测代码都要在 ADR-0007 要求的严格 CSP 下工作，否则结论带不到生产。
-const CSP = [
-  "default-src 'none'",
-  "script-src 'self'",
-  "style-src 'self'",
-  "connect-src 'self'",
-  "worker-src 'self'",
-  "frame-src 'self'",
-  "frame-ancestors 'self'",
-  "base-uri 'none'",
-  "form-action 'none'",
-].join("; ");
+function csp(connectSources) {
+  return [
+    "default-src 'none'",
+    "script-src 'self'",
+    "style-src 'self'",
+    `connect-src 'self' ${connectSources.join(" ")}`.trim(),
+    "worker-src 'self'",
+    "frame-src 'self'",
+    "frame-ancestors 'self'",
+    "base-uri 'none'",
+    "form-action 'none'",
+  ].join("; ");
+}
 
 async function fixture() {
   const manifest = JSON.parse(await readFile(join(FIXTURES, "manifest.json"), "utf8"));
@@ -40,13 +42,21 @@ async function readBody(request) {
   return Buffer.concat(chunks).toString("utf8");
 }
 
-/** @param {{port?: number, onReport?: (report: object) => void, saveReports?: boolean}} [options] */
-export async function startServer({ port = 0, onReport, saveReports = false } = {}) {
+/**
+ * @param {{port?: number, onReport?: (report: object) => void, saveReports?: boolean,
+ *   connectSources?: string[], routes?: Record<string, () => object>}} [options]
+ * connectSources 和 routes 启动后还能改：测试服务器要等拿到本站地址才能启动。
+ */
+export async function startServer({ port = 0, onReport, saveReports = false, connectSources = [], routes = {} } = {}) {
   const kdbx = await fixture();
   const server = createServer(async (request, response) => {
-    const headers = { "Content-Security-Policy": CSP, "Cache-Control": "no-store" };
+    const headers = { "Content-Security-Policy": csp(connectSources), "Cache-Control": "no-store" };
     try {
       const url = new URL(request.url, "http://localhost");
+      if (routes[url.pathname]) {
+        response.writeHead(200, { ...headers, "Content-Type": "application/json" }).end(JSON.stringify(routes[url.pathname]()));
+        return;
+      }
       if (request.method === "POST" && url.pathname === "/report") {
         const report = JSON.parse(await readBody(request));
         if (saveReports) {

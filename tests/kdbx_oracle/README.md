@@ -98,5 +98,6 @@ AGENTS.md 要求登记版本、许可证、维护情况和替换边界。以下�
 | [argon2-cffi](https://pypi.org/project/argon2-cffi/25.1.0/) | MIT | 25.1.0 | 官方固定发布版；本轮按用户授权装在项目测试目录 | 仅 reader.py 的 Type.D / 显式版本 raw KDF 适配 |
 | [argon2-cffi-bindings](https://pypi.org/project/argon2-cffi-bindings/26.1.0/) | MIT，捆绑实现许可证随 wheel 保留 | 26.1.0 | 官方 2026-08-20 发布；macOS arm64 wheel SHA-256 固定 | 复用 cffi 2.0.0 / pycparser 3.0，不安装 C 工具链 |
 | [keepass 参考 helper](../reference_writer/README.md) | MIT | =0.15.3 + Cargo.lock | 固定源码与实际构建已验证；上游保存仍标实验性且仅写 4.1 | 独立合成参考进程，不影响 oracle 只读职责，不代表生产选型 |
+| [WsgiDAV](../web_storage/README.md) | MIT | 4.3.5（webdav-requirements.txt） | 个人维护，仍在发版 | 只作 K072 测试服务器，装在实验目录，不进产品 |
 | [Playwright](../web_storage/README.md) | Apache-2.0 | 1.64.1（pnpm-lock.yaml） | 微软维护，发版频繁 | 只驱动 K071 浏览器实验，装在实验目录，不进产品；换驱动只影响 drive.mjs |
 | [kdbx.dart 候选 helper](../dart_candidate/README.md) | **GPL-3.0** | kdbx 2.5.0 + pubspec.lock（38 个传递依赖） | 2.5.0 约 2026-08 发布；依赖装在项目内 `.pub-cache/` | 独立 K003 候选进程，不链接进 oracle 或产品；实测见 [K003](../../adr/evidence/K003.md) |
