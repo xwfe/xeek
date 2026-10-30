@@ -55,9 +55,41 @@ cargo test --locked --offline --release --manifest-path tests/reference_writer/C
 
 ## 4. 尚未解决与下一切片
 
-- **附件删除仍可破坏历史引用。** entry.rs 的 remove_attachment_by_name/remove_attachment_by_id 按 EntryId 清除所有历史位置；附件池可能在 tracked 快照登记前被删除。已用公开 API 重现，测试只确认悬空引用，不解引用或保存损坏状态。下一切片优先覆盖删除、同名替换、共享附件和历史独占引用，再修复生命周期；不靠重开重建来补救已经删除的内容。
+- ~~**附件删除仍可破坏历史引用。**~~ 2026-10-30 由第二切片修复，见 §5。以下为当时的诊断：entry.rs 的 remove_attachment_by_name/remove_attachment_by_id 按 EntryId 清除所有历史位置；附件池可能在 tracked 快照登记前被删除。
 - **跨类型混排仍改变。** XML Group 的 children 本来保留 Group/Entry 顺序；后续进入数据库模型并写出时失序。下一步检查分开的组/条目集合、增删移动及重组路径，不能误称 XML 解析器先拆成两个数组，也不能只调换输出数组。
 - **_merge 未启用。** 上游 src/db/merge.rs 的排序和 latest 访问仍采用“最新在前”，与本实验追加契约不同。启用前必须统一合并顺序、最新项选择及引用重建；当前补丁不声称适用于全部 feature。
 - 原有不存在的 CustomIconUUID 过滤行为未改变；历史裁剪/清空及其它资源删除路径尚未完整验证。未知 XML、未引用附件池、旧格式原样写回、资源预算、取消/崩溃/并发保存、Web/iOS/真机和多来源样本仍未达到生产门槛。
 
 K009 继续负责发行许可证与旧库只读/显式升级策略。K001/K002/K068 的 REVIEW 与 K069 的 DOING 不变。回退只需撤销本实验目录、对应测试及说明增量；原 helper、锁文件、固定 KDBX、manifest、oracle 与真实用户资料均未改变。
+
+## 5. 第二切片：附件生命周期（2026-10-30）
+
+基线为 main 的 31e9d4b。新增 [03-attachments.patch](../../tests/rust_preservation/patches/03-attachments.patch)，只改 entry.rs；01/02 不变。**删除或同名替换附件不再破坏历史引用；K003 仍为 DOING，生产写入闸门关闭。**
+
+| 根因 | 改法 |
+| --- | --- |
+| remove_attachment_by_name/by_id 用 `entry_id != id` 过滤，一次清掉该条目所有版本（含历史）的引用；引用集合一空就删附件内容 | 只去掉当前这个版本的 `(条目, 历史索引)` 引用；同一版本另有名称仍指向该附件时不去掉；最后一个引用消失才删内容（与上游语义一致） |
+| tracked 编辑在闭包结束（Drop）时才把编辑前快照放进历史并登记引用；闭包里删附件时快照还没登记，内容先被删掉 | track_changes 开始时就把快照追加到历史末尾并登记附件/图标引用，删除 Drop 中的同一逻辑。编辑结束后的历史与原契约相同：空 tracked 编辑仍产生一份快照 |
+
+新增 4 项 Rust API 测试，替换原 known_gap 测试：
+
+| 测试 | 覆盖 |
+| --- | --- |
+| tracked_attachment_deletion_keeps_content_for_history | tracked 删除后两份历史仍能读到原字节和保护位，当前版本没有该附件；保存重开后相同 |
+| same_name_replacement_keeps_previous_content_in_history | 同名替换后当前是新内容、历史是旧内容，两者是不同附件；重开相同 |
+| shared_and_history_only_attachments_survive_tracked_removal | 用已登记的 v41-vault-edit1（KeePassXC 写出）：shared.txt 同时被 Login 当前、Login 历史和另一条目引用，blob.bin 只在历史里；删除后内容和每处引用都在，重开后再从另一条目直接删除，Login 历史仍能读到 |
+| releasing_the_last_reference_still_deletes_content | 正控制：没有任何版本引用时照常删除内容；删除整个条目后其附件随之删除 |
+
+**先红后绿，均为实际运行：** 只应用 01/02 时，4 项新测试全部失败：删除后内容不在；同名替换后读取历史版本直接 **panic**（attachment.rs:120，“AttachmentRef points to non-existent attachment”），即上游原状下读这份历史就会崩溃；共享样本中 Login 旧历史 h0 对 shared.txt 的引用被误清。加上 03 后 7 项 Rust 测试全部通过；Python 专项 4 项（含原 8 类微型往返和 12 组算法矩阵，KeePassXC 重开）通过，结果与第一切片相同，只剩已知混排差异。
+
+过程中自己的两处测试错误：期望数组未按字节序排序；误以为样本 Login 只有 1 份历史（实际 2 份，第 2 份不带附件），把新快照写成索引 1。两处都改测试本身，并在修正后重新确认缺 03 时确实失败，没有改补丁去迁就测试。
+
+样本输入不另存：build.py 按 vault_manifest 登记的哈希核对 v41-vault-edit1 后写进临时目录，随临时目录清理。上游 entry.rs 本身在默认 rustfmt 配置下就有 17 处格式差异，补丁前后数量不变；构建的格式检查只覆盖 helper 与测试代码。
+
+仍未解决：
+
+- **跨类型混排**仍是下一切片（见 §4）。
+- 闭包执行期间，快照已经出现在历史里（原实现要等闭包结束）。编辑结束后的结果相同，但闭包里读历史长度的调用方会看到多一份；本仓库没有这样的调用。
+- 对历史版本调用 add_attachment 时，上游仍按“当前版本”登记引用；只能经 foreach_entry_mut 回调拿到历史版本，本切片没改，也没测。
+- “同一版本两个名称指向同一附件”的分支已实现，但现有样本里没有这种结构，没有测试覆盖。
+- _merge、历史裁剪/清空仍未验证；以上测试只证明这几条生命周期路径，不是附件整体无损通过。
