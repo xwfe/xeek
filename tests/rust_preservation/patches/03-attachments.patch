@@ -1,0 +1,149 @@
+--- a/src/db/types/entry.rs
++++ b/src/db/types/entry.rs
+@@ -374,20 +374,37 @@ impl EntryMut<'_> {
+         self
+     }
+ 
+-    /// Convert this mutable reference into a history-tracking variant that will persist the
+-    /// current state of the entry into its history when dropped.
++    /// Convert this mutable reference into a history-tracking variant. The current state of the
++    /// entry is appended to its history immediately, so the snapshot keeps its attachments and
++    /// custom icon referenced while the tracked edit removes or replaces them.
+     ///
+     /// NOTE: will always operate on the main Entry, not a historical version of it.
++    #[allow(clippy::expect_used, clippy::missing_panics_doc)] // entry existence is guaranteed
+     pub fn track_changes(&mut self) -> EntryTrack<'_> {
+-        let mut historical: Entry = self.deref().deref().clone();
++        let id = self.id;
++        let historical: Entry = self.deref().deref().clone();
++        let attachment_ids: Vec<AttachmentId> = historical.attachments.values().copied().collect();
++        let icon_id = historical.icon.as_ref().and_then(Icon::custom_id);
+ 
+-        // Remove history from the historical entry to avoid exponential growth
+-        historical.history = None;
++        let entry = self.database.entries.get_mut(&id).expect("Entry not found");
++        let history = entry.history.get_or_insert_default();
++        let history_index = history.entries.len();
++        history.add_entry(historical);
++
++        for attachment_id in attachment_ids {
++            if let Some(attachment) = self.database.attachments.get_mut(&attachment_id) {
++                attachment.entries.insert((id, Some(history_index)));
++            }
++        }
++        if let Some(icon_id) = icon_id {
++            if let Some(icon) = self.database.custom_icons.get_mut(&icon_id) {
++                icon.entries.insert((id, Some(history_index)));
++            }
++        }
+ 
+         EntryTrack {
+             database: self.database,
+-            id: self.id,
+-            historical,
++            id,
+         }
+     }
+ 
+@@ -449,31 +466,20 @@ impl EntryMut<'_> {
+         AttachmentMut::new(self.database, id)
+     }
+ 
+-    /// Remove an attachment by name from this entry.
++    /// Remove an attachment by name from this entry version.
+     ///
+     /// If it was the last reference to the attachment, remove it from the database.
+     pub fn remove_attachment_by_name(&mut self, name: &str) {
+-        let id = self.id;
+-
+         // remove the attachment reference from this entry
+         if let Some(attachment_id) = self.attachments.remove(name) {
+-            if let Some(mut attachment) = self.database.attachment_mut(attachment_id) {
+-                attachment.entries.retain(|&(entry_id, _)| entry_id != id);
+-
+-                // if this was the last entry referencing the attachment, remove it from the database
+-                if attachment.entries.is_empty() {
+-                    attachment.remove();
+-                }
+-            }
++            self.release_attachment(attachment_id);
+         }
+     }
+ 
+-    /// Remove an attachment by id from this entry.
++    /// Remove an attachment by id from this entry version.
+     ///
+     /// If it was the last reference to the attachment, remove it from the database.
+     pub fn remove_attachment_by_id(&mut self, attachment_id: AttachmentId) {
+-        let id = self.id;
+-
+         // remove the attachment reference from this entry
+         let mut names_to_remove = Vec::new();
+         for (name, &att_id) in &self.attachments {
+@@ -486,10 +492,21 @@ impl EntryMut<'_> {
+             self.attachments.remove(&name);
+         }
+ 
++        self.release_attachment(attachment_id);
++    }
++
++    /// Drop only this version's back-reference. Other versions of the same entry, and other
++    /// entries, keep the attachment alive; its data is removed with the last reference.
++    fn release_attachment(&mut self, attachment_id: AttachmentId) {
++        if self.attachments.values().any(|&id| id == attachment_id) {
++            // another name of this version still points at the same attachment
++            return;
++        }
++        let reference = (self.id, self.history_index);
+         if let Some(mut attachment) = self.database.attachment_mut(attachment_id) {
+-            attachment.entries.retain(|&(entry_id, _)| entry_id != id);
++            attachment.entries.remove(&reference);
+ 
+-            // if this was the last entry referencing the attachment, remove it from the database
++            // if this was the last reference to the attachment, remove it from the database
+             if attachment.entries.is_empty() {
+                 attachment.remove();
+             }
+@@ -706,8 +723,6 @@ impl DerefMut for EntryMut<'_> {
+ pub struct EntryTrack<'a> {
+     database: &'a mut Database,
+     id: EntryId,
+-
+-    historical: Entry,
+ }
+ 
+ impl EntryTrack<'_> {
+@@ -840,33 +855,6 @@ impl DerefMut for EntryTrack<'_> {
+     }
+ }
+ 
+-impl Drop for EntryTrack<'_> {
+-    fn drop(&mut self) {
+-        // see if the entry is still there (it might have been removed)
+-        if let Some(entry) = self.database.entries.get_mut(&self.id) {
+-            let parent_id = entry.parent;
+-            let historical = std::mem::replace(&mut self.historical, Entry::new(parent_id));
+-            let history = entry.history.get_or_insert_default();
+-            let history_index = history.entries.len();
+-
+-            // Appending keeps existing indexes stable. Register the new snapshot
+-            // at its final index before moving it into history.
+-            for attachment_id in historical.attachments.values() {
+-                if let Some(attachment) = self.database.attachments.get_mut(attachment_id) {
+-                    attachment.entries.insert((self.id, Some(history_index)));
+-                }
+-            }
+-            if let Some(icon_id) = historical.icon.as_ref().and_then(Icon::custom_id) {
+-                if let Some(icon) = self.database.custom_icons.get_mut(&icon_id) {
+-                    icon.entries.insert((self.id, Some(history_index)));
+-                }
+-            }
+-
+-            history.add_entry(historical);
+-        }
+-    }
+-}
+-
+ #[cfg(test)]
+ #[allow(clippy::unwrap_used)]
+ mod tests {

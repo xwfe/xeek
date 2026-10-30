@@ -1,7 +1,7 @@
 //! 仅验证公开合成库；已知生命周期缺口以明确反例保留。
 use keepass::{
     config::KdfConfig,
-    db::{fields, CustomIconId, EntryId, EntryMut, EntryRef, Icon, Value},
+    db::{fields, AttachmentRef, CustomIconId, EntryId, EntryMut, EntryRef, Icon, Value},
     Database, DatabaseKey,
 };
 
@@ -222,8 +222,21 @@ fn icon_setters_remove_only_the_replaced_current_references() {
     );
 }
 
+fn content(attachment: &AttachmentRef<'_>) -> (Vec<u8>, bool) {
+    (attachment.get().clone(), attachment.is_protected())
+}
+
+fn titles(attachment: &AttachmentRef<'_>, include_historical: bool) -> Vec<String> {
+    let mut result: Vec<_> = attachment
+        .entries(include_historical)
+        .map(|e| e.get_title().unwrap().to_owned())
+        .collect();
+    result.sort();
+    result
+}
+
 #[test]
-fn known_gap_tracked_attachment_deletion_leaves_dangling_history() {
+fn tracked_attachment_deletion_keeps_content_for_history() {
     let mut db = database();
     let id = db.root_mut().add_entry().id();
     let attachment = db
@@ -237,16 +250,181 @@ fn known_gap_tracked_attachment_deletion_leaves_dangling_history() {
     db.entry_mut(id).unwrap().edit_tracking(|e| {
         e.as_mut().remove_attachment_by_name("sample.bin");
     });
-    assert!(db.attachment(attachment).is_none());
-    let entry = db.entry(id).unwrap();
-    assert!(entry.attachment_by_name("sample.bin").is_none());
-    assert_eq!(entry.history.as_ref().unwrap().get_entries().len(), 2);
-    for index in 0..2 {
-        // 只确认悬空引用存在，不解引用或把该损坏状态保存为样本。
-        assert!(entry
-            .historical(index)
-            .unwrap()
-            .attachment_by_name("sample.bin")
-            .is_some());
+    assert!(db.attachment(attachment).is_some());
+    for (stage, candidate) in [("after removal", &db), ("after reopen", &reopen(&db))] {
+        let entry = candidate.entry(id).unwrap();
+        assert!(entry.attachment_by_name("sample.bin").is_none(), "{stage}");
+        assert_eq!(entry.history.as_ref().unwrap().get_entries().len(), 2);
+        for index in 0..2 {
+            let version = entry.historical(index).unwrap();
+            let kept = version
+                .attachment_by_name("sample.bin")
+                .expect("history keeps the attachment reference");
+            assert_eq!(content(&kept), (vec![1, 2, 3], true), "{stage}");
+            assert_eq!(kept.entries(false).count(), 0, "{stage}");
+            assert_eq!(kept.entries(true).count(), 2, "{stage}");
+        }
     }
+}
+
+#[test]
+fn same_name_replacement_keeps_previous_content_in_history() {
+    let mut db = database();
+    let id = db.root_mut().add_entry().id();
+    db.entry_mut(id)
+        .unwrap()
+        .add_attachment("sample.bin", Value::unprotected(vec![1, 2, 3]));
+    db.entry_mut(id).unwrap().edit_tracking(|e| {
+        e.add_attachment("sample.bin", Value::protected(vec![4, 5, 6]));
+    });
+    for (stage, candidate) in [("after replacement", &db), ("after reopen", &reopen(&db))] {
+        let entry = candidate.entry(id).unwrap();
+        let old = entry.historical(0).unwrap();
+        let current = entry.attachment_by_name("sample.bin").unwrap();
+        let previous = old.attachment_by_name("sample.bin").unwrap();
+        assert_ne!(current.id(), previous.id(), "{stage}");
+        assert_eq!(content(&current), (vec![4, 5, 6], true), "{stage}");
+        assert_eq!(content(&previous), (vec![1, 2, 3], false), "{stage}");
+        assert_eq!(current.entries(true).count(), 1, "{stage}");
+        assert_eq!(previous.entries(false).count(), 0, "{stage}");
+        assert_eq!(previous.entries(true).count(), 1, "{stage}");
+    }
+}
+
+#[test]
+fn releasing_the_last_reference_still_deletes_content() {
+    // 正控制：只有在没有任何版本或条目引用时才删除附件内容。
+    let mut db = database();
+    let id = db.root_mut().add_entry().id();
+    let only_current = db
+        .entry_mut(id)
+        .unwrap()
+        .add_attachment("current.bin", Value::unprotected(vec![1]))
+        .id();
+    db.entry_mut(id)
+        .unwrap()
+        .remove_attachment_by_name("current.bin");
+    assert!(db.attachment(only_current).is_none());
+
+    let with_history = db
+        .entry_mut(id)
+        .unwrap()
+        .add_attachment("history.bin", Value::unprotected(vec![2]))
+        .id();
+    db.entry_mut(id).unwrap().edit_tracking(|e| {
+        e.as_mut().remove_attachment_by_id(with_history);
+    });
+    assert!(db.attachment(with_history).is_some());
+    db.entry_mut(id).unwrap().remove();
+    assert!(db.attachment(with_history).is_none());
+}
+
+fn vault() -> Database {
+    Database::parse(
+        include_bytes!(concat!(env!("CARGO_MANIFEST_DIR"), "/vault.kdbx")),
+        DatabaseKey::new().with_password(include_str!(concat!(
+            env!("CARGO_MANIFEST_DIR"),
+            "/vault.password"
+        ))),
+    )
+    .expect("open registered synthetic vault fixture")
+}
+
+fn entry_titled(db: &Database, title: &str) -> EntryId {
+    let mut ids = db
+        .iter_all_entries()
+        .filter(|e| e.get_title() == Some(title))
+        .map(|e| e.id());
+    let id = ids.next().expect("fixture entry exists");
+    assert!(ids.next().is_none(), "fixture title is unique");
+    id
+}
+
+fn expected(titles: &[&str]) -> Vec<String> {
+    let mut result: Vec<_> = titles.iter().map(|t| (*t).to_owned()).collect();
+    result.sort();
+    result
+}
+
+const LOGIN: &str = "登录 Login";
+const REFERENCE: &str = "字段引用 Reference";
+
+#[test]
+fn shared_and_history_only_attachments_survive_tracked_removal() {
+    let mut db = vault();
+    let login = entry_titled(&db, LOGIN);
+    let reference = entry_titled(&db, REFERENCE);
+    // 样本里 Login 已有两份历史：h0 引用 shared/blob，h1 不带附件；新快照落在末尾。
+    let snapshot_index = db
+        .entry(login)
+        .unwrap()
+        .history
+        .as_ref()
+        .unwrap()
+        .get_entries()
+        .len();
+    assert_eq!(snapshot_index, 2, "registered fixture history");
+    let shared_before = {
+        let entry = db.entry(login).unwrap();
+        let other = db.entry(reference).unwrap();
+        let old = entry.historical(0).unwrap();
+        let shared = entry.attachment_by_name("shared.txt").unwrap();
+        let other_shared = other.attachment_by_name("shared.txt").unwrap();
+        assert_eq!(
+            other_shared.id(),
+            shared.id(),
+            "fixture shares one pool item"
+        );
+        assert_eq!(titles(&shared, true), expected(&[LOGIN, LOGIN, REFERENCE]));
+        let blob = old.attachment_by_name("blob.bin").unwrap();
+        assert_eq!(titles(&blob, false), expected(&[]));
+        content(&shared)
+    };
+    db.entry_mut(login).unwrap().edit_tracking(|e| {
+        e.as_mut().remove_attachment_by_name("shared.txt");
+        e.as_mut().remove_attachment_by_name("notes.txt");
+    });
+
+    let check = |db: &Database, stage: &str| {
+        let entry = db.entry(login).unwrap();
+        let other = db.entry(reference).unwrap();
+        let old = entry.historical(0).unwrap();
+        let snapshot = entry.historical(snapshot_index).unwrap();
+        assert!(entry.attachment_by_name("shared.txt").is_none(), "{stage}");
+        assert!(entry.attachment_by_name("notes.txt").is_none(), "{stage}");
+        let still_shared = other.attachment_by_name("shared.txt").unwrap();
+        assert_eq!(content(&still_shared), shared_before, "{stage}");
+        assert_eq!(
+            titles(&still_shared, false),
+            expected(&[REFERENCE]),
+            "{stage}"
+        );
+        let shared = snapshot.attachment_by_name("shared.txt").unwrap();
+        assert_eq!(shared.id(), still_shared.id(), "{stage}");
+        assert_eq!(
+            titles(&shared, true),
+            expected(&[LOGIN, LOGIN, REFERENCE]),
+            "{stage}"
+        );
+        let notes = snapshot.attachment_by_name("notes.txt").unwrap();
+        assert_eq!(titles(&notes, true), expected(&[LOGIN]), "{stage}");
+        assert_eq!(titles(&notes, false), expected(&[]), "{stage}");
+        let blob = old.attachment_by_name("blob.bin").unwrap();
+        assert_eq!(titles(&blob, true), expected(&[LOGIN]), "{stage}");
+    };
+    check(&db, "after tracked removal");
+    let mut reopened = reopen(&db);
+    check(&reopened, "after reopen");
+
+    // 不带历史的直接删除只释放 Reference 当前版本的引用，Login 历史仍保有内容。
+    reopened
+        .entry_mut(reference)
+        .unwrap()
+        .remove_attachment_by_name("shared.txt");
+    let entry = reopened.entry(login).unwrap();
+    let snapshot = entry.historical(snapshot_index).unwrap();
+    let shared = snapshot.attachment_by_name("shared.txt").unwrap();
+    assert_eq!(content(&shared), shared_before);
+    assert_eq!(titles(&shared, false), expected(&[]));
+    assert_eq!(titles(&shared, true), expected(&[LOGIN, LOGIN]));
 }

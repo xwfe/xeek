@@ -14,10 +14,12 @@ HERE = Path(__file__).resolve().parent
 ROOT = HERE.parents[1]
 REFERENCE = ROOT / "tests/reference_writer"
 TARGET = REFERENCE / "target"
+FIXTURES = ROOT / "tests/fixtures/kdbx"
 NAME = "keex-preservation-writer"
 BINARY = TARGET / "release" / NAME
 VERSION = "0.15.3"
-PATCHES = (HERE / "patches/01-icons.patch", HERE / "patches/02-history.patch")
+PATCHES = tuple(HERE / "patches" / name for name in (
+    "01-icons.patch", "02-history.patch", "03-attachments.patch"))
 sys.path[:0] = [str(ROOT / path) for path in (
     "tests/kdbx_oracle/.deps-argon2", "tests/kdbx_oracle", "tests/fixtures/kdbx")]
 from candidate_minimal import make_case
@@ -47,6 +49,17 @@ def source_archive(lock):
     if hashlib.sha256(archive.read_bytes()).hexdigest() != package["checksum"]:
         raise ValueError("cached keepass archive differs from the existing Cargo.lock")
     return archive
+
+
+def vault_fixture():
+    # 共享附件与历史独占附件的真实客户端样本；先按登记哈希核对，避免拿错文件当输入。
+    sample = next(s for s in json.loads((FIXTURES / "vault_manifest.json").read_text())["samples"]
+                  if s["id"] == "V41-VAULT")
+    stage = next(s for s in sample["stages"] if s["name"] == "edit1")
+    data = (FIXTURES / stage["file"]).read_bytes()
+    if hashlib.sha256(data).hexdigest() != stage["sha256"]:
+        raise ValueError("registered vault fixture differs from vault_manifest.json")
+    return data, sample["credentials"]["password"]
 
 
 def isolated_lock(text):
@@ -88,6 +101,9 @@ def build_helper():
         data, password = make_case("dual-icons")
         (work / "dual-icons.kdbx").write_bytes(data)
         (work / "dual-icons.password").write_text(password)
+        data, password = vault_fixture()
+        (work / "vault.kdbx").write_bytes(data)
+        (work / "vault.password").write_text(password)
         run(["cargo", "fmt", "--manifest-path", str(work / "Cargo.toml"), "--", "--check"])
         arguments = ["--locked", "--offline", "--release", "--manifest-path",
                      str(work / "Cargo.toml"), "--target-dir", str(TARGET)]
