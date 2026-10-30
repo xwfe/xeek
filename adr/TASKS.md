@@ -14,6 +14,7 @@
 | [K068](evidence/K068.md) | REVIEW | v1 字段契约与可执行检查器 | 人工独立复核 |
 | [K069](evidence/K069.md) | DOING | 三格式领域库、同 RP 多 Passkey、1k/10k 规模矩阵；尚未判定无损 | 多客户端来源，真机、iOS 扩展和浏览器的资源实测 |
 | [K071](evidence/K071.md) | DOING | 浏览器探针和驱动；Chrome、Edge、Firefox 与 WebKit 的 Playwright 版全部场景，官方 Safari 跑页面探针；未发现阻塞项 | 授权后写回真实文件（要人点）；官方 Firefox；Safari 的杀进程、下载和隐私模式；真机；依赖 K001/K068 尚未 DONE |
+| [K072](evidence/K072.md) | DOING | WebDAV：能力探针和条件提交，五个浏览器在 Apache、WsgiDAV 和 21 种异常服务器上结果一致 | OneDrive 全部（要专用测试账号）；Nextcloud 等真实服务；HTTPS；上传中断的探测；依赖 K001 尚未 DONE |
 
 表中 P0/P1/P2 为紧急度，S/M/L 为相对规模，均不是阶段编号或人日承诺。K068–K089 是个人资料/Web 增量，细化见 [专项计划](PERSONAL_VAULT_PLAN.md)。
 
