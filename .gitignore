@@ -13,6 +13,8 @@ __pycache__/
 /tests/kdbx_oracle/.venv/
 /tests/kdbx_oracle/.venv-argon2/
 /tests/kdbx_oracle/.deps-argon2/
+# K071 项目内下载的测试浏览器；版本由 package.json 和 pnpm-lock.yaml 固定。
+/tests/web_storage/.browsers/
 # K003 kdbx.dart 候选的项目内 pub 缓存；pubspec.lock 提交。
 /tests/dart_candidate/.pub-cache/
 .dart_tool/

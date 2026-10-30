@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>keex K071 文件写回手动核对</title>
+</head>
+<body>
+<h1>文件写回手动核对</h1>
+<p>授权弹窗和系统文件框只能人点。只用下面下载的合成库，不要选真实密码库。</p>
+<p>保存状态：<output id="save-state"></output></p>
+<ol>
+  <li><button id="sample">下载合成库</button></li>
+  <li><button id="open">打开刚下载的文件</button></li>
+  <li><button id="deny">写回，授权框点“不允许”</button></li>
+  <li><button id="write">写回，授权框点“允许”</button></li>
+  <li>用别的程序改动这个文件（比如 <code>echo x &gt;&gt; 文件路径</code>），然后 <button id="conflict">再写回一次</button></li>
+  <li><button id="cancel">另存为，在文件框点“取消”</button></li>
+  <li><button id="save-as">另存为，保存到新文件</button></li>
+  <li><button id="pending">开始写入但不完成</button>，然后直接关掉整个浏览器。重开后原文件应该没变，文件旁边可能多一个 <code>.crswap</code> 临时文件。</li>
+  <li>在地址栏左侧的站点设置里撤销文件权限，然后 <button id="revoked">再写回一次</button></li>
+  <li><button id="report">提交结果</button></li>
+</ol>
+<pre id="log"></pre>
+<script type="module" src="manual.js"></script>
+</body>
+</html>

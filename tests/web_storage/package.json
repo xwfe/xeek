@@ -1,0 +1,12 @@
+{
+  "name": "keex-web-storage-experiment",
+  "private": true,
+  "type": "module",
+  "description": "K071：浏览器文件、密文缓存、配额、单写者与恢复实验。只处理公开合成数据。",
+  "scripts": {
+    "drive": "node drive.mjs"
+  },
+  "devDependencies": {
+    "playwright": "1.64.1"
+  }
+}
