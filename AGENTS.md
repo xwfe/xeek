@@ -32,6 +32,6 @@
 
 先读 `README.md`、`adr/IMPLEMENTATION_PLAN.md`、`adr/TASKS.md` 和 `adr/REAL_DATA_RULES.md`；新领域和 Web 另读 `adr/0006-personal-data-vault.md`、`adr/0007-web-vault-client.md`、`adr/PERSONAL_VAULT_SPEC.md`、`adr/PERSONAL_VAULT_PLAN.md`。涉及秘密、授权、联网或跨进程的改动对照 `adr/THREAT_MODEL.md`，能力显示按 `adr/CAPABILITIES.md` 的状态规则。主任务状态只在 TASKS/STATUS 维护；每次仅领取明确任务及其依赖，交付代码、测试、证据、限制，并同步状态。不得仅因写了代码就勾选验收。
 
-本仓库Git用户名使用 `uxiew`，仅配置仓库级 `user.name`，不得因此修改全局身份。提交邮箱未由用户指定时不编造；初始化本地仓库不等于获准创建远端或推送。
+本仓库只用 `uxiew` 身份提交：仓库级 `user.name` 和 `user.email` 都已固定（邮箱为 uxiew 的 GitHub noreply 地址），不依赖、也不修改全局身份，不用其他身份提交；按单个变更粒度 commit。初始化本地仓库不等于获准创建远端或推送。
 
 协议兼容性、加密写入、权限、数据迁移由独立审查者复核。新增第三方库要记录许可证、固定版本、维护情况与替换边界。不要未经请求安装工具链、初始化 Git、提交或发布。
