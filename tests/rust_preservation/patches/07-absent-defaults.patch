@@ -1,0 +1,56 @@
+--- a/src/db/types/entry.rs
++++ b/src/db/types/entry.rs
+@@ -84,8 +84,10 @@ pub struct Entry {
+     /// URL override for this entry
+     pub override_url: Option<String>,
+ 
+-    /// whether to enable password quality check for this entry
+-    pub quality_check: bool,
++    /// whether to enable password quality check for this entry; `None` means the file does not
++    /// say, which counts as enabled. KeePass and KeePassXC only write it when it is false, so
++    /// writing a default here would add an element to every entry they created.
++    pub quality_check: Option<bool>,
+ 
+     /// attachments associated with this entry, mapped by attachment name to attachment ID
+     pub(crate) attachments: HashMap<String, AttachmentId>,
+@@ -115,7 +117,7 @@ impl Entry {
+             foreground_color: None,
+             background_color: None,
+             override_url: None,
+-            quality_check: true,
++            quality_check: None,
+             attachments: HashMap::new(),
+             history: Some(History::default()),
+             previous_parent_group: None,
+--- a/src/format/xml_db/entry.rs
++++ b/src/format/xml_db/entry.rs
+@@ -149,7 +149,7 @@ impl Entry {
+             target.custom_data = cd.into();
+         }
+ 
+-        target.quality_check = self.quality_check.unwrap_or(true);
++        target.quality_check = self.quality_check;
+ 
+         target.previous_parent_group = self.previous_parent_group.map(|g| GroupId::from_uuid(g.0));
+ 
+@@ -231,7 +231,7 @@ impl Entry {
+             auto_type: db.autotype.as_ref().map(|at| at.clone().into()),
+             history,
+             custom_data,
+-            quality_check: Some(db.quality_check),
++            quality_check: db.quality_check,
+             previous_parent_group: db.previous_parent_group.map(|g| UUID(g.uuid())),
+         })
+     }
+--- a/src/format/xml_db/group.rs
++++ b/src/format/xml_db/group.rs
+@@ -101,7 +101,8 @@ impl Group {
+         };
+ 
+         target.times = self.times.map(|t| t.into()).unwrap_or_default();
+-        target.is_expanded = self.is_expanded.unwrap_or_default();
++        // A missing element means expanded in KeePass and KeePassXC, as for a new group here.
++        target.is_expanded = self.is_expanded.unwrap_or(true);
+         target.default_autotype_sequence = self.default_auto_type_sequence;
+         target.enable_autotype = self.enable_auto_type;
+         target.enable_searching = self.enable_searching;
