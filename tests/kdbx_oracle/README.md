@@ -11,7 +11,7 @@ python3 -B tests/run_python_tests.py --suite oracle
 python3 -B tests/run_python_tests.py --suite domain
 ~~~
 
-当前 oracle 入口 164 项，领域 93 项，共 257 项；另有 Rust 保存版本探针 3 项、隔离补丁 API 测试 7 项（其中 4 项是附件生命周期），不混入 Python 数量。缺少 Argon2 后端时入口直接报错。旧交叉读/live 类仍有明确跳过条件，跳过不算完整验收；K003 最小反例集要求已有 Cargo、Dart、KeePassXC 和固定项目缓存，缺任一项直接失败。只跑领域检查仍可使用 --suite domain。
+当前 oracle 入口 169 项，领域 93 项，共 262 项；另有 Rust 保存版本探针 3 项、隔离补丁 API 测试 10 项（附件生命周期 4 项、未知内容 3 项），不混入 Python 数量。缺少 Argon2 后端时入口直接报错。旧交叉读/live 类仍有明确跳过条件，跳过不算完整验收；K003 最小反例集要求已有 Cargo、Dart、KeePassXC 和固定项目缓存，缺任一项直接失败。只跑领域检查仍可使用 --suite domain。
 
 K003 最小反例及直接上游版本探针：
 
@@ -22,7 +22,7 @@ cargo test --locked --offline --release --manifest-path tests/reference_writer/C
 
 最小反例集每次先按锁文件离线构建两个真实 helper，再现场构造小输入；Dart 构建仅在子进程将 PUB_HOSTED_URL 固定为锁文件的 https://pub.dev，不继承其它镜像的缓存目录，也不更改全局环境。KeePassXC 只验证输入可打开，丢失判断使用独立 oracle；新密码库只放临时目录并自动清理。**测试通过表示固定版本的缺陷被准确复现，不能解释为 writer 无损通过。** 反例、源码定位与修补范围见 [K003 最小反例证据](../../adr/evidence/K003_MINIMAL.md)。
 
-隔离 Rust 保留补丁的构建与专项入口见 [实验说明](../rust_preservation/README.md)。专项每次真实构建并运行 Rust API 测试，再做 26 次往返；原 12 组矩阵按完整期望树比较已无差异；构造的组/条目交错按 KeePass 写法规范为先条目后子组并精确断言。原未修候选诊断仍保留。修复与未解决边界见 [补丁证据](../../adr/evidence/K003_RUST_PATCH.md)。
+隔离 Rust 保留补丁的构建与专项入口见 [实验说明](../rust_preservation/README.md)。专项每次真实构建并运行 Rust API 测试，再做 26 次往返；原 12 组矩阵按完整期望树比较已无差异；构造的组/条目交错按 KeePass 写法规范为先条目后子组并精确断言；未知内容拒绝保存或拒绝打开。原未修候选诊断仍保留。修复与未解决边界见 [补丁证据](../../adr/evidence/K003_RUST_PATCH.md)。
 
 本机使用项目内 --target 安装，复用现有 cryptography/cffi/pycparser，不改全局包。macOS arm64 固定 wheel 锁的复现命令：
 
