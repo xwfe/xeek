@@ -510,3 +510,197 @@ fn registered_fixtures_have_no_unknown_content() {
     println!("checked {checked} registered fixtures");
     assert!(checked >= 60, "fixture table unexpectedly small: {checked}");
 }
+
+fn tracked(db: &mut Database, id: EntryId, username: &str) {
+    db.entry_mut(id).unwrap().edit_tracking(|e| {
+        e.set_unprotected(fields::USERNAME, username);
+    });
+}
+
+fn history_names(db: &Database, id: EntryId) -> Vec<String> {
+    let entry = db.entry(id).unwrap();
+    let versions = entry.history.as_ref().unwrap().get_entries();
+    versions
+        .iter()
+        .map(|e| e.get_username().unwrap().to_owned())
+        .collect()
+}
+
+/// 历史 v0、v1 带 first.bin、second.bin 和自定义图标，v2 只带图标，v3 什么都不带；当前 v4 带 current.bin。
+fn trimmable() -> (Database, EntryId) {
+    let mut db = database();
+    let id = db
+        .root_mut()
+        .add_entry()
+        .edit(|e| {
+            e.set_unprotected(fields::USERNAME, "v0");
+            e.add_attachment("first.bin", Value::protected(vec![1]));
+            e.add_attachment("second.bin", Value::unprotected(vec![2]));
+            e.set_icon_custom_new(vec![3]);
+        })
+        .id();
+    tracked(&mut db, id, "v1");
+    db.entry_mut(id).unwrap().edit_tracking(|e| {
+        e.set_unprotected(fields::USERNAME, "v2");
+        e.as_mut().remove_attachment_by_name("first.bin");
+        e.as_mut().remove_attachment_by_name("second.bin");
+    });
+    db.entry_mut(id).unwrap().edit_tracking(|e| {
+        e.set_unprotected(fields::USERNAME, "v3");
+        e.as_mut().set_icon_builtin(1);
+    });
+    db.entry_mut(id).unwrap().edit_tracking(|e| {
+        e.set_unprotected(fields::USERNAME, "v4");
+        e.as_mut()
+            .add_attachment("current.bin", Value::unprotected(vec![4]));
+    });
+    (db, id)
+}
+
+fn assert_trimmed_references(db: &Database, id: EntryId, stage: &str) {
+    assert_eq!(history_names(db, id), ["v2", "v3"], "{stage}");
+    let entry = db.entry(id).unwrap();
+    let current = entry.attachment_by_name("current.bin").unwrap();
+    assert_eq!(usernames(current.entries(true)), ["v4"], "{stage}");
+    for index in 0..2 {
+        let version = entry.historical(index).unwrap();
+        assert_eq!(version.attachments().count(), 0, "{stage}");
+    }
+    assert_eq!(db.num_attachments(), 1, "{stage}");
+}
+
+#[test]
+fn trimming_drops_oldest_versions_and_their_only_references() {
+    let (mut db, id) = trimmable();
+    assert_eq!(history_names(&db, id), ["v0", "v1", "v2", "v3"]);
+    assert_eq!(db.num_attachments(), 3);
+    db.meta.history_max_items = Some(2);
+    db.entry_mut(id).unwrap().trim_history();
+    for (stage, candidate) in [("after trim", &db), ("after reopen", &reopen(&db))] {
+        assert_trimmed_references(candidate, id, stage);
+    }
+}
+
+#[test]
+fn trimming_renumbers_references_of_the_versions_it_keeps() {
+    let mut db = database();
+    let id = db
+        .root_mut()
+        .add_entry()
+        .edit(|e| {
+            e.set_unprotected(fields::USERNAME, "v0");
+        })
+        .id();
+    tracked(&mut db, id, "v1");
+    db.entry_mut(id).unwrap().edit_tracking(|e| {
+        e.set_unprotected(fields::USERNAME, "v2");
+        e.as_mut()
+            .add_attachment("kept.bin", Value::protected(vec![1]));
+        e.as_mut().set_icon_custom_new(vec![2]);
+    });
+    tracked(&mut db, id, "v3");
+    tracked(&mut db, id, "v4");
+    // 历史 v0..v3；kept.bin 和图标被 v2、v3、当前 v4 引用，位置是 2、3、当前。
+    assert_eq!(history_names(&db, id), ["v0", "v1", "v2", "v3"]);
+    let attachment = db
+        .entry(id)
+        .unwrap()
+        .attachment_by_name("kept.bin")
+        .unwrap()
+        .id();
+    let icon = db.entry(id).unwrap().custom_icon().unwrap().id();
+
+    db.meta.history_max_items = Some(2);
+    db.entry_mut(id).unwrap().trim_history();
+
+    for (stage, candidate) in [("after trim", &db), ("after reopen", &reopen(&db))] {
+        assert_eq!(history_names(candidate, id), ["v2", "v3"], "{stage}");
+        let kept = candidate.attachment(attachment).unwrap();
+        assert_eq!(usernames(kept.entries(true)), ["v2", "v3", "v4"], "{stage}");
+        let custom = candidate.custom_icon(icon).unwrap();
+        assert_eq!(
+            usernames(custom.entries(true)),
+            ["v2", "v3", "v4"],
+            "{stage}"
+        );
+    }
+    // 引用的位置错了这里会改到别的版本，或 panic。
+    db.attachment_mut(attachment)
+        .unwrap()
+        .foreach_entry_mut(|e| mark(e, "visit"), true);
+    let entry = db.entry(id).unwrap();
+    assert!(entry.get("visit").is_some());
+    assert!(entry.historical(0).unwrap().get("visit").is_some());
+    assert!(entry.historical(1).unwrap().get("visit").is_some());
+}
+
+#[test]
+fn tracked_edits_apply_the_limit_including_zero() {
+    let (mut db, id) = trimmable();
+    db.meta.history_max_items = Some(2);
+    tracked(&mut db, id, "v5");
+    assert_eq!(history_names(&db, id), ["v3", "v4"]);
+
+    // 上限 0：快照刚生成就被裁掉，但编辑中删附件仍只释放这一个版本。
+    db.meta.history_max_items = Some(0);
+    let current = db
+        .entry(id)
+        .unwrap()
+        .attachment_by_name("current.bin")
+        .unwrap()
+        .id();
+    db.entry_mut(id).unwrap().edit_tracking(|e| {
+        e.set_unprotected(fields::USERNAME, "v6");
+        e.as_mut().remove_attachment_by_id(current);
+    });
+    assert_eq!(history_names(&db, id), [] as [&str; 0]);
+    assert!(db.attachment(current).is_none());
+    assert_eq!(db.num_attachments(), 0);
+    let reopened = reopen(&db);
+    assert_eq!(reopened.entry(id).unwrap().get_username(), Some("v6"));
+    assert_eq!(history_names(&reopened, id), [] as [&str; 0]);
+}
+
+#[test]
+fn absent_or_negative_limits_keep_all_history() {
+    for limit in [None, Some(-1), Some(-5)] {
+        let (mut db, id) = trimmable();
+        db.meta.history_max_items = limit;
+        db.meta.history_max_size = limit;
+        tracked(&mut db, id, "v5");
+        assert_eq!(history_names(&db, id), ["v0", "v1", "v2", "v3", "v4"]);
+        assert_eq!(db.num_attachments(), 3);
+    }
+}
+
+#[test]
+fn clearing_history_releases_content_and_keeps_icons() {
+    let (mut db, id) = trimmable();
+    let icon = db
+        .entry(id)
+        .unwrap()
+        .historical(0)
+        .unwrap()
+        .custom_icon()
+        .unwrap()
+        .id();
+    db.entry_mut(id).unwrap().clear_history();
+    for (stage, candidate) in [("after clear", &db), ("after reopen", &reopen(&db))] {
+        assert_eq!(history_names(candidate, id), [] as [&str; 0], "{stage}");
+        assert_eq!(candidate.num_attachments(), 1, "{stage}");
+        let current = candidate.entry(id).unwrap();
+        assert_eq!(
+            current
+                .attachment_by_name("current.bin")
+                .unwrap()
+                .entries(true)
+                .count(),
+            1
+        );
+        assert_eq!(
+            candidate.custom_icon(icon).unwrap().entries(true).count(),
+            0,
+            "{stage}"
+        );
+    }
+}

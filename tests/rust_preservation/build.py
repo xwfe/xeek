@@ -18,10 +18,11 @@ TARGET = REFERENCE / "target"
 FIXTURES = ROOT / "tests/fixtures/kdbx"
 NAME = "keex-preservation-writer"
 BINARY = TARGET / "release" / NAME
+HISTORY_EDIT = "keex-history-edit"
 VERSION = "0.15.3"
 PATCHES = tuple(HERE / "patches" / name for name in (
     "01-icons.patch", "02-history.patch", "03-attachments.patch", "04-child-order.patch",
-    "05-unknown-content.patch"))
+    "05-unknown-content.patch", "06-history-limits.patch"))
 sys.path[:0] = [str(ROOT / path) for path in (
     "tests/kdbx_oracle/.deps-argon2", "tests/kdbx_oracle", "tests/fixtures/kdbx")]
 from candidate_minimal import encode_v4, make_case, plain_case
@@ -139,6 +140,8 @@ def build_helper():
         manifest += (
             f'\n[[bin]]\nname = "{NAME}"\n'
             f'path = {json.dumps(str(REFERENCE / "src/main.rs"))}\n'
+            f'\n[[bin]]\nname = "{HISTORY_EDIT}"\n'
+            f'path = {json.dumps(str(HERE / "src/history_edit.rs"))}\n'
             '\n[[test]]\nname = "preservation"\n'
             f'path = {json.dumps(str(HERE / "tests/preservation.rs"))}\n'
         )
@@ -156,7 +159,7 @@ def build_helper():
         arguments = ["--locked", "--offline", "--release", "--manifest-path",
                      str(work / "Cargo.toml"), "--target-dir", str(TARGET)]
         test_output = run(["cargo", "test", *arguments, "--test", "preservation"])
-        run(["cargo", "build", *arguments, "--bin", NAME])
+        run(["cargo", "build", *arguments, "--bin", NAME, "--bin", HISTORY_EDIT])
         # Cargo 的 --locked 拒绝重新解析；再核对实验锁未被构建步骤改写。
         if (work / "Cargo.lock").read_text() != isolated_lock(lock_text):
             raise ValueError("isolated dependency lock changed")

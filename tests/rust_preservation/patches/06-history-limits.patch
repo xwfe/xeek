@@ -1,0 +1,179 @@
+--- a/src/db/types/entry.rs
++++ b/src/db/types/entry.rs
+@@ -9,7 +9,8 @@ use uuid::Uuid;
+ use crate::{
+     db::{
+         attachment::{AttachmentMut, AttachmentRef},
+-        fields, Attachment, AttachmentId, AutoType, Color, CustomDataItem, CustomIcon, CustomIconId,
++        fields, Attachment, AttachmentId, AutoType, Color, CustomDataItem, CustomDataValue, CustomIcon,
++        CustomIconId,
+         CustomIconMut, CustomIconNotFoundError, CustomIconRef, GroupId, GroupMut, GroupRef, History, Icon,
+         Times, Value,
+     },
+@@ -175,6 +176,85 @@ impl Entry {
+     pub fn get_url(&self) -> Option<&str> {
+         self.get(fields::URL)
+     }
++
++    /// Bytes this version counts towards `HistoryMaxSize`, measured like KeePassXC's `Entry::size`.
++    /// KeePass estimates process memory instead, so it trims earlier; there is no common number.
++    fn history_size(&self, attachments: &HashMap<AttachmentId, Attachment>) -> u64 {
++        let fields = self.fields.iter().map(|(key, value)| key.len() + value.get().len());
++        let attachments = self.attachments.iter().map(|(name, id)| {
++            name.len() + attachments.get(id).map_or(0, |attachment| attachment.data.get().len())
++        });
++        let associations = self.autotype.iter().flat_map(|autotype| {
++            autotype.associations.iter().map(|a| a.window.len() + a.sequence.len())
++        });
++        let custom_data = self.custom_data.iter().map(|(key, item)| {
++            key.len()
++                + match &item.value {
++                    Some(CustomDataValue::String(value)) => value.len(),
++                    Some(CustomDataValue::Binary(value)) => value.len(),
++                    None => 0,
++                }
++        });
++        let tags = self.tags.iter().map(String::len);
++        fields
++            .chain(attachments)
++            .chain(associations)
++            .chain(custom_data)
++            .chain(tags)
++            .fold(0, |total: u64, size| total.saturating_add(size as u64))
++    }
++}
++
++/// Drop the history versions over `HistoryMaxItems`/`HistoryMaxSize`, oldest first.
++fn trim_history(database: &mut Database, id: EntryId) {
++    let Some(history) = database.entries.get(&id).and_then(|entry| entry.history.as_ref()) else {
++        return;
++    };
++    let keep = history.within_limits(
++        database.meta.history_max_items,
++        database.meta.history_max_size,
++        |version| version.history_size(&database.attachments),
++    );
++    if keep.contains(&false) {
++        retain_history(database, id, &keep);
++    }
++}
++
++/// Keep only the marked history versions and bring back-references in line.
++///
++/// References store a position in the history, so every version after a dropped one moves. Content
++/// goes with its last reference, otherwise a deleted version's attachment would stay in the file;
++/// a pool item that was unreferenced before this call is left alone. Custom icons stay, as they do
++/// in KeePass and KeePassXC: they belong to the database and can be reused.
++fn retain_history(database: &mut Database, id: EntryId, keep: &[bool]) {
++    let Some(history) = database.entries.get_mut(&id).and_then(|entry| entry.history.as_mut()) else {
++        return;
++    };
++    let mut positions = HashMap::new();
++    for (index, version) in std::mem::take(&mut history.entries).into_iter().enumerate() {
++        if keep.get(index) == Some(&true) {
++            positions.insert(index, history.entries.len());
++            history.entries.push(version);
++        }
++    }
++
++    let renumber = |references: &mut HashSet<(EntryId, Option<usize>)>| {
++        let before = references.len();
++        *references = references
++            .drain()
++            .filter_map(|(entry, index)| match index {
++                Some(index) if entry == id => positions.get(&index).map(|&moved| (entry, Some(moved))),
++                _ => Some((entry, index)),
++            })
++            .collect();
++        references.len() < before
++    };
++    database
++        .attachments
++        .retain(|_, attachment| !renumber(&mut attachment.entries) || !attachment.entries.is_empty());
++    for icon in database.custom_icons.values_mut() {
++        renumber(&mut icon.entries);
++    }
+ }
+ 
+ impl std::fmt::Display for EntryId {
+@@ -374,9 +454,25 @@ impl EntryMut<'_> {
+         self
+     }
+ 
++    /// Apply the database's history limits to this entry. Tracked edits already do this; call it
++    /// after lowering a limit. Nothing is trimmed when a file is opened or saved, so entries nobody
++    /// edited keep whatever history they came with.
++    pub fn trim_history(&mut self) {
++        trim_history(self.database, self.id);
++    }
++
++    /// Delete all history versions of this entry, including content only they used.
++    ///
++    /// Use this rather than assigning to the public `history` field, which leaves back-references
++    /// pointing at versions that no longer exist.
++    pub fn clear_history(&mut self) {
++        retain_history(self.database, self.id, &[]);
++    }
++
+     /// Convert this mutable reference into a history-tracking variant. The current state of the
+     /// entry is appended to its history immediately, so the snapshot keeps its attachments and
+-    /// custom icon referenced while the tracked edit removes or replaces them.
++    /// custom icon referenced while the tracked edit removes or replaces them. History over the
++    /// database's limits is trimmed at the same moment.
+     ///
+     /// NOTE: will always operate on the main Entry, not a historical version of it.
+     #[allow(clippy::expect_used, clippy::missing_panics_doc)] // entry existence is guaranteed
+@@ -401,6 +497,7 @@ impl EntryMut<'_> {
+                 icon.entries.insert((id, Some(history_index)));
+             }
+         }
++        trim_history(self.database, id);
+ 
+         EntryTrack {
+             database: self.database,
+--- a/src/db/types/history.rs
++++ b/src/db/types/history.rs
+@@ -1,3 +1,5 @@
++use std::convert::TryFrom;
++
+ use crate::db::Entry;
+ 
+ /// An entry's history
+@@ -24,4 +26,37 @@ impl History {
+     pub fn get_entries(&self) -> &Vec<Entry> {
+         &self.entries
+     }
++
++    /// Which versions stay under the limits, by index. A negative limit means no limit.
++    ///
++    /// KeePass and KeePassXC both keep the newest versions whose combined size fits, so one walk
++    /// covers both limits. Age comes from the modification time as in KeePass, not the list
++    /// position as in KeePassXC: files written by unpatched keepass-rs list the newest version
++    /// first, and going by position would delete exactly the versions worth keeping.
++    pub(crate) fn within_limits(
++        &self,
++        max_items: Option<isize>,
++        max_size: Option<isize>,
++        size: impl Fn(&Entry) -> u64,
++    ) -> Vec<bool> {
++        let max_items = max_items.and_then(|n| usize::try_from(n).ok()).unwrap_or(usize::MAX);
++        let max_size = max_size.and_then(|n| u64::try_from(n).ok()).unwrap_or(u64::MAX);
++
++        // Stable, so among equal times (second precision) the later position counts as newer.
++        let mut oldest_first: Vec<(usize, &Entry)> = self.entries.iter().enumerate().collect();
++        oldest_first.sort_by_key(|(_, version)| version.times.last_modification);
++
++        let mut keep = vec![false; self.entries.len()];
++        let mut total: u64 = 0;
++        for (index, version) in oldest_first.into_iter().rev().take(max_items) {
++            total = total.saturating_add(size(version));
++            if total > max_size {
++                break;
++            }
++            if let Some(slot) = keep.get_mut(index) {
++                *slot = true;
++            }
++        }
++        keep
++    }
+ }
