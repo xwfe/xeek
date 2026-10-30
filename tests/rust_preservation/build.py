@@ -19,7 +19,7 @@ NAME = "keex-preservation-writer"
 BINARY = TARGET / "release" / NAME
 VERSION = "0.15.3"
 PATCHES = tuple(HERE / "patches" / name for name in (
-    "01-icons.patch", "02-history.patch", "03-attachments.patch"))
+    "01-icons.patch", "02-history.patch", "03-attachments.patch", "04-child-order.patch"))
 sys.path[:0] = [str(ROOT / path) for path in (
     "tests/kdbx_oracle/.deps-argon2", "tests/kdbx_oracle", "tests/fixtures/kdbx")]
 from candidate_minimal import make_case

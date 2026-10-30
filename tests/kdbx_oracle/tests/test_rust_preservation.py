@@ -53,6 +53,11 @@ class RustPreservationTest(unittest.TestCase):
         identifier = checks.uuid_hex(decoded.root.findtext("Root/Group/UUID"))
         return "order KeePassFile/Root/Group=" + identifier
 
+    @staticmethod
+    def root_children(decoded):
+        return [(child.tag, child.findtext("UUID")) for child in decoded.root.find("Root/Group")
+                if child.tag in ("Entry", "Group")]
+
     def roundtrip(self, source, password, target, username, *, kdf="aes-kdf",
                   cipher="aes", remaining=()):
         original_bytes = source.read_bytes()
@@ -131,16 +136,22 @@ class RustPreservationTest(unittest.TestCase):
         reference.reference_export({"password": password}, output, self.cli)
         return output, before, after
 
-    def test_existing_microcases_preserve_everything_except_known_mixed_order(self):
+    def test_existing_microcases_preserve_everything_and_write_entries_before_groups(self):
         for feature in minimal.FEATURES:
             with self.subTest(feature=feature):
                 data, password = minimal.make_case(feature)
                 source = self.write_input(feature, data)
                 reference.reference_export({"password": password}, source, self.cli)
                 before = read_kdbx(data, password)
+                # 构造的交错顺序在 KeePass/KeePassXC 的模型里也无法表示：两者都按“先条目、后子组”写出，
+                # 各自内部顺序不变。这里精确断言该顺序，而不是笼统放行“顺序变了”。
                 remaining = [self.mixed_order_label(before)] if feature == "mixed-order" else []
-                self.roundtrip(source, password, minimal.TARGET_UUID, minimal.NEW_USERNAME,
-                               remaining=remaining)
+                _, _, after = self.roundtrip(source, password, minimal.TARGET_UUID,
+                                             minimal.NEW_USERNAME, remaining=remaining)
+                children = self.root_children(before)
+                self.assertEqual(self.root_children(after),
+                                 [c for c in children if c[0] == "Entry"] +
+                                 [c for c in children if c[0] == "Group"])
 
     def test_icon_presence_in_group_current_old_and_new_history(self):
         for presence in ("neither", "standard", "custom", "both"):
@@ -190,17 +201,16 @@ class RustPreservationTest(unittest.TestCase):
         self.assertEqual([checks.fields(e)["UserName"].value for e in snapshots],
                          ["synthetic-older", "synthetic-later", "synthetic-current", "synthetic-first"])
 
-    def test_original_twelve_case_matrix_keeps_only_known_mixed_order(self):
+    def test_original_twelve_case_matrix_round_trips_without_differences(self):
         registered = {s["id"]: s for s in json.loads(reference.MANIFEST.read_text())["samples"]}
         for case in reference.cases():
             with self.subTest(case=case["id"]):
                 source = reference.FIXTURES / case["source_file"]
                 self.assertEqual(reference.digest(source.read_bytes()),
                                  registered[case["id"]]["source_sha256"])
-                before = read_kdbx(source.read_bytes(), case["password"])
+                # 输入由 KeePassXC 写出，已是“先条目、后子组”；写出顺序一致后不应再有任何差异。
                 self.roundtrip(source, case["password"], case["entry_uuid"], case["new_username"],
-                               kdf=case["kdf"], cipher=case["cipher"],
-                               remaining=[self.mixed_order_label(before)])
+                               kdf=case["kdf"], cipher=case["cipher"])
 
 
 if __name__ == "__main__":

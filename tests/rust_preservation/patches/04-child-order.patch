@@ -1,0 +1,24 @@
+--- a/src/format/xml_db/group.rs
++++ b/src/format/xml_db/group.rs
+@@ -136,14 +136,17 @@ impl Group {
+     ) -> Result<Self, CryptographyError> {
+         let mut children = Vec::new();
+ 
+-        for g in source.groups() {
+-            children.push(GroupOrEntry::Group(Group::db_to_xml(g, inner_cipher)?));
+-        }
+-
++        // KeePass and KeePassXC keep entries and subgroups in two separate lists and write the
++        // entries first. Use the same order so files written by them keep their child order;
++        // an interleaving that no KeePass model can represent is normalized the same way.
+         for e in source.entries() {
+             children.push(GroupOrEntry::Entry(Entry::db_to_xml(e, inner_cipher)?));
+         }
+ 
++        for g in source.groups() {
++            children.push(GroupOrEntry::Group(Group::db_to_xml(g, inner_cipher)?));
++        }
++
+         let custom_data: Option<crate::format::xml_db::meta::CustomData> = if source.custom_data.is_empty() {
+             None
+         } else {

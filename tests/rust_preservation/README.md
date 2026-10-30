@@ -1,6 +1,6 @@
 # Rust 保留补丁实验
 
-K003 的隔离实验：在 keepass 0.15.3 上保留标准/自定义图标双字段，将编辑前快照追加到历史末尾，并让删除或替换附件只释放当前版本的引用。只处理公开合成数据；生产写入闸门仍关闭。
+K003 的隔离实验：在 keepass 0.15.3 上保留标准/自定义图标双字段，将编辑前快照追加到历史末尾，让删除或替换附件只释放当前版本的引用，并按 KeePass/KeePassXC 的顺序先写条目、后写子组。只处理公开合成数据；生产写入闸门仍关闭。
 
 ## 构建与回归
 
@@ -18,6 +18,7 @@ python3 -B tests/run_python_tests.py --suite oracle --pattern test_rust_preserva
 1. [01-icons.patch](patches/01-icons.patch)：模型明确表示两个图标字段共存，贯通 XML 读写、查询与引用清理。
 2. [02-history.patch](patches/02-history.patch)：追加新快照并登记它的图标/附件引用，保持旧历史索引稳定；重开时重建当前与历史的附件反向引用。
 3. [03-attachments.patch](patches/03-attachments.patch)：删除附件只去掉“这一个版本”的引用，其它历史版本或条目还在用时保留内容；tracked 编辑开始时就把编辑前快照追加进历史并登记引用，所以编辑中删除或同名替换附件不会先把快照要用的内容删掉。
+4. [04-child-order.patch](patches/04-child-order.patch)：同一分组下先写条目、后写子组。KeePass 和 KeePassXC 都把两者存成两个列表并这样写出，所以它们写的文件顺序不变；它们自己也表示不了的交错顺序，同样被规范成这个顺序。
 
 实验 manifest 直接引用原 helper 源码。临时锁只改实验根包名和 keepass 来源，传递版本/校验和保持原锁；构建使用 `--locked --offline`。原候选源码、锁文件、包缓存、样本与 manifest 不被修改。固定上游部分遵循 [MIT 许可证](LICENSE.keepass)，不决定 keex 产品的发行许可。
 
@@ -25,7 +26,7 @@ python3 -B tests/run_python_tests.py --suite oracle --pattern test_rust_preserva
 
 补丁二进制为 `tests/reference_writer/target/release/keex-preservation-writer`；原 `keex-reference-writer` 保留。二者复用 Cargo 构建缓存，名称独立。解包源码和测试密码库只放本实验 `target/` 下的临时目录，正常结束或异常时自动清理，不提交生成的 KDBX。
 
-测试按“仅编辑目标 UserName、更新修改时间、追加一份完整旧快照”的契约比较全文，历史容器不作为忽略项。Rust 双图标测试从既有合成生成器创建临时输入，经公开 API 读取。已知组/条目混排差异仍须明确观察，不能解释为无损通过。
+测试按“仅编辑目标 UserName、更新修改时间、追加一份完整旧快照”的契约比较全文，历史容器不作为忽略项。Rust 双图标测试从既有合成生成器创建临时输入，经公开 API 读取。原 12 组矩阵按全文比较已无差异；构造的交错顺序只断言“条目在前、子组在后、各自相对顺序不变”。
 
 Rust API 测试另用登记过的 v41-vault-edit1 样本（构建时先核对 vault_manifest 中的哈希）覆盖共享附件和只在历史里出现的附件。_merge 未启用，其历史排序契约未调整。旧格式写入、未知扩展及其余限制见 [补丁证据](../../adr/evidence/K003_RUST_PATCH.md)。
 
