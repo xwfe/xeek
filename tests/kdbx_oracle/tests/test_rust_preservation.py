@@ -59,7 +59,7 @@ class RustPreservationTest(unittest.TestCase):
                 if child.tag in ("Entry", "Group")]
 
     def roundtrip(self, source, password, target, username, *, kdf="aes-kdf",
-                  cipher="aes", remaining=()):
+                  cipher="aes", remaining=(), compare_export=True):
         original_bytes = source.read_bytes()
         before = read_kdbx(original_bytes, password)
         output = self.work / f"output-{self.sequence}.kdbx"
@@ -133,7 +133,12 @@ class RustPreservationTest(unittest.TestCase):
             c.kind == "changed" and c.aspect == "value" and c.path in mutation_paths
         )]
         self.assertEqual(sorted(other), sorted(remaining))
-        reference.reference_export({"password": password}, output, self.cli)
+        if compare_export:
+            reference.reference_export({"password": password}, output, self.cli)
+        else:
+            run = subprocess.run([self.cli, "export", "-q", "-f", "xml", str(output)],
+                                 input=password + "\n", capture_output=True, text=True, timeout=60)
+            self.assertEqual(run.returncode, 0, "KeePassXC cannot open the output")
         return output, before, after
 
     def test_existing_microcases_preserve_everything_and_write_entries_before_groups(self):
@@ -211,6 +216,185 @@ class RustPreservationTest(unittest.TestCase):
                 # 输入由 KeePassXC 写出，已是“先条目、后子组”；写出顺序一致后不应再有任何差异。
                 self.roundtrip(source, case["password"], case["entry_uuid"], case["new_username"],
                                kdf=case["kdf"], cipher=case["cipher"])
+
+
+    def run_helper(self, data, password, name):
+        source = self.write_input(name, data)
+        output = self.work / (name + "-output.kdbx")
+        run = subprocess.run(
+            [str(self.binary), str(source), str(output), minimal.TARGET_UUID, minimal.NEW_USERNAME,
+             "aes-kdf", "aes"], input=password + "\n", capture_output=True, text=True, timeout=90)
+        self.assertEqual(source.read_bytes(), data)
+        return run, output
+
+    def assert_helper_error(self, data, password, name, code):
+        run, output = self.run_helper(data, password, name)
+        self.assertNotEqual(run.returncode, 0, name)
+        self.assertEqual(json.loads(run.stderr), {"ok": False, "error": code}, name)
+        self.assertEqual(run.stdout, "")
+        self.assertFalse(output.exists(), name)
+
+    def test_unknown_elements_and_attributes_block_saving(self):
+        def add(parent):
+            ET.SubElement(parent, "KeexFuture").text = "synthetic-unknown"
+
+        def entry(root):
+            return root.find("Root/Group/Entry")
+
+        def attributes(root):
+            entry(root).set("KeexAttr", "synthetic")
+            entry(root).find("String").set("KeexAttr", "synthetic")
+            root.find("Root/Group").set("KeexAttr", "synthetic")
+
+        cases = {
+            "entry": lambda r: add(entry(r)),
+            "meta": lambda r: add(r.find("Meta")),
+            "root": lambda r: add(r.find("Root")),
+            "file": add,
+            "history": lambda r: add(entry(r).find("History/Entry")),
+            "times": lambda r: add(entry(r).find("Times")),
+            "attributes": attributes,
+            "stray-text": lambda r: setattr(entry(r), "text", "synthetic-stray"),
+            # KeePass 2.x 真实会写、但上游模型没有字段的元素。
+            "keepass-force-once": lambda r: ET.SubElement(
+                r.find("Meta"), "MasterKeyChangeForceOnce").__setattr__("text", "True"),
+        }
+        for name, mutate in cases.items():
+            with self.subTest(case=name):
+                root = minimal.plain_case("history", "4.1")
+                mutate(root)
+                data, password = minimal.encode_v4(root)
+                self.assert_helper_error(data, password, "unknown-" + name, "database_save_failed")
+
+    def test_content_that_can_desynchronize_the_inner_stream_refuses_to_open(self):
+        def unknown_protected(root, length, nested=False):
+            entry = root.find("Root/Group/Entry")
+            holder = ET.Element("KeexSecret")
+            value = ET.SubElement(ET.SubElement(holder, "Deep") if nested else holder, "Value",
+                                  {"ProtectInMemory": "True"})
+            value.text = "x" * length
+            entry.insert(0, holder)
+
+        def history_first(root):
+            entry = root.find("Root/Group/Entry")
+            history = entry.find("History")
+            entry.remove(history)
+            entry.insert(0, history)
+
+        def root_first(root):
+            meta = root.find("Meta")
+            root.remove(meta)
+            root.append(meta)
+
+        def protected_tags(root):
+            root.find("Root/Group/Entry/Tags").set("ProtectInMemory", "True")
+
+        # 上游对这几种输入会静默解出错误明文，或把内层流用错位置。
+        cases = {f"unknown-protected-{n}": (lambda r, n=n: unknown_protected(r, n)) for n in (1, 2, 8, 40)}
+        cases["unknown-protected-nested"] = lambda r: unknown_protected(r, 8, nested=True)
+        cases["history-before-string"] = history_first
+        cases["root-before-meta"] = root_first
+        cases["protected-attribute-on-known-element"] = protected_tags
+        for name, mutate in cases.items():
+            with self.subTest(case=name):
+                root = minimal.plain_case("history", "4.1")
+                for node in root.iter():
+                    if node.get("ProtectInMemory") == "True":
+                        node.text = "a"
+                entry = root.find("Root/Group/Entry")
+                if entry.find("Tags") is None:
+                    ET.SubElement(entry, "Tags").text = "synthetic"
+                mutate(root)
+                data, password = minimal.encode_v4(root)
+                self.assert_helper_error(data, password, "stream-" + name, "database_open_failed")
+
+    def test_structures_the_model_cannot_parse_stay_refused(self):
+        def between_strings(root):
+            entry = root.find("Root/Group/Entry")
+            index = next(i for i, c in enumerate(entry) if c.tag == "String")
+            ET.SubElement(entry, "KeexFuture")
+            entry.insert(index + 1, entry[-1])
+
+        cases = {"group-child": lambda r: ET.SubElement(r.find("Root/Group"), "KeexFuture"),
+                 "between-strings": between_strings}
+        for name, mutate in cases.items():
+            with self.subTest(case=name):
+                root = minimal.plain_case("history", "4.1")
+                mutate(root)
+                data, password = minimal.encode_v4(root)
+                self.assert_helper_error(data, password, "shape-" + name, "database_open_failed")
+
+    def test_unreferenced_attachment_pool_item_is_kept(self):
+        root = minimal.plain_case("control", "4.1")
+        data, password = minimal.encode_v4(
+            root, inner_items=minimal.v4_payload.item(3, b"\x01synthetic-unreferenced"))
+        source = self.write_input("unreferenced-attachment", data)
+        _, before, after = self.roundtrip(source, password, minimal.TARGET_UUID, minimal.NEW_USERNAME)
+        self.assertEqual(list(before.binaries.values()), [(b"synthetic-unreferenced", True)])
+        self.assertEqual(list(after.binaries.values()), [(b"synthetic-unreferenced", True)])
+
+    def test_every_element_the_scanner_accepts_round_trips(self):
+        # 扫描表声称“能带过保存”的每个元素都放一个非默认值，防止表比模型的实际能力更宽。
+        # KeePassXC 导出时会按 MemoryProtection 重新标记标准字段，所以翻转这组开关的变体只核对
+        # 独立 oracle 的全文比较和“能打开”，不比较 KeePassXC 导出的保护位。
+        for flipped in (False, True):
+            with self.subTest(flipped_memory_protection=flipped):
+                self.full_schema_roundtrip(flipped)
+
+    def full_schema_roundtrip(self, flipped):
+        def ensure(parent, tag, text=None):
+            node = parent.find(tag)
+            if node is None:
+                node = ET.SubElement(parent, tag)
+            if text is not None:
+                node.text = text
+            return node
+
+        when = "2026-01-02T03:04:05Z"
+        uuid_a, uuid_b = minimal.source.uid("schema-a"), minimal.source.uid("schema-b")
+        root = minimal.plain_case("custom-data", "4.1")
+        meta = root.find("Meta")
+        for tag, text in {
+            "Generator": "synthetic-generator", "DatabaseName": "synthetic-name",
+            "DatabaseNameChanged": when, "DatabaseDescription": "synthetic-description",
+            "DatabaseDescriptionChanged": when, "DefaultUserName": "synthetic-default",
+            "DefaultUserNameChanged": when, "MaintenanceHistoryDays": "33", "Color": "#112233",
+            "MasterKeyChanged": when, "MasterKeyChangeRec": "11", "MasterKeyChangeForce": "22",
+            "RecycleBinEnabled": "True", "RecycleBinUUID": uuid_a, "RecycleBinChanged": when,
+            "EntryTemplatesGroup": uuid_a, "EntryTemplatesGroupChanged": when,
+            "LastSelectedGroup": uuid_b, "LastTopVisibleGroup": uuid_b, "HistoryMaxItems": "7",
+            "HistoryMaxSize": "12345", "SettingsChanged": when,
+        }.items():
+            ensure(meta, tag, text)
+        protection = ensure(meta, "MemoryProtection")
+        for tag, default in {"ProtectTitle": False, "ProtectUserName": False, "ProtectPassword": True,
+                             "ProtectURL": False, "ProtectNotes": False}.items():
+            ensure(protection, tag, str(default != flipped))
+        group = root.find("Root/Group")
+        for tag, text in {"Notes": "synthetic-group-notes", "Tags": "synthetic-group-tag",
+                          "IsExpanded": "True", "DefaultAutoTypeSequence": "{USERNAME}",
+                          "EnableAutoType": "False", "EnableSearching": "True",
+                          "LastTopVisibleEntry": uuid_b, "PreviousParentGroup": uuid_a}.items():
+            ensure(group, tag, text)
+        entry = group.find("Entry")
+        for tag, text in {"ForegroundColor": "#112233", "BackgroundColor": "#445566",
+                          "OverrideURL": "cmd://synthetic", "Tags": "synthetic-entry-tag",
+                          "QualityCheck": "False", "PreviousParentGroup": uuid_a}.items():
+            ensure(entry, tag, text)
+        auto_type = ensure(entry, "AutoType")
+        ensure(auto_type, "Enabled", "True")
+        ensure(auto_type, "DataTransferObfuscation", "1")
+        ensure(auto_type, "DefaultSequence", "{PASSWORD}")
+        association = ensure(auto_type, "Association")
+        ensure(association, "Window", "synthetic-window")
+        ensure(association, "KeystrokeSequence", "{TAB}")
+        deleted = ET.SubElement(ensure(root.find("Root"), "DeletedObjects"), "DeletedObject")
+        ET.SubElement(deleted, "UUID").text = uuid_b
+        ET.SubElement(deleted, "DeletionTime").text = when
+        data, password = minimal.encode_v4(root)
+        source = self.write_input(f"full-schema-{flipped}", data)
+        self.roundtrip(source, password, minimal.TARGET_UUID, minimal.NEW_USERNAME,
+                       compare_export=not flipped)
 
 
 if __name__ == "__main__":

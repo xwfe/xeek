@@ -1,0 +1,356 @@
+--- a/src/db/save.rs
++++ b/src/db/save.rs
+@@ -11,6 +11,10 @@ impl Database {
+     ) -> Result<(), DatabaseSaveError> {
+         use crate::format::kdbx4::dump_kdbx4;
+ 
++        if !self.unknown_content.is_empty() {
++            return Err(DatabaseSaveError::UnknownContent(self.unknown_content.len()));
++        }
++
+         match self.config.version {
+             DatabaseVersion::KDB(_) => Err(DatabaseSaveError::UnsupportedVersion),
+             DatabaseVersion::KDB2(_) => Err(DatabaseSaveError::UnsupportedVersion),
+@@ -24,6 +28,11 @@ impl Database {
+ #[derive(Debug, Error)]
+ #[non_exhaustive]
+ pub enum DatabaseSaveError {
++    /// The file holds XML this crate would lose, so it may be read but not saved. See
++    /// [`Database::unknown_content`].
++    #[error("Refusing to save: {0} XML item(s) read from the file cannot be preserved")]
++    UnknownContent(usize),
++
+     /// I/O errors that can occur while writing the database to the destination, such as file system errors
+     #[error(transparent)]
+     Io(#[from] std::io::Error),
+--- a/src/db/types/mod.rs
++++ b/src/db/types/mod.rs
+@@ -59,9 +59,19 @@ pub struct Database {
+ 
+     /// References to previously-deleted objects and their deletion times.
+     pub deleted_objects: HashMap<Uuid, Option<NaiveDateTime>>,
++
++    /// XML paths read from the file that a save would lose.
++    pub(crate) unknown_content: Vec<String>,
+ }
+ 
+ impl Database {
++    /// XML paths read from the file that this crate cannot preserve (element names only, never
++    /// values; the list may be truncated). While this is non-empty the database can be read, but
++    /// `Database::save` returns `DatabaseSaveError::UnknownContent`.
++    pub fn unknown_content(&self) -> &[String] {
++        &self.unknown_content
++    }
++
+     /// Create a new database with a single root group and no entries, groups, or attachments.
+     ///
+     /// The root group will be assigned a new random UUID.
+@@ -93,6 +103,7 @@ impl Database {
+             entries: HashMap::new(),
+             groups,
+             deleted_objects: HashMap::new(),
++            unknown_content: Vec::new(),
+         }
+     }
+ 
+@@ -111,6 +122,7 @@ impl Database {
+             entries: HashMap::new(),
+             groups,
+             deleted_objects: HashMap::new(),
++            unknown_content: Vec::new(),
+         }
+     }
+ 
+--- /dev/null
++++ b/src/format/xml_db/known.rs
+@@ -0,0 +1,248 @@
++//! Find XML content the model in this module cannot carry through a save.
++//!
++//! serde skips anything without a field, so unknown elements and attributes would silently vanish
++//! on the next save. Protected values share one inner stream consumed in document order: skipping
++//! one, or a document ordered differently from the decryption walk in `xml_to_db`, makes every
++//! later protected value decrypt to garbage without any error.
++
++use quick_xml::{
++    events::{BytesStart, Event},
++    Reader,
++};
++
++/// Only the first few paths are kept; they are diagnostics, and any at all blocks saving.
++const MAX_REPORTED: usize = 32;
++
++struct Node {
++    attrs: &'static [&'static str],
++    children: &'static [(&'static str, &'static Node)],
++    /// `(a, b)`: `xml_to_db` decrypts every `a` before any `b`, whatever the document order.
++    decrypted_first: Option<(&'static str, &'static str)>,
++}
++
++const fn parent(children: &'static [(&'static str, &'static Node)]) -> Node {
++    Node { attrs: &[], children, decrypted_first: None }
++}
++
++static LEAF: Node = parent(&[]);
++static DOCUMENT: Node = parent(&[("KeePassFile", &FILE)]);
++static FILE: Node = Node {
++    attrs: &[],
++    children: &[("Meta", &META), ("Root", &ROOT)],
++    decrypted_first: Some(("Meta", "Root")),
++};
++static META: Node = parent(&[
++    ("Generator", &LEAF),
++    // KDBX 3.x only; checked by the format layer and not needed by the 4.x writer.
++    ("HeaderHash", &LEAF),
++    ("SettingsChanged", &LEAF),
++    ("DatabaseName", &LEAF),
++    ("DatabaseNameChanged", &LEAF),
++    ("DatabaseDescription", &LEAF),
++    ("DatabaseDescriptionChanged", &LEAF),
++    ("DefaultUserName", &LEAF),
++    ("DefaultUserNameChanged", &LEAF),
++    ("MaintenanceHistoryDays", &LEAF),
++    ("Color", &LEAF),
++    ("MasterKeyChanged", &LEAF),
++    ("MasterKeyChangeRec", &LEAF),
++    ("MasterKeyChangeForce", &LEAF),
++    ("MemoryProtection", &MEMORY_PROTECTION),
++    ("CustomIcons", &CUSTOM_ICONS),
++    ("RecycleBinEnabled", &LEAF),
++    ("RecycleBinUUID", &LEAF),
++    ("RecycleBinChanged", &LEAF),
++    ("EntryTemplatesGroup", &LEAF),
++    ("EntryTemplatesGroupChanged", &LEAF),
++    ("HistoryMaxItems", &LEAF),
++    ("HistoryMaxSize", &LEAF),
++    ("LastSelectedGroup", &LEAF),
++    ("LastTopVisibleGroup", &LEAF),
++    ("Binaries", &BINARIES),
++    ("CustomData", &CUSTOM_DATA),
++]);
++static MEMORY_PROTECTION: Node = parent(&[
++    ("ProtectTitle", &LEAF),
++    ("ProtectUserName", &LEAF),
++    ("ProtectPassword", &LEAF),
++    ("ProtectURL", &LEAF),
++    ("ProtectNotes", &LEAF),
++]);
++static CUSTOM_ICONS: Node = parent(&[("Icon", &ICON)]);
++static ICON: Node = parent(&[
++    ("UUID", &LEAF),
++    ("Name", &LEAF),
++    ("LastModificationTime", &LEAF),
++    ("Data", &LEAF),
++]);
++static BINARIES: Node = parent(&[("Binary", &POOL_BINARY)]);
++static POOL_BINARY: Node = Node {
++    attrs: &["ID", "Compressed", "Protected"],
++    children: &[],
++    decrypted_first: None,
++};
++static CUSTOM_DATA: Node = parent(&[("Item", &CUSTOM_DATA_ITEM)]);
++static CUSTOM_DATA_ITEM: Node = parent(&[
++    ("Key", &LEAF),
++    ("Value", &LEAF),
++    ("LastModificationTime", &LEAF),
++]);
++static ROOT: Node = parent(&[("Group", &GROUP), ("DeletedObjects", &DELETED_OBJECTS)]);
++static DELETED_OBJECTS: Node = parent(&[("DeletedObject", &DELETED_OBJECT)]);
++static DELETED_OBJECT: Node = parent(&[("UUID", &LEAF), ("DeletionTime", &LEAF)]);
++static GROUP: Node = parent(&[
++    ("UUID", &LEAF),
++    ("Name", &LEAF),
++    ("Notes", &LEAF),
++    ("Tags", &LEAF),
++    ("IconID", &LEAF),
++    ("CustomIconUUID", &LEAF),
++    ("Times", &TIMES),
++    ("IsExpanded", &LEAF),
++    ("DefaultAutoTypeSequence", &LEAF),
++    ("EnableAutoType", &LEAF),
++    ("EnableSearching", &LEAF),
++    ("LastTopVisibleEntry", &LEAF),
++    ("CustomData", &CUSTOM_DATA),
++    ("PreviousParentGroup", &LEAF),
++    ("Group", &GROUP),
++    ("Entry", &ENTRY),
++]);
++static TIMES: Node = parent(&[
++    ("CreationTime", &LEAF),
++    ("LastModificationTime", &LEAF),
++    ("LastAccessTime", &LEAF),
++    ("ExpiryTime", &LEAF),
++    ("Expires", &LEAF),
++    ("UsageCount", &LEAF),
++    ("LocationChanged", &LEAF),
++]);
++static ENTRY: Node = Node {
++    attrs: &[],
++    children: &[
++        ("UUID", &LEAF),
++        ("IconID", &LEAF),
++        ("CustomIconUUID", &LEAF),
++        ("ForegroundColor", &LEAF),
++        ("BackgroundColor", &LEAF),
++        ("OverrideURL", &LEAF),
++        ("Tags", &LEAF),
++        ("Times", &TIMES),
++        ("String", &STRING),
++        ("Binary", &BINARY_FIELD),
++        ("AutoType", &AUTO_TYPE),
++        ("History", &HISTORY),
++        ("CustomData", &CUSTOM_DATA),
++        ("QualityCheck", &LEAF),
++        ("PreviousParentGroup", &LEAF),
++    ],
++    decrypted_first: Some(("String", "History")),
++};
++static STRING: Node = parent(&[("Key", &LEAF), ("Value", &STRING_VALUE)]);
++static STRING_VALUE: Node = Node { attrs: &["Protected"], children: &[], decrypted_first: None };
++static BINARY_FIELD: Node = parent(&[("Key", &LEAF), ("Value", &BINARY_REF)]);
++static BINARY_REF: Node = Node { attrs: &["Ref"], children: &[], decrypted_first: None };
++static AUTO_TYPE: Node = parent(&[
++    ("Enabled", &LEAF),
++    ("DataTransferObfuscation", &LEAF),
++    ("DefaultSequence", &LEAF),
++    ("Association", &ASSOCIATION),
++]);
++static ASSOCIATION: Node = parent(&[("Window", &LEAF), ("KeystrokeSequence", &LEAF)]);
++static HISTORY: Node = parent(&[("Entry", &ENTRY)]);
++
++struct Frame {
++    name: String,
++    /// `None` inside an unknown subtree.
++    node: Option<&'static Node>,
++    decrypted_later_seen: bool,
++}
++
++#[derive(Debug, Default)]
++pub(crate) struct Scan {
++    /// Paths of content a save would lose (element names only, never values).
++    pub(crate) unknown: Vec<String>,
++    /// Later protected values cannot be trusted, so the file must not be opened.
++    pub(crate) stream_unsafe: bool,
++}
++
++impl Scan {
++    fn report(&mut self, stack: &[Frame], tail: &str) {
++        if self.unknown.len() < MAX_REPORTED {
++            let path: Vec<&str> = stack.iter().skip(1).map(|f| f.name.as_str()).collect();
++            self.unknown.push(path.join("/") + tail);
++        }
++    }
++
++    fn enter(&mut self, stack: &mut [Frame], start: &BytesStart<'_>) -> Result<Frame, quick_xml::Error> {
++        let name = start.name().as_ref().to_owned();
++        // `xml_to_db` discards a history entry's own history, so it is unknown there.
++        let in_history = stack.iter().any(|f| f.node.is_some_and(|n| std::ptr::eq(n, &HISTORY)));
++        let parent = stack.last_mut().and_then(|f| f.node);
++        let node = parent
++            .and_then(|p| p.children.iter().find(|(tag, _)| *tag == name))
++            .map(|(_, node)| *node)
++            .filter(|_| !(in_history && name == "History"));
++
++        if let (Some(frame), Some((first, second))) = (stack.last_mut(), parent.and_then(|p| p.decrypted_first)) {
++            if name == second {
++                frame.decrypted_later_seen = true;
++            } else if name == first && frame.decrypted_later_seen {
++                self.stream_unsafe = true;
++            }
++        }
++        if parent.is_some() && node.is_none() {
++            self.report(stack, &format!("/{name}"));
++        }
++        for attribute in start.attributes() {
++            let attribute = attribute.map_err(quick_xml::Error::InvalidAttr)?;
++            let key = attribute.key.as_ref().to_owned();
++            if node.is_some_and(|n| n.attrs.contains(&key.as_str())) {
++                continue;
++            }
++            if key == "Protected" && attribute.value.eq_ignore_ascii_case("true") {
++                self.stream_unsafe = true;
++            }
++            if node.is_some() {
++                self.report(stack, &format!("/{name}@{key}"));
++            }
++        }
++        Ok(Frame { name, node, decrypted_later_seen: false })
++    }
++}
++
++/// Check decrypted XML before it is parsed. Protected values are still ciphertext at this point.
++pub(crate) fn scan(data: &[u8]) -> Result<Scan, quick_xml::Error> {
++    let mut reader = Reader::from_reader(data);
++    let mut scan = Scan::default();
++    let mut stack = vec![Frame {
++        name: String::new(),
++        node: Some(&DOCUMENT),
++        decrypted_later_seen: false,
++    }];
++    loop {
++        let stray_text = match reader.read_event()? {
++            Event::Start(start) => {
++                let frame = scan.enter(&mut stack, &start)?;
++                stack.push(frame);
++                false
++            }
++            Event::Empty(start) => {
++                scan.enter(&mut stack, &start)?;
++                false
++            }
++            Event::End(_) => {
++                stack.pop();
++                false
++            }
++            Event::Text(text) => !text.bytes().all(|b| b.is_ascii_whitespace()),
++            Event::CData(_) | Event::GeneralRef(_) => true,
++            Event::Eof => return Ok(scan),
++            _ => false,
++        };
++        // Text is data only in a leaf; serde drops it anywhere else.
++        if stray_text && stack.last().and_then(|f| f.node).is_some_and(|n| !n.children.is_empty()) {
++            scan.report(&stack, "/#text");
++        }
++    }
++}
+--- a/src/format/xml_db/mod.rs
++++ b/src/format/xml_db/mod.rs
+@@ -8,6 +8,7 @@
+ pub mod custom_serde;
+ pub mod entry;
+ pub mod group;
++mod known;
+ pub mod meta;
+ pub mod tags;
+ pub mod times;
+@@ -35,8 +36,14 @@ pub fn parse_xml(
+     header_attachments: &[Value<Vec<u8>>],
+     inner_decryptor: &mut dyn Cipher,
+ ) -> Result<crate::db::Database, ParseXmlError> {
++    let scan = known::scan(data)?;
++    if scan.stream_unsafe {
++        return Err(ParseXmlError::UntrustedProtectedValues);
++    }
+     let kdbx: KeePassFile = quick_xml::de::from_reader(data)?;
+-    Ok(kdbx.xml_to_db(inner_decryptor, header_attachments)?)
++    let mut db = kdbx.xml_to_db(inner_decryptor, header_attachments)?;
++    db.unknown_content = scan.unknown;
++    Ok(db)
+ }
+ 
+ /// Errors that can occur during parsing of the inner XML database of a KDBX file
+@@ -47,6 +54,15 @@ pub enum ParseXmlError {
+     #[error("Error parsing XML inside KDBX: {0}")]
+     Xml(#[from] quick_xml::DeError),
+ 
++    /// Errors reading the XML structure before it is parsed.
++    #[error("Error scanning XML inside KDBX: {0}")]
++    Scan(#[from] quick_xml::Error),
++
++    /// Unknown content holds a protected value, or the document order differs from the decryption
++    /// order. Protected values after that point would silently decrypt to garbage.
++    #[error("The XML inside KDBX has protected values that cannot be decrypted reliably")]
++    UntrustedProtectedValues,
++
+     /// Errors related to unprotecting entries, such as decryption failures or unsupported
+     /// encryption methods.
+     #[error("Error unprotecting entry: {0}")]

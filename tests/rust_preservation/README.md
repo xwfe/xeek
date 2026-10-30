@@ -1,6 +1,6 @@
 # Rust 保留补丁实验
 
-K003 的隔离实验：在 keepass 0.15.3 上保留标准/自定义图标双字段，将编辑前快照追加到历史末尾，让删除或替换附件只释放当前版本的引用，并按 KeePass/KeePassXC 的顺序先写条目、后写子组。只处理公开合成数据；生产写入闸门仍关闭。
+K003 的隔离实验：在 keepass 0.15.3 上保留标准/自定义图标双字段，将编辑前快照追加到历史末尾，让删除或替换附件只释放当前版本的引用，按 KeePass/KeePassXC 的顺序先写条目、后写子组，并对模型带不过去的 XML 拒绝保存或拒绝打开。只处理公开合成数据；生产写入闸门仍关闭。
 
 ## 构建与回归
 
@@ -19,6 +19,7 @@ python3 -B tests/run_python_tests.py --suite oracle --pattern test_rust_preserva
 2. [02-history.patch](patches/02-history.patch)：追加新快照并登记它的图标/附件引用，保持旧历史索引稳定；重开时重建当前与历史的附件反向引用。
 3. [03-attachments.patch](patches/03-attachments.patch)：删除附件只去掉“这一个版本”的引用，其它历史版本或条目还在用时保留内容；tracked 编辑开始时就把编辑前快照追加进历史并登记引用，所以编辑中删除或同名替换附件不会先把快照要用的内容删掉。
 4. [04-child-order.patch](patches/04-child-order.patch)：同一分组下先写条目、后写子组。KeePass 和 KeePassXC 都把两者存成两个列表并这样写出，所以它们写的文件顺序不变；它们自己也表示不了的交错顺序，同样被规范成这个顺序。
+5. [05-unknown-content.patch](patches/05-unknown-content.patch)：解析前按模型实际支持的元素表扫描解密后的 XML。有未知元素、属性或游离文字时可读但 `save` 报错，路径由 `Database::unknown_content()` 给出（只含元素名，不含值）；未知内容带受保护值，或文档顺序与解密顺序不一致时拒绝打开。
 
 实验 manifest 直接引用原 helper 源码。临时锁只改实验根包名和 keepass 来源，传递版本/校验和保持原锁；构建使用 `--locked --offline`。原候选源码、锁文件、包缓存、样本与 manifest 不被修改。固定上游部分遵循 [MIT 许可证](LICENSE.keepass)，不决定 keex 产品的发行许可。
 
@@ -28,6 +29,6 @@ python3 -B tests/run_python_tests.py --suite oracle --pattern test_rust_preserva
 
 测试按“仅编辑目标 UserName、更新修改时间、追加一份完整旧快照”的契约比较全文，历史容器不作为忽略项。Rust 双图标测试从既有合成生成器创建临时输入，经公开 API 读取。原 12 组矩阵按全文比较已无差异；构造的交错顺序只断言“条目在前、子组在后、各自相对顺序不变”。
 
-Rust API 测试另用登记过的 v41-vault-edit1 样本（构建时先核对 vault_manifest 中的哈希）覆盖共享附件和只在历史里出现的附件。_merge 未启用，其历史排序契约未调整。旧格式写入、未知扩展及其余限制见 [补丁证据](../../adr/evidence/K003_RUST_PATCH.md)。
+Rust API 测试另用登记过的 v41-vault-edit1 样本（构建时先核对 vault_manifest 中的哈希）覆盖共享附件和只在历史里出现的附件。Rust API 测试还会打开全部登记样本，确认扫描表不会误拦真实客户端写的文件。_merge 未启用，其历史排序契约未调整。旧格式写入、未知扩展及其余限制见 [补丁证据](../../adr/evidence/K003_RUST_PATCH.md)。
 
 补丁不直接应用于系统缓存，也不接入客户端；升级候选版本时须重新核对来源、调用链与全部回归。

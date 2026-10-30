@@ -1,7 +1,10 @@
 //! 仅验证公开合成库；已知生命周期缺口以明确反例保留。
 use keepass::{
     config::KdfConfig,
-    db::{fields, AttachmentRef, CustomIconId, EntryId, EntryMut, EntryRef, Icon, Value},
+    db::{
+        fields, AttachmentRef, CustomIconId, DatabaseSaveError, EntryId, EntryMut, EntryRef, Icon,
+        Value,
+    },
     Database, DatabaseKey,
 };
 
@@ -427,4 +430,83 @@ fn shared_and_history_only_attachments_survive_tracked_removal() {
     assert_eq!(content(&shared), shared_before);
     assert_eq!(titles(&shared, false), expected(&[]));
     assert_eq!(titles(&shared, true), expected(&[LOGIN, LOGIN]));
+}
+
+fn unknown_key() -> DatabaseKey {
+    DatabaseKey::new().with_password(include_str!(concat!(
+        env!("CARGO_MANIFEST_DIR"),
+        "/unknown.password"
+    )))
+}
+
+#[test]
+fn unknown_content_can_be_read_but_not_saved() {
+    let mut db = Database::parse(
+        include_bytes!(concat!(env!("CARGO_MANIFEST_DIR"), "/unknown.kdbx")),
+        unknown_key(),
+    )
+    .expect("unknown content stays readable");
+    assert_eq!(
+        db.unknown_content(),
+        ["KeePassFile/Root/Group/Entry/KeexFuture"]
+    );
+    let id = db.root().entry_ids().next().unwrap();
+    assert_eq!(
+        db.entry(id).unwrap().get_password(),
+        Some("synthetic-password")
+    );
+    db.entry_mut(id).unwrap().edit_tracking(|e| {
+        e.set_unprotected(fields::USERNAME, "synthetic-edit");
+    });
+    let mut bytes = Vec::new();
+    assert!(matches!(
+        db.save(&mut bytes, unknown_key()),
+        Err(DatabaseSaveError::UnknownContent(1))
+    ));
+    assert!(bytes.is_empty());
+}
+
+#[test]
+fn untrusted_protected_values_refuse_to_open() {
+    for data in [
+        &include_bytes!(concat!(
+            env!("CARGO_MANIFEST_DIR"),
+            "/unknown-protected.kdbx"
+        ))[..],
+        &include_bytes!(concat!(env!("CARGO_MANIFEST_DIR"), "/history-first.kdbx"))[..],
+    ] {
+        let error = Database::parse(data, unknown_key()).expect_err("must not decrypt");
+        assert!(
+            error.to_string().contains("cannot be decrypted reliably"),
+            "{error}"
+        );
+    }
+}
+
+#[test]
+fn registered_fixtures_have_no_unknown_content() {
+    let table = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/fixtures.tsv"));
+    let mut checked = 0;
+    for line in table.lines() {
+        let columns: Vec<&str> = line.split('\t').collect();
+        let mut key = DatabaseKey::new();
+        if !columns[1].is_empty() {
+            key = key.with_password(columns[1]);
+        }
+        if !columns[2].is_empty() {
+            let mut keyfile = std::fs::File::open(columns[2]).unwrap();
+            key = key.with_keyfile(&mut keyfile).unwrap();
+        }
+        let data = std::fs::read(columns[0]).unwrap();
+        let db = Database::parse(&data, key).unwrap_or_else(|e| panic!("{}: {e}", columns[0]));
+        assert_eq!(
+            db.unknown_content(),
+            [] as [String; 0],
+            "{} was not fully understood",
+            columns[0]
+        );
+        checked += 1;
+    }
+    println!("checked {checked} registered fixtures");
+    assert!(checked >= 60, "fixture table unexpectedly small: {checked}");
 }

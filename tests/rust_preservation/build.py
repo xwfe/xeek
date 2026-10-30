@@ -8,6 +8,7 @@ import sys
 import tarfile
 import tempfile
 import tomllib
+import xml.etree.ElementTree as ET
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
@@ -19,10 +20,11 @@ NAME = "keex-preservation-writer"
 BINARY = TARGET / "release" / NAME
 VERSION = "0.15.3"
 PATCHES = tuple(HERE / "patches" / name for name in (
-    "01-icons.patch", "02-history.patch", "03-attachments.patch", "04-child-order.patch"))
+    "01-icons.patch", "02-history.patch", "03-attachments.patch", "04-child-order.patch",
+    "05-unknown-content.patch"))
 sys.path[:0] = [str(ROOT / path) for path in (
     "tests/kdbx_oracle/.deps-argon2", "tests/kdbx_oracle", "tests/fixtures/kdbx")]
-from candidate_minimal import make_case
+from candidate_minimal import encode_v4, make_case, plain_case
 
 
 def run(argv, *, timeout=180):
@@ -60,6 +62,50 @@ def vault_fixture():
     if hashlib.sha256(data).hexdigest() != stage["sha256"]:
         raise ValueError("registered vault fixture differs from vault_manifest.json")
     return data, sample["credentials"]["password"]
+
+
+def registered_fixtures():
+    """所有登记过的完好样本，一行一个“路径、密码、密钥文件”；扫描器不能把真实客户端写的文件判成未知。"""
+    def manifest(name):
+        return json.loads((FIXTURES / name).read_text())
+
+    rows = []
+    for sample in manifest("manifest.json")["samples"]:
+        if sample["id"].startswith("G"):
+            key = sample["credentials"]
+            rows.append((sample["file"], key["password"], key["keyfile"]))
+    for name in ("vault_manifest.json", "matrix_manifest.json"):
+        for sample in manifest(name)["samples"]:
+            key = sample["credentials"]
+            rows += [(stage["file"], key["password"], key["keyfile"]) for stage in sample["stages"]]
+    for name in ("rust_writer_manifest.json", "dart_writer_manifest.json"):
+        rows += [(s["file"], s["password"], s.get("keyfile")) for s in manifest(name)["samples"]]
+    upstream = manifest("upstream_kdbxweb/manifest.json")
+    rows += [("upstream_kdbxweb/" + item["file"], upstream["credentials"]["password"],
+              "upstream_kdbxweb/" + upstream["credentials"]["keyfile"])
+             for item in upstream["files"] if item["file"].endswith(".kdbx")]
+    return "".join(f"{FIXTURES / path}\t{password or ''}\t{FIXTURES / keyfile if keyfile else ''}\n"
+                   for path, password, keyfile in rows)
+
+
+def unknown_content_inputs(work):
+    # 同一口令的三份合成输入：未知元素（可读不可存）；未知受保护值和历史在字段之前（都拒绝打开）。
+    unknown = plain_case("control", "4.1")
+    ET.SubElement(unknown.find("Root/Group/Entry"), "KeexFuture").text = "synthetic-unknown"
+    protected = plain_case("control", "4.1")
+    holder = ET.Element("KeexSecret")
+    ET.SubElement(holder, "Value", {"ProtectInMemory": "True"}).text = "synthetic-hidden"
+    protected.find("Root/Group/Entry").insert(0, holder)
+    history_first = plain_case("history", "4.1")
+    entry = history_first.find("Root/Group/Entry")
+    history = entry.find("History")
+    entry.remove(history)
+    entry.insert(0, history)
+    for name, root in (("unknown", unknown), ("unknown-protected", protected),
+                       ("history-first", history_first)):
+        data, password = encode_v4(root)
+        (work / (name + ".kdbx")).write_bytes(data)
+    (work / "unknown.password").write_text(password)
 
 
 def isolated_lock(text):
@@ -104,6 +150,8 @@ def build_helper():
         data, password = vault_fixture()
         (work / "vault.kdbx").write_bytes(data)
         (work / "vault.password").write_text(password)
+        unknown_content_inputs(work)
+        (work / "fixtures.tsv").write_text(registered_fixtures())
         run(["cargo", "fmt", "--manifest-path", str(work / "Cargo.toml"), "--", "--check"])
         arguments = ["--locked", "--offline", "--release", "--manifest-path",
                      str(work / "Cargo.toml"), "--target-dir", str(TARGET)]

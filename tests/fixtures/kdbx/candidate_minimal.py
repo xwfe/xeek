@@ -124,6 +124,15 @@ def _v4_source(level):
     return v4_payload.load_source("G" + level.replace(".", "") + "-RICH")
 
 
+def encode_v4(root, level="4.1", inner_items=b""):
+    """把调用方改过的 XML 树封装成合成 4.x 密文；inner_items 插在内层头结束标记之前。"""
+    envelope = _v4_source(level)
+    stream_id, key, _, _ = reader._parse_inner_header(envelope.inner)
+    xml = _wire_xml(root, level, stream_id, key)
+    inner = envelope.config + inner_items + v4_payload.item(0, b"")
+    return envelope.encode("aes", True, inner=inner, xml=xml), envelope.password
+
+
 def make_case(feature, level="4.1"):
     """返回确定性的 (合成密文, 公开合成口令)；不写文件。"""
     root = plain_case(feature, level)
