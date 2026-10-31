@@ -1,0 +1,9 @@
+name: keex_kpasslib_candidate
+description: K070 对照候选 kpasslib 的合成样本读改写 helper；只用于测试，不进 keex 产品。
+publish_to: none
+
+environment:
+  sdk: '>=3.9.0 <4.0.0'
+
+dependencies:
+  kpasslib: 1.1.2

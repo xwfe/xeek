@@ -901,6 +901,14 @@
       "reason": "pub 依赖校验和；只对这份完整锁文件摘要放行熵规则。"
     },
     {
+      "path": "tests/kpasslib_candidate/pubspec.lock",
+      "sha256": "f06546cffb7942d850e305d75d9f7b49004db594266d11f51059b212ce2c250b",
+      "rules": [
+        "HexHighEntropyString"
+      ],
+      "reason": "pub 依赖校验和；只对这份完整锁文件摘要放行熵规则。"
+    },
+    {
       "path": "tests/wasm_core/Cargo.lock",
       "sha256": "9f54f23ffc3df7df9d95700d260866226c9bb6723f1f64068a5116048a648916",
       "rules": [
