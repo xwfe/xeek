@@ -2,7 +2,8 @@
 
     python3 -B tests/wasm_core/compare_candidates.py [候选名…]
 
-候选的 helper 参数一样：输入 输出 条目UUID 新用户名，口令从 stdin 读。kpasslib 用项目内 pub 缓存。
+候选的 helper 参数一样：输入 输出 条目UUID 新用户名，口令从 stdin 读。kpasslib 用项目内 pub 缓存；
+manykee-fork 会克隆并运行外部仓库的代码（固定提交），不想这样就点名别的候选。
 """
 from __future__ import annotations
 
@@ -37,7 +38,39 @@ from kdbx_oracle.semantic import canonicalize
 
 FIXTURES = build.FIXTURES
 KEEPASSXC = shutil.which("keepassxc-cli")
+MANYKEE_URL = "https://github.com/ManyMath/ManyKee.git"
+MANYKEE_COMMIT = "8b8a2ca"
 USERNAME = "synthetic-candidate-edit"
+
+
+def build_manykee():
+    # 只编译它的 keepass-rs 分支和 keepassxc 核心，不编 FFI、WASM 和 YubiKey。
+    target = ROOT / "tests/wasm_core/target/candidates"
+    source = target / "ManyKee"
+    if not source.exists():
+        target.mkdir(parents=True, exist_ok=True)
+        subprocess.run(["git", "clone", "-q", MANYKEE_URL, str(source)], check=True, timeout=300)
+    subprocess.run(["git", "-C", str(source), "checkout", "-q", MANYKEE_COMMIT], check=True)
+    crate = target / "manykee-helper"
+    (crate / "src").mkdir(parents=True, exist_ok=True)
+    shutil.copy(ROOT / "tests/wasm_core/manykee_helper.rs", crate / "src/main.rs")
+    (crate / "Cargo.toml").write_text(f'''[package]
+name = "manykee-helper"
+version = "0.0.0"
+edition = "2021"
+publish = false
+
+[workspace]
+
+[dependencies]
+keepass = {{ path = "{source}/rust/keepass-rs", features = ["save_kdbx4", "save_kdbx3"] }}
+keepassxc = {{ path = "{source}/rust/keepassxc", default-features = false }}
+''')
+    built = subprocess.run(["cargo", "build", "--release", "--manifest-path", str(crate / "Cargo.toml")],
+                           capture_output=True, text=True, timeout=900)
+    if built.returncode:
+        raise RuntimeError(built.stderr[-1500:])
+    return crate / "target/release/manykee-helper"
 
 
 def build_kpasslib():
@@ -66,6 +99,7 @@ def build_dart_ffi():
 CANDIDATES = {
     "keex-patched": lambda: build.TARGET / "release" / build.HISTORY_EDIT,
     "kpasslib": build_kpasslib,
+    "manykee-fork": build_manykee,
     "dart-ffi-rust": build_dart_ffi,
 }
 

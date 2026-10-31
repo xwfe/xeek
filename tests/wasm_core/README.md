@@ -26,6 +26,8 @@ Safari 和真机：`node drive-core.mjs --serve 47113`，把打印的地址贴�
 | [check_outputs.py](check_outputs.py) | 浏览器写出的库交给独立 oracle、原生补丁库和 KeePassXC 核对 |
 | [compare_candidates.py](compare_candidates.py) | 社区候选和补丁版用同一批输入比较 |
 
+`compare_candidates.py manykee-fork` 会克隆 ManyKee（固定提交，见脚本）到 `target/candidates/`，编译并运行它的代码，只喂合成库。默认不想跑外部代码时，点名别的候选即可。
+
 ## 常见报错
 
 - `Library not loaded: @rpath/libLLVM.dylib`：直接用了工具链的 cargo。build.py 会补上 `DYLD_FALLBACK_LIBRARY_PATH`，手动编译要自己加。
