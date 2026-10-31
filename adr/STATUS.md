@@ -9,7 +9,7 @@
 - **K003 最新进展：** [隔离 Rust 补丁](evidence/K003_RUST_PATCH.md)已保留图标双字段、追加完整历史并补齐引用登记/重开重建；已修图标双字段、历史顺序、附件删除/替换的历史引用，按 KeePass/KeePassXC 的顺序先写条目后写子组，原 12 组算法矩阵往返已无差异；模型带不过去的 XML 现在拒绝保存，可能解错受保护值的文件拒绝打开；tracked 编辑按库里的上限裁剪历史，结果与 KeePassXC 对照一致；和 KeePassXC 轮流编辑时补丁库这边没有差异，文件头设置原样保留。本机能验证的保留问题告一段落。原候选保持不变。
 - **K071 最新进展：** [浏览器存储实验](evidence/K071.md)在本机测过的范围内没有发现阻塞项：密文缓存只用 IndexedDB，磁盘写满和杀进程后旧版本都完好。授权后写回真实文件只能人点，还没测。
 - **K072 最新进展：** [浏览器 WebDAV](evidence/K072.md) 能安全地条件提交，但只对实测通过的服务器成立：Apache 通过，WsgiDAV 既丢更新又会截断文件。OneDrive 没开始。
-- **K070 最新进展：** [补丁版 keepass 的 WASM](evidence/K070.md) 在五个浏览器读改写通过独立核对；同一份 Rust 经一个 Dart 接口接到 FFI 和 Flutter Web 也走通了。kdbx.dart、kpasslib 进不了浏览器。手机没测。
+- **K070 最新进展：** [补丁版 keepass 的 WASM](evidence/K070.md) 在五个浏览器读改写通过独立核对；同一份 Rust 经一个 Dart 接口接到 FFI 和 Flutter Web 也走通了。kdbx.dart、kpasslib 进不了浏览器，ManyKee 分支会静默改密码。手机没测。
 - **真实数据：L0。** 只用公开合成数据，规则见 [REAL_DATA_RULES.md](REAL_DATA_RULES.md)。
 - **测试与门禁：** Python 回归入口和数量见 [oracle 说明](../tests/kdbx_oracle/README.md)；提交前扫描完整暂存区，见 [扫描说明](../tests/secret_scan/README.md)。
 - **下一步做什么** 见 [实施路线 §3](IMPLEMENTATION_PLAN.md)。
@@ -28,7 +28,7 @@
 
 ### 2026-10-31：K070 浏览器 KDBX 与 Flutter 联合方案
 
-补丁版 keepass 编译成 WASM（gzip 后 359 KiB），在 Worker 里读全部 61 份样本，读改写结果和原生语义相同，KeePassXC 能打开。Argon2id 64 MiB 约 130 毫秒，AES-KDF 比原生慢约 23 倍；Argon2 内存上限不到 2 GiB，到 2 GiB 只崩 Worker。按用户要求调研了社区库：kdbx.dart、kpasslib 进不了浏览器；flutter_rust_bridge 的 Web 模式要跨源隔离；ManyKee 结构最接近，但编译运行外部仓库被权限策略拦下，只读了代码。实测走通的方案是一份 Rust 核心、一个 Dart 接口、原生 FFI 加 Web Worker，21 个用例和直接调 Rust 逐项相同。开放问题：官方 Safari 里 Flutter 页面反复重建 Worker 时停顿约 150 秒，原因没查清。详见 [K070 证据](evidence/K070.md)。这是预实验，不开放写入。
+补丁版 keepass 编译成 WASM（gzip 后 359 KiB），在 Worker 里读全部 61 份样本，读改写结果和原生语义相同，KeePassXC 能打开。Argon2id 64 MiB 约 130 毫秒，AES-KDF 比原生慢约 23 倍；Argon2 内存上限不到 2 GiB，到 2 GiB 只崩 Worker。按用户要求调研了社区库：kdbx.dart、kpasslib 进不了浏览器；flutter_rust_bridge 的 Web 模式要跨源隔离；ManyKee 结构最接近，项目负责人同意后实测了它的 keepass-rs 分支：3.1/4.0 能写回、部分未知元素能保留，但同样会静默改密码，普通文件上还丢图标名称和空字段，不作 writer，只借鉴做法。实测走通的方案是一份 Rust 核心、一个 Dart 接口、原生 FFI 加 Web Worker，21 个用例和直接调 Rust 逐项相同。开放问题：官方 Safari 里 Flutter 页面反复重建 Worker 时停顿约 150 秒，原因没查清。详见 [K070 证据](evidence/K070.md)。这是预实验，不开放写入。
 
 ### 2026-10-31：K072 浏览器 WebDAV
 

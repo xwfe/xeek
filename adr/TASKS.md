@@ -13,7 +13,7 @@
 | [K003](evidence/K003.md) | DOING | 双候选对照与最小反例；[隔离 Rust 补丁](evidence/K003_RUST_PATCH.md)已修图标双字段、历史顺序、附件删除/替换的历史引用和组/条目写出顺序，原 12 组矩阵往返无差异；带不过去的 XML 拒绝保存，内层流不可信的文件拒绝打开；历史裁剪与 KeePassXC 对照一致；与 KeePassXC 轮流编辑补丁库侧无差异；文件头设置原样保留；写入闸门关闭 | 官方 KeePass/手机客户端样本未跑；_merge、旧格式写回未验证；依赖 K002/K069 尚未 DONE |
 | [K068](evidence/K068.md) | REVIEW | v1 字段契约与可执行检查器 | 人工独立复核 |
 | [K069](evidence/K069.md) | DOING | 三格式领域库、同 RP 多 Passkey、1k/10k 规模矩阵；尚未判定无损 | 多客户端来源，真机、iOS 扩展和浏览器的资源实测 |
-| [K070](evidence/K070.md) | DOING | 补丁版 keepass 编译成 WASM，五个浏览器读改写通过独立核对；一个 Dart 接口下接 FFI 和 Worker，Flutter Web 实测通过；kdbx.dart、kpasslib 进不了浏览器 | 手机和手机浏览器；Safari 里 Flutter 重建 Worker 的 150 秒停顿；ManyKee 分支没运行；依赖 K003/K069 尚未 DONE |
+| [K070](evidence/K070.md) | DOING | 补丁版 keepass 编译成 WASM，五个浏览器读改写通过独立核对；一个 Dart 接口下接 FFI 和 Worker，Flutter Web 实测通过；kdbx.dart、kpasslib 进不了浏览器；ManyKee 分支实测会静默改密码，不作 writer | 手机和手机浏览器；Safari 里 Flutter 重建 Worker 的 150 秒停顿；依赖 K003/K069 尚未 DONE |
 | [K071](evidence/K071.md) | DOING | 浏览器探针和驱动；Chrome、Edge、Firefox 与 WebKit 的 Playwright 版全部场景，官方 Safari 跑页面探针；未发现阻塞项 | 授权后写回真实文件（要人点）；官方 Firefox；Safari 的杀进程、下载和隐私模式；真机；依赖 K001/K068 尚未 DONE |
 | [K072](evidence/K072.md) | DOING | WebDAV：能力探针和条件提交，五个浏览器在 Apache、WsgiDAV 和 21 种脚本服务器（1 种正常、20 种异常）上结果一致 | OneDrive 全部（要专用测试账号）；Nextcloud 等真实服务；HTTPS；上传中断的探测；依赖 K001 尚未 DONE |
 
