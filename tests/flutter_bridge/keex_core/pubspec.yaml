@@ -1,0 +1,10 @@
+name: keex_core
+description: K070 Dart 接口：同一个 VaultCore，原生走 FFI，Web 走 Worker + WASM，下面是同一份 Rust。只用于实验。
+publish_to: none
+
+environment:
+  sdk: '>=3.9.0 <4.0.0'
+
+dependencies:
+  ffi: 2.2.0
+  web: 1.1.1

@@ -62,6 +62,9 @@ def main():
     run(["cargo", "build", "--release", "--locked", "--target", "wasm32-unknown-unknown",
          "--manifest-path", str(HERE / "Cargo.toml"), "--target-dir", str(TARGET)], env=env)
     binary = TARGET / "wasm32-unknown-unknown" / "release" / f"{CRATE}.wasm"
+    # 同一份代码再编一个原生库，给 Dart FFI 用。
+    run(["cargo", "build", "--release", "--locked", "--manifest-path", str(HERE / "Cargo.toml"),
+         "--target-dir", str(TARGET)], env=env)
     shutil.rmtree(SITE_OUT, ignore_errors=True)
     run([str(WASM_BINDGEN), "--target", "web", "--no-typescript", "--out-dir", str(SITE_OUT), str(binary)], env=env)
     out = SITE_OUT / f"{CRATE}_bg.wasm"

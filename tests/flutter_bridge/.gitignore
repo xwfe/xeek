@@ -1,0 +1,6 @@
+# K070 项目内 pub 缓存和构建产物；pubspec.lock 提交。
+.pub-cache/
+.dart_tool/
+build/
+app/web/kdbx-worker.js
+app/web/wasm/

@@ -1,0 +1,14 @@
+name: keex_bridge_app
+description: K070 最小 Flutter 页面：验证界面通过 VaultCore 调用 Rust 核心。不是产品界面。
+publish_to: none
+version: 0.0.1
+
+environment:
+  sdk: '>=3.9.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  keex_core:
+    path: ../keex_core
+  web: 1.1.1

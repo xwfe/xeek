@@ -20,7 +20,8 @@ Safari 和真机：`node drive-core.mjs --serve 47113`，把打印的地址贴�
 
 | 文件 | 作用 |
 | --- | --- |
-| [src/lib.rs](src/lib.rs) | 给浏览器用的最小接口 |
+| [src/core.rs](src/core.rs) | 浏览器和原生共用的一份逻辑 |
+| [src/web.rs](src/web.rs)、[src/native.rs](src/native.rs) | 两个薄壳：wasm-bindgen 导出和 C ABI |
 | [build.py](build.py) | 核对缓存哈希、打补丁、编译 |
 | [check_outputs.py](check_outputs.py) | 浏览器写出的库交给独立 oracle、原生补丁库和 KeePassXC 核对 |
 | [compare_candidates.py](compare_candidates.py) | 社区候选和补丁版用同一批输入比较 |

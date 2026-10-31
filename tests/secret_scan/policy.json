@@ -901,6 +901,22 @@
       "reason": "pub 依赖校验和；只对这份完整锁文件摘要放行熵规则。"
     },
     {
+      "path": "tests/flutter_bridge/app/pubspec.lock",
+      "sha256": "f7a25f62c7ab8fe1c648529c7a82c6f5001cdfc5dafb306fb9b0b29f0886e508",
+      "rules": [
+        "HexHighEntropyString"
+      ],
+      "reason": "pub 依赖校验和；只对这份完整锁文件摘要放行熵规则。"
+    },
+    {
+      "path": "tests/flutter_bridge/keex_core/pubspec.lock",
+      "sha256": "aca2e4619534251a9b1b983c769b0b84b4a289fbf5e97d2578bc6133c5bbdae4",
+      "rules": [
+        "HexHighEntropyString"
+      ],
+      "reason": "pub 依赖校验和；只对这份完整锁文件摘要放行熵规则。"
+    },
+    {
       "path": "tests/kpasslib_candidate/pubspec.lock",
       "sha256": "f06546cffb7942d850e305d75d9f7b49004db594266d11f51059b212ce2c250b",
       "rules": [

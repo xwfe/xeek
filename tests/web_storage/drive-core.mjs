@@ -3,55 +3,15 @@
 //   node drive-core.mjs                 全部可驱动的浏览器
 //   node drive-core.mjs chrome firefox  指定浏览器
 //   node drive-core.mjs --serve 47113   只起服务，手动在 Safari 或真机打开打印的地址
-import { execFileSync } from "node:child_process";
-import { mkdir, readFile, writeFile } from "node:fs/promises";
-import { dirname, join, resolve } from "node:path";
+import { writeFile } from "node:fs/promises";
+import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
-import { RESULTS, startServer } from "./server.mjs";
+import { runCheck, serve } from "./core-server.mjs";
+import { RESULTS } from "./server.mjs";
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 process.env.PLAYWRIGHT_BROWSERS_PATH ??= join(HERE, ".browsers");
-const FIXTURES = join(HERE, "..", "fixtures", "kdbx");
-const PYTHON = process.env.PYTHON ?? "python3";
-const CHECK = join(HERE, "..", "wasm_core", "check_outputs.py");
-const OUTPUTS = join(RESULTS, "wasm-out");
 const TIMEOUT = Number(process.env.K070_TIMEOUT ?? 900_000);
-const CONFIG_DIRECTORY = join(HERE, "..", "wasm_core", "target", "inputs");
-
-async function serve(options) {
-  const configPath = execFileSync(PYTHON, ["-B", CHECK, "inputs", CONFIG_DIRECTORY], { encoding: "utf8" }).trim();
-  const raw = await readFile(configPath, "utf8");
-  // @ 开头的文件在实验输入目录里，别的都是登记过的样本；页面只能拿这些，不能读任意路径。
-  const config = JSON.parse(raw);
-  const allowed = new Map();
-  const add = (file) => {
-    if (file) allowed.set(file, file.startsWith("@") ? join(dirname(configPath), file.slice(1)) : resolve(FIXTURES, file));
-  };
-  config.roundTrips.forEach((s) => add(s.file));
-  config.allSamples.forEach((s) => { add(s.file); add(s.keyfile); });
-  add(config.guarded.unknown);
-  add(config.guarded.protected);
-  await mkdir(OUTPUTS, { recursive: true });
-  const site = await startServer({
-    ...options,
-    wasm: true,
-    samples: allowed,
-    uploads: OUTPUTS,
-    routes: { "/core-config.json": () => config },
-  });
-  return { ...site, configPath };
-}
-
-function runCheck(label, configPath) {
-  const report = join(RESULTS, `${label}.json`);
-  try {
-    const output = execFileSync(PYTHON, ["-B", CHECK, "check", report, OUTPUTS, configPath], { encoding: "utf8", maxBuffer: 1 << 24 });
-    return JSON.parse(output);
-  } catch (error) {
-    if (error.stdout) return JSON.parse(error.stdout);
-    throw error;
-  }
-}
 
 function summarize(name, report) {
   console.log(`${name}`);

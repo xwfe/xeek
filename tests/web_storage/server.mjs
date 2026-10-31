@@ -9,20 +9,34 @@ const HERE = dirname(fileURLToPath(import.meta.url));
 const SITE = join(HERE, "site");
 export const RESULTS = join(HERE, "results");
 const FIXTURES = join(HERE, "..", "fixtures", "kdbx");
-const TYPES = { ".html": "text/html; charset=utf-8", ".js": "text/javascript; charset=utf-8", ".wasm": "application/wasm" };
+const TYPES = {
+  ".html": "text/html; charset=utf-8",
+  ".js": "text/javascript; charset=utf-8",
+  ".mjs": "text/javascript; charset=utf-8",
+  ".wasm": "application/wasm",
+  ".json": "application/json",
+  ".css": "text/css",
+  ".otf": "font/otf",
+  ".ttf": "font/ttf",
+  ".bin": "application/octet-stream",
+  ".frag": "application/octet-stream",
+};
 
 // 探针和被测代码都要在 ADR-0007 要求的严格 CSP 下工作，否则结论带不到生产。
 // WASM 只需要多放开 'wasm-unsafe-eval'，不需要 'unsafe-eval'。K070 还要证明不放开时确实编译不了。
-function csp(connectSources, allowWasm) {
+function csp(connectSources, allowWasm, styleInline, flutter) {
   return [
     "default-src 'none'",
     `script-src 'self'${allowWasm ? " 'wasm-unsafe-eval'" : ""}`,
-    "style-src 'self'",
+    `style-src 'self'${styleInline ? " 'unsafe-inline'" : ""}`,
+    "font-src 'self'",
+    "img-src 'self' data: blob:",
     `connect-src 'self' ${connectSources.join(" ")}`.trim(),
     "worker-src 'self'",
     "frame-src 'self'",
     "frame-ancestors 'self'",
-    "base-uri 'none'",
+    // Flutter 的页面带 <base href>，所以 Flutter 站点放开到同源，其它页面不需要。
+    `base-uri ${flutter ? "'self'" : "'none'"}`,
     "form-action 'none'",
   ].join("; ");
 }
@@ -46,17 +60,17 @@ async function readBody(request) {
 /**
  * @param {{port?: number, onReport?: (report: object) => void, saveReports?: boolean,
  *   connectSources?: string[], routes?: Record<string, () => object>, wasm?: boolean,
- *   samples?: Map<string, string>, uploads?: string}} [options]
+ *   samples?: Map<string, string>, uploads?: string, root?: string, styleInline?: boolean}} [options]
  * connectSources 和 routes 启动后还能改：测试服务器要等拿到本站地址才能启动。
  * samples 是页面能下载的样本（登记名到路径），uploads 是浏览器写出的库存放的目录。
  */
-export async function startServer({ port = 0, onReport, saveReports = false, connectSources = [], routes = {}, wasm = false, samples, uploads } = {}) {
+export async function startServer({ port = 0, onReport, saveReports = false, connectSources = [], routes = {}, wasm = false, samples, uploads, root = SITE, styleInline = false } = {}) {
   const kdbx = await fixture();
   const server = createServer(async (request, response) => {
     try {
       const url = new URL(request.url, "http://localhost");
       const headers = {
-        "Content-Security-Policy": csp(connectSources, wasm && !url.searchParams.has("no-wasm-csp")),
+        "Content-Security-Policy": csp(connectSources, wasm && !url.searchParams.has("no-wasm-csp"), styleInline, root !== SITE),
         "Cache-Control": "no-store",
       };
       if (url.pathname === "/sample" && samples?.has(url.searchParams.get("file"))) {
@@ -96,7 +110,7 @@ export async function startServer({ port = 0, onReport, saveReports = false, con
         response.writeHead(404, headers).end();
         return;
       }
-      const body = await readFile(join(SITE, relative));
+      const body = await readFile(join(root, relative));
       response.writeHead(200, { ...headers, "Content-Type": TYPES[extname(relative)] }).end(body);
     } catch (error) {
       response.writeHead(error.code === "ENOENT" ? 404 : 500).end();

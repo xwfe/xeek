@@ -51,9 +51,22 @@ def build_kpasslib():
     return output
 
 
+def build_dart_ffi():
+    # 完整路径：Dart 接口 → FFI → 和 WASM 同一份 Rust 核心。动态库由 build.py 编好。
+    package = ROOT / "tests/flutter_bridge/keex_core"
+    environment = {**os.environ, "PUB_CACHE": str(package.parent / ".pub-cache"), "PUB_HOSTED_URL": "https://pub.dev"}
+    output = package.parent / "build" / "helper"
+    output.parent.mkdir(exist_ok=True)
+    subprocess.run(["dart", "compile", "exe", "bin/helper.dart", "-o", str(output)], cwd=package, env=environment,
+                   check=True, capture_output=True, timeout=300)
+    os.environ["KEEX_CORE_LIB"] = str(ROOT / "tests/wasm_core/target/release/libkeex_wasm_core.dylib")
+    return output
+
+
 CANDIDATES = {
     "keex-patched": lambda: build.TARGET / "release" / build.HISTORY_EDIT,
     "kpasslib": build_kpasslib,
+    "dart-ffi-rust": build_dart_ffi,
 }
 
 
