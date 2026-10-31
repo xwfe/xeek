@@ -14,6 +14,8 @@ Web 目标是可管理同一 KDBX 的正式客户端：打开/解锁、资料新
 
 K070 用相同合成样本比较 K009 候选在浏览器的实际可行性：Rust→WASM、Dart→Web 的 KDBX 支持、CSPRNG、KDF/cipher、压缩、未知字段、取消、峰值内存、主线程阻塞和构建依赖。不能把“Flutter/Dart 支持 WASM”误解为已有 Rust FFI 可原样运行。K003 已知：Dart 候选 kdbx.dart 2.5.0 不支持 Argon2id、是 GPL-3.0，纯 Dart AES-KDF 在桌面 CPU 上读+存已需 8–11 秒，浏览器只会更慢；走 Dart 路线前先解决这三点（[K003](evidence/K003.md)）。
 
+[K070 实测](evidence/K070.md)：补丁版 keepass 的 Rust→WASM 在五个浏览器可用，kdbx.dart 和 kpasslib 进不了浏览器；只需多放开 `'wasm-unsafe-eval'`；Argon2 内存上限不到 2 GiB；锁库必须结束 Worker，WASM 内存不能缩小也不保证清零。
+
 优先一个共享 writer/语义核心、多端适配；不维护两套有不同兼容规则的生产 writer。如果确需两个运行时，必须共享格式契约、独立语义比较和全量差分样本，经独立 ADR 批准才开放。不得为浏览器降低用户库 KDF 或换成私有 AES-GCM 容器。
 
 Worker 可用于取消与减少主线程阻塞，但 Worker/WASM 不是对同源恶意 JavaScript 的秘密隔离边界。UI 遮罩也不是字段级加密隔离。Web 解锁完整库意味着该浏览器执行环境可能接触完整库；敏感用途应明确告知，不宣传“网页只看卡片，所以私钥绝对安全”。[PV09]
