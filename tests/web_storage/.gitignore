@@ -2,3 +2,6 @@
 results/
 
 .wsgidav/
+
+# K070 构建产物，由 tests/wasm_core/build.py 生成。
+site/wasm/

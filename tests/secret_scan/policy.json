@@ -901,6 +901,14 @@
       "reason": "pub 依赖校验和；只对这份完整锁文件摘要放行熵规则。"
     },
     {
+      "path": "tests/wasm_core/Cargo.lock",
+      "sha256": "9f54f23ffc3df7df9d95700d260866226c9bb6723f1f64068a5116048a648916",
+      "rules": [
+        "HexHighEntropyString"
+      ],
+      "reason": "Cargo依赖校验和；只对这份完整锁文件摘要放行熵规则。"
+    },
+    {
       "path": "tests/fixtures/kdbx/dart_writer_manifest.json",
       "sha256": "5be1ddd5fc69d974dd201375f1072a2f8193f17f7febf4b2bb7bbe11ebb466d1",
       "rules": [

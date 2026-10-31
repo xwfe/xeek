@@ -9,13 +9,14 @@ const HERE = dirname(fileURLToPath(import.meta.url));
 const SITE = join(HERE, "site");
 export const RESULTS = join(HERE, "results");
 const FIXTURES = join(HERE, "..", "fixtures", "kdbx");
-const TYPES = { ".html": "text/html; charset=utf-8", ".js": "text/javascript; charset=utf-8" };
+const TYPES = { ".html": "text/html; charset=utf-8", ".js": "text/javascript; charset=utf-8", ".wasm": "application/wasm" };
 
 // 探针和被测代码都要在 ADR-0007 要求的严格 CSP 下工作，否则结论带不到生产。
-function csp(connectSources) {
+// WASM 只需要多放开 'wasm-unsafe-eval'，不需要 'unsafe-eval'。K070 还要证明不放开时确实编译不了。
+function csp(connectSources, allowWasm) {
   return [
     "default-src 'none'",
-    "script-src 'self'",
+    `script-src 'self'${allowWasm ? " 'wasm-unsafe-eval'" : ""}`,
     "style-src 'self'",
     `connect-src 'self' ${connectSources.join(" ")}`.trim(),
     "worker-src 'self'",
@@ -44,15 +45,33 @@ async function readBody(request) {
 
 /**
  * @param {{port?: number, onReport?: (report: object) => void, saveReports?: boolean,
- *   connectSources?: string[], routes?: Record<string, () => object>}} [options]
+ *   connectSources?: string[], routes?: Record<string, () => object>, wasm?: boolean,
+ *   samples?: Map<string, string>, uploads?: string}} [options]
  * connectSources 和 routes 启动后还能改：测试服务器要等拿到本站地址才能启动。
+ * samples 是页面能下载的样本（登记名到路径），uploads 是浏览器写出的库存放的目录。
  */
-export async function startServer({ port = 0, onReport, saveReports = false, connectSources = [], routes = {} } = {}) {
+export async function startServer({ port = 0, onReport, saveReports = false, connectSources = [], routes = {}, wasm = false, samples, uploads } = {}) {
   const kdbx = await fixture();
   const server = createServer(async (request, response) => {
-    const headers = { "Content-Security-Policy": csp(connectSources), "Cache-Control": "no-store" };
     try {
       const url = new URL(request.url, "http://localhost");
+      const headers = {
+        "Content-Security-Policy": csp(connectSources, wasm && !url.searchParams.has("no-wasm-csp")),
+        "Cache-Control": "no-store",
+      };
+      if (url.pathname === "/sample" && samples?.has(url.searchParams.get("file"))) {
+        const data = await readFile(samples.get(url.searchParams.get("file")));
+        response.writeHead(200, { ...headers, "Content-Type": "application/octet-stream" }).end(data);
+        return;
+      }
+      if (request.method === "POST" && url.pathname === "/upload" && uploads) {
+        const name = String(url.searchParams.get("name")).replace(/[^\w.-]/g, "_");
+        const chunks = [];
+        for await (const chunk of request) chunks.push(chunk);
+        await writeFile(join(uploads, name), Buffer.concat(chunks));
+        response.writeHead(204, headers).end();
+        return;
+      }
       if (routes[url.pathname]) {
         response.writeHead(200, { ...headers, "Content-Type": "application/json" }).end(JSON.stringify(routes[url.pathname]()));
         return;
@@ -80,7 +99,7 @@ export async function startServer({ port = 0, onReport, saveReports = false, con
       const body = await readFile(join(SITE, relative));
       response.writeHead(200, { ...headers, "Content-Type": TYPES[extname(relative)] }).end(body);
     } catch (error) {
-      response.writeHead(error.code === "ENOENT" ? 404 : 500, headers).end();
+      response.writeHead(error.code === "ENOENT" ? 404 : 500).end();
     }
   });
   await new Promise((resolve) => server.listen(port, "127.0.0.1", resolve));

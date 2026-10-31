@@ -1,0 +1,3 @@
+# K070 项目内工具链和构建产物；版本在 build.py 里固定。
+.toolchain/
+target/
