@@ -27,6 +27,10 @@
 
 以下按时间倒序保留各批原始记录，只统一了标题。其中的测试数量、任务状态和“未提交”“未初始化 Git”等描述都是当时的情况，现状以上两节为准。
 
+### 2026-11-06：K003 编辑时间严格递增
+
+顺着 ManyKee 的线索实测：补丁库同一秒内连续编辑时，历史和当前版本时间相同，经 KeePassXC 合并会丢中间版本（edit-1 没了）。补丁 08 让每次编辑的时间严格晚于被替换的版本。先红后绿，全量回归 oracle 191 项 + 领域 93 项通过。详见 [补丁证据 §11](evidence/K003_RUST_PATCH.md)。
+
 ### 2026-11-06：K004 移动端桥接（Android）
 
 一份 Rust 核心加 WASM、C ABI、JNI、Dart FFI 四个薄壳。Pixel 9 Pro（Android 17）上，Kotlin 进程在主程序没开、没加载 Flutter 的情况下读改写合成库，Flutter 主进程走 Dart FFI 也一样，输出都通过独立 oracle 核对。Argon2id 64 MiB 约 110 毫秒、进程峰值 201 MiB；1 GiB 约 2.3 秒、峰值 1159 MiB；AES-KDF 100 万轮只要 16 毫秒。新增解锁前的 KDF 内存预算检查和 panic 防护。iOS 按要求暂停：缺 Xcode 的 iOS 26 组件和可连的 iPhone。详见 [K004 证据](evidence/K004.md)。这是预实验，不开放写入。
