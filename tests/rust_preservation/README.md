@@ -24,6 +24,7 @@ python3 -B tests/run_python_tests.py --suite oracle --pattern test_rust_third_pa
 5. [05-unknown-content.patch](patches/05-unknown-content.patch)：解析前按模型实际支持的元素表扫描解密后的 XML。有未知元素、属性或游离文字时可读但 `save` 报错，路径由 `Database::unknown_content()` 给出（只含元素名，不含值）；未知内容带受保护值，或文档顺序与解密顺序不一致时拒绝打开。
 6. [06-history-limits.patch](patches/06-history-limits.patch)：tracked 编辑按 `HistoryMaxItems`/`HistoryMaxSize` 裁剪这一个条目的历史，保留最新的版本，并同步附件/图标引用；只有被删版本用的附件内容随之删除。另加 `EntryMut::trim_history()`（调低上限后用）和 `clear_history()`。不要直接给公开字段 `entry.history` 赋值：附件内容会留在文件里，遍历引用还会 panic。
 7. [07-absent-defaults.patch](patches/07-absent-defaults.patch)：文件没写 `QualityCheck` 时保持没写（KeePass/KeePassXC 只在值为 false 时才写，上游会给每个条目补 `True`）；没写 `IsExpanded` 时按展开读（两个客户端的默认值，上游读成折叠）。
+8. [08-edit-times.patch](patches/08-edit-times.patch)：tracked 编辑的修改时间严格晚于被替换的版本。同一秒内连续编辑时取前一版加 1 秒，否则 KeePassXC 合并时会把时间相同的历史当成一份丢掉。
 
 实验 manifest 直接引用原 helper 源码。临时锁只改实验根包名和 keepass 来源，传递版本/校验和保持原锁；构建使用 `--locked --offline`。原候选源码、锁文件、包缓存、样本与 manifest 不被修改。固定上游部分遵循 [MIT 许可证](LICENSE.keepass)，不决定 keex 产品的发行许可。
 

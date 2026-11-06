@@ -1,0 +1,93 @@
+--- a/src/db/types/entry.rs
++++ b/src/db/types/entry.rs
+@@ -825,6 +825,25 @@ pub struct EntryTrack<'a> {
+ }
+ 
+ impl EntryTrack<'_> {
++    /// Stamp the edit. KeePassXC merges history by modification time and treats two versions
++    /// with the same time as one, so an edit in the same second as the version it replaces would
++    /// lose that version on the next merge. Step one second past it instead of using the clock.
++    fn touch(&mut self) {
++        let now = Times::now();
++        let previous = self
++            .history
++            .as_ref()
++            .and_then(|history| history.entries.last())
++            .and_then(|version| version.times.last_modification);
++        let stamp = match previous {
++            Some(previous) if now <= previous => previous
++                .checked_add_signed(chrono::TimeDelta::seconds(1))
++                .unwrap_or(previous),
++            _ => now,
++        };
++        self.times.last_modification = Some(stamp);
++    }
++
+     /// Turn this tracked entry into a normal mutable reference to the entry
+     pub fn as_mut(&mut self) -> EntryMut<'_> {
+         EntryMut {
+@@ -855,7 +874,7 @@ impl EntryTrack<'_> {
+     /// Convenience method to edit the entry in a closure, tracking changes.
+     pub fn edit(&mut self, f: impl FnOnce(&mut EntryTrack<'_>)) -> &mut Self {
+         f(self);
+-        self.times.last_modification = Some(Times::now());
++        self.touch();
+         self
+     }
+ 
+@@ -863,26 +882,26 @@ impl EntryTrack<'_> {
+     pub fn set(&mut self, key: impl Into<String>, value: Value<String>) {
+         let mut this = self.as_mut();
+         this.set(key, value);
+-        this.times.last_modification = Some(Times::now());
++        self.touch();
+     }
+ 
+     /// Set a protected field value, tracking changes. See [crate::db::fields] for common field names.
+     pub fn set_protected(&mut self, key: impl Into<String>, value: impl Into<String>) {
+         let mut this = self.as_mut();
+         this.set_protected(key, value);
+-        this.times.last_modification = Some(Times::now());
++        self.touch();
+     }
+ 
+     /// Set an unprotected field value, tracking changes. See [crate::db::fields] for common field names.
+     pub fn set_unprotected(&mut self, key: impl Into<String>, value: impl Into<String>) {
+         let mut this = self.as_mut();
+         this.set_unprotected(key, value);
+-        this.times.last_modification = Some(Times::now());
++        self.touch();
+     }
+ 
+     /// Add an attachment, tracking changes.
+     pub fn add_attachment(&mut self, name: impl Into<String>, data: Value<Vec<u8>>) -> AttachmentMut<'_> {
+-        self.times.last_modification = Some(Times::now());
++        self.touch();
+         let mut this = self.as_mut();
+         let id = this.add_attachment(name, data).id;
+ 
+@@ -893,21 +912,21 @@ impl EntryTrack<'_> {
+     pub fn set_icon_none(&mut self) {
+         let mut this = self.as_mut();
+         this.set_icon_none();
+-        this.times.last_modification = Some(Times::now());
++        self.touch();
+     }
+ 
+     /// Set a built-in icon for this entry by its ID, tracking changes.
+     pub fn set_icon_builtin(&mut self, icon_id: usize) {
+         let mut this = self.as_mut();
+         this.set_icon_builtin(icon_id);
+-        this.times.last_modification = Some(Times::now());
++        self.touch();
+     }
+ 
+     /// Set a custom icon for this entry by its ID, tracking changes.
+     pub fn set_icon_custom(&mut self, custom_icon_id: CustomIconId) -> Result<(), CustomIconNotFoundError> {
+         let mut this = self.as_mut();
+         this.set_icon_custom(custom_icon_id)?;
+-        this.times.last_modification = Some(Times::now());
++        self.touch();
+         Ok(())
+     }
+ 

@@ -11,7 +11,7 @@ python3 -B tests/run_python_tests.py --suite oracle
 python3 -B tests/run_python_tests.py --suite domain
 ~~~
 
-当前 oracle 入口 190 项，领域 93 项，共 283 项；另有 Rust 保存版本探针 3 项、隔离补丁 API 测试 15 项（附件生命周期 4 项、未知内容 3 项、历史裁剪 5 项），不混入 Python 数量。缺少 Argon2 后端时入口直接报错。旧交叉读/live 类仍有明确跳过条件，跳过不算完整验收；K003 最小反例集要求已有 Cargo、Dart、KeePassXC 和固定项目缓存，缺任一项直接失败。只跑领域检查仍可使用 --suite domain。
+当前 oracle 入口 191 项，领域 93 项，共 284 项；另有 Rust 保存版本探针 3 项、隔离补丁 API 测试 16 项（附件生命周期 4 项、未知内容 3 项、历史裁剪 5 项、编辑时间 1 项），不混入 Python 数量。缺少 Argon2 后端时入口直接报错。旧交叉读/live 类仍有明确跳过条件，跳过不算完整验收；K003 最小反例集要求已有 Cargo、Dart、KeePassXC 和固定项目缓存，缺任一项直接失败。只跑领域检查仍可使用 --suite domain。
 
 K003 最小反例及直接上游版本探针：
 

@@ -180,6 +180,25 @@ class ThirdPartyRoundTripTest(unittest.TestCase):
                 self.assertEqual(chain[-4:], ["round-1", "round-2", "round-3", "round-4"])
                 self.assertEqual(checks.fields(final)["UserName"].value, "round-5")
 
+    def test_edits_within_one_second_survive_a_keepassxc_merge(self):
+        # 同步时 KeePassXC 按修改时间合并历史；时间戳相同的两份会被当成一份，中间版本就丢了。
+        data, password = minimal.make_case("control")
+        source = self.scratch()
+        source.write_bytes(data)
+        edited = self.scratch()
+        run = subprocess.run([str(self.binary), str(source), str(edited), minimal.TARGET_UUID, "edit-1", "edit-2", "edit-3"],
+                             input=password + "\n", capture_output=True, text=True, timeout=120)
+        self.assertEqual(run.returncode, 0, run.stderr)
+        merged = self.scratch()
+        shutil.copy(source, merged)
+        run = subprocess.run([self.cli, "merge", "-q", "-s", str(merged), str(edited)], input=password + "\n",
+                             capture_output=True, text=True, timeout=120)
+        self.assertEqual(run.returncode, 0, run.stderr)
+        entry = checks.current_entries(read_kdbx(merged.read_bytes(), password))[minimal.TARGET_UUID.replace("-", "")]
+        names = [checks.fields(v)["UserName"].value for v in entry.findall("History/Entry")]
+        self.assertEqual(names[-3:], ["synthetic-current", "edit-1", "edit-2"])
+        self.assertEqual(checks.fields(entry)["UserName"].value, "edit-3")
+
     def test_structural_changes_by_keepassxc_survive_our_save(self):
         # KeePassXC 动结构后，补丁库读回再存：`ours` 的全文比较保证这些改动一处不丢。
         data, password = next((d, p) for name, d, p in samples() if name == "vault")

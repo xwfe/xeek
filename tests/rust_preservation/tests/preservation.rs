@@ -704,3 +704,35 @@ fn clearing_history_releases_content_and_keeps_icons() {
         );
     }
 }
+
+#[test]
+fn edits_within_one_second_get_distinct_increasing_times() {
+    // KeePassXC 合并时按修改时间认历史：时间相同的两份会被当成一份，中间那份就丢了。
+    let mut db = database();
+    let id = db
+        .root_mut()
+        .add_entry()
+        .edit(|e| {
+            e.set_unprotected(fields::USERNAME, "v0");
+        })
+        .id();
+    for name in ["v1", "v2", "v3"] {
+        tracked(&mut db, id, name);
+    }
+    for (stage, candidate) in [("after edits", &db), ("after reopen", &reopen(&db))] {
+        let entry = candidate.entry(id).unwrap();
+        let mut times: Vec<_> = entry
+            .history
+            .as_ref()
+            .unwrap()
+            .get_entries()
+            .iter()
+            .map(|version| version.times.last_modification.unwrap())
+            .collect();
+        times.push(entry.times.last_modification.unwrap());
+        assert!(
+            times.windows(2).all(|pair| pair[0] < pair[1]),
+            "{stage}: {times:?}"
+        );
+    }
+}

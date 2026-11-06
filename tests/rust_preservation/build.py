@@ -22,7 +22,7 @@ HISTORY_EDIT = "keex-history-edit"
 VERSION = "0.15.3"
 PATCHES = tuple(HERE / "patches" / name for name in (
     "01-icons.patch", "02-history.patch", "03-attachments.patch", "04-child-order.patch",
-    "05-unknown-content.patch", "06-history-limits.patch", "07-absent-defaults.patch"))
+    "05-unknown-content.patch", "06-history-limits.patch", "07-absent-defaults.patch", "08-edit-times.patch"))
 sys.path[:0] = [str(ROOT / path) for path in (
     "tests/kdbx_oracle/.deps-argon2", "tests/kdbx_oracle", "tests/fixtures/kdbx")]
 from candidate_minimal import encode_v4, make_case, plain_case
