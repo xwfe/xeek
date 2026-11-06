@@ -18,6 +18,7 @@ const TYPES = {
   ".css": "text/css",
   ".otf": "font/otf",
   ".ttf": "font/ttf",
+  ".woff2": "font/woff2",
   ".bin": "application/octet-stream",
   ".frag": "application/octet-stream",
 };
