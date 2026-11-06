@@ -1,0 +1,4 @@
+module KeexCoreC {
+    header "keex_core.h"
+    export *
+}

@@ -11,7 +11,9 @@ abstract class VaultCore {
   factory VaultCore() = PlatformVaultCore;
 
   /// 解锁并返回摘要（不含字段值）。密码错误等可恢复的错误抛 [VaultError]。
-  Future<Map<String, dynamic>> open(Uint8List bytes, String password);
+  ///
+  /// [memoryBudget] 是 KDF 最多能用的字节数，0 表示不限。文件要的更多时不分配，直接报错。
+  Future<Map<String, dynamic>> open(Uint8List bytes, String password, {int memoryBudget = 0});
 
   Future<void> setUsername(String entry, String username);
 

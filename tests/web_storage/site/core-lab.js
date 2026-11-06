@@ -202,6 +202,15 @@ const probes = {
     return { ok: true, results };
   },
 
+  /** 文件要的 KDF 内存超预算时，不分配直接报错，Worker 还能继续用。 */
+  async budgetRefusesBeforeAllocating({ argon2Sample, roundTrips: [sample] }) {
+    const core = await Core.start();
+    const refused = await core.call("open", { bytes: await sampleBytes(argon2Sample.file), password: argon2Sample.password, memoryBudget: MiB });
+    const right = await core.call("open", { bytes: await sampleBytes(sample.file), password: sample.password });
+    core.stop();
+    return { ok: !refused.ok && !refused.trapped && refused.message.includes("KDF_BUDGET") && right.ok, message: refused.message?.slice(0, 80), ms: refused.ms };
+  },
+
   /** 取消：KDF 跑着时直接 terminate，立刻能开新 Worker，旧状态不在了。 */
   async cancelDuringKdf({ roundTrips: [sample] }) {
     const core = await Core.start();

@@ -73,6 +73,11 @@ keepassxc = {{ path = "{source}/rust/keepassxc", default-features = false }}
     return crate / "target/release/manykee-helper"
 
 
+def build_swift():
+    # Swift → C ABI → 同一份 Rust。动态库和 helper 由 tests/mobile/README.md 里的命令编好。
+    return ROOT / "tests/mobile/build/swift-helper"
+
+
 def build_kpasslib():
     package = ROOT / "tests/kpasslib_candidate"
     environment = {**os.environ, "PUB_CACHE": str(package / ".pub-cache"), "PUB_HOSTED_URL": "https://pub.dev"}
@@ -99,6 +104,7 @@ def build_dart_ffi():
 CANDIDATES = {
     "keex-patched": lambda: build.TARGET / "release" / build.HISTORY_EDIT,
     "kpasslib": build_kpasslib,
+    "swift-c-rust": build_swift,
     "manykee-fork": build_manykee,
     "dart-ffi-rust": build_dart_ffi,
 }

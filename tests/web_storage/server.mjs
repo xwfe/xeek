@@ -64,7 +64,7 @@ async function readBody(request) {
  * connectSources 和 routes 启动后还能改：测试服务器要等拿到本站地址才能启动。
  * samples 是页面能下载的样本（登记名到路径），uploads 是浏览器写出的库存放的目录。
  */
-export async function startServer({ port = 0, onReport, saveReports = false, connectSources = [], routes = {}, wasm = false, samples, uploads, root = SITE, styleInline = false } = {}) {
+export async function startServer({ port = 0, onReport, saveReports = false, connectSources = [], routes = {}, wasm = false, samples, uploads, root = SITE, styleInline = false, onProbeStep } = {}) {
   const kdbx = await fixture();
   const server = createServer(async (request, response) => {
     try {
@@ -88,6 +88,11 @@ export async function startServer({ port = 0, onReport, saveReports = false, con
       }
       if (routes[url.pathname]) {
         response.writeHead(200, { ...headers, "Content-Type": "application/json" }).end(JSON.stringify(routes[url.pathname]()));
+        return;
+      }
+      if (request.method === "POST" && url.pathname === "/probe-step") {
+        onProbeStep?.(JSON.parse(await readBody(request)));
+        response.writeHead(204, headers).end();
         return;
       }
       if (request.method === "POST" && url.pathname === "/report") {

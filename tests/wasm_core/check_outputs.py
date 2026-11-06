@@ -66,6 +66,8 @@ def prepare_inputs(directory):
         ("scale-10k", *sample_stage("matrix_manifest.json", "M41-SCALE-10000-LARGE", "edit1")),
     ]
     rows = [line.split("\t") for line in build.registered_fixtures().splitlines()]
+    argon2 = next(s for s in json.loads((FIXTURES / "rust_writer_manifest.json").read_text())["samples"]
+                  if "argon2id" in s["file"])
     config = {
         "roundTrips": [{"name": n, "file": f, "password": p} for n, f, p in round_trips],
         "allSamples": [{"file": str(Path(path).relative_to(FIXTURES)), "password": password,
@@ -73,6 +75,7 @@ def prepare_inputs(directory):
                        for path, password, keyfile in rows],
         "guarded": {"unknown": "@unknown.kdbx", "protected": "@unknown-protected.kdbx",
                     "password": (directory / "unknown.password").read_text()},
+        "argon2Sample": {"file": argon2["file"], "password": argon2["password"]},
         "ladder": [{"name": n, "memoryMiB": m, "iterations": i, "parallelism": p} for n, m, i, p in LADDER],
     }
     path = directory / "core-config.json"

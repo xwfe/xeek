@@ -12,15 +12,17 @@ try {
 }
 const instantiateMs = performance.now() - started;
 
+const WASM_KDF_LIMIT = 2047 * 1024 * 1024;
 let vault = null;
 const memory = () => exports_?.memory.buffer.byteLength ?? 0;
 
 const operations = {
   status: () => ({ loaded: !failure, failure, instantiateMs, hasVault: Boolean(vault) }),
-  open: ({ bytes, password, keyfile }) => {
+  open: ({ bytes, password, keyfile, memoryBudget }) => {
     vault?.free();
     vault = null;
-    vault = Vault.open(new Uint8Array(bytes), password, keyfile ? new Uint8Array(keyfile) : undefined);
+    // 不传预算时按 WASM 的硬上限：单次分配不能到 2 GiB，超了不如先报错，别等崩溃。
+    vault = Vault.open(new Uint8Array(bytes), password, keyfile ? new Uint8Array(keyfile) : undefined, memoryBudget || WASM_KDF_LIMIT);
     return JSON.parse(vault.summary());
   },
   summary: () => JSON.parse(vault.summary()),

@@ -1,0 +1,4 @@
+# K004 项目内 Android SDK、Gradle 缓存和构建产物；版本写在 README 和 build.py 里。
+.android-sdk/
+.gradle-home/
+build/

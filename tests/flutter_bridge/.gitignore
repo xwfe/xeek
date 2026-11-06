@@ -4,3 +4,11 @@
 build/
 app/web/kdbx-worker.js
 app/web/wasm/
+app/android/
+app/ios/
+# flutter create 每次重新生成，不进版本库。
+app/.gitignore
+app/.metadata
+app/README.md
+app/analysis_options.yaml
+app/test/

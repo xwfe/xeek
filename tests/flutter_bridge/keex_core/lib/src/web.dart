@@ -67,12 +67,13 @@ class PlatformVaultCore implements VaultCore {
   }
 
   @override
-  Future<Map<String, dynamic>> open(Uint8List bytes, String password) async {
+  Future<Map<String, dynamic>> open(Uint8List bytes, String password, {int memoryBudget = 0}) async {
     // 传过去之后这边的缓冲区就不能用了，所以先复制一份。
     final buffer = Uint8List.fromList(bytes).buffer.toJS;
     final args = JSObject()
       ..setProperty('bytes'.toJS, buffer)
-      ..setProperty('password'.toJS, password.toJS);
+      ..setProperty('password'.toJS, password.toJS)
+      ..setProperty('memoryBudget'.toJS, memoryBudget.toJS);
     final summary = await _call('open', args, buffer);
     return (summary.dartify() as Map).cast<String, dynamic>();
   }

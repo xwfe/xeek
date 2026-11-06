@@ -902,7 +902,7 @@
     },
     {
       "path": "tests/flutter_bridge/app/pubspec.lock",
-      "sha256": "f7a25f62c7ab8fe1c648529c7a82c6f5001cdfc5dafb306fb9b0b29f0886e508",
+      "sha256": "f80da4eb80209f752ab485176b2d80549c4af24b0b5991e4539b86e417c7af71",
       "rules": [
         "HexHighEntropyString"
       ],
@@ -926,7 +926,7 @@
     },
     {
       "path": "tests/wasm_core/Cargo.lock",
-      "sha256": "9f54f23ffc3df7df9d95700d260866226c9bb6723f1f64068a5116048a648916",
+      "sha256": "5252c808f0dece856f9f8272f4efcc03ba64713d30d079495b0c40226fe70adc",
       "rules": [
         "HexHighEntropyString"
       ],

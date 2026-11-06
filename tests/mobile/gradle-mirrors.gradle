@@ -1,0 +1,12 @@
+// K004：这台机器到 dl.google.com 和 plugins.gradle.org 时通时不通，改走阿里云镜像。
+// 只放在实验目录的 GRADLE_USER_HOME 里（prepare.py 负责复制），不影响别的项目。
+def mirrors = { handler ->
+    handler.maven { url = uri("https://maven.aliyun.com/repository/google") }
+    handler.maven { url = uri("https://maven.aliyun.com/repository/public") }
+    handler.maven { url = uri("https://maven.aliyun.com/repository/gradle-plugin") }
+}
+beforeSettings { settings ->
+    mirrors(settings.pluginManagement.repositories)
+    // Flutter 的工程按“优先用 settings 里的仓库”配置，项目级的仓库会被它拒绝，所以只能加在这里。
+    mirrors(settings.dependencyResolutionManagement.repositories)
+}

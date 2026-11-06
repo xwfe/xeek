@@ -1,15 +1,17 @@
-// K070：Flutter 通过 VaultCore 调 Rust，跑完把结果和写出的库传回本机核对。不是产品界面。
+// K070、K004：Flutter 通过 VaultCore 调 Rust，跑完把结果和写出的库传回本机核对。不是产品界面。
 import 'dart:async';
 import 'dart:convert';
-import 'dart:js_interop';
 import 'dart:typed_data';
 
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/widgets.dart';
 import 'package:keex_core/keex_core.dart';
-import 'package:web/web.dart' as web;
+
+import 'src/label.dart';
+import 'src/transport.dart';
 
 final status = ValueNotifier('starting');
+final _transport = Transport();
 
 // 帧的最长间隔：KDF 跑着时界面要是被卡住，这个数就会变大。窗口不在前台时不出帧，这里自然也不增长。
 Duration _worstFrame = Duration.zero;
@@ -17,17 +19,15 @@ Duration _worstFrame = Duration.zero;
 void main() {
   runApp(const ProbeApp());
   // 不挂在 widget 上：Safari 窗口不在前台时不出帧，initState 可能一直等不到。
-  final label = Uri.base.queryParameters['auto'];
+  final label = autoLabel();
   if (label != null) {
     unawaited(_run(label).catchError((Object error) => _note(label, 'error: $error')));
   }
 }
 
 /// 把进度发回本机，页面看不到时也知道走到哪了。
-Future<void> _note(String label, String text) async {
-  await web.window.fetch('/upload?name=${Uri.encodeQueryComponent('$label.progress.txt')}'.toJS,
-      web.RequestInit(method: 'POST', body: text.toJS)).toDart;
-}
+Future<void> _note(String label, String text) =>
+    _transport.post('/upload?name=${Uri.encodeQueryComponent('$label.progress.txt')}', text);
 
 class ProbeApp extends StatefulWidget {
   const ProbeApp({super.key});
@@ -70,19 +70,13 @@ class _ProbeAppState extends State<ProbeApp> with SingleTickerProviderStateMixin
   }
 }
 
-Future<Uint8List> _bytes(String file) async {
-  final response = await web.window.fetch('/sample?file=${Uri.encodeQueryComponent(file)}'.toJS).toDart;
-  return (await response.arrayBuffer().toDart).toDart.asUint8List();
-}
+Future<Uint8List> _bytes(String file) => _transport.bytes('/sample?file=${Uri.encodeQueryComponent(file)}');
 
-Future<void> _upload(String name, Uint8List bytes) async {
-  await web.window.fetch('/upload?name=${Uri.encodeQueryComponent(name)}'.toJS,
-      web.RequestInit(method: 'POST', body: bytes.toJS)).toDart;
-}
+Future<void> _upload(String name, Uint8List bytes) =>
+    _transport.post('/upload?name=${Uri.encodeQueryComponent(name)}', bytes);
 
 Future<void> _run(String label) async {
-  final response = await web.window.fetch('/core-config.json'.toJS).toDart;
-  final config = jsonDecode((await response.text().toDart).toDart) as Map<String, dynamic>;
+  final config = jsonDecode(await _transport.text('/core-config.json')) as Map<String, dynamic>;
   final results = <String, Object?>{};
   final shared = Uri.base.queryParameters.containsKey('reuse') ? VaultCore() : null;
   for (final sample in (config['roundTrips'] as List).cast<Map<String, dynamic>>()) {
@@ -121,11 +115,22 @@ Future<void> _run(String label) async {
   await core.close();
   final worstFrameMs = _worstFrame.inMilliseconds;
 
+  // 预算检查要在分配之前拒绝，所以这里很快就返回，也不会丢实例。
+  final argon2 = config['argon2Sample'] as Map<String, dynamic>;
+  final budgeted = VaultCore();
+  var budget = 'accepted';
+  try {
+    await budgeted.open(await _bytes(argon2['file'] as String), argon2['password'] as String, memoryBudget: 1024 * 1024);
+  } on VaultError catch (error) {
+    budget = error.message;
+  }
+  await budgeted.close();
+
   final report = {
     'label': label,
-    'userAgent': web.window.navigator.userAgent,
     'failed': <String>[],
     'wrongPassword': wrong,
+    'budget': budget,
     'worstFrameGapMs': worstFrameMs,
     'results': {
       'roundTrips': {'ok': true, 'results': results},
@@ -133,11 +138,6 @@ Future<void> _run(String label) async {
       'readsEveryRegisteredSample': {'ok': true, 'results': <Object>[]},
     },
   };
-  await web.window.fetch('/report'.toJS, web.RequestInit(
-    method: 'POST',
-    headers: {'Content-Type': 'application/json'}.jsify()! as JSObject,
-    body: jsonEncode(report).toJS,
-  )).toDart;
+  await _transport.post('/report', jsonEncode(report), contentType: 'application/json');
   status.value = 'done';
-  web.document.title = 'K070 Flutter 完成';
 }

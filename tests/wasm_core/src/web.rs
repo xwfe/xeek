@@ -11,8 +11,9 @@ pub struct Vault(core::Vault);
 
 #[wasm_bindgen]
 impl Vault {
-    pub fn open(data: &[u8], password: &str, keyfile: Option<Vec<u8>>) -> Result<Vault, JsError> {
-        core::Vault::open(data, password, keyfile.as_deref()).map(Vault).map_err(js)
+    pub fn open(data: &[u8], password: &str, keyfile: Option<Vec<u8>>, memory_budget: Option<f64>) -> Result<Vault, JsError> {
+        let budget = memory_budget.unwrap_or(0.0) as u64;
+        core::Vault::open(data, password, keyfile.as_deref(), budget).map(Vault).map_err(js)
     }
 
     pub fn summary(&self) -> String {
