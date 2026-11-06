@@ -47,6 +47,7 @@
 | [evidence/K003.md](evidence/K003.md) | keepass-rs 与 kdbx.dart 同样本读改写预实验，两者都未达无损 |
 | [evidence/K003_MINIMAL.md](evidence/K003_MINIMAL.md) | 真实最小反例、直接上游版本探针、缺陷范围修正与修补成本 |
 | [evidence/K003_RUST_PATCH.md](evidence/K003_RUST_PATCH.md) | 隔离 Rust 图标/历史补丁、重开引用修复与剩余生命周期缺口 |
+| [evidence/K011_FORUI.md](evidence/K011_FORUI.md) | forui 0.27.7 界面预实验：读屏、200% 大字、中文输入、Web 严格 CSP 与中文字体自托管 |
 | [evidence/K068.md](evidence/K068.md) | 字段契约 v1 的检查器与反例 |
 | [evidence/K069.md](evidence/K069.md) | 个人资料合成库与参考客户端逐阶段对照 |
 | [evidence/K069_MATRIX.md](evidence/K069_MATRIX.md) | 同 RP 多 Passkey、1k/10k 规模矩阵与本机资源记录 |
