@@ -1,6 +1,6 @@
 # 项目状态
 
-更新：2026-10-30。每项任务的状态以 [TASKS.md](TASKS.md) 顶部状态表为准；本页说明做到哪、卡在哪，并保留各批工作的原始记录。
+更新：2026-11-06。每项任务的状态以 [TASKS.md](TASKS.md) 顶部状态表为准；本页说明做到哪、卡在哪，并保留各批工作的原始记录。
 
 ## 现在在哪
 
@@ -11,6 +11,7 @@
 - **K072 最新进展：** [浏览器 WebDAV](evidence/K072.md) 能安全地条件提交，但只对实测通过的服务器成立：Apache 通过，WsgiDAV 既丢更新又会截断文件。OneDrive 没开始。
 - **K070 最新进展：** [补丁版 keepass 的 WASM](evidence/K070.md) 在五个浏览器读改写通过独立核对；同一份 Rust 经一个 Dart 接口接到 FFI 和 Flutter Web 也走通了。kdbx.dart、kpasslib 进不了浏览器，ManyKee 分支会静默改密码。手机没测。
 - **K004 最新进展：** [同一份 Rust 核心](evidence/K004.md)在 Android 真机上被 Flutter 主进程和不加载 Flutter 的 Kotlin 进程调用，都通过独立核对；结束核心进程不影响主程序。iOS 暂停。
+- **K011 预实验：** 用 [forui 0.27.7 搭的合成数据页面](evidence/K011_FORUI.md)测了读屏、200% 大字、中文输入和 Web 严格 CSP。forui 有 7 处默认值要 keex 自己补，补上后都过了。Flutter 本身还有两个问题：Web 中文默认从谷歌下载字体，严格 CSP 下全成方块，自托管 97 片共 2.3 MiB 后正常；Web 开着读屏时打拼音会被提前处理。iOS 没测，用哪个组件库待定。
 - **真实数据：L0。** 只用公开合成数据，规则见 [REAL_DATA_RULES.md](REAL_DATA_RULES.md)。
 - **测试与门禁：** Python 回归入口和数量见 [oracle 说明](../tests/kdbx_oracle/README.md)；提交前扫描完整暂存区，见 [扫描说明](../tests/secret_scan/README.md)。
 - **下一步做什么** 见 [实施路线 §3](IMPLEMENTATION_PLAN.md)。
@@ -21,11 +22,17 @@
 | --- | --- | --- |
 | 人工独立复核 | K001/K002/K068 停在 REVIEW；目前只有同型号模型复核，按 AGENTS.md 不能进 DONE | 由人复核协议兼容性、加密写入和权限结论 |
 | 参考客户端与设备 | K002/K069 缺官方 KeePass、KeeAgent 和手机客户端写的样本；VT17 缺真机、iOS 扩展和浏览器的资源数据 | 需要 Mono 或 Windows、Android/iOS 测试设备，本机都没有 |
-| 选型决策 | K009 要先定发行许可证（kdbx.dart 是 GPL-3.0）和旧库升级策略（keepass-rs 只能保存 KDBX 4.1） | 由项目负责人决定 |
+| 选型决策 | K009 要先定发行许可证（kdbx.dart 是 GPL-3.0）和旧库升级策略（keepass-rs 只能保存 KDBX 4.1）；K011 界面用不用 forui 也待定，证据见 [K011 预实验](evidence/K011_FORUI.md) | 由项目负责人决定 |
 
 ## 历史记录
 
 以下按时间倒序保留各批原始记录，只统一了标题。其中的测试数量、任务状态和“未提交”“未初始化 Git”等描述都是当时的情况，现状以上两节为准。
+
+### 2026-11-06：K011 forui 界面预实验
+
+按用户要求评估 Flutter 社区组件库 forui 和 prism_ui。prism_ui 没进实验：5 天前才发布，GPL-3.0，进不了浏览器，也只有 iOS 风格。forui 0.27.7 搭了一个合成数据页面，五导航、1 万条列表、详情和设置页都有，在三处实测：28 项组件测试；Android 11 模拟器，用只读模式启动，不动原虚拟机；Chrome、Firefox、WebKit 的 JS 和 Wasm 两种编译。
+
+forui 默认值有 7 处要补，补上后都过了：秘密框、日期框的读屏点击、48dp 点击区域、大字换行、字体、Material 来源、精确版本。Inter 字体 1.7 MiB 去不掉。Flutter 本身的两个问题：Web 中文字体被严格 CSP 拦下，自托管后正常；Web 读屏模式下打拼音会被提前处理，普通路径正常。iOS、TalkBack 和 VoiceOver 实听、真实中文输入法、真机性能都没测。详见 [K011 预实验证据](evidence/K011_FORUI.md)。没改 ADR，写入闸门不变。
 
 ### 2026-11-06：K003 编辑时间严格递增
 
