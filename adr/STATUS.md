@@ -10,6 +10,7 @@
 - **K071 最新进展：** [浏览器存储实验](evidence/K071.md)在本机测过的范围内没有发现阻塞项：密文缓存只用 IndexedDB，磁盘写满和杀进程后旧版本都完好。授权后写回真实文件只能人点，还没测。
 - **K072 最新进展：** [浏览器 WebDAV](evidence/K072.md) 能安全地条件提交，但只对实测通过的服务器成立：Apache 通过，WsgiDAV 既丢更新又会截断文件。OneDrive 没开始。
 - **K070 最新进展：** [补丁版 keepass 的 WASM](evidence/K070.md) 在五个浏览器读改写通过独立核对；同一份 Rust 经一个 Dart 接口接到 FFI 和 Flutter Web 也走通了。kdbx.dart、kpasslib 进不了浏览器，ManyKee 分支会静默改密码。手机没测。
+- **K004 最新进展：** [同一份 Rust 核心](evidence/K004.md)在 Android 真机上被 Flutter 主进程和不加载 Flutter 的 Kotlin 进程调用，都通过独立核对；结束核心进程不影响主程序。iOS 暂停。
 - **真实数据：L0。** 只用公开合成数据，规则见 [REAL_DATA_RULES.md](REAL_DATA_RULES.md)。
 - **测试与门禁：** Python 回归入口和数量见 [oracle 说明](../tests/kdbx_oracle/README.md)；提交前扫描完整暂存区，见 [扫描说明](../tests/secret_scan/README.md)。
 - **下一步做什么** 见 [实施路线 §3](IMPLEMENTATION_PLAN.md)。
@@ -25,6 +26,10 @@
 ## 历史记录
 
 以下按时间倒序保留各批原始记录，只统一了标题。其中的测试数量、任务状态和“未提交”“未初始化 Git”等描述都是当时的情况，现状以上两节为准。
+
+### 2026-11-06：K004 移动端桥接（Android）
+
+一份 Rust 核心加 WASM、C ABI、JNI、Dart FFI 四个薄壳。Pixel 9 Pro（Android 17）上，Kotlin 进程在主程序没开、没加载 Flutter 的情况下读改写合成库，Flutter 主进程走 Dart FFI 也一样，输出都通过独立 oracle 核对。Argon2id 64 MiB 约 110 毫秒、进程峰值 201 MiB；1 GiB 约 2.3 秒、峰值 1159 MiB；AES-KDF 100 万轮只要 16 毫秒。新增解锁前的 KDF 内存预算检查和 panic 防护。iOS 按要求暂停：缺 Xcode 的 iOS 26 组件和可连的 iPhone。详见 [K004 证据](evidence/K004.md)。这是预实验，不开放写入。
 
 ### 2026-10-31：K070 浏览器 KDBX 与 Flutter 联合方案
 

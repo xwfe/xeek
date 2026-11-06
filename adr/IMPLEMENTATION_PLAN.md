@@ -49,7 +49,7 @@ Web 同期先做 [K071](evidence/K071.md) 文件/密文缓存与多标签（本�
 
 同期执行专项 [M01–M07](MOBILE_SYNC_TASKS.md)：iOS扩展写入预算、OneDrive原生OAuth/最小权限、两种云的最终提交并发反例前置验证。阶段P3才集成生产provider，不等到那时才发现数据安全能力缺失。
 
-第二批：K004 桥接（K070 的 Dart 接口已在桌面和浏览器走通，下一步是 Android/iOS 打包）、K009 许可证/选型裁决；门槛结果记入 `adr/evidence/Kxxx.md`。不要只提交“成功解锁一个空库”的演示。
+第二批：[K004](evidence/K004.md) 桥接（Android 真机已通过，iOS 按要求暂停、放到最后）、K009 许可证/选型裁决；门槛结果记入 `adr/evidence/Kxxx.md`。不要只提交“成功解锁一个空库”的演示。
 
 第三批：K010/K011 与 K012–K017，做“新建合成库 → 新增条目 → 原子保存 → 用 KeePassXC/KeePass 打开 → 修改 → keex 再打开 → 锁库”纵向闭环。未经确认不安装 SDK、不使用用户真实库做实验。
 
