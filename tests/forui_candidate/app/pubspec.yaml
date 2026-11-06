@@ -1,0 +1,26 @@
+name: keex_forui_candidate
+description: forui 预实验：合成数据的五导航、条目列表和秘密输入框，测读屏、大字、中文输入和 Web。不是产品界面。
+publish_to: none
+version: 0.0.1
+
+environment:
+  sdk: '>=3.13.0 <4.0.0'
+  flutter: '>=3.47.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+  # 写死精确版本：forui 还是 0.x，每个小版本都有破坏性改动，升级要当单独任务做。
+  forui: 0.27.7
+  # forui 依赖从 SDK 拆出来的这两个包；页面直接用它们的操作表和底部面板，所以也写成直接依赖。
+  material_ui: 1.10.0
+  cupertino_ui: 1.1.6
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+flutter:
+  uses-material-design: true

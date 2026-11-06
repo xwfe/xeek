@@ -1,0 +1,17 @@
+# forui 预实验的项目内 pub 缓存、构建产物和实测结果；pubspec.lock 提交。
+.pub-cache/
+.dart_tool/
+build/
+results/
+# mirror_fonts.mjs 从 fonts.gstatic.com 镜像的中文回退字体，2.3 MiB，按需重新下载。
+.fallback-fonts/
+# flutter create 每次重新生成，不进版本库。
+app/android/
+app/.gitignore
+app/.metadata
+app/.idea/
+app/*.iml
+app/README.md
+app/web/favicon.png
+app/web/icons/
+app/web/manifest.json
