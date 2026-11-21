@@ -73,6 +73,18 @@ fn cancel_and_lock_reject_worker_completion_and_old_binding() {
 }
 
 #[test]
+fn sample_switch_revokes_ticket_and_invalid_selection_is_rejected() {
+    let mut session = VaultSession::new();
+    let ticket = session.begin_unlock();
+    session.accept(&ticket, opened()).unwrap();
+    session.select_sample("scale-1000".into()).unwrap();
+    assert_eq!(session.check(&ticket).unwrap_err(), "STALE_SESSION");
+    assert!(session.vault.is_none());
+    assert!(session.select_sample("../../unregistered".into()).is_err());
+    assert_eq!(session.sample, "scale-1000");
+}
+
+#[test]
 fn synthetic_scale_measurements() {
     for (count, data, password) in [
         (

@@ -1,7 +1,7 @@
 import { expect, open, test } from "nsh/test";
 
 test("合成 Rust 核心纵向流程", async () => {
-  const app = await open("./App.tsx");
+  const app = await open("./App.tsx", { width: 1024, height: 1600 });
   await app.type("id:vault-password", "keex-synthetic-V41-VAULT");
   await app.press("id:unlock");
   await app.waitFor("text:摘要已加载");

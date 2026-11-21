@@ -27,7 +27,9 @@ python3.12 -B tests/nsh_candidate/oracle_check.py
 
 `patched_source()` 复用原构建入口：先核对 keepass 0.15.3 缓存归档哈希，再应用原 K003 八份补丁，输出到已忽略的 wasm_core/target/source。无需执行含 Darwin 工具链路径的整个 build.py，也不复制 core.rs。新 crate 的 Cargo.lock 固定本切片依赖；不能用它替换原 wasm_core/Cargo.lock。
 
-`Vault.test.tsx` 驱动打开/解锁、分页和无命中搜索、单字段读取/编辑、保存新副本、锁库旧句柄拒绝、错误密码和立即取消。新副本只写 `rust/target/outputs/copy-*.kdbx`，使用 create_new；`receipt.json` 指向最近一次合成输出供 oracle 核对。测试不覆盖样本、不把副本入库。oracle 按登记 SHA 核对源样本，严格比较预期编辑和新增历史之外的所有语义，并以无编辑/无关修改/目标缺失作为负控制。
+`Vault.test.tsx` 驱动打开/解锁、分页和无命中搜索、单字段读取/编辑、保存新副本、锁库旧句柄拒绝、错误密码和立即取消。新副本只写 `rust/target/outputs/copy-*.kdbx`，使用 create_new；`receipt-<sample>.json` 分别指向三份固定样本的最近输出供 oracle 核对。测试不覆盖样本、不把副本入库。oracle 按登记 SHA 核对源样本，严格比较预期编辑和新增历史之外的所有语义，并以无编辑/无关修改/目标缺失作为负控制。
+
+规模桥接增加 `Scale.test.tsx`：单独运行该文件，或用上面的同一环境运行 `nsh test "$PWD/tests/nsh_candidate" --trace`，再运行 oracle。目录命令同时执行 Rust 测试。只选择 baseline、scale-1000、scale-10000 三份编译时固定 L0 输入，切换撤销旧票据。page 返回 `{rows, coreMs}`，不返回整库。计时及边界见 K091 最新增量；render_visible 含测试驱动等待，不能当纯渲染耗时或帧率。
 
 类型由 Rust `#[class]` / `JsObject` 生成在 `.nsh/types/keex/vault.d.ts`，不手写另一份运行时桥；列表只有 `{id,title}`、上限 50，字段单独读取，修改只开放 UserName。TSX 信号不保存整库 JSON/长期密钥，也不使用 Storage。合成口令仍经过 JS Input；masked 不构成安全输入或可擦除保证。
 

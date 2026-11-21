@@ -1,4 +1,4 @@
-import { signal, Text, View } from "nsh";
+import { Scroll, signal, Text, View } from "nsh";
 import { Input } from "nsh/base";
 import { VaultSession } from "keex/vault";
 
@@ -9,10 +9,15 @@ export function VaultPanel() {
   const value = signal("");
   const status = signal("合成样本待解锁");
   const rows = signal<{ id: string; title: string }[]>([]);
+  const sample = signal("baseline");
+  const timing = signal("");
+  let previousTicket: { binding: number; epoch: number } | undefined;
+  let previousEntry = "";
   let ticket: { binding: number; epoch: number } | undefined;
   let selected = "";
   let offset = 0;
   let uiEpoch = 0;
+  const pageSize = () => sample() === "baseline" ? 2 : 50;
 
   async function run(action: () => Promise<void>) {
     const epoch = uiEpoch;
@@ -23,11 +28,14 @@ export function VaultPanel() {
     if (!ticket) return;
     const epoch = uiEpoch;
     status.set("加载中");
-    const result = await session.page(ticket, query(), offset, 2);
+    const started = Date.now();
+    const result = await session.page(ticket, query(), offset, pageSize());
+    const bridge = Date.now() - started;
     if (epoch !== uiEpoch) return;
-    rows.set(result);
-    selected = result[0]?.id ?? "";
-    status.set(result.length ? "摘要已加载" : "无匹配摘要");
+    rows.set(result.rows);
+    selected = result.rows[0]?.id ?? "";
+    timing.set(`计时 ${sample()} offset=${offset} core_ms=${result.coreMs.toFixed(3)} bridge_ms=${bridge}`);
+    status.set(result.rows.length ? "摘要已加载" : "无匹配摘要");
   }
   function lock() {
     uiEpoch++;
@@ -37,9 +45,28 @@ export function VaultPanel() {
     rows.set([]);
     value.set("");
     password.set("");
+    timing.set("");
     status.set("已锁库");
   }
+  function selectSample(name: string) {
+    previousTicket = ticket;
+    previousEntry = selected;
+    lock();
+    session.selectSample(name);
+    sample.set(name);
+    query.set("");
+    offset = 0;
+    status.set("样本已切换");
+  }
   return <View style={{ gap: 8 }}>
+    <View testID="sample-baseline" onPress={() => selectSample("baseline")}><Text>基础合成库</Text></View>
+    <View testID="sample-1000" onPress={() => selectSample("scale-1000")}><Text>一千条合成库</Text></View>
+    <View testID="sample-10000" onPress={() => selectSample("scale-10000")}><Text>一万条合成库</Text></View>
+    <View testID="sample-stale" onPress={() => run(async () => {
+      if (!previousTicket || !previousEntry) return;
+      try { await session.readField(previousTicket, previousEntry, "UserName"); status.set("错误：切库旧句柄放行"); }
+      catch (error) { status.set((error as Error).message === "STALE_SESSION" ? "切库旧句柄已拒绝" : "错误：切库拒绝类型不符"); }
+    })}><Text>验证切库旧句柄</Text></View>
     <Input testID="vault-password" masked value={password()} onChange={({ value }) => password.set(value)} placeholder="仅输入公开合成口令" />
     <View testID="unlock" onPress={() => run(async () => {
       status.set("解锁中");
@@ -60,8 +87,9 @@ export function VaultPanel() {
     })}><Text>解锁并立即取消（合成反例）</Text></View>
     <Input testID="search" value={query()} onChange={({ value }) => query.set(value)} placeholder="只搜索标题" />
     <View testID="search-submit" onPress={() => run(async () => { offset = 0; await page(); })}><Text>搜索摘要</Text></View>
-    <View testID="next-page" onPress={() => run(async () => { offset += 2; await page(); })}><Text>下一页</Text></View>
-    {rows().map(row => <Text>{row.title}</Text>)}
+    <View testID="next-page" onPress={() => run(async () => { offset += pageSize(); await page(); })}><Text>下一页</Text></View>
+    <View testID="previous-page" onPress={() => run(async () => { offset = Math.max(0, offset - pageSize()); await page(); })}><Text>上一页</Text></View>
+    <Scroll style={{ height: 80 }}>{rows().map(row => <Text>{row.title}</Text>)}</Scroll>
     <View testID="read" onPress={() => run(async () => {
       if (!ticket || !selected) return;
       const epoch = uiEpoch;
@@ -98,5 +126,6 @@ export function VaultPanel() {
     })}><Text>锁库并验证旧句柄</Text></View>
     <View testID="lock" onPress={lock}><Text>取消或锁库</Text></View>
     <Text>{status()}</Text>
+    <Text>{timing()}</Text>
   </View>;
 }
