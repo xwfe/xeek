@@ -843,13 +843,25 @@
     },
     {
       "path": "tests/secret_scan/tests/test_backend.py",
-      "sha256": "45c0ed5b5d6b542f315b463510d60945606ad81b1bc3d58156e8410a55f9bcab",
+      "sha256": "bf0cda28427859d66e42191f5a429470ae61aef63a5914456c8faf5f04617750",
       "rules": [
         "Base64HighEntropyString",
         "BasicAuthDetector",
         "PrivateKeyDetector"
       ],
-      "reason": "本轮现场合成的私钥头标记、保留域BasicAuth和高熵规则反例；从不联网验证。"
+      "reason": "已复核原合成私钥头、保留域BasicAuth和熵反例字节不变；新增多wheel哈希解析回归，无凭据。从不联网验证。"
+    },
+    {
+      "path": "tests/nsh_candidate/inventory.py",
+      "sha256": "47c8ed6540340dc79e711c4aa51e76fd34045afb49874f0e2c1506356fb1828e",
+      "rules": ["HexHighEntropyString"],
+      "reason": "K090固定公开NSH v0.6.1提交，与上游tag及独立worktree核对一致。"
+    },
+    {
+      "path": "tests/nsh_candidate/inventory.json",
+      "sha256": "d12c824c88bf3fef645bdef4adea408a5ce7c016b3f14ce0bd1415df262760c2",
+      "rules": ["HexHighEntropyString"],
+      "reason": "K090公开上游提交及两个Cargo.lock和toolchain文件的SHA-256，与固定源码逐一核对一致。"
     },
     {
       "path": "tests/secret_scan/tests/test_gate.py",

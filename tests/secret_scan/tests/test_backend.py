@@ -154,6 +154,20 @@ class BackendTests(unittest.TestCase):
             with self.assertRaisesRegex(ScanFailure, "^DETECTOR_INIT$"):
                 Backend().__enter__()
 
+    def test_multiple_wheel_hashes_keep_dependency_checks(self):
+        text = (backend.HERE / "requirements.lock").read_text(encoding="utf-8")
+        read_text = Path.read_text
+        with Backend() as detector:
+            self.assertEqual(list(detector.scan("hello")), [])
+        for suffix in (" --hash=sha256:", " --hash=sha256:bad", " --hash=sha256:" + "a" * 64 + " --hash=sha256:" + "a" * 64):
+            def read(path, *args, **kwargs):
+                if path == backend.HERE / "requirements.lock":
+                    return text + "invalid==1" + suffix
+                return read_text(path, *args, **kwargs)
+            with self.subTest(suffix=suffix), patch.object(Path, "read_text", read):
+                with self.assertRaisesRegex(ScanFailure, "^DETECTOR_INIT$"):
+                    Backend().__enter__()
+
     def test_preloaded_module_from_outside_project_rejected(self):
         with Backend():
             pass

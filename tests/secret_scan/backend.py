@@ -75,9 +75,10 @@ def _load_dependencies():
     expected = {}
     for line in (HERE / "requirements.lock").read_text(encoding="utf-8").splitlines():
         if line and not line.startswith("#"):
-            name_version, digest = line.split(" --hash=sha256:")
+            name_version, *digests = line.split(" --hash=sha256:")
             name, version = name_version.split("==")
-            if not re.fullmatch(r"[a-f0-9]{64}", digest) or name in expected:
+            if (not digests or any(not re.fullmatch(r"[a-f0-9]{64}", digest) for digest in digests)
+                    or len(set(digests)) != len(digests) or name in expected):
                 raise ScanFailure("DEPENDENCY_LOCK")
             expected[name] = version
     if expected.get("detect-secrets") != "1.5.0" or len(expected) != 7:
