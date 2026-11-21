@@ -4,6 +4,8 @@
 
 ## 现在在哪
 
+- **K091 规模桥接：** 1k/10k 固定合成库已接入真实 TSX→Rust 分页/搜索/编辑新副本，三份输出交原 oracle；切库撤销旧 ticket，记录核心/桥接/渲染提交与可观察延迟。仅 Linux-headless，保持 DOING，不计四端，不解禁 writer；见 [K091](evidence/K091.md)。
+
 - **阶段：P0 风险实验。** 仓库里只有方案、HTML 交互原型和合成测试工具；**还没有生产客户端或安全核心，NSH 尚未接入。**
 - **当前路线：** [ADR-0008](0008-nsh-unified-clients.md) 已将 NSH + TSX / Rust 定为 Android/iOS/macOS/Windows 目标，Web 保留独立验收。K090 固定候选/权限/构建清单和 Linux 实跑已收尾；主任务状态见 TASKS，四原生端与浏览器验收尚未完成。K010 依赖 writer 裁决 K009 和迁移裁决 K094/GN，停止扩大 Flutter/ForUI 主 UI，保留旧实验证据。
 - **写入闸门：关闭。** 两个候选写入库 keepass-rs 0.15.3、kdbx.dart 2.5.0 在同一批合成库上都没做到无损，见 [K003 证据](evidence/K003.md)。
@@ -29,6 +31,12 @@
 | iOS 仍暂停 | 缺平台组件和可连真机；K008/K092 无证据将阻塞 GN | 保留既有暂停决定与资源缺口，不自动安装或宣称完成；具备执行条件后按原授权范围续接 |
 
 ## 历史记录
+
+### 2026-11-21：K091 Linux-headless 纵向切片
+
+NSH v0.6.1 的混合 Rust runner 链接原 wasm_core，TSX 只调用类型化分页摘要/单字段接口，已跑通固定 L0 样本解锁、编辑和新副本保存，原 oracle 严格核对预期历史与未修改语义。Rust 4 项、TSX 纵向 3 项及原导航/权限反例通过，取消与旧 epoch 拒绝留有输出；1k/10k 只记录核心分页/搜索计时，不冒称 UI 帧率。详见 [K091](evidence/K091.md)。
+
+本机无 pkg-config/GTK 开发探测条件，选择不依赖 GTK 的专属 headless runner；没有安装全局依赖。四原生端、视觉、中文 IME/键盘/读屏均未运行，不计任一产品端通过；K091 保持 DOING，GN/writer 与真实数据门槛不变。当前 Rust 适配不是 K093 Web 实现，K090 Web 证据仍只对应其历史提交。
 
 ### 2026-11-21：K090 Linux 验证收尾
 

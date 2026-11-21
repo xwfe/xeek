@@ -2,6 +2,8 @@
 
 把 K003 同一套补丁的 keepass 0.15.3 编译成 WASM，在浏览器 Worker 里跑。只处理公开合成库，不是生产绑定。结论见 [K070 证据](../../adr/evidence/K070.md)。
 
+K091 另以 path 依赖直接复用本 crate 的 `rlib` / `pub mod core`，新增标题分页摘要和单字段只读访问；原 open/set_username/save、C ABI/JNI/WASM 壳与 writer 逻辑不变。NSH 适配和验证位于 [nsh_candidate](../nsh_candidate/README.md)，不把 NSH 依赖引入本核心。
+
 ## 怎么跑
 
 工具链只装在这个目录（`.toolchain/`，约 560 MB），不动全局环境。从仓库根目录执行：

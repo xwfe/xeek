@@ -1,0 +1,10 @@
+[package]
+name = "keex-nsh-slice"
+version = "0.1.0"
+edition = "2021"
+publish = false
+
+[dependencies]
+keex-wasm-core = { path = "../../wasm_core" }
+nsh-core = { git = "https://github.com/longbridge/nsh", rev = "2f51d8611677c8a6bbad937b39756e8d0cc45350", features = ["declarations"] }
+serde_json = "1"

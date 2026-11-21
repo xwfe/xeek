@@ -62,7 +62,30 @@ pub struct Vault {
     db: Database,
 }
 
+pub struct EntrySummary {
+    pub id: String,
+    pub title: String,
+}
+
 impl Vault {
+    pub fn page(&self, query: &str, offset: usize, limit: usize) -> Vec<EntrySummary> {
+        self.db.iter_all_entries()
+            .filter(|entry| entry.get_title().unwrap_or("").contains(query))
+            .skip(offset)
+            .take(limit)
+            .map(|entry| EntrySummary {
+                id: entry.id().to_string(),
+                title: entry.get_title().unwrap_or("").to_owned(),
+            })
+            .collect()
+    }
+
+    pub fn field(&self, entry: &str, field: &str) -> Result<String, String> {
+        let id = EntryId::from_uuid(entry.parse().map_err(|_| "invalid UUID".to_owned())?);
+        let entry = self.db.entry(id).ok_or_else(|| "entry not found".to_owned())?;
+        entry.get(field).map(str::to_owned).ok_or_else(|| "field not found".to_owned())
+    }
+
     /// 解锁。KDF 在这里跑完，会一直占着当前线程：Web 放 Worker，原生放后台 isolate。
     ///
     /// `memory_budget` 是这个进程能给 KDF 的字节数，0 表示不限。超出时不分配，直接报错。

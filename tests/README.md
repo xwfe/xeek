@@ -15,7 +15,7 @@
 
 | 入口 | 用途 |
 | --- | --- |
-| [NSH 固定候选](nsh_candidate/README.md) | K090 固定版本/许可清单、最小五导航与空 capabilities/grants 输入；Linux CLI/headless/拒绝反例/wasm32/Web 打包已验证，原生与浏览器/视觉缺口另列。 |
+| [NSH 固定候选](nsh_candidate/README.md) | K090 固定版本/许可与构建基线；K091 Linux-headless 复用 Rust 核心的类型化合成流程、oracle 与 1k/10k 测量。四原生端与浏览器/视觉缺口另列。 |
 | [Rust 参考写入](reference_writer/README.md) | 用固定 keepass 0.15.3 对照合成 KDBX 4.1 的读改写。 |
 | [Rust 保留补丁](rust_preservation/README.md) | 应用隔离补丁，验证图标、历史、附件、未知内容及参考客户端往返。需要按锁准备 Cargo 依赖，部分比较需要 KeePassXC CLI。 |
 | [WASM 核心](wasm_core/README.md) | 构建既有 Rust 补丁核心与浏览器探针。当前脚本含 macOS arm64 工具链及 Darwin NDK 路径。 |

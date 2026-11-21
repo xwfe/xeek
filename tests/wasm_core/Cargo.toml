@@ -6,7 +6,7 @@ rust-version = "1.89"
 publish = false
 
 [lib]
-crate-type = ["cdylib", "staticlib"]
+crate-type = ["cdylib", "staticlib", "rlib"]
 
 [dependencies]
 # 路径由 build.py 解包并打完 K003 的补丁后生成；版本和原始校验和在那里核对。
