@@ -37,6 +37,12 @@ python3.12 -B tests/nsh_candidate/oracle_check.py
 
 导入 nsh/base 的 Input 会触发 `statusBar` 拒绝告警；已定位为显式 `{}` 生效，不是环境变量/SDK 缺失。不为消除告警扩大能力。模块里的 Rust 代码本身是受信任宿主代码，**不因空 capabilities 自动受文件沙箱约束**，故固定输入与输出目录都在 Rust 限定。
 
+## K092 独立准备（前置未满足）
+
+同一目录级 `nsh test --trace` 现含 Lifecycle.test.tsx，注入 inactive/background/wake、条件变量屏障、组件销毁，以及私有 MemoryClipboard 的受控时钟/所有权实验。完整命令和结果见 [K092](../../adr/evidence/K092.md)；测试视口不代表原生布局。
+
+保存完整原始 trace 后运行 `~/.local/bin/python3.12 -B tests/nsh_candidate/security_check.py --trace <日志路径>`。Rust 私有哨兵不得出现；公开 TSX 输入负控制必须出现以证明检测有效。**masked Input 的原始 trace 会包含输入值，尚未解决，不能用于真实主密码。** audit pass 不等于 TSX 安全输入通过。未修改 NSH 上游，不承诺 JS 字符串擦除或系统剪贴板保证。
+
 ## 固定输入与许可证复现
 
 上游 `https://github.com/longbridge/nsh`，tag `v0.6.1`，完整提交 `2f51d8611677c8a6bbad937b39756e8d0cc45350`，Apache-2.0。源码与构建产物放仓库外，不复制进本目录。
