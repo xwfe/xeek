@@ -1,18 +1,20 @@
-# ADR-0001：Flutter + KDBX 跨平台密码管理器
+# ADR-0001：KDBX 架构与 Flutter 历史选型
 
 日期：2026-10-12。状态：**产品边界已确定；核心库和原生扩展实现需通过 P0 实验后批准**。
 
-**2026-10-16 最新增量**：[ADR-0006](0006-personal-data-vault.md) 将产品扩展为个人数据保险柜，[ADR-0007](0007-web-vault-client.md) 将 Web 纳入独立验收路线。Android/iOS 保留；[ADR-0005](0005-mobile-first-scope.md) 的未来 Rust 桌面边界继续有效。本文桌面内容（§2 桌面层与 agent-core、§6 代理部分、§7 桌面浏览器段、§9 桌面三列）只作未来资料；Web 不复用这些原生桌面能力承诺。
+**2026-11-21 现行客户端决定**：[ADR-0008](0008-nsh-unified-clients.md) 取代本文 Flutter 主 UI、Rust/Dart 运行时取舍及 macOS/Windows 后续范围：目标为 NSH + TSX、共享 Rust，四原生端加独立验收 Web。下文 Flutter 分层/桥接/目录是历史方案，不再扩建；KDBX、会话、授权、同步与兼容门槛继续有效。Linux 与桌面增强仍属后续。
+
+**2026-10-16 历史增量**：[ADR-0006](0006-personal-data-vault.md) 将产品扩展为个人数据保险柜，[ADR-0007](0007-web-vault-client.md) 将 Web 纳入独立验收路线。Android/iOS 保留；[ADR-0005](0005-mobile-first-scope.md) 的未来 Rust 桌面边界继续有效。本文桌面内容（§2 桌面层与 agent-core、§6 代理部分、§7 桌面浏览器段、§9 桌面三列）只作未来资料；Web 不复用这些原生桌面能力承诺。
 
 细化设计以 [ADR-0002](0002-mobile-credentials.md)、[ADR-0003](0003-cloud-sync.md)、[ADR-0004](0004-kdbx-advanced-passkeys.md) 为准：iOS与Android同期验证，OneDrive进入P3；高级字段/附件/Passkey在写入门槛中验证。
 
 ## 1. 已确定与未确定
 
-已确定：Flutter 移动主界面，Android/iOS 与独立验收 Web 路线（桌面三端留给未来 Rust 应用）；中文优先、五项导航；个人资料/关系/维护事项扩展；本地优先；KDBX 唯一权威数据；KeeAgent 数据无损保留、密钥可解析（SSH 代理签名属未来桌面）；移动系统自动填充；TOTP/恢复码/Passkey；可选自托管同步。
+已确定：按 ADR-0008 验证 NSH 主 UI 与共享 Rust 的四原生端和 Web 路线；中文优先、五项导航；个人资料/关系/维护事项扩展；本地优先；KDBX 唯一权威数据；KeeAgent 数据无损保留、密钥可解析（SSH 代理签名属未来桌面）；移动系统自动填充；TOTP/恢复码/Passkey；可选自托管同步。
 
-未确定：具体 KDBX 写入库、Rust/Dart 边界最终落点、各端最低系统版本、浏览器扩展实现路径、通行密钥跨客户端字段映射、发行许可证。它们不能由演示稿或一个 pub/crates 包的标签代替验证。
+未确定：具体 KDBX 写入库、NSH 桥接与迁移 GN 是否通过、各端最低系统版本、浏览器扩展实现路径、通行密钥跨客户端字段映射、发行许可证。它们不能由演示稿或一个 pub/crates 包的标签代替验证。
 
-## 2. 整体分层
+## 2. 原始分层记录（UI 与桥接部分由 ADR-0008 取代）
 
 ```text
 Flutter 应用（Dart）
@@ -115,7 +117,7 @@ WebDAV 有可靠 ETag/If-Match 时使用条件写入。缺少/不遵守强版本
 
 状态：仅本地、待上传、下载中、等待解锁合并、冲突待处理、已同步、失败重试。只有条件提交成功才显示已同步；同步不是备份、TLS 不是文件端到端加密、旧密文副本也不能被远程撤销。
 
-## 9. 平台交付矩阵（目标，不是现状；桌面三列属未来，见 ADR-0005）
+## 9. 历史平台矩阵（当前范围与门槛见 ADR-0008、CAPABILITIES）
 
 | 能力 | macOS | Windows | Linux | Android | iOS |
 | --- | --- | --- | --- | --- | --- |

@@ -1,10 +1,12 @@
-# ADR-0005：当前只做移动端，桌面端留给未来的 Rust 应用
+# ADR-0005：移动优先的历史范围决策（已部分取代）
 
-日期：2026-10-16。状态：**已决定**（用户当日指示）。本文件部分取代 [ADR-0001](0001-flutter-kdbx-architecture.md) 中涉及桌面端的内容。
+日期：2026-10-16。状态：**历史决策，当前客户端范围以 ADR-0008 为准**。本文件部分取代 [ADR-0001](0001-flutter-kdbx-architecture.md) 中涉及桌面端的内容。
 
 **同日后续决策**：[ADR-0006](0006-personal-data-vault.md) 扩展个人数据保险柜，[ADR-0007](0007-web-vault-client.md) 将 Web 提升为当前独立验收路线，部分取代本文的“只有移动端”和 Web 后续安排；原生桌面仍留给未来 Rust 应用，其余边界不变。
 
-## 决定
+**2026-11-21 替代决定**：[ADR-0008](0008-nsh-unified-clients.md) 将 macOS/Windows 资料客户端纳入当前路线，四个原生端以 NSH + TSX / Rust 为目标，Web 保留独立验收。下文“只做移动端”“桌面留未来”“Flutter”及对应发布/标注规则是历史记录，不再指挥当前实施；Linux、SSH 代理、浏览器扩展、全局自动输入和 CLI 仍为后续。现行任务和阶段见 [TASKS](TASKS.md) 与 [IMPLEMENTATION_PLAN](IMPLEMENTATION_PLAN.md)。
+
+## 原决定
 
 - **当前原生交付范围为 iOS 和 Android**（含平板）。Flutter 做主界面，系统扩展用 Swift/Kotlin，共享核心仍按 K009 选型。新增 Web 按 ADR-0007 单独验收。
 - **macOS、Windows、Linux 不在当前交付范围**。未来另做桌面应用，用 Rust 开发。现有桌面资料原地保留并加标注，不删除、不再扩写。

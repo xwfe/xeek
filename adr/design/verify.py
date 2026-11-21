@@ -47,7 +47,7 @@ def main() -> None:
 
     tasks_text = (root / 'adr/TASKS.md').read_text()
     task_rows = re.findall(r'^\| (K\d{3}) \|[^\n]+$', tasks_text, re.M)
-    assert task_rows == [f'K{i:03}' for i in range(1, 90)], task_rows
+    assert task_rows == [f'K{i:03}' for i in range(1, 97)], task_rows
     dependencies: dict[str, list[str]] = {}
     for line in tasks_text.splitlines():
         columns = [column.strip() for column in line.split('|')]

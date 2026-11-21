@@ -7,30 +7,31 @@
 - 产品名统一为 `keex`，定位为中文、本地优先的**个人数据保险柜**（ADR-0006），密码管理仍是安全基础。具体 KDBX 文件仍称“密码库”，统一用“主密码”“动态口令”“通行密钥（Passkey）”“SSH 代理（SSH Agent）”。条目密码不能称为主密码。
 - 一级导航固定为：**密码、验证、证件、银行、设置**，顺序不可变。手机使用底部导航；宽屏使用同顺序侧栏，不额外创造一套信息架构。
 - 生成器是新增/编辑密码的工具；安全检查、同步、备份属于设置。SSH 代理配置属未来桌面应用，手机的设置里不出现代理入口。收藏、分组、标签是筛选，不是一级导航。
-- 当前路线包含 Android、iOS（含平板）与独立验收的 Web 客户端：移动主界面用 Flutter，系统集成用 Kotlin、Swift，共享核心按 K009 选型；Web 优先 Flutter 复用，运行时/文件/授权经 K070–K072 与 GW0–GW2 验证（ADR-0007）。macOS、Windows、Linux 原生桌面仍留给未来 Rust 应用（ADR-0005）；小程序仍为后续。Web 不等于桌面应用，不以编译成功伪装能力可用。
+- 当前目标包含 Android、iOS（含平板）、macOS、Windows 与独立验收的 Web 客户端（ADR-0008）。主 UI 目标为 NSH + TSX，共享 Rust 核心，移动系统扩展继续 Swift/Kotlin；K090–K094 的迁移门槛 GN 通过后进入生产骨架。停止扩大 Flutter/ForUI 主 UI 路线，保留既有实验与证据。Web 通过 K093 验证 NSH + WASM/Worker，仍须 K070–K072 和 GW0–GW2；不因四端编译成功取消 Web 或安全要求。Linux、小程序及桌面 SSH/浏览器扩展/全局自动输入/CLI 仍属后续。
 - KDBX 是资料、关系、维护规则与附件的唯一权威密码库。新建目标为官方当前最新 **KDBX 4.1**（2026-10-16 复核），不是 Vaultwarden/Bitwarden 后端，也不另建明文业务主库或私有主密码库。
 - 金融账户不等于卡，号码不等于 SIM/eSIM 配置，订阅不等于付款卡；类型与分组/导航正交。新领域字段、关系、生命周期按 ADR-0006 和 PERSONAL_VAULT_SPEC 实施，保留五导航，新增二级分类与全局筛选，不擅改导航名称。
 - 首版只管理资料与用户确认的维护事项；不转账、自动充值、银行抓取、直接安装 eSIM、云 OCR 或给大模型开放全库。余额/限额/服务状态是带来源和时间的手工记录，不冒充实时结果。
 - 必须保留 KeeAgent 数据无损（SSH Agent 本身归未来桌面应用）、动态口令、通行密钥、系统自动填充、离线使用及现代密码管理器基础功能。按能力和阶段交付，不静默删掉难做的功能。
 - iOS 与 Android 同期设计及原生能力验证；WebDAV 与 OneDrive 同处云同步交付阶段。细化契约见 ADR-0002/0003/0004，不再沿用“iOS、OneDrive 一律以后再做”的旧顺序。
 - 系统提供者、记录识别、可签名、本地持久化和远端同步是不同状态。创建通行密钥先完成本地持久化再返回；不能只保存不可导出设备 key alias 就声称可跨设备同步。
-- UI与日常功能完善优先参考Bitwarden iOS/Android的成熟交互，但保留keex五项导航、中文、Flutter/KDBX与本地优先边界；采纳/不采纳清单见 `adr/design/BITWARDEN_MOBILE_REFERENCE.md`，不照搬账号、品牌和服务端模型。
+- UI与日常功能完善优先参考Bitwarden iOS/Android的成熟交互，但保留keex五项导航、中文、KDBX与本地优先边界；采纳/不采纳清单见 `adr/design/BITWARDEN_MOBILE_REFERENCE.md`，不照搬账号、品牌和服务端模型。
 
 ## 安全与实现
 
 - 明确输入契约和失败路径，只为实际可恢复的故障增加兜底；避免层层默认值、重复校验、静默吞错和无依据的兼容分支。新增抽象须解决当前问题，审查时主动删减冗余。
 - KDBX 写入库选型先过无损往返测试。官方标为实验性或仅宣称支持 KDBX4，不构成生产写入依据。未通过则保持只读，不接入真实用户库。
 - 不自行设计密码算法、内层保护流、短 PIN 主密钥替代方案。不得把敏感字段明文放入公开 KDBX 头部、日志、未加密缓存、统计服务、浏览器持久存储或测试截图。Web 可选缓存仅存经验证的密文；主密钥、等效解锁材料和所有同步认证秘密（包括短期/长期令牌）不得持久化到浏览器，短期 OAuth 事务材料另按 ADR-0007 审查。
+- NSH 主 UI 只调用最小类型化接口；不向 JS 发送完整解密库或长期密钥。Swift/Kotlin 凭据扩展直调 Rust，不依赖 NSH/QuickJS。明确设置宿主 capability 白名单，普通 NSH Storage 不存秘密；原生生产包只带经签名交付的固定 UI 代码，不执行远程 TSX/OTA/可执行插件。敏感输入、异步回调与消息队列按 ADR-0008、THREAT_MODEL T17 验证。
 - 锁库必须撤销解密/填充/签名授权；不能只遮住 UI。生物识别只负责本机安全解封，不是找回主密码。无“忘记主密码一键重置”。
 - 默认离线，不访问第三方图标、字体或泄露查询服务。联网同步及在线安全查询均须主动启用；Web 静态包获取/授权涉及的明确例外见 THREAT_MODEL T8 与 ADR-0007，不得宣称首次打开网站也完全不联网。
 - 关系、提醒与业务状态不能绕过 VaultSession/epoch。通知只含最小调度信息和通用文本；Web 关闭页面后的提醒不在首版承诺中。浏览器解锁整库不等于按字段密码学隔离。
 - 不出现“军工级”“100% 安全”“剪贴板粉碎”“一键修复网站密码”“TLS 即端到端加密”等不实承诺。未接入、未检查、不支持必须如实显示。
-- 原始导出 `adr/design/stitch_/` 和 `adr/design/stitch_.zip` 保留不改；中文修订稿位于 `adr/design/zh-CN/`，这是后续 Flutter 实现的界面基准。
-- 方案目录中的类型/接口/目录树是拟定契约，不代表代码已存在。不得把 HTML 演示当成 Flutter、安全实现或真实测试完成。
+- 原始导出 `adr/design/stitch_/` 和 `adr/design/stitch_.zip` 保留不改；中文修订稿位于 `adr/design/zh-CN/`，这是后续 NSH/TSX 实现的信息架构与交互基准，不能机械转换组件。
+- 方案目录中的类型/接口/目录树是拟定契约，不代表代码已存在。不得把 HTML 演示或框架编译成功当成生产客户端、安全实现或真实测试完成。
 
 ## 开发与交接
 
-先读 `README.md`、`adr/IMPLEMENTATION_PLAN.md`、`adr/TASKS.md` 和 `adr/REAL_DATA_RULES.md`；新领域和 Web 另读 `adr/0006-personal-data-vault.md`、`adr/0007-web-vault-client.md`、`adr/PERSONAL_VAULT_SPEC.md`、`adr/PERSONAL_VAULT_PLAN.md`。涉及秘密、授权、联网或跨进程的改动对照 `adr/THREAT_MODEL.md`，能力显示按 `adr/CAPABILITIES.md` 的状态规则。主任务状态只在 TASKS/STATUS 维护；每次仅领取明确任务及其依赖，交付代码、测试、证据、限制，并同步状态。不得仅因写了代码就勾选验收。
+先读 `README.md`、`adr/IMPLEMENTATION_PLAN.md`、`adr/TASKS.md` 和 `adr/REAL_DATA_RULES.md`；客户端选型先读 `adr/0008-nsh-unified-clients.md`；新领域和 Web 另读 `adr/0006-personal-data-vault.md`、`adr/0007-web-vault-client.md`、`adr/PERSONAL_VAULT_SPEC.md`、`adr/PERSONAL_VAULT_PLAN.md`。涉及秘密、授权、联网或跨进程的改动对照 `adr/THREAT_MODEL.md`，能力显示按 `adr/CAPABILITIES.md` 的状态规则。主任务状态只在 TASKS/STATUS 维护；每次仅领取明确任务及其依赖，交付代码、测试、证据、限制，并同步状态。不得仅因写了代码就勾选验收。
 
 本仓库只用 `uxiew` 身份提交：仓库级 `user.name` 和 `user.email` 都已固定（邮箱为 uxiew 的 GitHub noreply 地址），不依赖、也不修改全局身份，不用其他身份提交；按单个变更粒度 commit。初始化本地仓库不等于获准创建远端或推送。
 

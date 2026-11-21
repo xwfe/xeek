@@ -2,7 +2,7 @@
 
 日期：2026-10-12。状态：**设计基线；原生实验和真机验收未执行**。与 [ADR-0001](0001-flutter-kdbx-architecture.md) 配合阅读；本文件优先于旧方案中“先 Android，iOS 后续”的交付顺序。
 
-资料编号 Rxx 见 [本轮调研](research/mobile-sync-2026-10-12.md)。具体实现任务见 [移动与同步子任务](MOBILE_SYNC_TASKS.md)。
+资料编号 Rxx 见 [本轮调研](research/mobile-sync-2026-10-12.md)。具体实现任务见 [移动与同步子任务](MOBILE_SYNC_TASKS.md)。2026-11-21：主界面迁移目标由 [ADR-0008](0008-nsh-unified-clients.md) 更新为 NSH + TSX，本文件的独立原生提供者与 Rust 核心边界保留；编译或 UI 渲染不能替代 K007/K008 真机验收。
 
 ## 1. 产品能力不是一个“自动填充开关”
 
@@ -20,25 +20,22 @@
 
 ## 2. 共用核心，分别接入系统
 
-```text
-Flutter 主应用：五分类、编辑、设置、同步/冲突处理
-       │                         │
-Swift 原生凭据扩展            Kotlin 原生服务 + Activity
-AuthenticationServices         Autofill / Credential Provider
-       └──────── 类型化凭据请求 ────────┘
-                    ↓
- CredentialCoordinator / VaultAccess / Signing / StorageCommit
-                    ↓
-   经授权的本机 .kdbx + 受限元数据索引 + OS 设备解封材料
+```mermaid
+flowchart TD
+    UI["NSH 主界面"] --> Core["Rust 核心与会话授权"]
+    Apple["Swift 凭据扩展"] --> Core
+    Android["Kotlin 服务与 Activity"] --> Core
+    Core --> Vault["本机 KDBX 与事务提交"]
+    Core --> Platform["原生安全存储与受限索引"]
 ```
 
 原生入口只负责协议分发、系统认证及最小交互；策略、匹配、错误分类、加密和写入放进可测试模块。Bitwarden Android 的薄服务转交 processor、iOS 的 controller/context/service 分层可借鉴；不引入 Bitwarden 账户服务器或其数据库模型。[R01,R02]
 
-Rust 核心应可产出 Swift/Kotlin 可调用的库，原生扩展不能依赖 Dart isolate、主 Flutter 引擎、主程序已打开或后台常驻。Flutter↔Rust 桥接和原生↔Rust 桥接是两个验收项。构建产物不带不必要的网络/GUI依赖，未验证的 panic 不得跨 ABI 边界。
+Rust 核心应可产出 Swift/Kotlin 可调用的库；原生扩展直调核心，不加载 NSH/QuickJS，也不能依赖主程序已打开或后台常驻。NSH↔Rust 主界面桥接与原生↔Rust 提供者桥接分别验收。既有 Flutter/Dart FFI 探针仅保留作实验对照，不作为新扩展的运行依赖。构建产物不带不必要的网络/GUI 依赖，未验证的 panic 不得跨 ABI 边界。
 
 ## 3. iOS 原生扩展设计
 
-主应用、Credential Provider Extension 分开 target。逐项配置 App Group、Keychain access group、AutoFill entitlement 和提供者 capability；不能只在 Runner 打勾就认为扩展有权限。扩展界面使用原生 SwiftUI/UIKit 的必要页面，不在扩展里加载整套 Flutter 应用。[R01,R04]
+主应用、Credential Provider Extension 分开 target。逐项配置 App Group、Keychain access group、AutoFill entitlement 和提供者 capability；不能只给主应用配置权限就认为扩展有权限。扩展界面使用原生 SwiftUI/UIKit 的必要页面，不在扩展里加载 NSH 主应用或脚本运行时。[R01,R04]
 
 处理路径包括：密码候选列表、无交互请求、需要交互的解锁/选择、Passkey 注册与断言、用户取消、缺失条目、只读库和资源不足。无交互请求无法满足授权时返回 `userInteractionRequired`，不是自行弹一个不受系统管理的认证框。最终只调用相应的系统 complete/cancel 入口一次。
 

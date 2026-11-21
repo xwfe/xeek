@@ -1,13 +1,13 @@
 # 能力状态与平台矩阵
 
-日期：2026-10-16。任务：K001。状态：**REVIEW**。
+日期：2026-10-16，范围更新：2026-11-21。任务：K001。状态：**REVIEW**。
 
 **当前所有能力在所有平台上都是“未实现”**——仓库里还没有应用代码。下面的矩阵写的是“平台允许什么、前提是什么”，不是 keex 已经做到什么。
 
 ## 0. 怎么用
 
 - 界面、设置页、文档提到任何能力时，只能用 §1 的六种状态之一。不要自造“已启用”“支持”“已连接”这类说不清的词。
-- 当前路线包含 Android/iOS 与独立验收的 Web（[ADR-0006](0006-personal-data-vault.md)、[ADR-0007](0007-web-vault-client.md)）。移动端查 §2；§3 原生桌面只是未来 Rust 应用资料；Web 查 §4。具体阶段查 [TASKS.md](TASKS.md)。
+- 当前路线为 Android/iOS/macOS/Windows 与独立 Web（[ADR-0008](0008-nsh-unified-clients.md)）。§2 是移动，§3 区分当前桌面资料能力与后续增强，Linux 仍为资料；§4 是 Web。框架最低版本不等于 keex 的 API/发行支持下限，K090–K094 分别验证。
 - 一项能力做完、测完，在本文件对应格子写上证据文件链接。没有证据链接的格子，一律视为“未实现”。
 
 ## 1. 六种状态
@@ -60,7 +60,7 @@ SSH 代理、浏览器扩展填充、全局自动输入在 Android/iOS 上都是
 | 剪贴板敏感标记 | Android 13+ `ClipDescription.EXTRA_IS_SENSITIVE`，隐藏剪贴板预览 | `UIPasteboard` 的 `.localOnly`（不进通用剪贴板）和 `.expirationDate` | K019 |
 | 截图/录屏防护 | `FLAG_SECURE` 阻止截图和不安全显示；Android 14 可检测截图，15 可检测录屏 | **不能阻止截图**；可检测录屏并遮挡内容 | K019 |
 | 任务预览遮挡 | `FLAG_SECURE` 或 `setRecentsScreenshotEnabled(false)`（Android 13+） | 进入后台前盖上遮罩视图 | K019 |
-| 对普通无障碍服务隐藏秘密 | Android 14+ `setAccessibilityDataSensitive`：没声明为无障碍工具的服务既读不到也点不了被标记的控件（TalkBack 这类工具不受影响）。“是不是工具”由服务自己声明，靠 Play 审核和 Play Protect 约束，没有 Google 服务的机型基本没有这层约束。API 34 起，设了 `filterTouchesWhenObscured` 的控件在默认的 AUTO 模式下自动算敏感（AOSP android14 `View.java` 原话 “Views that set filterTouchesWhenObscured default to accessibilityDataSensitive”）；Google 2025-12 博客把它当 Android 16 的防护介绍，是博客不严谨，不是版本差异。Flutter 是单一视图渲染，能否按控件生效也待实测 | 不适用：第三方 App 不能像 Android 那样读取别的 App 的界面 | K019 |
+| 对普通无障碍服务隐藏秘密 | Android 14+ `setAccessibilityDataSensitive`：没声明为无障碍工具的服务既读不到也点不了被标记的控件（TalkBack 这类工具不受影响）。“是不是工具”由服务自己声明，靠 Play 审核和 Play Protect 约束，没有 Google 服务的机型基本没有这层约束。API 34 起，设了 `filterTouchesWhenObscured` 的控件在默认的 AUTO 模式下自动算敏感（AOSP android14 `View.java` 原话 “Views that set filterTouchesWhenObscured default to accessibilityDataSensitive”）；Google 2025-12 博客把它当 Android 16 的防护介绍，是博客不严谨，不是版本差异。NSH/宿主是否逐控件正确映射须 K092/K019 真机实测，不能沿用 Flutter 结果 | 不适用：第三方 App 不能像 Android 那样读取别的 App 的界面 | K019 |
 | 防悬浮窗诱导点击 | `filterTouchesWhenObscured`；Android 12+ `setHideOverlayWindows(true)` 隐藏其他应用的悬浮窗（需 `HIDE_OVERLAY_WINDOWS` 权限）。无障碍服务自己的覆盖层不在隐藏范围（AOSP 源码只隐藏系统悬浮窗类型和 Toast，见 THREAT_MODEL），K019 真机确认 | 不适用：系统不允许第三方悬浮窗 | K019 |
 | 主密码输入不经第三方输入法 | **不支持**：不能强制使用系统输入法；`IME_FLAG_NO_PERSONALIZED_LEARNING` 只防输入法“学习”，不防恶意输入法 | 安全文本框上系统强制使用系统键盘。另可在整个 App 里禁用第三方键盘（`application(_:shouldAllowExtensionPointIdentifier:)` 拒绝 `.keyboard`），代价是用户的输入法在 keex 里都不能用，只做可选项 | K019 |
 | 系统密码自动填充 | AutofillService API 26+；键盘内候选 API 30+；API 34+ 另有 Credential Provider | 凭据提供者扩展，iOS 12+；产品基线 iOS 17+（ADR-0002） | K007、K008、K048、K049 |
@@ -68,17 +68,17 @@ SSH 代理、浏览器扩展填充、全局自动输入在 Android/iOS 上都是
 | 系统动态口令填充 | 没有和 iOS 对等的入口；Autofill 遇到标了验证码提示的字段时尽力填充，不宣称对等（ADR-0002） | iOS 18+，增强项 | M22 |
 | 管理器间凭据交换 | Jetpack Credentials Transfer：Android 8+、仅同设备、CXF，2026-10 为 1.0.0-beta01 | iOS 26+ | M23 |
 
-## 3. 未来桌面（资料，不在当前范围）
+## 3. 桌面资料客户端与后续增强
 
-给未来 Rust 桌面应用用，2026-10 的判断，启动桌面端时按当时的系统版本复核。
+macOS/Windows 的前五行基础能力进入 K092/K095/K096；全部仍是未实现目标或明确不支持。SSH、系统凭据/浏览器提供者、自动输入与凭据交换仍属后续增强；Linux 整列仍为后续资料。下表 API 依据核对于 2026-10，NSH/宿主需按目标系统版本重验，不能将框架“原生控件”当安全保证。
 
 | 能力 | macOS | Windows | Linux | 参考任务 |
 | --- | --- | --- | --- | --- |
-| 打开外部库文件 | 沙盒内用 security-scoped bookmark | 普通文件路径 | 普通文件路径；Flatpak 内走文件选择门户 | — |
-| 快速解锁 | data protection keychain + `ThisDeviceOnly` + Touch ID，`.biometryCurrentSet` | Windows Hello，必须有 TPM 支撑；没有 TPM 或只能用 DPAPI 时**不支持**。能否禁止 PIN 回退待实测 | **不支持**：Secret Service 只是软件封装，强度等于登录密码。要改成“带警示提供”，先改 ACCEPTANCE AC-SECRET 并复核 | — |
-| 系统事件触发锁库（锁屏、休眠） | 有系统通知 | 有系统通知 | 取决于桌面环境和 logind，没有统一信号 | — |
-| 剪贴板敏感标记 | `prepareForNewContents(with: .currentHostOnly)`（macOS 10.12+）让内容不进通用剪贴板；“敏感内容”没有系统级标记，只有 `org.nspasteboard.ConcealedType`/`TransientType` 约定，剪贴板工具自愿遵守 | 写入 `ExcludeClipboardContentFromMonitorProcessing`、`CanIncludeInClipboardHistory`=0、`CanUploadToCloudClipboard`=0 格式，或用 WinRT `ClipboardContentOptions` | KDE Klipper 识别 `x-kde-passwordManagerHint=secret`；其他桌面没有统一约定 | — |
-| 截图/录屏防护 | **不支持**：`NSWindow.sharingType = .none` 对 ScreenCaptureKit 不可靠（开发者论坛报告，Apple 无正式说明），可以设置但不宣称 | `SetWindowDisplayAffinity(WDA_EXCLUDEFROMCAPTURE)`，Windows 10 2004+ | **不支持**：X11 无法阻止，Wayland 由合成器决定 | — |
+| 打开外部库文件 | 沙盒内用 security-scoped bookmark | 普通文件路径 | 普通文件路径；Flatpak 内走文件选择门户 | K092/K095/K096 |
+| 快速解锁 | data protection keychain + `ThisDeviceOnly` + Touch ID，`.biometryCurrentSet` | Windows Hello，必须有 TPM 支撑；没有 TPM 或只能用 DPAPI 时**不支持**。能否禁止 PIN 回退待实测 | **不支持**：Secret Service 只是软件封装，强度等于登录密码。要改成“带警示提供”，先改 ACCEPTANCE AC-SECRET 并复核 | K092/K095/K096 |
+| 系统事件触发锁库（锁屏、休眠） | 有系统通知 | 有系统通知 | 取决于桌面环境和 logind，没有统一信号 | K092/K095/K096 |
+| 剪贴板敏感标记 | `prepareForNewContents(with: .currentHostOnly)`（macOS 10.12+）让内容不进通用剪贴板；“敏感内容”没有系统级标记，只有 `org.nspasteboard.ConcealedType`/`TransientType` 约定，剪贴板工具自愿遵守 | 写入 `ExcludeClipboardContentFromMonitorProcessing`、`CanIncludeInClipboardHistory`=0、`CanUploadToCloudClipboard`=0 格式，或用 WinRT `ClipboardContentOptions` | KDE Klipper 识别 `x-kde-passwordManagerHint=secret`；其他桌面没有统一约定 | K092/K095/K096 |
+| 截图/录屏防护 | **不支持**：`NSWindow.sharingType = .none` 对 ScreenCaptureKit 不可靠（开发者论坛报告，Apple 无正式说明），可以设置但不宣称 | `SetWindowDisplayAffinity(WDA_EXCLUDEFROMCAPTURE)`，Windows 10 2004+ | **不支持**：X11 无法阻止，Wayland 由合成器决定 | K092/K095/K096 |
 | SSH 代理 | Unix socket + `SSH_AUTH_SOCK` | OpenSSH 命名管道 `\\.\pipe\openssh-ssh-agent`；和系统 ssh-agent 服务怎么共存待实验 | Unix socket + `SSH_AUTH_SOCK` | K005、K006 |
 | 系统密码自动填充 | 凭据提供者扩展，macOS 11+ | **不支持**系统级；走浏览器扩展 | **不支持**系统级；走浏览器扩展 | — |
 | 系统通行密钥提供者 | macOS 14+ | Windows 11 第三方 passkey 插件模型，有微软官方文档和示例；用户在“设置 > 账户 > 通行密钥 > 高级选项”启用。哪个 Windows 版本起对普通用户正式推送「待核」（二手报道称 2025-11） | **不支持**系统级；走浏览器扩展 | K054 |
@@ -89,9 +89,9 @@ SSH 代理、浏览器扩展填充、全局自动输入在 Android/iOS 上都是
 
 ## 4. Web与个人资料增量（目标，全部未实现或明确不支持）
 
-Web是当前计划中的独立客户端，不是未来Rust桌面列的替代名称。以下“目标”不是可用声明；上线时逐浏览器版本、部署来源与文件/同步路径填写运行时能力和证据，未测不推定支持。原生手机构建与HTML原型检查不能算Web证据。
+Web是当前计划中的独立客户端，不是 macOS/Windows 原生客户端的替代名称。以下“目标”不是可用声明；上线时逐浏览器版本、部署来源与文件/同步路径填写运行时能力和证据，未测不推定支持。原生手机构建与HTML原型检查不能算Web证据。
 
-| 能力 | Android/iOS增量 | Web首版 | 验证任务 |
+| 能力 | 四原生端增量 | Web首版 | 验证任务 |
 | --- | --- | --- | --- |
 | 金融/通信/文档类型、关系与维护规则 | 未实现，复用会话/KDBX | 未实现，相同schema和业务语义 | K068/K073–K080/K085 |
 | KDBX解锁、编辑、导出 | 原有G0–G5门槛 | 未实现；浏览器writer/文件/恢复需GW0–GW2，不降低KDF | K070/K081/K082 |
@@ -100,10 +100,10 @@ Web是当前计划中的独立客户端，不是未来Rust桌面列的替代名�
 | 资料搜索与关联索引 | 解锁后内存索引 | 未实现；不落明文索引/搜索词，不写URL | K073/K080/K085 |
 | 附件预览/导出 | 受控预览和显式外部分享 | 未实现；不执行同源活动内容，类型/容量/权限不足则拒绝或显式导出 | K024/K076/K085/K088 |
 | 应用内待办 | 未实现 | 未实现，仅打开并解锁时计算 | K077/K078/K085 |
-| 已关闭应用的通知 | OS预排通用通知，权限/调度限制实测 | 首版不支持关页后提醒；不提供假开关 | K078 |
-| 系统级快速解锁 | 按§2安全硬件前提 | 首版不支持；不以网页登录/短PIN替代库密钥 | K018/K081 |
-| 系统填充、跨网站Passkey提供者 | 按§2原生provider | 不支持；管理/保留库中记录不等于提供者 | K048/K049/K052/K053 |
-| SSH Agent与原生eSIM安装 | 手机不作通用SSH代理；eSIM安装不在本轮范围 | 不支持 | ADR-0005/0006/0007 |
+| 已关闭应用的通知 | 移动/桌面各验 OS 通用通知，权限/退出/调度限制明示 | 首版不支持关页后提醒；不提供假开关 | K078/K095 |
+| 系统级快速解锁 | 按§2/§3安全硬件前提与 K092/K095 实测 | 首版不支持；不以网页登录/短PIN替代库密钥 | K018/K081 |
+| 系统填充、跨网站Passkey提供者 | 移动按§2；桌面 provider 仍后续 | 不支持；管理/保留库中记录不等于提供者 | K048/K049/K052/K053 |
+| SSH Agent与原生eSIM安装 | 手机不作通用SSH代理、桌面SSH后续；eSIM安装不在本轮范围 | 不支持 | ADR-0006/0007/0008 |
 | 重新加载后的离线使用 | 本地文件优先 | 后续能力；需静态包缓存/安装路径另验，首个发布不依赖PWA | K071/K081/K088 |
 
 Web未知条件先为“未检测”，确定当前浏览器/部署不支持时说明具体路径及替代方式，不把单一浏览器限制写成永久全平台限制。资料状态、机构状态（手工记录）、保存状态、同步状态与能力状态分开，不使用一个“正常”徽章替代五个维度。
