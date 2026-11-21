@@ -6,5 +6,5 @@ publish = false
 
 [dependencies]
 keex-wasm-core = { path = "../../wasm_core" }
-nsh-core = { path = "/home/ubuntu/nsh-k090/crates/nsh-core", features = ["declarations"] }
+nsh-core = { git = "https://github.com/longbridge/nsh", rev = "2f51d8611677c8a6bbad937b39756e8d0cc45350", features = ["declarations"] }
 serde_json = "1"

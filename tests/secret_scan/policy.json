@@ -864,10 +864,16 @@
       "reason": "K090公开上游提交及两个Cargo.lock和toolchain文件的SHA-256，与固定源码逐一核对一致。"
     },
     {
-      "path": "tests/nsh_candidate/rust/Cargo.lock",
-      "sha256": "7091513075de4c01009e584cc06c1d11cf07760bdd3d164ee0253f63a232cf42",
+      "path": "tests/nsh_candidate/rust/Cargo.toml",
+      "sha256": "c3789bb0302efa675c4170f2923674c6a5f586f7198ec34a28479055328bd39a",
       "rules": ["HexHighEntropyString"],
-      "reason": "K091应用适配crate的公开registry校验和；245份缓存crate归档逐一SHA-256核对与锁一致，无凭据或私有来源。"
+      "reason": "K091审查修订：唯一熵命中为公开NSH v0.6.1完整Git rev，与K090固定提交及Cargo解析source逐一核对，无凭据。"
+    },
+    {
+      "path": "tests/nsh_candidate/rust/Cargo.lock",
+      "sha256": "7f2e939eb0f363d88b87c001c55f5a3ee4de7553049c4caeec2736e402c9d6af",
+      "rules": ["HexHighEntropyString"],
+      "reason": "K091应用适配crate的公开registry校验和；245份缓存crate归档已逐一SHA-256核对。审查修订仅增加nsh-core/macros的公开NSH固定Git提交来源，无凭据或私有来源。"
     },
     {
       "path": "tests/secret_scan/tests/test_gate.py",

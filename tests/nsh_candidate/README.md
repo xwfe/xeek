@@ -4,7 +4,7 @@
 
 ## K091 当前切片复现
 
-仅验证 Linux-headless，不计 Android/iOS/macOS/Windows 任一端通过。使用 K090 固定 worktree、Rust/Cargo 1.100.0 和 Python 3.12；`rust/Cargo.toml` 当前明确引用 `/home/ubuntu/nsh-k090/crates/nsh-core`，不同路径需调整这一项并重新核对固定 commit。没有 GTK、NSH 源码或二进制入库。
+仅验证 Linux-headless，不计 Android/iOS/macOS/Windows 任一端通过。使用 K090 固定版本 CLI、Rust/Cargo 1.100.0 和 Python 3.12；`rust/Cargo.toml` 的 nsh-core 使用公开 Git URL 和完整 rev 固定到下方 commit，Cargo 自行管理 checkout，不依赖本机绝对路径。CLI 必须同为该固定提交的 0.6.1；其 Rust app 生成器识别 Git 锁定 checkout，统一生成宿主与 app 的 NSH 来源，避免重复 nsh-core 类型。没有 GTK、NSH 源码或二进制入库。
 
 从 xeek 根串行运行（首次 Cargo 下载需联网）：
 
