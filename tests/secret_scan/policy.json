@@ -864,6 +864,12 @@
       "reason": "K090公开上游提交及两个Cargo.lock和toolchain文件的SHA-256，与固定源码逐一核对一致。"
     },
     {
+      "path": "tests/nsh_candidate/rust/Cargo.lock",
+      "sha256": "7091513075de4c01009e584cc06c1d11cf07760bdd3d164ee0253f63a232cf42",
+      "rules": ["HexHighEntropyString"],
+      "reason": "K091应用适配crate的公开registry校验和；245份缓存crate归档逐一SHA-256核对与锁一致，无凭据或私有来源。"
+    },
+    {
       "path": "tests/secret_scan/tests/test_gate.py",
       "sha256": "72f4be47764044edad1f094d31261251dd6d1cd91b8b497561d819f6d97c9d59",
       "rules": [

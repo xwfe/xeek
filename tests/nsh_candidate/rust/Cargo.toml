@@ -1,0 +1,10 @@
+[package]
+name = "keex-nsh-slice"
+version = "0.1.0"
+edition = "2021"
+publish = false
+
+[dependencies]
+keex-wasm-core = { path = "../../wasm_core" }
+nsh-core = { path = "/home/ubuntu/nsh-k090/crates/nsh-core", features = ["declarations"] }
+serde_json = "1"

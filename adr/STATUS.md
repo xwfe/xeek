@@ -30,6 +30,12 @@
 
 ## 历史记录
 
+### 2026-11-21：K091 Linux-headless 纵向切片
+
+NSH v0.6.1 的混合 Rust runner 链接原 wasm_core，TSX 只调用类型化分页摘要/单字段接口，已跑通固定 L0 样本解锁、编辑和新副本保存，原 oracle 严格核对预期历史与未修改语义。Rust 4 项、TSX 纵向 3 项及原导航/权限反例通过，取消与旧 epoch 拒绝留有输出；1k/10k 只记录核心分页/搜索计时，不冒称 UI 帧率。详见 [K091](evidence/K091.md)。
+
+本机无 pkg-config/GTK 开发探测条件，选择不依赖 GTK 的专属 headless runner；没有安装全局依赖。四原生端、视觉、中文 IME/键盘/读屏均未运行，不计任一产品端通过；K091 保持 DOING，GN/writer 与真实数据门槛不变。当前 Rust 适配不是 K093 Web 实现，K090 Web 证据仍只对应其历史提交。
+
 ### 2026-11-21：K090 Linux 验证收尾
 
 固定 CLI 构建、合成五导航 headless 与 network/openUrl 拒绝两项测试、wasm32 后端和 Web 静态打包通过；补用户级 clang/llvm-ar，移除无效 entry 配置并复验无告警。Web 打包要求仅 wasm-unsafe-eval 而非 unsafe-eval，浏览器 CSP 仍待 K093 实测。Linux 扫描依赖追加同版本官方 wheel 哈希，90 项回归及完整暂存扫描通过，仓库提交 hook 已启用，见 [K002_HOOKS](evidence/K002_HOOKS.md)。

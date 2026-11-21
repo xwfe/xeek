@@ -1,6 +1,39 @@
-# K090：NSH 固定候选（仅 L0）
+# NSH 固定候选与 K091 Linux-headless 切片（仅 L0）
 
-证据和限制见 [K090](../../adr/evidence/K090.md)。本目录不是生产客户端，不含 KDBX、核心桥、writer 或秘密。页面仅合成标题和空态，手机底部五导航，宽屏同序侧栏；尚未视觉验证。
+证据和限制见 [K090](../../adr/evidence/K090.md)、[K091](../../adr/evidence/K091.md)。本目录不是生产客户端。五导航的密码页现通过 `keex/vault` Rust class 调用原有 `tests/wasm_core`，只打开编译时固定的公开 L0 样本，不提供任意文件入口，不另写 writer/加密。手机底部五导航，宽屏同序侧栏；尚未视觉验证。
+
+## K091 当前切片复现
+
+仅验证 Linux-headless，不计 Android/iOS/macOS/Windows 任一端通过。使用 K090 固定 worktree、Rust/Cargo 1.100.0 和 Python 3.12；`rust/Cargo.toml` 当前明确引用 `/home/ubuntu/nsh-k090/crates/nsh-core`，不同路径需调整这一项并重新核对固定 commit。没有 GTK、NSH 源码或二进制入库。
+
+从 xeek 根串行运行（首次 Cargo 下载需联网）：
+
+```sh
+git -C "$HOME/nsh-k090" rev-parse HEAD
+# 必须为 2f51d8611677c8a6bbad937b39756e8d0cc45350，且源码工作树干净。
+cargo fetch --locked --manifest-path tests/reference_writer/Cargo.toml
+# oracle 依赖只装项目缓存；版本登记在 K091 证据，不用 macOS wheel 哈希冒充 Linux。
+python3.12 -m pip --isolated --disable-pip-version-check install --only-binary=:all: \
+  --target tests/kdbx_oracle/.deps-argon2 -r tests/kdbx_oracle/requirements.txt
+PYTHONPATH=tests/kdbx_oracle/.deps-argon2 python3.12 -B -c \
+  'import importlib.util; s=importlib.util.spec_from_file_location("build", "tests/wasm_core/build.py"); m=importlib.util.module_from_spec(s); s.loader.exec_module(m); print(m.patched_source())'
+cargo test --locked --manifest-path tests/nsh_candidate/rust/Cargo.toml --lib -- --nocapture --test-threads=1
+export CARGO_TARGET_DIR="$HOME/nsh-k090/target"
+"$HOME/nsh-k090/target/debug/nsh" test "$PWD/tests/nsh_candidate/Vault.test.tsx"
+"$HOME/nsh-k090/target/debug/nsh" test "$PWD/tests/nsh_candidate/App.test.tsx"
+"$HOME/nsh-k090/target/debug/nsh" test "$PWD/tests/nsh_candidate/Denied.test.tsx"
+python3.12 -B tests/nsh_candidate/oracle_check.py
+```
+
+`patched_source()` 复用原构建入口：先核对 keepass 0.15.3 缓存归档哈希，再应用原 K003 八份补丁，输出到已忽略的 wasm_core/target/source。无需执行含 Darwin 工具链路径的整个 build.py，也不复制 core.rs。新 crate 的 Cargo.lock 固定本切片依赖；不能用它替换原 wasm_core/Cargo.lock。
+
+`Vault.test.tsx` 驱动打开/解锁、分页和无命中搜索、单字段读取/编辑、保存新副本、锁库旧句柄拒绝、错误密码和立即取消。新副本只写 `rust/target/outputs/copy-*.kdbx`，使用 create_new；`receipt.json` 指向最近一次合成输出供 oracle 核对。测试不覆盖样本、不把副本入库。oracle 按登记 SHA 核对源样本，严格比较预期编辑和新增历史之外的所有语义，并以无编辑/无关修改/目标缺失作为负控制。
+
+类型由 Rust `#[class]` / `JsObject` 生成在 `.nsh/types/keex/vault.d.ts`，不手写另一份运行时桥；列表只有 `{id,title}`、上限 50，字段单独读取，修改只开放 UserName。TSX 信号不保存整库 JSON/长期密钥，也不使用 Storage。合成口令仍经过 JS Input；masked 不构成安全输入或可擦除保证。
+
+锁库提升 Rust epoch 并清掉当前会话；后台操作独占 Vault，结果交付再核对 binding/epoch；JS 也以 uiEpoch 丢弃已锁库的界面更新。取消是撤销交付，不是中断 KDF。已进入系统写入的密文副本可能仍落盘；不承诺原子保存取消、多进程/多窗口或进程终止恢复。详见 K091 未运行项。
+
+导入 nsh/base 的 Input 会触发 `statusBar` 拒绝告警；已定位为显式 `{}` 生效，不是环境变量/SDK 缺失。不为消除告警扩大能力。模块里的 Rust 代码本身是受信任宿主代码，**不因空 capabilities 自动受文件沙箱约束**，故固定输入与输出目录都在 Rust 限定。
 
 ## 固定输入与许可证复现
 
@@ -18,9 +51,9 @@ python3.12 -B tests/nsh_candidate/inventory.py "$HOME/nsh-k090"
 
 上游 toolchain 是滚动 `stable` 而非具体版本。本次 metadata 触发 rustup 将 stable 升为 rustc/cargo 1.100.0；具体输出与锁 SHA-256 已登记。复现优先 `RUSTUP_TOOLCHAIN=1.100.0`（需用户级预装），不冒称 1.99.1 已验证。
 
-## 构建/测试复现
+## K090 历史构建/测试复现
 
-以下命令已在固定上游根串行执行通过；用实际 keex 路径替换变量。目录入口由 `crates/nsh-cli/src/entry.rs:14–43` 约定为 `App.tsx`，也可直接传文件路径；`nsh.json` 没有 `entry` 键，已移除首次打包时被忽略的无效键。
+以下是 K090 提交 `ca8050bc4c85cd792f8f6ea4f8c26b2356589c42` 上已通过的历史命令。复验 Web 时需在该提交的独立 xeek worktree 操作；**当前 K091 Rust 适配仅支持 native blocking，不是 Web 实现，不再宣称下面 Web 打包对当前 HEAD 成立**。目录入口由 `crates/nsh-cli/src/entry.rs:14–43` 约定为 `App.tsx`，`nsh.json` 没有 `entry` 键。
 
 Web 编译还需要 clang 和 llvm-ar（上游 `website/docs/web.md:77–79`）；没有系统安装时，可仅在用户目录解包 Ubuntu 包，不用 sudo、不改全局环境。本次使用 clang 14.0.0-1ubuntu1.1：
 
