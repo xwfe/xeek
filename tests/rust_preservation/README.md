@@ -37,3 +37,27 @@ python3 -B tests/run_python_tests.py --suite oracle --pattern test_rust_third_pa
 Rust API 测试另用登记过的 v41-vault-edit1 样本（构建时先核对 vault_manifest 中的哈希）覆盖共享附件和只在历史里出现的附件。Rust API 测试还会打开全部登记样本，确认扫描表不会误拦真实客户端写的文件。_merge 未启用，其历史排序契约未调整。旧格式写入、未知扩展及其余限制见 [补丁证据](../../adr/evidence/K003_RUST_PATCH.md)。
 
 补丁不直接应用于系统缓存，也不接入客户端；升级候选版本时须重新核对来源、调用链与全部回归。
+
+## 官方 KeePass 2.62 与 `_merge` 独立准备
+
+只读取已登记 L0 输出（无需 Mono）：
+
+~~~sh
+python3 -B tests/run_python_tests.py --suite oracle --pattern test_official_keepass.py -v
+python3 -B tests/rust_preservation/merge_probe.py
+~~~
+
+官方来源、Linux 用户级 Mono 依赖和实测输出见 [K003 追加证据](../../adr/evidence/K003.md)。[official.kps](official.kps) 通过官方 KPScript 访问 KeePassLib API，不把 GPL KeePass 链入 keex。先用现有 `build.py` 构建隔离补丁 helper，再于**不含本批样本/清单的独立实验工作树**生成：
+
+~~~sh
+python3 -B tests/rust_preservation/build.py
+python3 -B tests/rust_preservation/official_roundtrip.py generate --tools "$HOME/k090-logs/k003-official" --mono-root "$HOME/.local/mono-k003"
+~~~
+
+工具目录须预先放入官方 `KeePass-2.62.zip`、`KPScript-2.62.zip`，并解包到其 `keepass-2.62/` 子目录；生成器先核对固定官网哈希及解包 EXE，调用 Xvfb，不联网、不覆盖。已有清单或任一输出时直接拒绝；新随机库不能替换本次已登记文件。普通异常清理仅限本次创建的文件，不承诺强杀/掉电恢复。回归只需读取固定文件；完整现场重跑需另起独立实验，审查新的来源/差异后另行登记。
+
+严格 oracle 没有被改动：Rust 输出的根组 `EnableAutoType`/`EnableSearching` 为小写 `null`，官方写作 `Null`；每腿两项原始差异完整登记。诊断只识别这两个路径的这两种精确拼写，其余差异仍失败；测试另断言严格比较确实拒绝、漏编辑/空结果/额外改动/错误密码均被拒绝。官方重开时检查两个设置的 `HasValue` 都为 false，不能用这里的有限表示分析宣称整个候选已无损。
+
+`merge_probe.py` 校验原 Cargo.lock 的 keepass 0.15.3 归档，在隔离临时 manifest 启用原版 `_merge`，不改变现有依赖/锁/生产 features。四项 Rust 诊断覆盖 no-op、同时间当前条目冲突报错、新源无历史时目的旧快照丢失、新源附件不应用。后两项现已保存为新文件、真实重开并再次另存；6 项 Python 检查用独立 oracle 核对两次输出、完整未修改语义、附件池、精确缺陷路径及空结果/错误密码/无关变更等负控制。
+
+追加 `--preservation` 会在同一隔离副本应用原八补丁、同时启用 save_kdbx4 与 `_merge`，运行 5 项 merge 探针及原 16 项 preservation 测试，再执行上述 oracle。新增探针确认追加历史被 merge 改为倒序并进入保存重开结果。**联合编译能通过，不代表契约兼容；两项旧缺陷仍在。** 原生产 features、补丁文本、包缓存及登记样本均不变；产物只在临时 target 子目录，结束即清理。详细命令、全量 Python 回归的 Linux 阻塞及剩余合并矩阵见 [K003](../../adr/evidence/K003.md)。

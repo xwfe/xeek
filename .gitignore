@@ -122,6 +122,11 @@ android/key.properties
 !/tests/fixtures/kdbx/dk40-upstream-argon2d-chacha20.kdbx
 !/tests/fixtures/kdbx/dk41-rs-vault-argon2d-chacha20.kdbx
 
+# K003：官方 KeePass 2.62 合成往返，来源与哈希见 official_keepass_manifest。
+!/tests/fixtures/kdbx/of262-official-base.kdbx
+!/tests/fixtures/kdbx/of262-rust-edit.kdbx
+!/tests/fixtures/kdbx/of262-official-reedit.kdbx
+
 # K070 kpasslib 对照候选的项目内 pub 缓存；pubspec.lock 提交。
 /tests/kpasslib_candidate/.pub-cache/
 /tests/kpasslib_candidate/.dart_tool/

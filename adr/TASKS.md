@@ -10,7 +10,7 @@
 | --- | --- | --- | --- |
 | [K001](evidence/K001.md) | REVIEW | 威胁模型、能力矩阵、真实数据规则，含个人资料/Web 与 NSH/桌面增量 | 人工独立复核（目前只有同型号模型复核） |
 | [K002](evidence/K002.md) | REVIEW | 合成样本、只读 oracle 与语义比较器；Argon2d/id 与外层 ChaCha20 读取；4.x 认证负载 278 案；提交前秘密扫描 | 官方 KeePass、KeeAgent、手机客户端写的样本及剩余参数；人工独立复核 |
-| [K003](evidence/K003.md) | DOING | 双候选对照与最小反例；[隔离 Rust 补丁](evidence/K003_RUST_PATCH.md)已修图标双字段、历史顺序、附件删除/替换的历史引用和组/条目写出顺序，原 12 组矩阵往返无差异；带不过去的 XML 拒绝保存，内层流不可信的文件拒绝打开；历史裁剪与 KeePassXC 对照一致；同一秒内连续编辑不再在合并时丢历史；与 KeePassXC 轮流编辑补丁库侧无差异；文件头设置原样保留；写入闸门关闭 | 官方 KeePass/手机客户端样本未跑；_merge、旧格式写回未验证；依赖 K002/K069 尚未 DONE |
+| [K003](evidence/K003.md) | DOING | 双候选对照与最小反例；[隔离 Rust 补丁](evidence/K003_RUST_PATCH.md)已覆盖图标、历史/附件引用、写出顺序、未知内容拒绝、历史裁剪与编辑时间，原 12 组矩阵及 KeePassXC 轮流编辑补丁库侧无差异，文件头保留；官方 KeePass/KPScript 2.62 用户级合成往返登记 3 份样本，Null/null 表示差异单列；原版与八补丁联合 _merge 两缺陷均经保存/重开/独立 oracle 复现；联合构建及原 16 项 API 测试通过，另证历史排序冲突持久化；写入闸门关闭 | 官方富功能/KeeAgent/手机客户端覆盖；Null/null 独立复核；_merge 缺陷修补、统一历史顺序/引用重建与冲突/删除/移动/图标/历史同时间完整矩阵；本 Linux 全量 Python 回归仍缺 CLI 且有生成环境/哈希失败；旧格式写回未验证；依赖 K002/K069 未 DONE，不得标 DONE |
 | [K004](evidence/K004.md) | DOING | 同一份 Rust 核心接 Flutter、Kotlin、Swift；Android 真机上 Flutter 主进程和不加载 Flutter 的 Kotlin 进程都通过独立核对；解锁前 KDF 预算检查、panic 防护 | iOS 暂停（优先级最低）；真正的自动填充服务（K007）；动态库打包方式；NSH 主 UI 桥另由 K091 验证 |
 | [K011](evidence/K011_FORUI.md) | DOING | forui 0.27.7 界面预实验：合成数据的五导航、1 万条列表、详情和设置页；28 项组件测试、Android 11 模拟器和三个浏览器的严格 CSP 实测。forui 有 7 处默认值要 keex 补，实验页都补上并验证了；Web 中文字体自托管后正常 | 按 ADR-0008 转为 NSH/TSX 设计系统目标；ForUI 仅保留对照，不再扩建。NSH 的 iOS/读屏/真实中文输入法/性能与 Web 全待 K091/K093 重验；旧 Flutter Web 读屏拼音问题留档；依赖 K010 尚未开始 |
 | [K068](evidence/K068.md) | REVIEW | v1 字段契约与可执行检查器 | 人工独立复核 |

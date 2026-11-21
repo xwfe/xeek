@@ -1,0 +1,243 @@
+{
+  "level": "L0",
+  "client": "KeePass 2.62 + KPScript 2.62 (Dominik Reichl)",
+  "license": "GPL-2.0-or-later",
+  "platform": "Linux x86_64 / Mono 6.8.0.105 / Xvfb",
+  "integrity_sources": [
+    "https://keepass.info/integrity.html",
+    "https://keepass.info/integrity_etc.html"
+  ],
+  "archives": {
+    "KeePass-2.62.zip": {
+      "url": "https://downloads.sourceforge.net/project/keepass/KeePass%202.x/2.62/KeePass-2.62.zip",
+      "sha256": "49b008e4ca9e9db9cb22e1173ec0f7676235b5309d7b47213cf81010cd1bbeed"
+    },
+    "KPScript-2.62.zip": {
+      "url": "https://keepass.info/extensions/v2/kpscript/KPScript-2.62.zip",
+      "sha256": "d87336c432ca02ef44f8c3acf2119abe675989999f564036676d452cb6dfc899"
+    }
+  },
+  "password": "keex-synthetic-OFFICIAL-262",
+  "entry": "fa6acf2f64cefd44a2c563243f7620c8",
+  "expect": {
+    "version": "4.1",
+    "current_entries": 1,
+    "history_entries": [0, 1, 2],
+    "null_spelling_counts": [2, 2],
+    "strict_zero_diff": false
+  },
+  "provenance": {
+    "tests/rust_preservation/official_roundtrip.py": "99d3f345926989708bfbc4607c26905eb0a7a607331d57fb5810b4aa2bb6ffa4",
+    "tests/rust_preservation/official.kps": "2deea3ea405267a5ad5c9adee0d886996761b64474d3eb5d8bccc3baf46127fa",
+    "tests/rust_preservation/build.py": "17f7c5abb8c8eeb68fbbb4461bf8380988093ef206e70e8526d4d31819983b23",
+    "tests/reference_writer/src/main.rs": "7b4f354261621c00eeafaabf433f1bc6605da0f7e5c66d202ed5d61054ed4ae7",
+    "tests/rust_preservation/src/history_edit.rs": "679b1ed022ff324b5f74d247d2efaa395052048567a8f12325e092097fdb07da",
+    "tests/reference_writer/Cargo.lock": "cf43b1f1a75ca9a428e29728040f53ace78104dd64cef3aa7c5c1f2158a2dfa4",
+    "tests/rust_preservation/patches/01-icons.patch": "cd886ad8d73a7c234c737ea2d54da60f0cf459b68a7d629356d6d6c7cb456379",
+    "tests/rust_preservation/patches/02-history.patch": "3d827b37187a5c09ac61169982399b24dfe052a06e50e8a80cdccf9db7a15bf6",
+    "tests/rust_preservation/patches/03-attachments.patch": "7140b7662179344c8c35249fb9b388156076a10261a99e3bec1641157d93add0",
+    "tests/rust_preservation/patches/04-child-order.patch": "b17d9a9b9ae87bca610325c99e21df708503229a4f3ddda96b7cf513d4a8ce69",
+    "tests/rust_preservation/patches/05-unknown-content.patch": "d7707cbb09d9ab1ca20eb79ad9b9fbcbcaa2ef9941bfbbfe13af8dd12386b30a",
+    "tests/rust_preservation/patches/06-history-limits.patch": "9e923b69b498921ae337c1f8520d8fb4bf69f54d0a35ef0ab67f239af28c060e",
+    "tests/rust_preservation/patches/07-absent-defaults.patch": "62cd2d16c5aed4e3a8bd086bf687e25ecdd8c01a4529eb39cdc8c76c01371c6b",
+    "tests/rust_preservation/patches/08-edit-times.patch": "bd1fa927f81696cf5b5642d491a762908701ed28f8baa5b3dab22b6a87269807"
+  },
+  "helper_sha256": "c19553b9b73d531e378e6fb8d55405d42f0688aec665e160f93830438e48b012",
+  "oracle": {
+    "rust": {
+      "time_changes": [
+        "KeePassFile/Root/Group=c13e0864ddfa7e4abd4cd946588cf1ce/Entry=fa6acf2f64cefd44a2c563243f7620c8/Times/LastModificationTime"
+      ],
+      "null_spelling_differences": [
+        {
+          "path": "KeePassFile/Root/Group=c13e0864ddfa7e4abd4cd946588cf1ce/EnableAutoType",
+          "before": "Null",
+          "after": "null"
+        },
+        {
+          "path": "KeePassFile/Root/Group=c13e0864ddfa7e4abd4cd946588cf1ce/EnableSearching",
+          "before": "Null",
+          "after": "null"
+        }
+      ]
+    },
+    "official_control": {
+      "time_changes": [
+        "KeePassFile/Root/Group=c13e0864ddfa7e4abd4cd946588cf1ce/Entry=fa6acf2f64cefd44a2c563243f7620c8/Times/LastAccessTime",
+        "KeePassFile/Root/Group=c13e0864ddfa7e4abd4cd946588cf1ce/Entry=fa6acf2f64cefd44a2c563243f7620c8/Times/LastModificationTime",
+        "KeePassFile/Root/Group=c13e0864ddfa7e4abd4cd946588cf1ce/Entry=fa6acf2f64cefd44a2c563243f7620c8/Times/UsageCount"
+      ],
+      "null_spelling_differences": []
+    },
+    "official_reedit": {
+      "time_changes": [
+        "KeePassFile/Root/Group=c13e0864ddfa7e4abd4cd946588cf1ce/Entry=fa6acf2f64cefd44a2c563243f7620c8/Times/LastAccessTime",
+        "KeePassFile/Root/Group=c13e0864ddfa7e4abd4cd946588cf1ce/Entry=fa6acf2f64cefd44a2c563243f7620c8/Times/LastModificationTime",
+        "KeePassFile/Root/Group=c13e0864ddfa7e4abd4cd946588cf1ce/Entry=fa6acf2f64cefd44a2c563243f7620c8/Times/UsageCount"
+      ],
+      "null_spelling_differences": [
+        {
+          "path": "KeePassFile/Root/Group=c13e0864ddfa7e4abd4cd946588cf1ce/EnableAutoType",
+          "before": "null",
+          "after": "Null"
+        },
+        {
+          "path": "KeePassFile/Root/Group=c13e0864ddfa7e4abd4cd946588cf1ce/EnableSearching",
+          "before": "null",
+          "after": "Null"
+        }
+      ]
+    },
+    "strict_zero_diff": false,
+    "note": "Raw oracle reports Null/null spelling differences; no global normalization changed."
+  },
+  "samples": [
+    {
+      "file": "of262-official-base.kdbx",
+      "stage": "official-base",
+      "sha256": "ac31c5d01a38b298e40f2a9542203f5098c9690f4a7d75c1a0706ab399d3a8f7",
+      "summary": {
+        "format": "4.1",
+        "cipher": "aes256-cbc",
+        "kdf": {
+          "name": "aes-kdf",
+          "rounds": 600000
+        },
+        "compressed": true,
+        "inner_stream": "chacha20",
+        "header_hash": "not-applicable",
+        "generator": "KeePass",
+        "groups": 1,
+        "entries": 1,
+        "history_entries": 0,
+        "entries_with_history": 0,
+        "recycle_bin": {
+          "enabled": true,
+          "group_present": false,
+          "entries": 0
+        },
+        "deleted_objects": 0,
+        "custom_icons": 0,
+        "entries_with_tags": 0,
+        "attachments": {
+          "references": 1,
+          "names": [
+            "synthetic.txt"
+          ],
+          "pool_items": 1,
+          "pool_bytes": 20,
+          "pool_protected": 0
+        },
+        "custom_fields": [
+          "SyntheticProtected"
+        ],
+        "protected_custom_fields": [
+          "SyntheticProtected"
+        ],
+        "otp_fields": [],
+        "passkey_fields": [],
+        "keeagent_settings": 0,
+        "meta_custom_data_keys": [],
+        "unknown_elements": []
+      }
+    },
+    {
+      "file": "of262-rust-edit.kdbx",
+      "stage": "rust-edit",
+      "sha256": "d4f19bd2ff4ac6f06777979ae98b17d294e6b3c8c1545104b593781de2c8544c",
+      "summary": {
+        "format": "4.1",
+        "cipher": "aes256-cbc",
+        "kdf": {
+          "name": "aes-kdf",
+          "rounds": 600000
+        },
+        "compressed": true,
+        "inner_stream": "chacha20",
+        "header_hash": "not-applicable",
+        "generator": "KeePass",
+        "groups": 1,
+        "entries": 1,
+        "history_entries": 1,
+        "entries_with_history": 1,
+        "recycle_bin": {
+          "enabled": true,
+          "group_present": false,
+          "entries": 0
+        },
+        "deleted_objects": 0,
+        "custom_icons": 0,
+        "entries_with_tags": 0,
+        "attachments": {
+          "references": 2,
+          "names": [
+            "synthetic.txt"
+          ],
+          "pool_items": 1,
+          "pool_bytes": 20,
+          "pool_protected": 0
+        },
+        "custom_fields": [
+          "SyntheticProtected"
+        ],
+        "protected_custom_fields": [
+          "SyntheticProtected"
+        ],
+        "otp_fields": [],
+        "passkey_fields": [],
+        "keeagent_settings": 0,
+        "meta_custom_data_keys": [],
+        "unknown_elements": []
+      }
+    },
+    {
+      "file": "of262-official-reedit.kdbx",
+      "stage": "official-reedit",
+      "sha256": "a329a63c52e0d6f37a0d01a775f8ebf52caa97f46adb43728bc1ae84c783611d",
+      "summary": {
+        "format": "4.1",
+        "cipher": "aes256-cbc",
+        "kdf": {
+          "name": "aes-kdf",
+          "rounds": 600000
+        },
+        "compressed": true,
+        "inner_stream": "chacha20",
+        "header_hash": "not-applicable",
+        "generator": "KeePass",
+        "groups": 1,
+        "entries": 1,
+        "history_entries": 2,
+        "entries_with_history": 1,
+        "recycle_bin": {
+          "enabled": true,
+          "group_present": false,
+          "entries": 0
+        },
+        "deleted_objects": 0,
+        "custom_icons": 0,
+        "entries_with_tags": 0,
+        "attachments": {
+          "references": 3,
+          "names": [
+            "synthetic.txt"
+          ],
+          "pool_items": 1,
+          "pool_bytes": 20,
+          "pool_protected": 0
+        },
+        "custom_fields": [
+          "SyntheticProtected"
+        ],
+        "protected_custom_fields": [
+          "SyntheticProtected"
+        ],
+        "otp_fields": [],
+        "passkey_fields": [],
+        "keeagent_settings": 0,
+        "meta_custom_data_keys": [],
+        "unknown_elements": []
+      }
+    }
+  ]
+}

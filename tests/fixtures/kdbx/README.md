@@ -10,6 +10,12 @@
 - 回归测试：从仓库根目录执行 python3 -B tests/run_python_tests.py --suite oracle。核对哈希、摘要、参考写入差异、关键字段与保护、损坏拒绝及 CLI 交叉读；领域与规模另执行 --suite domain。固定依赖和各入口的当前测试数见 [oracle 说明](../../kdbx_oracle/README.md)，这里不重复记数。
 - 给 keex 自己的测试（K003 起）用时，以 manifest 里的 `expect` 为准，用 `kdbx_oracle diff` 对比语义。
 
+## 官方 KeePass 2.62 增量
+
+新增 3 份 `of262-*.kdbx`，总计 93 份留存 KDBX；旧 90 份不变。来源与凭据、官方包 SHA-256、脚本/补丁来源摘要、每份文件哈希和 oracle 摘要登记于 [official_keepass_manifest.json](official_keepass_manifest.json)。顺序为官方新建→隔离补丁 Rust 修改 UserName→官方重开并再次修改；仅含中文合成条目、受保护密码/自定义字段、公开文本附件及两次编辑历史，不代表官方全部功能覆盖。
+
+原 oracle 每一腿仍报告两项 `Null`/`null` 三态继承标记的表示差异；没有修改全局比较器，也不宣称严格零差异。官方脚本重开后断言两个设置仍为 nullable 空值，时间/用量变动与官方自编辑控制另列。复现和限制见 [实验说明](../../rust_preservation/README.md)及 [K003 证据](../../../adr/evidence/K003.md)。入口：`python3 -B tests/run_python_tests.py --suite oracle --pattern test_official_keepass.py -v`。生成器拒绝覆盖既有样本或清单；不得刷新旧样本。
+
 ## 4.x 认证负载增量
 
 ~~~sh
