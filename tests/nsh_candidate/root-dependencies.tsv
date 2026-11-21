@@ -1,0 +1,876 @@
+crate	version	license	source	android	ios	web
+adler2	2.0.1	0BSD OR MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+aead	0.6.1	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+aes	0.9.3	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+aes-gcm	0.11.1	Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+aes-kw	0.3.1	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+aho-corasick	1.1.5	Unlicense OR MIT	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+alloc-no-stdlib	2.0.4	BSD-3-Clause	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+alloc-no-stdlib	3.0.0	BSD-3-Clause	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+alloc-stdlib	0.3.0	BSD-3-Clause	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+allocator-api2	0.2.21	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+ambient-authority	0.0.2	Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	possible	possible	no
+android_system_properties	0.1.6	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	no	no
+annotate-snippets	0.12.17	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+anstream	1.0.0	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	no	no	no
+anstyle	1.0.14	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+anstyle-parse	1.0.0	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	no	no	no
+anstyle-query	1.1.5	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	no	no	no
+anstyle-wincon	3.0.11	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	no	no	no
+anyhow	1.0.104	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	no	possible	no
+append-only-vec	0.1.8	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	no	possible	no
+approx	0.5.1	Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	no	no	no
+arc-swap	1.9.3	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+arcstr	1.2.0	Apache-2.0 OR MIT OR Zlib	registry+https://github.com/rust-lang/crates.io-index	no	possible	no
+arraydeque	0.5.1	MIT/Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+arrayref	0.3.9	BSD-2-Clause	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+arrayvec	0.7.8	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+ash	0.38.0+1.3.281	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	no
+async-lock	3.4.2	Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+async-scoped	0.9.0	Apache-2.0/MIT	registry+https://github.com/rust-lang/crates.io-index	no	possible	no
+atomic-waker	1.1.2	Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	no	possible	no
+atomic_refcell	0.1.14	Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	no	no	no
+autocfg	1.5.1	Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+axum	0.8.9	MIT	registry+https://github.com/rust-lang/crates.io-index	no	possible	no
+axum-core	0.5.6	MIT	registry+https://github.com/rust-lang/crates.io-index	no	possible	no
+base-encode	0.3.1	MIT	registry+https://github.com/rust-lang/crates.io-index	no	possible	no
+base16ct	1.0.0	Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+base62	2.2.6	MIT	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+base64	0.22.1	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+base64	0.23.1	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+base64-simd	0.8.0	MIT	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+base64ct	1.8.3	Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+bincode	1.3.3	MIT	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+bindgen	0.72.1	BSD-3-Clause	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+bit-set	0.8.0	Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+bit-set	0.9.1	Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+bit-vec	0.8.0	Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+bit-vec	0.9.1	Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+bitflags	1.3.2	MIT/Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+bitflags	2.13.2	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+blake3	1.8.7	CC0-1.0 OR Apache-2.0 OR Apache-2.0 WITH LLVM-exception	registry+https://github.com/rust-lang/crates.io-index	no	possible	no
+block-buffer	0.10.4	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+block-buffer	0.12.1	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+block-padding	0.4.2	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+block2	0.6.2	MIT	registry+https://github.com/rust-lang/crates.io-index	no	possible	no
+brotli	9.0.0	BSD-3-Clause AND MIT	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+brotli-decompressor	5.0.3	BSD-3-Clause/MIT	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+brotli-decompressor	6.0.1	BSD-3-Clause/MIT	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+bstr	1.13.1	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+bumpalo	3.20.3	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	no	no	possible
+by_address	1.2.1	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	no	no	no
+bytecount	0.6.9	Apache-2.0/MIT	registry+https://github.com/rust-lang/crates.io-index	no	possible	no
+bytemuck	1.25.2	Zlib OR Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+bytemuck_derive	1.12.1	Zlib OR Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+byteorder	1.5.0	Unlicense OR MIT	registry+https://github.com/rust-lang/crates.io-index	no	possible	no
+byteorder-lite	0.1.0	Unlicense OR MIT	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+bytes	1.12.1	MIT	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+cairo-rs	0.22.9	MIT	registry+https://github.com/rust-lang/crates.io-index	no	no	no
+cairo-sys-rs	0.22.9	MIT	registry+https://github.com/rust-lang/crates.io-index	no	no	no
+cap-primitives	4.0.3	Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	possible	possible	no
+cap-std	4.0.3	Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	possible	possible	no
+castaway	0.2.4	MIT	registry+https://github.com/rust-lang/crates.io-index	no	possible	no
+cbc	0.2.1	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+cc	1.8.0	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+cesu8	1.1.0	Apache-2.0/MIT	registry+https://github.com/rust-lang/crates.io-index	possible	no	no
+cexpr	0.6.0	Apache-2.0/MIT	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+cfg-expr	0.20.10	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	no	no	no
+cfg-if	1.0.5	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+cfg_aliases	0.2.2	MIT	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+chacha20	0.10.2	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+chacha20poly1305	0.11.0	Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+chrono	0.4.45	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+cipher	0.5.2	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+clang-sys	1.9.1	Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+clap	4.6.7	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	no	no	no
+clap_builder	4.6.7	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	no	no	no
+clap_derive	4.6.7	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	no	no	no
+clap_lex	1.1.1	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	no	no	no
+cmov	0.5.4	Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+cobs	0.3.0	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	no	possible	no
+codespan-reporting	0.13.1	Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+color_quant	1.1.0	MIT	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+colorchoice	1.0.5	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	no	no	no
+combine	4.6.8	MIT	registry+https://github.com/rust-lang/crates.io-index	possible	no	no
+compact_str	0.10.0	MIT	registry+https://github.com/rust-lang/crates.io-index	no	possible	no
+compact_str	0.9.1	MIT	registry+https://github.com/rust-lang/crates.io-index	no	no	no
+concurrent_lru	0.2.0	MIT	registry+https://github.com/rust-lang/crates.io-index	no	possible	no
+const-oid	0.10.2	Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+const-oid	0.9.6	Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+constant_time_eq	0.4.2	CC0-1.0 OR MIT-0 OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	no	possible	no
+convert_case	0.10.0	MIT	registry+https://github.com/rust-lang/crates.io-index	no	possible	no
+convert_case	0.12.0	MIT	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+core-foundation	0.10.1	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	no	possible	no
+core-foundation-sys	0.8.7	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	no	possible	no
+core_detect	1.0.0	MIT/Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	no	no	no
+core_maths	0.1.1	MIT	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+cow-utils	0.1.3	MIT	registry+https://github.com/rust-lang/crates.io-index	no	possible	no
+cpubits	0.1.1	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+cpufeatures	0.2.17	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	no
+cpufeatures	0.3.1	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	no
+crc32c	0.6.8	Apache-2.0/MIT	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+crc32fast	1.5.2	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+critical-section	1.2.0	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	no	no	no
+crossbeam-channel	0.5.17	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+crossbeam-deque	0.8.8	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+crossbeam-epoch	0.9.21	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+crossbeam-utils	0.8.23	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+crossterm	0.29.0	MIT	registry+https://github.com/rust-lang/crates.io-index	no	no	no
+crossterm_winapi	0.9.1	MIT	registry+https://github.com/rust-lang/crates.io-index	no	no	no
+crunchy	0.2.4	MIT	registry+https://github.com/rust-lang/crates.io-index	no	no	no
+crypto-bigint	0.7.5	Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+crypto-common	0.1.7	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+crypto-common	0.2.2	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+crypto-primes	0.7.2	Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+cshake	0.2.1	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+ctr	0.10.1	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+ctutils	0.4.3	Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+curve25519-dalek	4.1.3	BSD-3-Clause	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+curve25519-dalek	5.0.0	BSD-3-Clause	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+curve25519-dalek-derive	0.1.1	MIT/Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	no	no	no
+darling	0.24.1	MIT	registry+https://github.com/rust-lang/crates.io-index	no	no	no
+darling_core	0.24.1	MIT	registry+https://github.com/rust-lang/crates.io-index	no	no	no
+darling_macro	0.24.1	MIT	registry+https://github.com/rust-lang/crates.io-index	no	no	no
+dashmap	6.2.1	MIT	registry+https://github.com/rust-lang/crates.io-index	no	possible	no
+data-encoding	2.11.1	MIT	registry+https://github.com/rust-lang/crates.io-index	possible	possible	no
+data-url	0.3.2	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+defmt	1.2.0	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	no	no	no
+defmt-macros	1.2.0	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	no	no	no
+defmt-parser	1.1.0	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	no	no	no
+der	0.7.10	Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+der	0.8.2	Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+der_derive	0.8.0	Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+deranged	0.5.9	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	no	no	no
+derive_more	2.1.1	MIT	registry+https://github.com/rust-lang/crates.io-index	no	possible	no
+derive_more-impl	2.1.1	MIT	registry+https://github.com/rust-lang/crates.io-index	no	possible	no
+digest	0.10.7	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+digest	0.11.3	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+dispatch2	0.3.1	Zlib OR Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	no	possible	no
+displaydoc	0.2.7	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+dlib	0.5.3	MIT	registry+https://github.com/rust-lang/crates.io-index	possible	possible	no
+document-features	0.2.12	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+dragonbox_ecma	0.1.12	Apache-2.0 WITH LLVM-exception OR BSL-1.0	registry+https://github.com/rust-lang/crates.io-index	no	possible	no
+dunce	1.0.5	CC0-1.0 OR MIT-0 OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	no	possible	no
+ecdsa	0.17.0	Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+ed25519	2.2.3	Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+ed25519	3.0.0	Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+ed25519-dalek	2.2.0	BSD-3-Clause	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+ed25519-dalek	3.0.0	BSD-3-Clause	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+either	1.19.0	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+elliptic-curve	0.14.1	Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+embedded-io	0.4.0	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	no	possible	no
+embedded-io	0.6.1	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	no	possible	no
+encoding_rs	0.8.44	(Apache-2.0 OR MIT) AND BSD-3-Clause	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+encoding_rs_io	0.1.8	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+endian-type	0.2.0	MIT	registry+https://github.com/rust-lang/crates.io-index	no	possible	no
+env_filter	2.0.0	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	no
+env_logger	0.11.11	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	no	no	no
+equivalent	1.0.3	Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+errno	0.3.14	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	no
+escape-simd	0.1.0	MIT	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+euclid	0.22.14	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+event-listener	5.4.2	Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+event-listener-strategy	0.5.4	Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+example-embed-gpui	0.6.1	Apache-2.0	workspace	no	no	no
+fancy-regex	0.14.0	MIT	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+fancy-regex	0.16.2	MIT	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+fast-glob	1.1.2	MIT	registry+https://github.com/rust-lang/crates.io-index	no	possible	no
+fastrand	2.5.0	Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+fdeflate	0.3.7	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+ff	0.14.0	MIT/Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+fiat-crypto	0.2.9	MIT OR Apache-2.0 OR BSD-1-Clause	registry+https://github.com/rust-lang/crates.io-index	no	no	no
+fiat-crypto	0.3.0	MIT OR Apache-2.0 OR BSD-1-Clause	registry+https://github.com/rust-lang/crates.io-index	no	no	no
+field-offset	0.3.6	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	no	no	no
+filedescriptor	0.8.3	MIT	registry+https://github.com/rust-lang/crates.io-index	no	no	no
+filetime	0.2.29	MIT/Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	no	possible	no
+find-msvc-tools	0.1.14	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+fixedbitset	0.5.7	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	no	possible	no
+flate2	1.1.10	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+float-cmp	0.10.0	MIT	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+float-cmp	0.9.0	MIT	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+fnv	1.0.7	Apache-2.0 / MIT	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+foldhash	0.1.5	Zlib	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+foldhash	0.2.0	Zlib	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+fontconfig-parser	0.5.8	MIT	registry+https://github.com/rust-lang/crates.io-index	no	possible	no
+fontdb	0.23.0	MIT	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+form_urlencoded	1.2.2	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+fs-set-times	0.20.3	Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	possible	possible	no
+fsevent-sys	4.1.0	MIT	registry+https://github.com/rust-lang/crates.io-index	no	no	no
+futf	0.1.5	MIT / Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+futures	0.3.34	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	no	possible	no
+futures-channel	0.3.34	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+futures-core	0.3.34	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+futures-executor	0.3.34	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	no	possible	no
+futures-io	0.3.34	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+futures-macro	0.3.34	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+futures-sink	0.3.34	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+futures-task	0.3.34	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+futures-util	0.3.34	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+gallery-native	0.6.1	Apache-2.0	workspace	no	no	no
+gdk-pixbuf	0.22.0	MIT	registry+https://github.com/rust-lang/crates.io-index	no	no	no
+gdk-pixbuf-sys	0.22.9	MIT	registry+https://github.com/rust-lang/crates.io-index	no	no	no
+gdk4	0.11.5	MIT	registry+https://github.com/rust-lang/crates.io-index	no	no	no
+gdk4-sys	0.11.5	MIT	registry+https://github.com/rust-lang/crates.io-index	no	no	no
+generic-array	0.14.7	MIT	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+getrandom	0.2.17	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+getrandom	0.3.4	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	no
+getrandom	0.4.3	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+ghash	0.6.0	Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+gif	0.14.2	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+gio	0.22.10	MIT	registry+https://github.com/rust-lang/crates.io-index	no	no	no
+gio-sys	0.22.9	MIT	registry+https://github.com/rust-lang/crates.io-index	no	no	no
+gl_generator	0.14.0	Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	no	no	no
+glib	0.22.10	MIT	registry+https://github.com/rust-lang/crates.io-index	no	no	no
+glib-macros	0.22.9	MIT	registry+https://github.com/rust-lang/crates.io-index	no	no	no
+glib-sys	0.22.9	MIT	registry+https://github.com/rust-lang/crates.io-index	no	no	no
+glob	0.3.4	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+globset	0.4.21	Unlicense OR MIT	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+globwalk	0.8.1	MIT	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+glow	0.17.0	MIT OR Apache-2.0 OR Zlib	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+glutin_wgl_sys	0.6.1	Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	no	no	no
+gobject-sys	0.22.9	MIT	registry+https://github.com/rust-lang/crates.io-index	no	no	no
+gpu-allocator	0.28.0	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	no
+gpu-descriptor	0.3.2	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	no
+gpu-descriptor-types	0.2.0	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	no
+granit-parser	1.3.0	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+graphene-rs	0.22.8	MIT	registry+https://github.com/rust-lang/crates.io-index	no	no	no
+graphene-sys	0.22.9	MIT	registry+https://github.com/rust-lang/crates.io-index	no	no	no
+group	0.14.0	MIT/Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+gsk4	0.11.5	MIT	registry+https://github.com/rust-lang/crates.io-index	no	no	no
+gsk4-sys	0.11.5	MIT	registry+https://github.com/rust-lang/crates.io-index	no	no	no
+gstreamer	0.25.4	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	no	no	no
+gstreamer-app	0.25.2	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	no	no	no
+gstreamer-app-sys	0.25.4	MIT	registry+https://github.com/rust-lang/crates.io-index	no	no	no
+gstreamer-audio	0.25.4	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	no	no	no
+gstreamer-audio-sys	0.25.4	MIT	registry+https://github.com/rust-lang/crates.io-index	no	no	no
+gstreamer-base	0.25.4	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	no	no	no
+gstreamer-base-sys	0.25.4	MIT	registry+https://github.com/rust-lang/crates.io-index	no	no	no
+gstreamer-sys	0.25.4	MIT	registry+https://github.com/rust-lang/crates.io-index	no	no	no
+gtk4	0.11.5	MIT	registry+https://github.com/rust-lang/crates.io-index	no	no	no
+gtk4-macros	0.11.5	MIT	registry+https://github.com/rust-lang/crates.io-index	no	no	no
+gtk4-sys	0.11.5	MIT	registry+https://github.com/rust-lang/crates.io-index	no	no	no
+half	2.7.1	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+halfbrown	0.4.0	Apache-2.0/MIT	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+hashbrown	0.14.5	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	no	possible	no
+hashbrown	0.15.5	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+hashbrown	0.16.1	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+hashbrown	0.17.1	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+heck	0.5.0	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	no	possible	no
+hex-simd	0.8.0	MIT	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+hexf-parse	0.2.1	CC0-1.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+hkdf	0.13.0	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+hmac	0.12.1	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	no	no	possible
+hmac	0.13.0	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+hmac-sha1-compact	1.1.8	ISC	registry+https://github.com/rust-lang/crates.io-index	no	possible	no
+html5ever	0.27.0	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+http	1.5.0	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+http-body	1.1.0	MIT	registry+https://github.com/rust-lang/crates.io-index	no	possible	no
+http-body-util	0.1.5	MIT	registry+https://github.com/rust-lang/crates.io-index	no	possible	no
+httparse	1.10.1	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+httpdate	1.0.3	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	no
+hybrid-array	0.4.15	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+hyper	1.12.0	MIT	registry+https://github.com/rust-lang/crates.io-index	no	possible	no
+hyper-util	0.1.21	MIT	registry+https://github.com/rust-lang/crates.io-index	no	possible	no
+iana-time-zone	0.1.65	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	no
+iana-time-zone-haiku	0.1.2	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	no	no	no
+icu_collections	2.3.0	Unicode-3.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+icu_locale_core	2.3.0	Unicode-3.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+icu_locale_fallback	2.3.0	Unicode-3.0	registry+https://github.com/rust-lang/crates.io-index	no	possible	no
+icu_locale_fallback_data	2.3.0	Unicode-3.0	registry+https://github.com/rust-lang/crates.io-index	no	possible	no
+icu_normalizer	2.3.0	Unicode-3.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+icu_normalizer_data	2.3.0	Unicode-3.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+icu_properties	2.3.0	Unicode-3.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+icu_properties_data	2.3.0	Unicode-3.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+icu_provider	2.3.1	Unicode-3.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+icu_segmenter	2.3.0	Unicode-3.0	registry+https://github.com/rust-lang/crates.io-index	no	possible	no
+icu_segmenter_data	2.3.0	Unicode-3.0	registry+https://github.com/rust-lang/crates.io-index	no	possible	no
+ident_case	1.0.1	MIT/Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	no	no	no
+idna	1.1.0	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+idna_adapter	1.2.2	Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+ignore	0.4.34	Unlicense OR MIT	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+image	0.25.10	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	no	no	no
+image-webp	0.2.4	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+imagesize	0.14.0	MIT	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+imagesize	0.15.0	MIT	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+imara-diff	0.2.0	Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+indexmap	2.14.2	Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+indoc	2.0.8	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	no	no	no
+infer	0.22.0	MIT	registry+https://github.com/rust-lang/crates.io-index	no	possible	no
+inotify	0.11.5	ISC	registry+https://github.com/rust-lang/crates.io-index	no	no	no
+inotify-sys	0.1.8	ISC	registry+https://github.com/rust-lang/crates.io-index	no	no	no
+inout	0.2.5	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+instability	0.3.14	MIT	registry+https://github.com/rust-lang/crates.io-index	no	no	no
+io-extras	0.19.0	Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	possible	possible	no
+io-lifetimes	2.0.4	Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	possible	possible	no
+io-lifetimes	3.0.1	Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	possible	possible	no
+ipnet	2.12.2	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	no
+is_terminal_polyfill	1.70.2	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	no	no	no
+itertools	0.11.0	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+itertools	0.13.0	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+itertools	0.14.0	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	no	no	no
+itertools	0.15.0	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	no	possible	no
+itoa	1.0.18	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+javascriptcore6	0.6.0	MIT	registry+https://github.com/rust-lang/crates.io-index	no	no	no
+javascriptcore6-sys	0.6.0	MIT	registry+https://github.com/rust-lang/crates.io-index	no	no	no
+jiff	0.2.38	Unlicense OR MIT	registry+https://github.com/rust-lang/crates.io-index	no	no	no
+jiff-core	0.1.1	Unlicense OR MIT	registry+https://github.com/rust-lang/crates.io-index	no	no	no
+jiff-static	0.2.38	Unlicense OR MIT	registry+https://github.com/rust-lang/crates.io-index	no	no	no
+jni	0.21.1	MIT/Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	no	no
+jni	0.22.4	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	no	no
+jni-macros	0.22.4	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	no	no
+jni-sys	0.3.1	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	no	no
+jni-sys	0.4.1	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	no	no
+jni-sys-macros	0.4.1	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	no	no
+jobserver	0.1.35	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+js-sys	0.3.106	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	no	no	possible
+json-escape-simd	3.1.2	MIT	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+json-strip-comments	3.1.2	Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	no	possible	no
+kasuari	0.4.13	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	no	no	no
+keccak	0.2.2	Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+khronos-egl	6.0.0	MIT/Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	no
+khronos_api	3.1.0	Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	no	no	no
+kqueue	1.2.1	MIT	registry+https://github.com/rust-lang/crates.io-index	no	no	no
+kqueue-sys	1.1.2	MIT	registry+https://github.com/rust-lang/crates.io-index	no	no	no
+kstring	2.0.5	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	no	no	no
+kurbo	0.13.1	Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+lazy-regex	3.6.2	MIT	registry+https://github.com/rust-lang/crates.io-index	no	possible	no
+lazy-regex-proc_macros	3.6.2	MIT	registry+https://github.com/rust-lang/crates.io-index	no	possible	no
+lazy_static	1.5.1	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	no	possible	no
+libc	0.2.190	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+libloading	0.8.9	ISC	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+libm	0.2.16	MIT	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+line-clipping	0.3.8	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	no	no	no
+linux-raw-sys	0.12.1	Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	possible	no	no
+litemap	0.8.3	Unicode-3.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+litrs	1.0.1	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+lock_api	0.4.14	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+log	0.4.34	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+lru	0.18.5	MIT	registry+https://github.com/rust-lang/crates.io-index	no	no	no
+mac	0.1.1	MIT/Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+markdown	1.0.0	MIT	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+markup5ever	0.12.1	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+markup5ever_rcdom	0.3.0	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+matchit	0.8.4	MIT AND BSD-3-Clause	registry+https://github.com/rust-lang/crates.io-index	no	possible	no
+maybe-owned	0.3.4	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	no
+md-5	0.10.6	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	no	no	possible
+md-5	0.11.0	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+memchr	2.8.3	Unlicense OR MIT	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+memmap2	0.9.12	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+memoffset	0.9.1	MIT	registry+https://github.com/rust-lang/crates.io-index	no	no	no
+mime	0.3.17	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	no	possible	no
+minimal-lexical	0.2.1	MIT/Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+miniz_oxide	0.8.9	MIT OR Zlib OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+miniz_oxide	0.9.1	MIT OR Zlib OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+mio	1.2.4	MIT	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+moxcms	0.8.1	BSD-3-Clause OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	no	no	no
+muldiv	1.0.1	MIT	registry+https://github.com/rust-lang/crates.io-index	no	no	no
+multiversion_no_op	1.0.0	Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+naga	29.0.4	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+ndk-sys	0.6.0+11769913	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	no	no
+new_debug_unreachable	1.0.6	MIT	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+nibble_vec	0.1.0	MIT	registry+https://github.com/rust-lang/crates.io-index	no	possible	no
+nix	0.31.3	MIT	registry+https://github.com/rust-lang/crates.io-index	no	no	no
+nodejs-built-in-modules	1.0.0	MIT	registry+https://github.com/rust-lang/crates.io-index	no	possible	no
+nohash-hasher	0.2.0	Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+nom	7.1.3	MIT	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+nom	8.0.0	MIT	registry+https://github.com/rust-lang/crates.io-index	no	possible	no
+nonmax	0.5.5	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	no	possible	no
+normpath	1.5.2	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+notify	8.2.0	CC0-1.0	registry+https://github.com/rust-lang/crates.io-index	no	no	no
+notify-types	2.1.0	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	no	no	no
+nsh-base	0.6.1	Apache-2.0	workspace	possible	possible	possible
+nsh-bundler	0.6.1	Apache-2.0	workspace	no	possible	no
+nsh-cli	0.6.1	Apache-2.0	workspace	no	no	no
+nsh-core	0.6.1	Apache-2.0	workspace	possible	possible	possible
+nsh-dev	0.6.1	Apache-2.0	workspace	no	possible	no
+nsh-engine	0.6.1	Apache-2.0	workspace	possible	possible	possible
+nsh-i18n	0.6.1	Apache-2.0	workspace	possible	possible	possible
+nsh-ios-app	0.6.1	Apache-2.0	workspace	no	possible	no
+nsh-ios-host	0.6.1	Apache-2.0	workspace	no	no	no
+nsh-js	0.6.1	Apache-2.0	workspace	possible	possible	possible
+nsh-linux-app	0.6.1	Apache-2.0	workspace	no	no	no
+nsh-linux-host	0.6.1	Apache-2.0	workspace	no	no	no
+nsh-macos-app	0.6.1	Apache-2.0	workspace	no	no	no
+nsh-macos-host	0.6.1	Apache-2.0	workspace	no	no	no
+nsh-macros	0.6.1	Apache-2.0	workspace	possible	possible	possible
+nsh-package	0.6.1	Apache-2.0	workspace	possible	possible	possible
+nsh-platform-android	0.6.1	Apache-2.0	workspace	possible	no	no
+nsh-platform-apple	0.6.1	Apache-2.0	workspace	no	possible	no
+nsh-platform-ios	0.6.1	Apache-2.0	workspace	no	possible	no
+nsh-platform-linux	0.6.1	Apache-2.0	workspace	no	no	no
+nsh-platform-macos	0.6.1	Apache-2.0	workspace	no	no	no
+nsh-platform-tui	0.6.1	Apache-2.0	workspace	no	no	no
+nsh-platform-web	0.6.1	Apache-2.0	workspace	no	no	possible
+nsh-platform-windows	0.6.1	Apache-2.0	workspace	no	no	no
+nsh-testing	0.6.1	Apache-2.0	workspace	no	possible	no
+nsh-tui-host	0.6.1	Apache-2.0	workspace	no	no	no
+nsh-updater	0.6.1	Apache-2.0	workspace	possible	possible	no
+nsh-windows-app	0.6.1	Apache-2.0	workspace	no	no	no
+nsh-windows-host	0.6.1	Apache-2.0	workspace	no	no	no
+nu-ansi-term	0.50.3	MIT	registry+https://github.com/rust-lang/crates.io-index	no	possible	no
+num-bigint	0.5.1	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	no	possible	no
+num-conv	0.2.2	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	no	no	no
+num-integer	0.1.47	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	no	possible	no
+num-rational	0.4.2	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	no	no	no
+num-traits	0.2.19	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+num_threads	0.1.8	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	no	no	no
+objc2	0.6.5	MIT	registry+https://github.com/rust-lang/crates.io-index	no	possible	no
+objc2-app-kit	0.3.2	Zlib OR Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	no	no	no
+objc2-authentication-services	0.3.2	Zlib OR Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	no	possible	no
+objc2-core-foundation	0.3.2	Zlib OR Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	no	possible	no
+objc2-core-graphics	0.3.2	Zlib OR Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	no	possible	no
+objc2-core-text	0.3.2	Zlib OR Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	no	possible	no
+objc2-encode	4.1.0	MIT	registry+https://github.com/rust-lang/crates.io-index	no	possible	no
+objc2-foundation	0.3.2	MIT	registry+https://github.com/rust-lang/crates.io-index	no	possible	no
+objc2-image-io	0.3.2	Zlib OR Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	no	possible	no
+objc2-io-kit	0.3.2	Zlib OR Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	no	no	no
+objc2-io-surface	0.3.2	Zlib OR Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	no	possible	no
+objc2-metal	0.3.2	Zlib OR Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	no	possible	no
+objc2-quartz-core	0.3.2	Zlib OR Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	no	possible	no
+objc2-ui-kit	0.3.2	Zlib OR Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	no	possible	no
+once_cell	1.21.4	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+once_cell_polyfill	1.70.2	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	no	no	no
+onig	6.5.3	MIT	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+onig_sys	69.9.3	MIT	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+openssl-probe	0.2.2	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	no	no	no
+option-operations	0.6.1	MIT/Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	no	no	no
+ordered-float	5.5.1	MIT	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+outref	0.5.2	MIT	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+oxc	0.153.0	MIT	registry+https://github.com/rust-lang/crates.io-index	no	possible	no
+oxc-browserslist	5.0.1	MIT	registry+https://github.com/rust-lang/crates.io-index	no	possible	no
+oxc_allocator	0.153.0	MIT	registry+https://github.com/rust-lang/crates.io-index	no	possible	no
+oxc_ast	0.153.0	MIT	registry+https://github.com/rust-lang/crates.io-index	no	possible	no
+oxc_ast_macros	0.153.0	MIT	registry+https://github.com/rust-lang/crates.io-index	no	possible	no
+oxc_ast_visit	0.153.0	MIT	registry+https://github.com/rust-lang/crates.io-index	no	possible	no
+oxc_codegen	0.153.0	MIT	registry+https://github.com/rust-lang/crates.io-index	no	possible	no
+oxc_compat	0.153.0	MIT	registry+https://github.com/rust-lang/crates.io-index	no	possible	no
+oxc_data_structures	0.153.0	MIT	registry+https://github.com/rust-lang/crates.io-index	no	possible	no
+oxc_diagnostics	0.153.0	MIT	registry+https://github.com/rust-lang/crates.io-index	no	possible	no
+oxc_ecmascript	0.153.0	MIT	registry+https://github.com/rust-lang/crates.io-index	no	possible	no
+oxc_estree	0.153.0	MIT	registry+https://github.com/rust-lang/crates.io-index	no	possible	no
+oxc_index	5.0.0	MIT	registry+https://github.com/rust-lang/crates.io-index	no	possible	no
+oxc_isolated_declarations	0.153.0	MIT	registry+https://github.com/rust-lang/crates.io-index	no	possible	no
+oxc_mangler	0.153.0	MIT	registry+https://github.com/rust-lang/crates.io-index	no	possible	no
+oxc_minifier	0.153.0	MIT	registry+https://github.com/rust-lang/crates.io-index	no	possible	no
+oxc_parser	0.153.0	MIT	registry+https://github.com/rust-lang/crates.io-index	no	possible	no
+oxc_regular_expression	0.153.0	MIT	registry+https://github.com/rust-lang/crates.io-index	no	possible	no
+oxc_resolver	11.24.3	MIT	registry+https://github.com/rust-lang/crates.io-index	no	possible	no
+oxc_semantic	0.153.0	MIT	registry+https://github.com/rust-lang/crates.io-index	no	possible	no
+oxc_sourcemap	9.0.0	BSD-3-Clause	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+oxc_span	0.153.0	MIT	registry+https://github.com/rust-lang/crates.io-index	no	possible	no
+oxc_str	0.153.0	MIT	registry+https://github.com/rust-lang/crates.io-index	no	possible	no
+oxc_syntax	0.153.0	MIT	registry+https://github.com/rust-lang/crates.io-index	no	possible	no
+oxc_transformer	0.153.0	MIT	registry+https://github.com/rust-lang/crates.io-index	no	possible	no
+oxc_transformer_plugins	0.153.0	MIT	registry+https://github.com/rust-lang/crates.io-index	no	possible	no
+oxc_traverse	0.153.0	MIT	registry+https://github.com/rust-lang/crates.io-index	no	possible	no
+p256	0.14.0	Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+p384	0.14.0	Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+p521	0.14.0	Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+palette	0.7.7	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	no	no	no
+palette_derive	0.7.7	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	no	no	no
+palette_math	0.7.7	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	no	no	no
+pango	0.22.9	MIT	registry+https://github.com/rust-lang/crates.io-index	no	no	no
+pango-sys	0.22.9	MIT	registry+https://github.com/rust-lang/crates.io-index	no	no	no
+pangocairo	0.22.9	MIT	registry+https://github.com/rust-lang/crates.io-index	no	no	no
+pangocairo-sys	0.22.9	MIT	registry+https://github.com/rust-lang/crates.io-index	no	no	no
+parking_lot	0.12.5	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+parking_lot_core	0.9.12	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+pastey	0.2.3	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	no	no	no
+pathdiff	0.2.3	MIT/Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	no	possible	no
+pbkdf2	0.13.0	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+pem-rfc7468	1.0.0	Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+percent-encoding	2.3.2	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+petgraph	0.8.3	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	no	possible	no
+phf	0.11.3	MIT	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+phf	0.14.0	MIT	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+phf_codegen	0.11.3	MIT	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+phf_generator	0.11.3	MIT	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+phf_generator	0.14.0	MIT	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+phf_macros	0.11.3	MIT	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+phf_macros	0.14.0	MIT	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+phf_shared	0.11.3	MIT	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+phf_shared	0.14.0	MIT	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+pico-args	0.5.0	MIT	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+pin-project	1.1.13	Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	no	possible	no
+pin-project-internal	1.1.13	Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	no	possible	no
+pin-project-lite	0.2.17	Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+pkcs1	0.8.0-rc.5	Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+pkcs8	0.10.2	Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+pkcs8	0.11.0	Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+pkg-config	0.3.34	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+plist	1.10.1	MIT	registry+https://github.com/rust-lang/crates.io-index	no	no	no
+png	0.17.16	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+png	0.18.1	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	no	no	no
+pnp	0.12.12	BSD-2-Clause	registry+https://github.com/rust-lang/crates.io-index	no	possible	no
+pollster	0.4.0	Apache-2.0/MIT	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+poly1305	0.9.1	Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+polycool	0.4.0	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+polyval	0.7.3	Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+portable-atomic	1.15.0	Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	no	no	no
+portable-atomic-util	0.2.8	Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	no	no	no
+post-editor-native	0.6.1	Apache-2.0	workspace	no	no	no
+postcard	1.1.3	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	no	possible	no
+potential_utf	0.1.6	Unicode-3.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+powerfmt	0.2.1	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	no	no	no
+ppv-lite86	0.2.21	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	no
+precomputed-hash	0.1.1	MIT	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+presser	0.3.1	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	no
+prettyplease	0.2.37	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+primefield	0.14.0	Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+primeorder	0.14.0	Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+proc-macro-crate	3.5.0	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+proc-macro2	1.0.107	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+profiling	1.0.18	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+pxfm	0.1.30	BSD-3-Clause OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	no	no	no
+quick-error	2.0.1	MIT/Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+quick-xml	0.42.0	MIT	registry+https://github.com/rust-lang/crates.io-index	no	no	no
+quickjs-jit	0.14.2	MIT	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+quickjs-jit-core	0.14.2	MIT	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+quickjs-jit-macro	0.14.2	MIT	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+quickjs-jit-stdlib	0.14.2	Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+quickjs-jit-sys	0.14.2	MIT	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+quote	1.0.47	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+r-efi	5.3.0	MIT OR Apache-2.0 OR LGPL-2.1-or-later	registry+https://github.com/rust-lang/crates.io-index	no	no	no
+r-efi	6.0.0	MIT OR Apache-2.0 OR LGPL-2.1-or-later	registry+https://github.com/rust-lang/crates.io-index	no	no	no
+radix_trie	0.3.0	MIT	registry+https://github.com/rust-lang/crates.io-index	no	possible	no
+rand	0.10.3	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+rand	0.8.8	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+rand	0.9.5	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	no
+rand_chacha	0.9.0	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	no
+rand_core	0.10.1	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+rand_core	0.6.4	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+rand_core	0.9.5	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	no
+range-alloc	0.1.5	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	no	no	no
+ratatui-core	0.1.2	MIT	registry+https://github.com/rust-lang/crates.io-index	no	no	no
+ratatui-crossterm	0.1.2	MIT	registry+https://github.com/rust-lang/crates.io-index	no	no	no
+ratatui-widgets	0.3.2	MIT	registry+https://github.com/rust-lang/crates.io-index	no	no	no
+ratex-font	0.1.15	MIT	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+ratex-layout	0.1.15	MIT	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+ratex-lexer	0.1.15	MIT	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+ratex-parser	0.1.15	MIT	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+ratex-types	0.1.15	MIT	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+raw-window-handle	0.6.2	MIT OR Apache-2.0 OR Zlib	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+raw-window-metal	1.1.0	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	no	possible	no
+rayon	1.12.0	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	no	possible	no
+rayon-core	1.13.0	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	no	possible	no
+redox_syscall	0.5.18	MIT	registry+https://github.com/rust-lang/crates.io-index	no	no	no
+ref-cast	1.0.27	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	no	no	no
+ref-cast-impl	1.0.27	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	no	no	no
+regex	1.13.1	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+regex-automata	0.4.18	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+regex-lite	0.1.9	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+regex-syntax	0.8.11	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+regress	0.12.0	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	no	possible	no
+relative-path	2.0.2	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+renderdoc-sys	1.1.0	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	no
+resvg	0.46.0	Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+rfc6979	0.6.0	Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+rgb	0.8.53	MIT	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+ring	0.17.14	Apache-2.0 AND ISC	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+rolldown	1.2.13	MIT	registry+https://github.com/rust-lang/crates.io-index	no	possible	no
+rolldown-ariadne	0.6.0	MIT	registry+https://github.com/rust-lang/crates.io-index	no	possible	no
+rolldown_common	1.2.13	MIT	registry+https://github.com/rust-lang/crates.io-index	no	possible	no
+rolldown_dev_common	1.2.13	MIT	registry+https://github.com/rust-lang/crates.io-index	no	possible	no
+rolldown_devtools	1.2.13	MIT	registry+https://github.com/rust-lang/crates.io-index	no	possible	no
+rolldown_devtools_action	1.2.13	MIT	registry+https://github.com/rust-lang/crates.io-index	no	possible	no
+rolldown_ecmascript	1.2.13	MIT	registry+https://github.com/rust-lang/crates.io-index	no	possible	no
+rolldown_ecmascript_utils	1.2.13	MIT	registry+https://github.com/rust-lang/crates.io-index	no	possible	no
+rolldown_error	1.2.13	MIT	registry+https://github.com/rust-lang/crates.io-index	no	possible	no
+rolldown_fs	1.2.13	MIT	registry+https://github.com/rust-lang/crates.io-index	no	possible	no
+rolldown_plugin	1.2.13	MIT	registry+https://github.com/rust-lang/crates.io-index	no	possible	no
+rolldown_plugin_asset_module	1.2.13	MIT	registry+https://github.com/rust-lang/crates.io-index	no	possible	no
+rolldown_plugin_chunk_import_map	1.2.13	MIT	registry+https://github.com/rust-lang/crates.io-index	no	possible	no
+rolldown_plugin_copy_module	1.2.13	MIT	registry+https://github.com/rust-lang/crates.io-index	no	possible	no
+rolldown_plugin_data_url	1.2.13	MIT	registry+https://github.com/rust-lang/crates.io-index	no	possible	no
+rolldown_plugin_hmr	1.2.13	MIT	registry+https://github.com/rust-lang/crates.io-index	no	possible	no
+rolldown_plugin_lazy_compilation	1.2.13	MIT	registry+https://github.com/rust-lang/crates.io-index	no	possible	no
+rolldown_plugin_oxc_runtime	1.2.13	MIT	registry+https://github.com/rust-lang/crates.io-index	no	possible	no
+rolldown_plugin_utils	1.2.13	MIT	registry+https://github.com/rust-lang/crates.io-index	no	possible	no
+rolldown_resolver	1.2.13	MIT	registry+https://github.com/rust-lang/crates.io-index	no	possible	no
+rolldown_sourcemap	1.2.13	MIT	registry+https://github.com/rust-lang/crates.io-index	no	possible	no
+rolldown_std_utils	1.2.13	MIT	registry+https://github.com/rust-lang/crates.io-index	no	possible	no
+rolldown_tracing	1.2.13	MIT	registry+https://github.com/rust-lang/crates.io-index	no	possible	no
+rolldown_utils	1.2.13	MIT	registry+https://github.com/rust-lang/crates.io-index	no	possible	no
+ropey	1.6.1	MIT	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+roxmltree	0.20.0	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	no	possible	no
+roxmltree	0.21.1	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+rsa	0.10.0-rc.19	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+rust-exports-native	0.6.1	Apache-2.0	workspace	no	no	no
+rust-i18n	4.2.4	MIT	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+rust-i18n-macro	4.2.4	MIT	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+rust-i18n-support	4.2.4	MIT	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+rustc-hash	1.1.0	Apache-2.0/MIT	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+rustc-hash	2.1.3	Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+rustc_version	0.4.1	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+rustix	1.1.5	Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	possible	possible	no
+rustix-linux-procfs	0.1.1	Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	possible	no	no
+rustls	0.23.45	Apache-2.0 OR ISC OR MIT	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+rustls-native-certs	0.8.5	Apache-2.0 OR ISC OR MIT	registry+https://github.com/rust-lang/crates.io-index	no	no	no
+rustls-pki-types	1.15.1	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+rustls-platform-verifier	0.7.1	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+rustls-platform-verifier-android	0.2.0	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	no	no
+rustls-webpki	0.103.15	ISC	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+rustversion	1.0.23	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+rustybuzz	0.20.1	MIT	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+ryu	1.0.23	Apache-2.0 OR BSL-1.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+same-file	1.0.6	Unlicense/MIT	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+schannel	0.1.30	MIT	registry+https://github.com/rust-lang/crates.io-index	no	no	no
+scopeguard	1.2.0	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+sec1	0.8.1	Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+security-framework	3.7.0	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	no	possible	no
+security-framework-sys	2.17.0	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	no	possible	no
+self_cell	1.3.0	Apache-2.0 OR GPL-2.0-only	registry+https://github.com/rust-lang/crates.io-index	no	possible	no
+semver	1.0.28	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+seq-macro	0.3.6	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	no	possible	no
+serde	1.0.229	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+serde-saphyr	1.3.0	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+serde_core	1.0.229	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+serde_derive	1.0.229	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+serde_ignored	0.1.14	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	no	no	no
+serde_json	1.0.154	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+serde_path_to_error	0.1.20	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	no	no	no
+serde_spanned	0.6.9	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+serde_spanned	1.1.2	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	no	no	no
+serdect	0.4.3	Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+sha1	0.10.7	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+sha1	0.11.0	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+sha2	0.10.9	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+sha2	0.11.1	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+sha3	0.12.0	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+shake	0.1.0	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+sharded-slab	0.1.7	MIT	registry+https://github.com/rust-lang/crates.io-index	no	possible	no
+shlex	1.3.0	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+shlex	2.0.1	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+signal-hook	0.3.18	Apache-2.0/MIT	registry+https://github.com/rust-lang/crates.io-index	no	no	no
+signal-hook-mio	0.2.5	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	no	no	no
+signal-hook-registry	1.4.8	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	no	no	no
+signature	2.2.0	Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+signature	3.0.0	Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+simd-adler32	0.3.10	MIT	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+simd-json	0.18.1	Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+simd_cesu8	1.2.0	Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	possible	no	no
+simdutf8	0.1.5	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+simplecss	0.2.2	Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+siphasher	1.0.4	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+slab	0.4.12	MIT	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+slotmap	1.1.1	Zlib	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+smallvec	1.16.3	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+smawk	0.3.3	MIT	registry+https://github.com/rust-lang/crates.io-index	no	possible	no
+socket2	0.6.5	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	no
+soup3	0.9.0	MIT	registry+https://github.com/rust-lang/crates.io-index	no	no	no
+soup3-sys	0.9.0	MIT	registry+https://github.com/rust-lang/crates.io-index	no	no	no
+spirv	0.4.0+sdk-1.4.341.0	Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+spki	0.7.3	Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+spki	0.8.1	Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+sponge-cursor	0.1.0	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+stable_deref_trait	1.2.1	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+static_assertions	1.1.0	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+str_indices	0.4.4	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+strict-num	0.1.1	MIT	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+string_cache	0.8.9	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+string_cache_codegen	0.5.4	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+string_wizard	1.2.13	MIT	registry+https://github.com/rust-lang/crates.io-index	no	possible	no
+strsim	0.11.1	MIT	registry+https://github.com/rust-lang/crates.io-index	no	no	no
+strum	0.28.0	MIT	registry+https://github.com/rust-lang/crates.io-index	no	no	no
+strum_macros	0.28.0	MIT	registry+https://github.com/rust-lang/crates.io-index	no	no	no
+subtle	2.6.1	BSD-3-Clause	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+sugar_path	3.0.0	MIT	registry+https://github.com/rust-lang/crates.io-index	no	possible	no
+svgtypes	0.16.1	Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+syn	2.0.119	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+syn	3.0.9	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+sync_wrapper	1.0.2	Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	no	possible	no
+synstructure	0.14.0	MIT	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+syntect	5.3.0	MIT	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+system-deps	7.0.8	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	no	no	no
+system-deps	9.0.0	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	no	no	no
+taffy	0.15.0	MIT	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+tar	0.4.46	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	no	no	no
+target-lexicon	0.13.5	Apache-2.0 WITH LLVM-exception	registry+https://github.com/rust-lang/crates.io-index	no	no	no
+tasks-rs	0.6.1	Apache-2.0	workspace	no	no	no
+tendril	0.4.3	MIT/Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+termcolor	1.4.1	Unlicense OR MIT	registry+https://github.com/rust-lang/crates.io-index	no	possible	no
+textwrap	0.16.4	MIT	registry+https://github.com/rust-lang/crates.io-index	no	possible	no
+thiserror	1.0.69	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+thiserror	2.0.21	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+thiserror-impl	1.0.69	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+thiserror-impl	2.0.21	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+thread_local	1.1.10	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	no	possible	no
+time	0.3.55	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	no	no	no
+time-core	0.1.9	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	no	no	no
+time-macros	0.2.32	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	no	no	no
+tiny-skia	0.11.4	BSD-3-Clause	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+tiny-skia-path	0.11.4	BSD-3-Clause	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+tinystr	0.8.4	Unicode-3.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+tinyvec	1.13.3	Zlib OR Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+tokio	1.53.3	MIT	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+tokio-macros	2.7.2	MIT	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+tokio-rustls	0.26.6	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	no
+tokio-tungstenite	0.28.0	MIT	registry+https://github.com/rust-lang/crates.io-index	possible	possible	no
+tokio-tungstenite	0.29.0	MIT	registry+https://github.com/rust-lang/crates.io-index	no	possible	no
+toml	0.8.23	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+toml	1.1.8+spec-1.1.0	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	no	no	no
+toml_datetime	0.6.11	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+toml_datetime	1.1.2+spec-1.1.0	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+toml_edit	0.22.27	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+toml_edit	0.25.17+spec-1.1.0	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+toml_parser	1.1.5+spec-1.1.0	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+toml_write	0.1.2	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+toml_writer	1.1.3+spec-1.1.0	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	no	no	no
+tower	0.5.3	MIT	registry+https://github.com/rust-lang/crates.io-index	no	possible	no
+tower-layer	0.3.3	MIT	registry+https://github.com/rust-lang/crates.io-index	no	possible	no
+tower-service	0.3.3	MIT	registry+https://github.com/rust-lang/crates.io-index	no	possible	no
+tracing	0.1.44	MIT	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+tracing-attributes	0.1.31	MIT	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+tracing-core	0.1.36	MIT	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+tracing-serde	0.2.0	MIT	registry+https://github.com/rust-lang/crates.io-index	no	possible	no
+tracing-subscriber	0.3.23	MIT	registry+https://github.com/rust-lang/crates.io-index	no	possible	no
+triomphe	0.1.17	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+ts-rs	12.0.1	MIT	registry+https://github.com/rust-lang/crates.io-index	no	possible	no
+ts-rs-macros	12.0.1	MIT	registry+https://github.com/rust-lang/crates.io-index	no	possible	no
+ttf-parser	0.25.1	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+tungstenite	0.28.0	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	no
+tungstenite	0.29.0	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	no	possible	no
+tungstenite	0.30.0	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	no	possible	no
+two-face	0.4.5	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	no
+typed-path	0.13.0	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	no	no	no
+typedmap	0.6.0	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	no	possible	no
+typenum	1.20.1	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+unicode-bidi	0.3.18	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+unicode-bidi-mirroring	0.4.0	MIT/Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+unicode-ccc	0.4.0	MIT/Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+unicode-id	0.3.7	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+unicode-id-start	1.5.0	(MIT OR Apache-2.0) AND Unicode-3.0	registry+https://github.com/rust-lang/crates.io-index	no	possible	no
+unicode-ident	1.0.27	(MIT OR Apache-2.0) AND Unicode-3.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+unicode-linebreak	0.1.5	Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+unicode-normalization	0.1.26	(MIT OR Apache-2.0) AND Unicode-3.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+unicode-properties	0.1.5	(MIT OR Apache-2.0) AND Unicode-3.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+unicode-script	0.5.9	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+unicode-segmentation	1.13.3	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+unicode-truncate	2.0.1	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	no	no	no
+unicode-vo	0.1.0	MIT/Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+unicode-width	0.2.2	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+unicode-xid	0.2.6	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	no	possible	no
+universal-hash	0.6.1	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+untrusted	0.9.0	ISC	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+ureq	3.4.2	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+ureq-proto	0.6.4	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+url	2.5.8	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+usvg	0.46.0	Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+utf-8	0.7.6	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+utf8-zero	0.8.1	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+utf8_iter	1.0.4	Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+utf8parse	0.2.2	Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	no	no	no
+uuid	1.28.0	Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	no	possible	no
+valuable	0.1.1	MIT	registry+https://github.com/rust-lang/crates.io-index	no	no	no
+value-trait	0.12.2	Apache-2.0/MIT	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+version-compare	0.2.1	MIT	registry+https://github.com/rust-lang/crates.io-index	no	no	no
+version_check	0.9.5	MIT/Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+vfs	0.13.0	Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	no	possible	no
+vsimd	0.8.0	MIT	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+vte	0.15.0	Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+walkdir	2.5.0	Unlicense/MIT	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+wasi	0.11.1+wasi-snapshot-preview1	Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	no	no	no
+wasip2	1.0.4+wasi-0.2.12	Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	no	no	no
+wasm-bindgen	0.2.129	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	no	no	possible
+wasm-bindgen-futures	0.4.79	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	no	no	possible
+wasm-bindgen-macro	0.2.129	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	no	no	possible
+wasm-bindgen-macro-support	0.2.129	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	no	no	possible
+wasm-bindgen-shared	0.2.129	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	no	no	possible
+wasmparser	0.262.0	Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	no	no	no
+wayland-sys	0.31.11	MIT	registry+https://github.com/rust-lang/crates.io-index	possible	possible	no
+web-sys	0.3.106	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	no	no	possible
+webkit6	0.6.1	MIT	registry+https://github.com/rust-lang/crates.io-index	no	no	no
+webkit6-sys	0.6.0	MIT	registry+https://github.com/rust-lang/crates.io-index	no	no	no
+webpki-root-certs	1.0.11	CDLA-Permissive-2.0	registry+https://github.com/rust-lang/crates.io-index	no	no	possible
+webpki-roots	0.26.11	CDLA-Permissive-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	no
+webpki-roots	1.0.9	CDLA-Permissive-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+webview2-com	0.39.1	MIT	registry+https://github.com/rust-lang/crates.io-index	no	no	no
+webview2-com-macros	0.8.1	MIT	registry+https://github.com/rust-lang/crates.io-index	no	no	no
+webview2-com-sys	0.39.1	MIT	registry+https://github.com/rust-lang/crates.io-index	no	no	no
+weezl	0.1.12	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+wgpu	29.0.4	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+wgpu-core	29.0.4	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+wgpu-core-deps-apple	29.0.4	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	no	possible	no
+wgpu-core-deps-emscripten	29.0.4	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	no	no	no
+wgpu-core-deps-windows-linux-android	29.0.4	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	no	no
+wgpu-hal	29.0.4	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+wgpu-naga-bridge	29.0.4	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+wgpu-types	29.0.4	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+winapi	0.3.9	MIT/Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	no	no	no
+winapi-i686-pc-windows-gnu	0.4.0	MIT/Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	no	no	no
+winapi-util	0.1.11	Unlicense OR MIT	registry+https://github.com/rust-lang/crates.io-index	no	no	no
+winapi-x86_64-pc-windows-gnu	0.4.0	MIT/Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	no	no	no
+windows	0.62.2	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	no	no	no
+windows-collections	0.3.2	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	no	no	no
+windows-core	0.62.2	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	no	no	no
+windows-future	0.3.2	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	no	no	no
+windows-implement	0.60.2	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	no	no	no
+windows-interface	0.59.3	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	no	no	no
+windows-link	0.2.1	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	no	no	no
+windows-numerics	0.3.1	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	no	no	no
+windows-result	0.4.1	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	no	no	no
+windows-strings	0.5.1	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	no	no	no
+windows-sys	0.45.0	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	no	no	no
+windows-sys	0.52.0	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	no	no	no
+windows-sys	0.60.2	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	no	no	no
+windows-sys	0.61.2	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	no	no	no
+windows-targets	0.42.2	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	no	no	no
+windows-targets	0.52.6	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	no	no	no
+windows-targets	0.53.5	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	no	no	no
+windows-threading	0.2.1	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	no	no	no
+windows_aarch64_gnullvm	0.42.2	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	no	no	no
+windows_aarch64_gnullvm	0.52.6	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	no	no	no
+windows_aarch64_gnullvm	0.53.1	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	no	no	no
+windows_aarch64_msvc	0.42.2	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	no	no	no
+windows_aarch64_msvc	0.52.6	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	no	no	no
+windows_aarch64_msvc	0.53.1	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	no	no	no
+windows_i686_gnu	0.42.2	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	no	no	no
+windows_i686_gnu	0.52.6	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	no	no	no
+windows_i686_gnu	0.53.1	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	no	no	no
+windows_i686_gnullvm	0.52.6	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	no	no	no
+windows_i686_gnullvm	0.53.1	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	no	no	no
+windows_i686_msvc	0.42.2	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	no	no	no
+windows_i686_msvc	0.52.6	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	no	no	no
+windows_i686_msvc	0.53.1	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	no	no	no
+windows_x86_64_gnu	0.42.2	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	no	no	no
+windows_x86_64_gnu	0.52.6	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	no	no	no
+windows_x86_64_gnu	0.53.1	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	no	no	no
+windows_x86_64_gnullvm	0.42.2	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	no	no	no
+windows_x86_64_gnullvm	0.52.6	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	no	no	no
+windows_x86_64_gnullvm	0.53.1	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	no	no	no
+windows_x86_64_msvc	0.42.2	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	no	no	no
+windows_x86_64_msvc	0.52.6	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	no	no	no
+windows_x86_64_msvc	0.53.1	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	no	no	no
+winnow	0.7.15	MIT	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+winnow	1.0.4	MIT	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+winx	0.36.4	Apache-2.0 WITH LLVM-exception	registry+https://github.com/rust-lang/crates.io-index	no	no	no
+wit-bindgen	0.57.1	Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	no	no	no
+wnaf	0.14.1	Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+writeable	0.6.4	Unicode-3.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+wuff	0.2.9	MIT	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+x25519-dalek	3.0.0	BSD-3-Clause	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+xml-rs	0.8.29	MIT	registry+https://github.com/rust-lang/crates.io-index	no	no	no
+xml5ever	0.18.1	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+xmlwriter	0.1.0	MIT	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+xtask	0.6.1	Apache-2.0	workspace	no	no	no
+xxhash-rust	0.8.19	BSL-1.0	registry+https://github.com/rust-lang/crates.io-index	no	possible	no
+yansi	1.0.1	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	no	possible	no
+yoke	0.8.3	Unicode-3.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+yoke-derive	0.8.4	Unicode-3.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+zerocopy	0.8.63	BSD-2-Clause OR Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+zerocopy-derive	0.8.63	BSD-2-Clause OR Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+zerofrom	0.1.8	Unicode-3.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+zerofrom-derive	0.1.8	Unicode-3.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+zeroize	1.9.1	Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+zerotrie	0.2.5	Unicode-3.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+zerovec	0.11.8	Unicode-3.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+zerovec-derive	0.11.6	Unicode-3.0	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+zip	9.4.1	MIT	registry+https://github.com/rust-lang/crates.io-index	no	no	no
+zlib-rs	0.6.8	Zlib	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+zmij	1.0.23	MIT	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+zopfli	0.8.4	Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	no	no	no
+zstd	0.14.3	BSD-3-Clause	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+zstd-safe	8.2.0	BSD-3-Clause	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+zstd-sys	2.1.2+zstd.1.5.7	BSD-3-Clause	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+zune-core	0.5.3	MIT OR Apache-2.0 OR Zlib	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible
+zune-jpeg	0.5.15	MIT OR Apache-2.0 OR Zlib	registry+https://github.com/rust-lang/crates.io-index	possible	possible	possible

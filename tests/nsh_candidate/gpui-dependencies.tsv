@@ -1,0 +1,1115 @@
+crate	version	license	source	android	ios	web
+accesskit	0.24.1	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+accesskit_atspi_common	0.19.1	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+accesskit_consumer	0.38.0	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+accesskit_macos	0.26.3	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+accesskit_unix	0.22.1	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+accesskit_windows	0.34.0	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+addr2line	0.25.1	Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+adler2	2.0.1	0BSD OR MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+aead	0.6.1	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+aes	0.8.4	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+aes	0.9.3	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+aes-gcm	0.11.1	Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+aes-kw	0.3.1	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+ahash	0.8.12	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+aho-corasick	1.1.5	Unlicense OR MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+aligned	0.4.3	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+aligned-vec	0.6.4	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+alloc-no-stdlib	2.0.4	BSD-3-Clause	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+alloc-no-stdlib	3.0.0	BSD-3-Clause	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+alloc-stdlib	0.3.0	BSD-3-Clause	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+alloca	0.4.0	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+allocator-api2	0.2.21	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+ambient-authority	0.0.2	Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+android_system_properties	0.1.6	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+anes	0.1.6	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+annotate-snippets	0.12.17	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+anstyle	1.0.14	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+anyhow	1.0.104	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+arbitrary	1.5.0	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+arc-swap	1.9.4	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+arg_enum_proc_macro	0.3.4	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+arraydeque	0.5.1	MIT/Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+arrayref	0.3.9	BSD-2-Clause	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+arrayvec	0.7.8	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+as-raw-xcb-connection	1.0.1	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+as-slice	0.2.1	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+ash	0.38.0+1.3.281	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+ashpd	0.13.13	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+async-broadcast	0.7.2	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+async-channel	2.5.0	Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+async-executor	1.14.0	Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+async-fs	2.2.0	Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+async-io	2.6.0	Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+async-lock	3.4.2	Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+async-net	2.0.0	Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+async-process	2.5.0	Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+async-recursion	1.2.0	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+async-signal	0.2.14	Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+async-task	4.7.1	Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+async-trait	0.1.92	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+atk	0.18.2	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+atk-sys	0.18.2	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+atomic	0.5.3	Apache-2.0/MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+atomic-waker	1.1.2	Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+atomic_refcell	0.1.14	Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+atspi	0.29.0	Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+atspi-common	0.13.0	Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+atspi-proxies	0.13.0	Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+autocfg	1.5.1	Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+av-scenechange	0.14.1	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+av1-grain	0.2.5	BSD-2-Clause	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+avif-serialize	0.8.9	BSD-3-Clause	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+backtrace	0.3.76	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+base16ct	1.0.0	Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+base62	2.2.6	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+base64	0.22.1	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+base64	0.23.1	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+base64-simd	0.8.0	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+base64ct	1.8.3	Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+bincode	1.3.3	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+bindgen	0.72.1	BSD-3-Clause	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+bit-set	0.10.0	Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+bit-set	0.11.1	Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+bit-set	0.8.0	Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+bit-set	0.9.1	Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+bit-vec	0.10.1	Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+bit-vec	0.8.0	Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+bit-vec	0.9.1	Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+bit_field	0.10.3	Apache-2.0/MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+bitflags	1.3.2	MIT/Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+bitflags	2.13.2	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+bitstream-io	4.10.0	MIT/Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+block	0.1.6	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+block-buffer	0.10.4	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+block-buffer	0.12.1	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+block-padding	0.3.3	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+block-padding	0.4.2	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+block2	0.5.1	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+block2	0.6.2	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+blocking	1.7.0	Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+borsh	1.8.1	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+borsh-derive	1.8.1	Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+brotli	9.0.0	BSD-3-Clause AND MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+brotli-decompressor	5.0.3	BSD-3-Clause/MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+brotli-decompressor	6.0.1	BSD-3-Clause/MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+bstr	1.13.1	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+built	0.8.1	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+bumpalo	3.20.3	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+bytecount	0.6.9	Apache-2.0/MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+bytemuck	1.25.2	Zlib OR Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+bytemuck_derive	1.12.1	Zlib OR Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+byteorder	1.5.0	Unlicense OR MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+byteorder-lite	0.1.0	Unlicense OR MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+bytes	1.12.1	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+c-enum	0.2.3	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+cairo-rs	0.18.5	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+cairo-sys-rs	0.18.2	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+calloop	0.14.5	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+calloop-wayland-source	0.4.1	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+cap-primitives	4.0.3	Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+cap-std	4.0.3	Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+cast	0.3.0	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+castaway	0.2.4	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+cbc	0.1.2	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+cbc	0.2.1	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+cbindgen	0.28.0	MPL-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+cc	1.8.0	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+cesu8	1.1.0	Apache-2.0/MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+cexpr	0.6.0	Apache-2.0/MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+cfg-expr	0.15.8	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+cfg-expr	0.20.10	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+cfg-if	1.0.5	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+cfg_aliases	0.2.2	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+chacha20	0.10.2	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+chacha20poly1305	0.11.0	Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+chrono	0.4.45	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+ciborium	0.2.2	Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+ciborium-io	0.2.2	Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+ciborium-ll	0.2.2	Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+cipher	0.4.4	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+cipher	0.5.2	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+clang-sys	1.9.1	Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+clap	4.6.7	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+clap_builder	4.6.7	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+clap_lex	1.1.1	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+cmov	0.5.4	Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+cobs	0.3.0	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+cocoa	0.25.0	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+cocoa-foundation	0.1.2	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+codespan-reporting	0.13.1	Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+color_quant	1.1.0	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+combine	4.6.8	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+compact_str	0.10.0	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+concurrent-queue	2.5.0	Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+console_error_panic_hook	0.1.7	Apache-2.0/MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+const-oid	0.10.2	Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+const-oid	0.9.6	Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+const-random	0.1.18	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+const-random-macro	0.1.16	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+convert_case	0.10.0	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+convert_case	0.11.0	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+convert_case	0.12.0	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+convert_case	0.4.0	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+cookie	0.18.2	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+core-foundation	0.10.1	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+core-foundation	0.9.4	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+core-foundation-sys	0.8.7	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+core-graphics	0.23.2	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+core-graphics	0.24.0	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+core-graphics-helmer-fork	0.24.0	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+core-graphics-types	0.1.3	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+core-graphics-types	0.2.0	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+core-text	21.0.0	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+core_detect	1.0.0	MIT/Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+core_maths	0.1.1	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+cosmic-text	0.19.0	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+cow-utils	0.1.3	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+cpubits	0.1.1	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+cpufeatures	0.2.17	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+cpufeatures	0.3.1	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+crc32c	0.6.8	Apache-2.0/MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+crc32fast	1.5.2	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+criterion	0.8.2	Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+criterion-plot	0.8.2	Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+crossbeam-channel	0.5.17	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+crossbeam-deque	0.8.8	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+crossbeam-epoch	0.9.21	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+crossbeam-queue	0.3.14	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+crossbeam-utils	0.8.23	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+crunchy	0.2.4	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+crypto-bigint	0.7.5	Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+crypto-common	0.1.7	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+crypto-common	0.2.2	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+crypto-primes	0.7.2	Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+cshake	0.2.1	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+cssparser	0.29.6	MPL-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+cssparser-macros	0.6.1	MPL-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+ctor	1.0.13	Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+ctr	0.10.1	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+ctutils	0.4.3	Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+curve25519-dalek	4.1.3	BSD-3-Clause	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+curve25519-dalek	5.0.0	BSD-3-Clause	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+curve25519-dalek-derive	0.1.1	MIT/Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+data-encoding	2.11.1	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+data-url	0.3.2	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+der	0.7.10	Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+der	0.8.2	Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+der_derive	0.8.0	Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+deranged	0.5.9	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+derive_more	0.99.20	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+derive_more	2.1.1	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+derive_more-impl	2.1.1	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+digest	0.10.7	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+digest	0.11.3	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+dirs	5.0.1	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+dirs	6.0.0	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+dirs-sys	0.4.1	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+dirs-sys	0.5.0	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+dispatch	0.2.0	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+dispatch2	0.3.1	Zlib OR Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+displaydoc	0.2.7	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+dlib	0.5.3	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+document-features	0.2.12	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+downcast-rs	1.2.1	MIT/Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+dpi	0.1.2	Apache-2.0 AND MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+dragonbox_ecma	0.1.12	Apache-2.0 WITH LLVM-exception OR BSL-1.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+dtoa	1.0.11	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+dtoa-short	0.3.5	MPL-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+dunce	1.0.5	CC0-1.0 OR MIT-0 OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+dwrote	0.11.5	MPL-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+dyn-clone	1.0.20	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+ecdsa	0.17.0	Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+ed25519	2.2.3	Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+ed25519	3.0.0	Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+ed25519-dalek	2.2.0	BSD-3-Clause	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+ed25519-dalek	3.0.0	BSD-3-Clause	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+either	1.19.0	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+elliptic-curve	0.14.1	Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+embed-resource	3.0.12	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+embedded-io	0.4.0	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+embedded-io	0.6.1	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+encoding_rs	0.8.42	(Apache-2.0 OR MIT) AND BSD-3-Clause	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+encoding_rs_io	0.1.8	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+endi	1.1.1	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+enumflags2	0.7.12	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+enumflags2_derive	0.7.12	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+enumn	0.1.14	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+env_filter	2.0.0	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+equator	0.4.2	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+equator-macro	0.4.2	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+equivalent	1.0.3	Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+errno	0.3.14	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+escape-simd	0.1.0	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+etagere	0.2.15	MIT/Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+euclid	0.22.14	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+event-listener	5.4.2	Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+event-listener-strategy	0.5.4	Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+exr	1.74.2	BSD-3-Clause	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+fancy-regex	0.14.0	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+fancy-regex	0.16.2	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+fastrand	2.5.0	Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+fax	0.2.7	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+fdeflate	0.3.7	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+ff	0.14.0	MIT/Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+fiat-crypto	0.2.9	MIT OR Apache-2.0 OR BSD-1-Clause	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+fiat-crypto	0.3.0	MIT OR Apache-2.0 OR BSD-1-Clause	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+field-offset	0.3.6	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+filedescriptor	0.8.3	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+filetime	0.2.29	MIT/Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+find-msvc-tools	0.1.14	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+fixedbitset	0.5.7	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+flate2	1.1.10	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+float-cmp	0.10.0	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+float-cmp	0.9.0	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+float-ord	0.3.2	MIT / Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+float_next_after	1.0.0	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+flume	0.11.1	Apache-2.0/MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+flume	0.12.0	Apache-2.0/MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+fnv	1.0.7	Apache-2.0 / MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+foldhash	0.1.5	Zlib	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+foldhash	0.2.0	Zlib	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+font-types	0.11.3	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+font-types	0.12.7	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+fontconfig-parser	0.5.8	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+fontdb	0.23.0	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+foreign-types	0.5.0	MIT/Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+foreign-types-macros	0.2.4	MIT/Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+foreign-types-shared	0.3.1	MIT/Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+form_urlencoded	1.2.2	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+freetype-sys	0.20.1	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+fs-set-times	0.20.3	Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+futf	0.1.5	MIT / Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+futures	0.3.34	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+futures-channel	0.3.34	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+futures-concurrency	7.7.1	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+futures-core	0.3.34	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+futures-executor	0.3.34	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+futures-io	0.3.34	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+futures-lite	2.6.1	Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+futures-macro	0.3.34	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+futures-sink	0.3.34	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+futures-task	0.3.34	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+futures-util	0.3.34	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+fxhash	0.2.1	Apache-2.0/MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+gdk	0.18.2	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+gdk-pixbuf	0.18.5	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+gdk-pixbuf-sys	0.18.0	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+gdk-sys	0.18.2	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+gdkx11	0.18.2	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+gdkx11-sys	0.18.2	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+generic-array	0.14.7	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+gethostname	1.1.0	Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+getrandom	0.1.16	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+getrandom	0.2.17	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+getrandom	0.3.4	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+getrandom	0.4.3	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+ghash	0.6.0	Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+gif	0.14.2	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+gimli	0.32.3	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+gio	0.18.4	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+gio-sys	0.18.1	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+gio-sys	0.22.9	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+gl_generator	0.14.0	Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+glib	0.18.5	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+glib	0.22.10	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+glib-macros	0.18.5	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+glib-macros	0.22.9	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+glib-sys	0.18.1	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+glib-sys	0.22.9	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+glob	0.3.4	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+globset	0.4.21	Unlicense OR MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+globwalk	0.8.1	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+glow	0.17.0	MIT OR Apache-2.0 OR Zlib	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+glutin_wgl_sys	0.6.1	Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+gobject-sys	0.18.0	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+gobject-sys	0.22.9	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+gpu-allocator	0.28.0	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+gpu-descriptor	0.3.2	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+gpu-descriptor-types	0.2.0	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+gpui-fast	0.1.16	Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+gpui-fast-apple	0.1.16	Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+gpui-fast-linux	0.1.16	Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+gpui-fast-macos	0.1.16	Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+gpui-fast-macros	0.1.16	Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+gpui-fast-platform	0.1.16	Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+gpui-fast-web	0.1.16	Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+gpui-fast-wgpu	0.1.16	Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+gpui-fast-windows	0.1.16	Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+gpui-pre	0.3.12	Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+gpui-pre-apple	0.3.12	Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+gpui-pre-bench-metrics	0.3.12	Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+gpui-pre-collections	0.3.12	Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+gpui-pre-derive-refineable	0.3.12	Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+gpui-pre-http-client	0.3.12	Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+gpui-pre-ios	0.3.12	Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+gpui-pre-macros	0.3.12	Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+gpui-pre-refineable	0.3.12	Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+gpui-pre-scheduler	0.3.12	Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+gpui-pre-shared-string	0.3.12	Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+gpui-pre-sum-tree	0.3.12	Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+gpui-pre-util	0.3.12	Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+gpui-pre-ztracing	0.3.12	Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+gpui-pre-ztracing-macro	0.3.12	Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+granit-parser	1.3.0	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+group	0.14.0	MIT/Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+gstreamer	0.25.4	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+gstreamer-app	0.25.2	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+gstreamer-app-sys	0.25.4	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+gstreamer-base	0.25.4	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+gstreamer-base-sys	0.25.4	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+gstreamer-sys	0.25.4	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+gstreamer-video	0.25.4	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+gstreamer-video-sys	0.25.4	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+gtk	0.18.2	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+gtk-sys	0.18.2	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+gtk3-macros	0.18.2	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+half	2.7.1	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+halfbrown	0.4.0	Apache-2.0/MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+harfrust	0.5.2	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+hash32	0.3.1	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+hashbrown	0.14.5	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+hashbrown	0.15.5	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+hashbrown	0.16.1	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+hashbrown	0.17.1	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+heapless	0.9.3	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+heck	0.4.1	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+heck	0.5.0	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+hermit-abi	0.5.3	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+hex	0.4.3	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+hex-simd	0.8.0	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+hexf-parse	0.2.1	CC0-1.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+hkdf	0.12.4	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+hkdf	0.13.0	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+hmac	0.12.1	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+hmac	0.13.0	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+hmac-sha1-compact	1.1.8	ISC	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+html5ever	0.27.0	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+html5ever	0.29.1	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+http	1.5.0	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+http-body	1.1.0	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+httparse	1.10.1	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+httpdate	1.0.3	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+hybrid-array	0.4.15	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+iana-time-zone	0.1.65	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+iana-time-zone-haiku	0.1.2	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+icu_collections	2.3.0	Unicode-3.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+icu_locale_core	2.3.0	Unicode-3.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+icu_locale_fallback	2.3.0	Unicode-3.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+icu_locale_fallback_data	2.3.0	Unicode-3.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+icu_normalizer	2.3.0	Unicode-3.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+icu_normalizer_data	2.3.0	Unicode-3.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+icu_properties	2.3.0	Unicode-3.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+icu_properties_data	2.3.0	Unicode-3.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+icu_provider	2.3.1	Unicode-3.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+icu_segmenter	2.3.0	Unicode-3.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+icu_segmenter_data	2.3.0	Unicode-3.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+idna	1.1.0	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+idna_adapter	1.2.2	Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+ignore	0.4.34	Unlicense OR MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+image	0.25.10	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+image-webp	0.2.4	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+imagesize	0.14.0	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+imagesize	0.15.0	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+imara-diff	0.2.0	Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+imgref	1.12.3	CC0-1.0 OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+indexmap	2.14.2	Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+inout	0.1.4	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+inout	0.2.5	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+interpolate_name	0.2.4	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+inventory	0.3.25	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+io-extras	0.19.0	Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+io-lifetimes	2.0.4	Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+io-lifetimes	3.0.1	Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+ipnet	2.12.2	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+is-docker	0.2.0	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+is-wsl	0.4.0	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+itertools	0.11.0	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+itertools	0.13.0	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+itertools	0.14.0	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+itertools	0.15.0	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+itoa	1.0.18	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+javascriptcore-rs	1.1.2	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+javascriptcore-rs-sys	1.1.1	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+jni	0.21.1	MIT/Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+jni	0.22.4	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+jni-macros	0.22.4	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+jni-sys	0.3.1	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+jni-sys	0.4.1	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+jni-sys-macros	0.4.1	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+jobserver	0.1.35	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+js-sys	0.3.106	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+json-escape-simd	3.1.2	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+keccak	0.2.2	Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+khronos-egl	6.0.0	MIT/Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+khronos_api	3.1.0	Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+kstring	2.0.5	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+kuchikiki	0.8.8-speedreader	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+kurbo	0.13.1	Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+lazy_static	1.5.1	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+lb-wry	0.53.3	Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+lebe	0.5.3	BSD-3-Clause	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+libc	0.2.190	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+libfuzzer-sys	0.4.13	(MIT OR Apache-2.0) AND NCSA	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+libloading	0.8.9	ISC	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+libm	0.2.16	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+libredox	0.1.25	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+linebender_resource_handle	0.1.1	Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+link-section	0.19.3	Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+linktime-proc-macro	0.2.3	Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+linux-raw-sys	0.12.1	Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+litemap	0.8.3	Unicode-3.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+litrs	1.0.1	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+lock_api	0.4.14	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+log	0.4.34	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+loop9	0.1.5	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+lyon	1.0.19	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+lyon_algorithms	1.0.21	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+lyon_geom	1.0.19	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+lyon_path	1.0.19	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+lyon_tessellation	1.0.22	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+mac	0.1.1	MIT/Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+mac-notification-sys	0.6.15	MIT/Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+mach2	0.6.0	BSD-2-Clause OR MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+malloc_buf	0.0.6	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+markdown	1.0.0	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+markup5ever	0.12.1	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+markup5ever	0.14.1	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+markup5ever_rcdom	0.3.0	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+match_token	0.1.0	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+matches	0.1.10	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+maybe-owned	0.3.4	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+maybe-rayon	0.1.1	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+md-5	0.10.6	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+md-5	0.11.0	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+memchr	2.8.3	Unlicense OR MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+memmap2	0.9.11	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+memoffset	0.9.1	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+minimal-lexical	0.2.1	MIT/Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+miniz_oxide	0.8.9	MIT OR Zlib OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+miniz_oxide	0.9.1	MIT OR Zlib OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+mio	1.2.4	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+moxcms	0.8.1	BSD-3-Clause OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+muldiv	1.0.1	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+multiversion_no_op	1.0.0	Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+naga	29.0.4	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+naga	30.0.1	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+naga-types	30.0.1	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+nanorand	0.7.0	Zlib	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+ndk	0.9.0	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+ndk-sys	0.6.0+11769913	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+new_debug_unreachable	1.0.6	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+nix	0.31.3	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+no_std_io2	0.9.4	Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+nodrop	0.1.14	MIT/Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+nohash-hasher	0.2.0	Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+nom	7.1.3	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+nom	8.0.0	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+nonmax	0.5.5	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+noop_proc_macro	0.3.0	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+normpath	1.5.2	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+notify-rust	4.18.2	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+nsh-base	0.6.1	Apache-2.0	workspace	not-selected	not-selected	not-selected
+nsh-bundler	0.6.1	Apache-2.0	workspace	not-selected	not-selected	not-selected
+nsh-core	0.6.1	Apache-2.0	workspace	not-selected	not-selected	not-selected
+nsh-dev	0.6.1	Apache-2.0	workspace	not-selected	not-selected	not-selected
+nsh-engine	0.6.1	Apache-2.0	workspace	not-selected	not-selected	not-selected
+nsh-gpui-host	0.6.1	Apache-2.0	workspace	not-selected	not-selected	not-selected
+nsh-i18n	0.6.1	Apache-2.0	workspace	not-selected	not-selected	not-selected
+nsh-js	0.6.1	Apache-2.0	workspace	not-selected	not-selected	not-selected
+nsh-macros	0.6.1	Apache-2.0	workspace	not-selected	not-selected	not-selected
+nsh-package	0.6.1	Apache-2.0	workspace	not-selected	not-selected	not-selected
+nsh-platform-gpui	0.6.1	Apache-2.0	workspace	not-selected	not-selected	not-selected
+nsh-testing	0.6.1	Apache-2.0	workspace	not-selected	not-selected	not-selected
+nsh-updater	0.6.1	Apache-2.0	workspace	not-selected	not-selected	not-selected
+ntapi	0.4.3	Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+num	0.4.3	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+num-bigint	0.4.8	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+num-bigint	0.5.1	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+num-bigint-dig	0.9.1	MIT/Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+num-complex	0.4.6	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+num-conv	0.2.2	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+num-derive	0.4.2	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+num-integer	0.1.47	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+num-iter	0.1.46	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+num-rational	0.4.2	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+num-traits	0.2.19	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+num_cpus	1.17.0	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+num_enum	0.7.6	BSD-3-Clause OR MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+num_enum_derive	0.7.6	BSD-3-Clause OR MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+objc	0.2.7	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+objc-foundation	0.1.1	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+objc-sys	0.3.5	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+objc2	0.5.3	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+objc2	0.6.5	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+objc2-app-kit	0.2.2	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+objc2-app-kit	0.3.2	Zlib OR Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+objc2-core-data	0.2.2	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+objc2-core-foundation	0.3.2	Zlib OR Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+objc2-core-graphics	0.3.2	Zlib OR Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+objc2-core-image	0.2.2	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+objc2-core-text	0.3.2	Zlib OR Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+objc2-core-video	0.3.2	Zlib OR Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+objc2-encode	4.1.0	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+objc2-exception-helper	0.1.1	Zlib OR Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+objc2-foundation	0.2.2	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+objc2-foundation	0.3.2	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+objc2-io-surface	0.3.2	Zlib OR Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+objc2-metal	0.2.2	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+objc2-metal	0.3.2	Zlib OR Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+objc2-quartz-core	0.2.2	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+objc2-quartz-core	0.3.2	Zlib OR Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+objc2-security	0.3.2	Zlib OR Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+objc2-ui-kit	0.3.2	Zlib OR Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+objc2-uniform-type-identifiers	0.3.2	Zlib OR Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+objc2-user-notifications	0.3.2	Zlib OR Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+objc2-web-kit	0.3.2	Zlib OR Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+objc_exception	0.1.2	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+objc_id	0.1.1	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+object	0.37.3	Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+once_cell	1.21.4	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+onig	6.5.3	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+onig_sys	69.9.3	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+oo7	0.6.0	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+oorandom	11.1.5	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+open	5.4.4	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+openssl-probe	0.2.2	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+option-ext	0.2.0	MPL-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+option-operations	0.6.1	MIT/Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+ordered-float	5.5.0	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+ordered-stream	0.2.0	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+outref	0.5.2	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+oxc	0.153.0	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+oxc-browserslist	5.0.1	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+oxc_allocator	0.153.0	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+oxc_ast	0.153.0	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+oxc_ast_macros	0.153.0	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+oxc_ast_visit	0.153.0	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+oxc_codegen	0.153.0	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+oxc_compat	0.153.0	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+oxc_data_structures	0.153.0	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+oxc_diagnostics	0.153.0	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+oxc_ecmascript	0.153.0	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+oxc_estree	0.153.0	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+oxc_index	5.0.0	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+oxc_parser	0.153.0	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+oxc_regular_expression	0.153.0	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+oxc_semantic	0.153.0	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+oxc_sourcemap	9.0.0	BSD-3-Clause	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+oxc_span	0.153.0	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+oxc_str	0.153.0	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+oxc_syntax	0.153.0	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+oxc_transformer	0.153.0	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+oxc_transformer_plugins	0.153.0	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+oxc_traverse	0.153.0	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+p256	0.14.0	Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+p384	0.14.0	Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+p521	0.14.0	Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+page_size	0.6.0	MIT/Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+pango	0.18.3	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+pango-sys	0.18.0	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+parking	2.2.1	Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+parking_lot	0.12.5	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+parking_lot_core	0.9.12	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+paste	1.0.15	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+pastey	0.1.1	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+pastey	0.2.3	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+pathfinder_geometry	0.5.1	MIT/Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+pathfinder_simd	0.5.6	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+pbkdf2	0.12.2	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+pbkdf2	0.13.0	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+pem-rfc7468	1.0.0	Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+percent-encoding	2.3.2	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+perf-event-data	0.1.8	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+perf-event-open-sys2	5.0.6	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+perf-event2	0.7.4	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+phf	0.10.1	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+phf	0.11.3	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+phf	0.13.1	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+phf	0.14.0	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+phf	0.8.0	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+phf_codegen	0.11.3	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+phf_codegen	0.8.0	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+phf_generator	0.10.0	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+phf_generator	0.11.3	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+phf_generator	0.13.1	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+phf_generator	0.14.0	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+phf_generator	0.8.0	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+phf_macros	0.10.0	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+phf_macros	0.11.3	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+phf_macros	0.13.1	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+phf_macros	0.14.0	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+phf_shared	0.10.0	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+phf_shared	0.11.3	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+phf_shared	0.13.1	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+phf_shared	0.14.0	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+phf_shared	0.8.0	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+pico-args	0.5.0	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+pin-project	1.1.13	Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+pin-project-internal	1.1.13	Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+pin-project-lite	0.2.17	Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+piper	0.2.5	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+pkcs1	0.8.0-rc.5	Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+pkcs8	0.10.2	Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+pkcs8	0.11.0	Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+pkg-config	0.3.34	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+plotters	0.3.7	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+plotters-backend	0.3.7	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+plotters-svg	0.3.7	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+png	0.17.16	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+png	0.18.1	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+polling	3.11.0	Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+pollster	0.2.5	Apache-2.0/MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+pollster	0.4.0	Apache-2.0/MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+poly1305	0.9.1	Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+polycool	0.4.0	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+polyval	0.7.3	Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+portable-atomic	1.15.0	Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+portable-atomic-util	0.2.8	Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+postage	0.5.0	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+postcard	1.1.3	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+potential_utf	0.1.6	Unicode-3.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+powerfmt	0.2.1	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+ppv-lite86	0.2.21	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+precomputed-hash	0.1.1	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+presser	0.3.1	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+prettyplease	0.2.37	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+primefield	0.14.0	Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+primeorder	0.14.0	Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+proc-macro-crate	1.3.1	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+proc-macro-crate	2.0.0	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+proc-macro-crate	3.5.0	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+proc-macro-error	1.0.4	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+proc-macro-error-attr	1.0.4	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+proc-macro-hack	0.5.20+deprecated	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+proc-macro2	1.0.107	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+profiling	1.0.18	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+profiling-procmacros	1.0.18	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+proptest	1.12.0	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+proptest-macro	0.6.0	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+pulp	0.22.3	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+pulp-wasm-simd-flag	0.1.1	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+pxfm	0.1.30	BSD-3-Clause OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+qoi	0.4.1	MIT/Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+quick-error	1.2.3	MIT/Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+quick-error	2.0.1	MIT/Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+quick-xml	0.41.0	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+quickjs-jit	0.14.2	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+quickjs-jit-core	0.14.2	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+quickjs-jit-macro	0.14.2	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+quickjs-jit-stdlib	0.14.2	Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+quickjs-jit-sys	0.14.2	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+quote	1.0.47	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+r-efi	5.3.0	MIT OR Apache-2.0 OR LGPL-2.1-or-later	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+r-efi	6.0.0	MIT OR Apache-2.0 OR LGPL-2.1-or-later	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+rand	0.10.3	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+rand	0.7.3	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+rand	0.8.8	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+rand	0.9.5	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+rand_chacha	0.2.2	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+rand_chacha	0.3.1	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+rand_chacha	0.9.0	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+rand_core	0.10.1	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+rand_core	0.5.1	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+rand_core	0.6.4	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+rand_core	0.9.5	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+rand_hc	0.2.0	MIT/Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+rand_pcg	0.2.1	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+rand_xorshift	0.5.0	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+range-alloc	0.1.5	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+rangemap	1.8.0	MIT/Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+ratex-font	0.1.15	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+ratex-layout	0.1.15	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+ratex-lexer	0.1.15	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+ratex-parser	0.1.15	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+ratex-types	0.1.15	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+rav1e	0.8.1	BSD-2-Clause	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+ravif	0.13.0	BSD-3-Clause	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+raw-cpuid	11.6.0	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+raw-window-handle	0.6.2	MIT OR Apache-2.0 OR Zlib	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+raw-window-metal	1.1.0	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+rayon	1.12.0	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+rayon-core	1.13.0	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+read-fonts	0.37.0	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+read-fonts	0.41.0	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+reborrow	0.5.5	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+redox_syscall	0.5.18	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+redox_users	0.4.6	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+redox_users	0.5.3	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+ref-cast	1.0.27	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+ref-cast-impl	1.0.27	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+regex	1.13.1	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+regex-automata	0.4.18	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+regex-lite	0.1.9	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+regex-syntax	0.8.11	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+relative-path	2.0.2	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+renderdoc-sys	1.1.0	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+resvg	0.46.0	Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+rfc6979	0.6.0	Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+rgb	0.8.53	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+ring	0.17.14	Apache-2.0 AND ISC	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+ropey	1.6.1	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+roxmltree	0.20.0	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+roxmltree	0.21.1	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+rsa	0.10.0-rc.19	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+rust-i18n	4.2.4	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+rust-i18n-macro	4.2.4	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+rust-i18n-support	4.2.4	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+rustc-demangle	0.1.28	MIT/Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+rustc-hash	1.1.0	Apache-2.0/MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+rustc-hash	2.1.3	Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+rustc_version	0.4.1	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+rustix	1.1.5	Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+rustix-linux-procfs	0.1.1	Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+rustls	0.23.45	Apache-2.0 OR ISC OR MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+rustls-native-certs	0.8.5	Apache-2.0 OR ISC OR MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+rustls-pki-types	1.15.1	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+rustls-platform-verifier	0.7.1	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+rustls-platform-verifier-android	0.2.0	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+rustls-webpki	0.103.15	ISC	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+rustversion	1.0.23	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+rusty-fork	0.3.1	MIT/Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+rustybuzz	0.20.1	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+ryu	1.0.23	Apache-2.0 OR BSL-1.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+same-file	1.0.6	Unlicense/MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+schannel	0.1.30	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+schemars	1.2.3	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+schemars_derive	1.2.3	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+scoped-tls	1.0.1	MIT/Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+scopeguard	1.2.0	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+screencapturekit	0.2.8	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+screencapturekit-sys	0.2.8	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+seahash	4.1.0	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+sec1	0.8.1	Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+security-framework	3.7.0	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+security-framework-sys	2.17.0	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+selectors	0.24.0	MPL-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+self_cell	1.3.0	Apache-2.0 OR GPL-2.0-only	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+semver	1.0.28	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+seq-macro	0.3.6	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+serde	1.0.229	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+serde-saphyr	1.3.0	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+serde_bytes	0.11.19	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+serde_core	1.0.229	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+serde_derive	1.0.229	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+serde_derive_internals	0.30.0	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+serde_json	1.0.154	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+serde_repr	0.1.21	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+serde_spanned	0.6.9	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+serde_spanned	1.1.2	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+serde_urlencoded	0.7.1	MIT/Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+serdect	0.4.3	Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+servo_arc	0.2.0	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+sha1	0.10.7	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+sha1	0.11.0	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+sha1_smol	1.0.1	BSD-3-Clause	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+sha2	0.10.9	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+sha2	0.11.1	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+sha3	0.12.0	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+shake	0.1.0	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+shlex	1.3.0	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+shlex	2.0.1	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+signal-hook-registry	1.4.8	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+signature	2.2.0	Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+signature	3.0.0	Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+simd-adler32	0.3.10	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+simd-json	0.18.1	Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+simd_cesu8	1.2.0	Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+simd_helpers	0.1.0	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+simdutf8	0.1.5	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+simplecss	0.2.2	Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+siphasher	0.3.11	MIT/Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+siphasher	1.0.4	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+skrifa	0.40.0	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+skrifa	0.44.0	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+slab	0.4.12	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+slotmap	1.1.1	Zlib	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+smallvec	1.16.3	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+smawk	0.3.3	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+smol	2.0.2	Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+smol_str	0.3.6	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+socket2	0.6.5	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+soup3	0.5.0	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+soup3-sys	0.5.0	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+spin	0.10.1	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+spin	0.9.9	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+spirv	0.4.0+sdk-1.4.341.0	Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+spki	0.7.3	Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+spki	0.8.1	Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+sponge-cursor	0.1.0	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+stable_deref_trait	1.2.1	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+static_assertions	1.1.0	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+str_indices	0.4.4	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+strict-num	0.1.1	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+string_cache	0.8.9	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+string_cache_codegen	0.5.4	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+strum	0.28.0	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+strum_macros	0.28.0	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+subtle	2.6.1	BSD-3-Clause	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+svg_fmt	0.4.5	MIT/Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+svgtypes	0.16.1	Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+swash	0.2.10	Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+syn	1.0.109	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+syn	2.0.119	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+syn	3.0.9	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+synstructure	0.14.0	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+syntect	5.3.0	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+sys-locale	0.3.2	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+sysinfo	0.31.4	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+system-deps	6.2.2	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+system-deps	9.0.0	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+taffy	0.15.0	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+tao-core-video-sys	0.2.0	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+tao-macros	0.1.4	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+tar	0.4.46	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+target-lexicon	0.12.16	Apache-2.0 WITH LLVM-exception	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+target-lexicon	0.13.5	Apache-2.0 WITH LLVM-exception	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+tauri-winrt-notification	0.8.1	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+tempfile	3.27.0	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+tendril	0.4.3	MIT/Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+termcolor	1.4.1	Unlicense OR MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+textwrap	0.16.4	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+thiserror	1.0.69	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+thiserror	2.0.21	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+thiserror-impl	1.0.69	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+thiserror-impl	2.0.21	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+tiff	0.11.3	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+time	0.3.55	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+time-core	0.1.9	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+time-macros	0.2.32	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+tiny-keccak	2.0.2	CC0-1.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+tiny-skia	0.11.4	BSD-3-Clause	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+tiny-skia-path	0.11.4	BSD-3-Clause	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+tinystr	0.8.4	Unicode-3.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+tinytemplate	1.2.1	Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+tinyvec	1.13.3	Zlib OR Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+tokio	1.53.3	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+tokio-macros	2.7.2	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+tokio-rustls	0.26.6	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+tokio-tungstenite	0.28.0	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+toml	0.8.23	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+toml	1.1.8+spec-1.1.0	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+toml_datetime	0.6.11	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+toml_datetime	1.1.2+spec-1.1.0	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+toml_edit	0.19.15	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+toml_edit	0.20.7	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+toml_edit	0.22.27	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+toml_edit	0.25.17+spec-1.1.0	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+toml_parser	1.1.5+spec-1.1.0	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+toml_write	0.1.2	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+toml_writer	1.1.3+spec-1.1.0	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+tracing	0.1.44	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+tracing-attributes	0.1.31	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+tracing-core	0.1.36	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+triomphe	0.1.17	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+ttf-parser	0.25.1	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+tungstenite	0.28.0	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+tungstenite	0.30.0	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+two-face	0.4.5	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+typed-path	0.13.0	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+typenum	1.20.1	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+uds_windows	1.2.1	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+unarray	0.1.4	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+unicode-bidi	0.3.18	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+unicode-bidi-mirroring	0.4.0	MIT/Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+unicode-ccc	0.4.0	MIT/Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+unicode-id	0.3.7	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+unicode-id-start	1.5.0	(MIT OR Apache-2.0) AND Unicode-3.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+unicode-ident	1.0.27	(MIT OR Apache-2.0) AND Unicode-3.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+unicode-linebreak	0.1.5	Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+unicode-normalization	0.1.26	(MIT OR Apache-2.0) AND Unicode-3.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+unicode-properties	0.1.3	MIT/Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+unicode-script	0.5.8	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+unicode-segmentation	1.13.3	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+unicode-vo	0.1.0	MIT/Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+unicode-width	0.2.2	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+universal-hash	0.6.1	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+untrusted	0.9.0	ISC	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+ureq	3.4.2	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+ureq-proto	0.6.4	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+url	2.5.8	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+usvg	0.46.0	Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+utf-8	0.7.6	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+utf8-zero	0.8.1	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+utf8_iter	1.0.4	Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+uuid	1.28.0	Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+v_frame	0.3.9	BSD-2-Clause	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+value-trait	0.12.2	Apache-2.0/MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+version-compare	0.2.1	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+version_check	0.9.5	MIT/Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+vsimd	0.8.0	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+vswhom	0.1.0	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+vswhom-sys	0.1.3	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+vte	0.15.0	Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+wait-timeout	0.2.1	MIT/Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+waker-fn	1.2.0	Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+walkdir	2.5.0	Unlicense/MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+wasi	0.11.1+wasi-snapshot-preview1	Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+wasi	0.9.0+wasi-snapshot-preview1	Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+wasip2	1.0.4+wasi-0.2.12	Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+wasm-bindgen	0.2.129	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+wasm-bindgen-futures	0.4.79	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+wasm-bindgen-macro	0.2.129	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+wasm-bindgen-macro-support	0.2.129	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+wasm-bindgen-shared	0.2.129	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+wayland-backend	0.3.17	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+wayland-client	0.31.15	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+wayland-cursor	0.31.14	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+wayland-protocols	0.32.13	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+wayland-protocols-plasma	0.3.12	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+wayland-protocols-wlr	0.3.12	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+wayland-scanner	0.31.11	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+wayland-sys	0.31.11	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+web-sys	0.3.106	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+web-time	1.1.0	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+webkit2gtk	2.0.1	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+webkit2gtk-sys	2.0.1	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+webpki-root-certs	1.0.11	CDLA-Permissive-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+webpki-roots	0.26.11	CDLA-Permissive-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+webpki-roots	1.0.9	CDLA-Permissive-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+webview2-com	0.38.2	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+webview2-com-macros	0.8.1	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+webview2-com-sys	0.38.2	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+weezl	0.1.12	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+wgpu	29.0.4	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+wgpu	30.0.1	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+wgpu-core	29.0.4	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+wgpu-core	30.0.1	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+wgpu-core-deps-apple	29.0.4	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+wgpu-core-deps-apple	30.0.1	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+wgpu-core-deps-emscripten	29.0.4	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+wgpu-core-deps-emscripten	30.0.1	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+wgpu-core-deps-wasm	30.0.1	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+wgpu-core-deps-windows-linux-android	29.0.4	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+wgpu-core-deps-windows-linux-android	30.0.1	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+wgpu-hal	29.0.4	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+wgpu-hal	30.0.1	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+wgpu-naga-bridge	29.0.4	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+wgpu-naga-bridge	30.0.1	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+wgpu-types	29.0.4	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+wgpu-types	30.0.1	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+which	8.0.6	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+winapi	0.3.9	MIT/Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+winapi-i686-pc-windows-gnu	0.4.0	MIT/Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+winapi-util	0.1.11	Unlicense OR MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+winapi-x86_64-pc-windows-gnu	0.4.0	MIT/Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+windows	0.57.0	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+windows	0.61.3	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+windows	0.62.2	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+windows-capture	1.5.0	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+windows-collections	0.2.0	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+windows-collections	0.3.2	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+windows-core	0.57.0	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+windows-core	0.61.2	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+windows-core	0.62.2	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+windows-future	0.2.1	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+windows-future	0.3.2	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+windows-implement	0.57.0	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+windows-implement	0.60.2	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+windows-interface	0.57.0	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+windows-interface	0.59.3	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+windows-link	0.1.3	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+windows-link	0.2.1	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+windows-numerics	0.2.0	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+windows-numerics	0.3.1	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+windows-registry	0.6.1	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+windows-result	0.1.2	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+windows-result	0.3.4	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+windows-result	0.4.1	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+windows-strings	0.4.2	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+windows-strings	0.5.1	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+windows-sys	0.45.0	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+windows-sys	0.48.0	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+windows-sys	0.52.0	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+windows-sys	0.61.2	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+windows-targets	0.42.2	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+windows-targets	0.48.5	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+windows-targets	0.52.6	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+windows-threading	0.1.0	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+windows-threading	0.2.1	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+windows-version	0.1.7	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+windows_aarch64_gnullvm	0.42.2	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+windows_aarch64_gnullvm	0.48.5	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+windows_aarch64_gnullvm	0.52.6	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+windows_aarch64_msvc	0.42.2	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+windows_aarch64_msvc	0.48.5	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+windows_aarch64_msvc	0.52.6	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+windows_i686_gnu	0.42.2	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+windows_i686_gnu	0.48.5	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+windows_i686_gnu	0.52.6	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+windows_i686_gnullvm	0.52.6	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+windows_i686_msvc	0.42.2	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+windows_i686_msvc	0.48.5	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+windows_i686_msvc	0.52.6	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+windows_x86_64_gnu	0.42.2	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+windows_x86_64_gnu	0.48.5	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+windows_x86_64_gnu	0.52.6	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+windows_x86_64_gnullvm	0.42.2	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+windows_x86_64_gnullvm	0.48.5	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+windows_x86_64_gnullvm	0.52.6	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+windows_x86_64_msvc	0.42.2	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+windows_x86_64_msvc	0.48.5	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+windows_x86_64_msvc	0.52.6	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+winnow	0.5.40	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+winnow	0.7.15	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+winnow	1.0.4	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+winreg	0.56.0	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+winx	0.36.4	Apache-2.0 WITH LLVM-exception	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+wio	0.2.2	MIT/Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+wit-bindgen	0.57.1	Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+wnaf	0.14.1	Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+writeable	0.6.4	Unicode-3.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+wuff	0.2.9	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+x11	2.21.0	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+x11-dl	2.21.0	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+x11rb	0.13.2	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+x11rb-protocol	0.13.2	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+x25519-dalek	3.0.0	BSD-3-Clause	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+xcb	1.7.1	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+xcursor	0.3.11	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+xim-ctext	0.3.0	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+xim-parser	0.2.2	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+xkbcommon	0.8.0	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+xkeysym	0.2.1	MIT OR Apache-2.0 OR Zlib	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+xml-rs	0.8.29	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+xml5ever	0.18.1	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+xmlwriter	0.1.0	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+y4m	0.8.0	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+yazi	0.2.1	Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+yeslogic-fontconfig-sys	6.0.1	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+yoke	0.8.3	Unicode-3.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+yoke-derive	0.8.4	Unicode-3.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+zbus	5.19.0	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+zbus-lockstep	0.5.2	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+zbus-lockstep-macros	0.5.2	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+zbus_macros	5.19.0	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+zbus_names	4.3.5	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+zbus_xml	5.2.1	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+zcheapstr	1.1.0	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+zed-font-kit	0.14.1-zed	MIT OR Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+zed-scap	0.0.8-zed	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+zed-xim	0.4.0-zed	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+zeno	0.3.3	Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+zerocopy	0.8.63	BSD-2-Clause OR Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+zerocopy-derive	0.8.63	BSD-2-Clause OR Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+zerofrom	0.1.8	Unicode-3.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+zerofrom-derive	0.1.8	Unicode-3.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+zeroize	1.9.1	Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+zeroize_derive	1.5.0	Apache-2.0 OR MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+zerotrie	0.2.5	Unicode-3.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+zerovec	0.11.8	Unicode-3.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+zerovec-derive	0.11.6	Unicode-3.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+zip	9.4.1	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+zlib-rs	0.6.8	Zlib	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+zmij	1.0.23	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+zopfli	0.8.4	Apache-2.0	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+zstd	0.14.3	BSD-3-Clause	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+zstd-safe	8.2.0	BSD-3-Clause	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+zstd-sys	2.1.2+zstd.1.5.7	BSD-3-Clause	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+zune-core	0.5.3	MIT OR Apache-2.0 OR Zlib	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+zune-inflate	0.2.54	MIT OR Apache-2.0 OR Zlib	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+zune-jpeg	0.5.15	MIT OR Apache-2.0 OR Zlib	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+zvariant	5.15.1	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+zvariant_derive	5.15.1	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected
+zvariant_utils	4.2.0	MIT	registry+https://github.com/rust-lang/crates.io-index	not-selected	not-selected	not-selected

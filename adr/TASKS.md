@@ -18,8 +18,9 @@
 | [K070](evidence/K070.md) | DOING | 补丁版 keepass 编译成 WASM，五个浏览器读改写通过独立核对；一个 Dart 接口下接 FFI 和 Worker，Flutter Web 实测通过；kdbx.dart、kpasslib 进不了浏览器；ManyKee 分支实测会静默改密码，不作 writer | 手机和手机浏览器；Safari 里 Flutter 重建 Worker 的 150 秒停顿；依赖 K003/K069 尚未 DONE |
 | [K071](evidence/K071.md) | DOING | 浏览器探针和驱动；Chrome、Edge、Firefox 与 WebKit 的 Playwright 版全部场景，官方 Safari 跑页面探针；未发现阻塞项 | 授权后写回真实文件（要人点）；官方 Firefox；Safari 的杀进程、下载和隐私模式；真机；依赖 K001/K068 尚未 DONE |
 | [K072](evidence/K072.md) | DOING | WebDAV：能力探针和条件提交，五个浏览器在 Apache、WsgiDAV 和 21 种脚本服务器（1 种正常、20 种异常）上结果一致 | OneDrive 全部（要专用测试账号）；Nextcloud 等真实服务；HTTPS；上传中断的探测；依赖 K001 尚未 DONE |
+| [K090](evidence/K090.md) | DONE | 固定 NSH v0.6.1 完整提交及两个 workspace 依赖许可清单；默认权限/最小空 capabilities 与 grants 输入、禁远程代码交付方案、Storage 非敏感边界、四原生端/Web 资源缺口齐备；Linux CLI/headless 两测试/拒绝反例/wasm32 构建/Web 静态打包通过 | 本任务仅固定候选与构建准备，不代表 GN/writer 或 K001 人工 REVIEW 通过；四原生端运行与视觉/中文底栏宽度留 K091，宿主 grants 接线/NSH_APP_DIR 入口移除/发行关闭验证留 K091/K092，浏览器与 CSP/Worker 留 K093 |
 
-表中 P0/P1/P2 为紧急度，S/M/L 为相对规模，均不是阶段编号或人日承诺。K068–K089 是个人资料/Web 增量，细化见 [专项计划](PERSONAL_VAULT_PLAN.md)；K090–K096 是 [ADR-0008](0008-nsh-unified-clients.md) 的 NSH 迁移与桌面交付任务，当前全部 TODO。
+表中 P0/P1/P2 为紧急度，S/M/L 为相对规模，均不是阶段编号或人日承诺。K068–K089 是个人资料/Web 增量，细化见 [专项计划](PERSONAL_VAULT_PLAN.md)；K090–K096 是 [ADR-0008](0008-nsh-unified-clients.md) 的 NSH 迁移与桌面交付任务，状态以上表为准。
 
 优先级栏写“桌面增强”的 SSH、浏览器扩展、全局自动输入、CLI 等任务继续保留作后续资料，现在不领取。macOS/Windows 资料客户端已进入 K090–K096 与 K089；Linux 仍在范围外，不再把所有桌面工作统一冻结。
 

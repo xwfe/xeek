@@ -4,6 +4,25 @@
 
 ## 交付与接入
 
+### 2026-11-21：Linux x86_64 / CPython 3.12 扩展验证
+
+版本不变，保留所有既有哈希，仅为 PyYAML 6.0.3、charset-normalizer 3.5.2 追加 cp312-cp312 manylinux2014_x86_64/manylinux_2_17_x86_64/manylinux_2_28_x86_64 wheel 哈希。来源分别为 `https://pypi.org/pypi/PyYAML/6.0.3/json`、`https://pypi.org/pypi/charset-normalizer/3.5.2/json` 中对应 filename 的 `digests.sha256`；用 pip `download --only-binary=:all: --no-deps` 实际下载，Python hashlib 对文件字节计算，二者一致：
+
+```text
+pyyaml-6.0.3-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl
+ba1cc08a7ccde2d2ec775841541641e4548226580ab850948cbfda66a1befcdc
+charset_normalizer-3.5.2-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl
+3d31298449090ab8d47b7b1b2a555ff73cac7ed438a08b7ac160980c7ebed649
+```
+
+Ubuntu x86_64 / CPython 3.12.16 使用 README 原命令的 `--require-hashes --only-binary=:all:` 安装成功，输出 `Successfully installed PyYAML-6.0.3 certifi-2026.10.18 charset-normalizer-3.5.2 detect-secrets-1.5.0 idna-3.20 requests-2.34.2 urllib3-2.8.0`。未安装全局包、未放宽 policy；公共包/许可证和替换边界不变。下述 macOS 历史结果保留，不混作 Linux 证据。
+
+首次回归暴露后端锁解析器只接受单个 hash，追加合法 wheel hash 会触发 `DETECTOR_INIT`。最小修正为允许同一固定版本的多个 SHA-256，仍逐项验证 64 位小写十六进制，拒绝空值、畸形、重复 hash 和重复包；版本/来源检查保持。新增一项正常与错误反例回归，不修改 policy。首次新增测试过宽 mock Path.read_text 也影响依赖元数据读取，收窄 mock 后复验。
+
+Linux 上运行 `~/.local/bin/python3.12 -B -m unittest discover -s tests/secret_scan/tests -p 'test_*.py' -v`，rc=0：`Ran 90 tests in 42.002s`、`OK`，无跳过。随后用同一解释器执行 `hooks.py install` 和 `hooks.py status`，均 rc=0、`{"status": "installed"}`；仅本仓库 `.git/hooks/pre-commit`，没有修改 Git 配置，可按 README 撤销。完整暂存树扫描 rc=0、`status=pass`、`finding_count=0`（工具成功枚举值是 pass 而非 ok）；其逐次快照摘要保留在提交回报，不把 installed 等同扫描通过。
+
+首次有效扫描发现八项：五项为 K090 固定公开提交/锁/toolchain 摘要，三项为 test_backend.py 原有公开合成反例因新增测试导致旧文件身份失效。逐项核对前者与上游 commit/sha256sum、后者与原提交反例字节一致后，新增两个精确路径+完整摘要的 HexHighEntropyString 登记并更新该测试文件身份；没有通配豁免或关闭检测器。其余规则仍扫描。
+
 新增 [hooks.py](../../tests/secret_scan/hooks.py) 的 install/status/uninstall，以及 [commit_hook.py](../../tests/secret_scan/commit_hook.py) 的提交入口。复用已提交的固定检测后端、Git 快照和精确登记；没有新增依赖、升级锁文件或修改 policy。操作步骤、错误码和实现边界只维护在[扫描说明](../../tests/secret_scan/README.md)。
 
 初始只读检查确认：普通非 bare 仓库、真实 `.git` 与 hooks 目录，没有生效的 `core.hooksPath` 或既有 pre-commit。实现提交后，本仓库显式安装成功，会话 `11864077-2f88-4ad4-9ee6-8089eb67de25` 返回 `status=installed`；没有改变本机或全局 Git 配置。
