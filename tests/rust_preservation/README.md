@@ -58,4 +58,6 @@ python3 -B tests/rust_preservation/official_roundtrip.py generate --tools "$HOME
 
 严格 oracle 没有被改动：Rust 输出的根组 `EnableAutoType`/`EnableSearching` 为小写 `null`，官方写作 `Null`；每腿两项原始差异完整登记。诊断只识别这两个路径的这两种精确拼写，其余差异仍失败；测试另断言严格比较确实拒绝、漏编辑/空结果/额外改动/错误密码均被拒绝。官方重开时检查两个设置的 `HasValue` 都为 false，不能用这里的有限表示分析宣称整个候选已无损。
 
-`merge_probe.py` 校验原 Cargo.lock 的 keepass 0.15.3 归档，在隔离临时 manifest **仅启用原版 `_merge`**，不应用八补丁，不改变现有依赖/锁/生产 features。读取新登记的官方合成样本，四项诊断覆盖 no-op、同时间当前条目冲突报错、新源无历史时目的旧快照丢失、新源附件不应用。通过表示两个缺陷被复现，不是合并安全通过。补丁与 `_merge` 的联合构建/保存、历史同时间警告与去重、自定义图标和删除/移动仍待验证；写入闸门关闭。
+`merge_probe.py` 校验原 Cargo.lock 的 keepass 0.15.3 归档，在隔离临时 manifest 启用原版 `_merge`，不改变现有依赖/锁/生产 features。四项 Rust 诊断覆盖 no-op、同时间当前条目冲突报错、新源无历史时目的旧快照丢失、新源附件不应用。后两项现已保存为新文件、真实重开并再次另存；6 项 Python 检查用独立 oracle 核对两次输出、完整未修改语义、附件池、精确缺陷路径及空结果/错误密码/无关变更等负控制。
+
+追加 `--preservation` 会在同一隔离副本应用原八补丁、同时启用 save_kdbx4 与 `_merge`，运行 5 项 merge 探针及原 16 项 preservation 测试，再执行上述 oracle。新增探针确认追加历史被 merge 改为倒序并进入保存重开结果。**联合编译能通过，不代表契约兼容；两项旧缺陷仍在。** 原生产 features、补丁文本、包缓存及登记样本均不变；产物只在临时 target 子目录，结束即清理。详细命令、全量 Python 回归的 Linux 阻塞及剩余合并矩阵见 [K003](../../adr/evidence/K003.md)。

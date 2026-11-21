@@ -641,7 +641,7 @@
   "text_exceptions": [
     {
       "path": "adr/evidence/K003.md",
-      "sha256": "de8bc0a54ed55f0859154ae7d31d3d89c1c1340a0481465df9f9e0e0ce37f82f",
+      "sha256": "1878d421865f9b25b685d1abeac9215b5ec899e6ca6bf5060061e662de390fc9",
       "rules": ["IPPublicDetector"],
       "reason": "官方实验记录中的公开 Mono 工具版本号，不是网络地址或凭据。"
     },
