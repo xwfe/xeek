@@ -85,6 +85,34 @@ fn sample_switch_revokes_ticket_and_invalid_selection_is_rejected() {
 }
 
 #[test]
+fn inactive_sessions_cannot_unlock_or_copy_and_errors_are_redacted() {
+    let mut session = VaultSession::new();
+    let ticket = session.begin_unlock();
+    session.accept(&ticket, opened()).unwrap();
+    assert_eq!(
+        session.sensitive_error(ticket.clone()).unwrap_err(),
+        "FIELD_NOT_FOUND"
+    );
+    session.copy_sentinel(ticket.clone()).unwrap();
+    assert_eq!(session.clipboard_status(), "owned");
+    session.set_active(false);
+    assert_eq!(session.clipboard_status(), "empty");
+    assert_eq!(session.check(&ticket).unwrap_err(), "STALE_SESSION");
+    let pending = session.begin_unlock();
+    assert_eq!(session.check(&pending).unwrap_err(), "SESSION_INACTIVE");
+    assert!(session.copy_sentinel(pending).is_err());
+    session.set_active(true);
+    assert!(session.vault.is_none());
+    assert_eq!(session.check(&ticket).unwrap_err(), "STALE_SESSION");
+    assert!(session.arm_barrier("invalid".into()).is_err());
+    session.arm_barrier("read".into()).unwrap();
+    assert!(session.arm_barrier("save".into()).is_err());
+    session.release_barrier();
+    session.arm_barrier("save".into()).unwrap();
+    session.release_barrier();
+}
+
+#[test]
 fn synthetic_scale_measurements() {
     for (count, data, password) in [
         (
