@@ -18,9 +18,24 @@ python3.12 -B tests/nsh_candidate/inventory.py "$HOME/nsh-k090"
 
 上游 toolchain 是滚动 `stable` 而非具体版本。本次 metadata 触发 rustup 将 stable 升为 rustc/cargo 1.100.0；具体输出与锁 SHA-256 已登记。复现优先 `RUSTUP_TOOLCHAIN=1.100.0`（需用户级预装），不冒称 1.99.1 已验证。
 
-## 待主会话执行的构建/测试
+## 构建/测试复现
 
-以下均是**未运行**命令（上游 AGENTS 禁止子代理 build/test/xtask，需主会话接手）。在上游根执行；用实际 keex 路径替换变量：
+以下命令已在固定上游根串行执行通过；用实际 keex 路径替换变量。目录入口由 `crates/nsh-cli/src/entry.rs:14–43` 约定为 `App.tsx`，也可直接传文件路径；`nsh.json` 没有 `entry` 键，已移除首次打包时被忽略的无效键。
+
+Web 编译还需要 clang 和 llvm-ar（上游 `website/docs/web.md:77–79`）；没有系统安装时，可仅在用户目录解包 Ubuntu 包，不用 sudo、不改全局环境。本次使用 clang 14.0.0-1ubuntu1.1：
+
+```sh
+# 在仓库外已有的下载目录执行（例如 $HOME/k090-logs/llvm-debs）。
+apt-get download clang-14 libclang-cpp14 libllvm14 llvm-14 libclang-common-14-dev libclang1-14
+mkdir -p "$HOME/.local/llvm14"
+for deb in ./*.deb; do dpkg -x "$deb" "$HOME/.local/llvm14"; done
+L="$HOME/.local/llvm14"
+export LD_LIBRARY_PATH="$L/usr/lib/x86_64-linux-gnu:$L/usr/lib/llvm-14/lib"
+export CC_wasm32_unknown_unknown="$L/usr/lib/llvm-14/bin/clang"
+export AR_wasm32_unknown_unknown="$L/usr/lib/llvm-14/bin/llvm-ar"
+```
+
+包名/版本依赖 Ubuntu 发行版，以上不是跨发行版 SDK 安装器；本次实际安装/失败/输出摘要见证据。然后在上游根执行：
 
 ```sh
 KEEX=/home/ubuntu/repos/xeek
@@ -32,7 +47,9 @@ cargo build --locked -p nsh-platform-web --target wasm32-unknown-unknown
 ./target/debug/nsh package "$KEEX/tests/nsh_candidate" --target web
 ```
 
-`App.test.tsx` 覆盖正常导航和空态；`Denied.test.tsx` 独立打开 `Denied.tsx`，只认可两次 `ERR_ACCESS_DENIED`，DNS 失败或通用异常不算拒绝通过。反例使用保留的 `.invalid` 域名；权限错误地放行时仍会尝试联网，故仅在隔离的合成测试环境执行。尚无实跑输出，不作安全保证。
+`App.test.tsx` 覆盖正常导航和空态；`Denied.test.tsx` 独立打开 `Denied.tsx`，只认可两次 `ERR_ACCESS_DENIED`，DNS 失败或通用异常不算拒绝通过。两项均实跑通过，反例文本为“已拒绝 / 已拒绝”。反例使用保留的 `.invalid` 域名；权限错误地放行时仍会尝试联网，故仅在隔离的合成测试环境执行。headless 通过不等于原生宿主或浏览器权限验证。
+
+Web 产物位于执行命令的上游 cwd：`.nsh/out/keex 合成实验`（5.5 MB），不在 xeek；打包声明 CSP 需要 `script-src 'self' 'wasm-unsafe-eval'; img-src 'self' blob: data:`。只放行 WASM 编译、不放行一般 `unsafe-eval`，符合 ADR-0008 的候选边界；浏览器实际加载与 CSP enforcement 留 K093。headless 底栏两字文本 frame 仅 16×17，可能受测量替身影响，K091 必须视觉核对，不据此声称排版通过。
 
 ## 最小声明与宿主
 

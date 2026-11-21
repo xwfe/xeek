@@ -3,6 +3,5 @@
   "id": "dev.keex.nshcandidate",
   "version": "0.0.1",
   "build": 1,
-  "entry": "App.tsx",
   "capabilities": {}
 }
