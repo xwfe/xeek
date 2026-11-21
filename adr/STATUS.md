@@ -4,6 +4,8 @@
 
 ## 现在在哪
 
+- **K091 规模桥接：** 1k/10k 固定合成库已接入真实 TSX→Rust 分页/搜索/编辑新副本，三份输出交原 oracle；切库撤销旧 ticket，记录核心/桥接/渲染提交与可观察延迟。仅 Linux-headless，保持 DOING，不计四端，不解禁 writer；见 [K091](evidence/K091.md)。
+
 - **阶段：P0 风险实验。** 仓库里只有方案、HTML 交互原型和合成测试工具；**还没有生产客户端或安全核心，NSH 尚未接入。**
 - **当前路线：** [ADR-0008](0008-nsh-unified-clients.md) 已将 NSH + TSX / Rust 定为 Android/iOS/macOS/Windows 目标，Web 保留独立验收。K090 固定候选/权限/构建清单和 Linux 实跑已收尾；主任务状态见 TASKS，四原生端与浏览器验收尚未完成。K010 依赖 writer 裁决 K009 和迁移裁决 K094/GN，停止扩大 Flutter/ForUI 主 UI，保留旧实验证据。
 - **写入闸门：关闭。** 两个候选写入库 keepass-rs 0.15.3、kdbx.dart 2.5.0 在同一批合成库上都没做到无损，见 [K003 证据](evidence/K003.md)。

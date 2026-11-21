@@ -49,14 +49,18 @@ def verify(before, after, identifier):
         raise ValueError("unexpected semantic changes: " + str(len(changes)))
 
 
-def inputs():
-    manifest = json.loads((FIXTURES / "vault_manifest.json").read_text())
-    sample = next(s for s in manifest["samples"] if s["id"] == "V41-VAULT")
-    stage = next(s for s in sample["stages"] if s["name"] == "edit2")
+def inputs(name="baseline"):
+    identifier = {"baseline": "V41-VAULT", "scale-1000": "M41-SCALE-1000-SMALL",
+                  "scale-10000": "M41-SCALE-10000-SMALL"}[name]
+    manifest = json.loads((FIXTURES / ("vault_manifest.json" if name == "baseline" else "matrix_manifest.json")).read_text())
+    sample = next(s for s in manifest["samples"] if s["id"] == identifier)
+    stage = next(s for s in sample["stages"] if s["name"] == ("edit2" if name == "baseline" else "import"))
     data = (FIXTURES / stage["file"]).read_bytes()
     if hashlib.sha256(data).hexdigest() != stage["sha256"]:
         raise ValueError("fixture digest mismatch")
-    receipt = json.loads((OUT / "receipt.json").read_text())
+    receipt = json.loads((OUT / f"receipt-{name}.json").read_text())
+    if receipt["sample"] != name:
+        raise ValueError("receipt sample mismatch")
     output = (OUT / receipt["copy"]).resolve()
     if output.parent != OUT.resolve() or output.suffix != ".kdbx":
         raise ValueError("invalid copy path")
@@ -73,6 +77,11 @@ class OracleSliceTests(unittest.TestCase):
 
     def test_saved_copy_and_unchanged_semantics(self):
         verify(self.before, self.after, self.identifier)
+
+    def test_scale_copies(self):
+        for name in ("scale-1000", "scale-10000"):
+            with self.subTest(sample=name):
+                verify(*inputs(name))
 
     def test_no_edit_is_not_a_pass(self):
         with self.assertRaises(ValueError):
