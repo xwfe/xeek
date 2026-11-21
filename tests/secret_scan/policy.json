@@ -2,6 +2,24 @@
   "version": 1,
   "approved_files": [
     {
+      "kind": "synthetic-kdbx",
+      "path": "tests/fixtures/kdbx/of262-official-base.kdbx",
+      "reason": "K003 官方 KeePass 合成新建；公开口令、来源和摘要见 official_keepass_manifest.json；不是生产库。",
+      "sha256": "ac31c5d01a38b298e40f2a9542203f5098c9690f4a7d75c1a0706ab399d3a8f7"
+    },
+    {
+      "kind": "synthetic-kdbx",
+      "path": "tests/fixtures/kdbx/of262-rust-edit.kdbx",
+      "reason": "K003 官方合成库经八补丁 Rust 编辑；公开口令、来源和摘要见 official_keepass_manifest.json；写入闸门关闭。",
+      "sha256": "d4f19bd2ff4ac6f06777979ae98b17d294e6b3c8c1545104b593781de2c8544c"
+    },
+    {
+      "kind": "synthetic-kdbx",
+      "path": "tests/fixtures/kdbx/of262-official-reedit.kdbx",
+      "reason": "K003 官方客户端重开再编辑的公开合成库；公开口令、来源和摘要见 official_keepass_manifest.json；不是无损批准。",
+      "sha256": "a329a63c52e0d6f37a0d01a775f8ebf52caa97f46adb43728bc1ae84c783611d"
+    },
+    {
       "kind": "design-binary",
       "path": "adr/design/stitch_.zip",
       "reason": "已提交的原始设计素材；与 HEAD 固定字节一致，不执行归档内文件、不作 OCR 或内容解包。",
@@ -621,6 +639,24 @@
     }
   ],
   "text_exceptions": [
+    {
+      "path": "adr/evidence/K003.md",
+      "sha256": "de8bc0a54ed55f0859154ae7d31d3d89c1c1340a0481465df9f9e0e0ce37f82f",
+      "rules": ["IPPublicDetector"],
+      "reason": "官方实验记录中的公开 Mono 工具版本号，不是网络地址或凭据。"
+    },
+    {
+      "path": "tests/fixtures/kdbx/official_keepass_manifest.json",
+      "sha256": "550f50e342765ec5a2db20dd0c59abfca9ccca1124938fe36532e7cd63485ae8",
+      "rules": ["HexHighEntropyString", "Base64HighEntropyString", "KeywordDetector", "IPPublicDetector"],
+      "reason": "已核官网归档哈希、公开合成口令与 UUID、来源摘要及公开工具版本；保留原始差异，不含用户数据。"
+    },
+    {
+      "path": "tests/rust_preservation/official_roundtrip.py",
+      "sha256": "5e6ed5f414c48dcef21cac7e5e9c4879753de895e8a55608449b69642d9c5f29",
+      "rules": ["HexHighEntropyString", "KeywordDetector", "IPPublicDetector"],
+      "reason": "仅固定官网归档哈希、公开合成口令与 Mono 工具版本，生成器拒绝覆盖；不接真实数据。"
+    },
     {
       "path": "adr/design/original-sha256.json",
       "sha256": "8c6a848c36b1555c3165658b6da3bab007be9f984587df60444f08e67f413ffe",

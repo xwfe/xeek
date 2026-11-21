@@ -1,0 +1,46 @@
+public static void Main()
+{
+    string dir = System.Environment.GetEnvironmentVariable("KEEX_OFFICIAL_OUT");
+    if (string.IsNullOrEmpty(dir)) throw new System.Exception("missing synthetic output directory");
+    string mode = System.Environment.GetEnvironmentVariable("KEEX_OFFICIAL_MODE");
+    string output = System.IO.Path.Combine(dir, mode == "create" ? "official-base.kdbx" : mode == "control" ? "official-control.kdbx" : "official-reedit.kdbx");
+    if (System.IO.File.Exists(output)) throw new System.Exception("refusing overwrite");
+    var key = new KeePassLib.Keys.CompositeKey();
+    key.AddUserKey(new KeePassLib.Keys.KcpPassword("keex-synthetic-OFFICIAL-262"));
+    var db = new KeePassLib.PwDatabase();
+    if (mode == "create")
+    {
+        db.New(new KeePassLib.Serialization.IOConnectionInfo { Path = output }, key);
+        db.Name = "keex official synthetic";
+        db.RootGroup.Name = "合成保险柜";
+        var entry = new KeePassLib.PwEntry(true, true);
+        entry.Strings.Set("Title", new KeePassLib.Security.ProtectedString(false, "官方合成登录"));
+        entry.Strings.Set("UserName", new KeePassLib.Security.ProtectedString(false, "synthetic-official-base"));
+        entry.Strings.Set("Password", new KeePassLib.Security.ProtectedString(true, "synthetic-entry-only"));
+        entry.Strings.Set("URL", new KeePassLib.Security.ProtectedString(false, "https://example.invalid/"));
+        entry.Strings.Set("Notes", new KeePassLib.Security.ProtectedString(false, "仅 L0 合成"));
+        entry.Strings.Set("SyntheticProtected", new KeePassLib.Security.ProtectedString(true, "synthetic-custom-only"));
+        entry.Binaries.Set("synthetic.txt", new KeePassLib.Security.ProtectedBinary(false, System.Text.Encoding.UTF8.GetBytes("synthetic-attachment")));
+        entry.QualityCheck = false;
+        db.RootGroup.AddEntry(entry, true);
+    }
+    else if (mode == "edit" || mode == "control")
+    {
+        db.Open(new KeePassLib.Serialization.IOConnectionInfo { Path = System.IO.Path.Combine(dir, mode == "control" ? "official-base.kdbx" : "rust-edit.kdbx") }, key, null);
+        if (db.RootGroup.EnableAutoType.HasValue || db.RootGroup.EnableSearching.HasValue) throw new System.Exception("nullable group settings changed");
+        System.Console.WriteLine("official_null_settings_ok");
+        var entry = db.RootGroup.GetEntries(true).GetAt(0);
+        if (entry.Strings.ReadSafe("UserName") != (mode == "control" ? "synthetic-official-base" : "synthetic-rust-edit")) throw new System.Exception("input edit missing");
+        entry.CreateBackup(db);
+        entry.Strings.Set("UserName", new KeePassLib.Security.ProtectedString(false, "synthetic-official-reedit"));
+        entry.Touch(true, false);
+        db.SaveAs(new KeePassLib.Serialization.IOConnectionInfo { Path = output }, true, null);
+        db.Close();
+        System.Console.WriteLine("official_reopen_reedit_ok");
+        return;
+    }
+    else throw new System.Exception("invalid mode");
+    db.Save(null);
+    db.Close();
+    System.Console.WriteLine("official_create_ok");
+}
