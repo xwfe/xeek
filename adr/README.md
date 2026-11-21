@@ -24,6 +24,8 @@
 | [THREAT_MODEL.md](THREAT_MODEL.md) | K001：要防谁、防到什么程度、锁库语义；功能和文案只能承诺这里写的 |
 | [CAPABILITIES.md](CAPABILITIES.md) | K001：能力六种状态的判定规则，四原生端与 Web 前置条件，Linux/桌面增强另列后续 |
 | [REAL_DATA_RULES.md](REAL_DATA_RULES.md) | K001：什么算真实数据、合成数据怎么造、真实库分级接入、泄露处理 |
+| [云端交接](../docs/CLOUD_HANDOFF.md) | 新克隆入口、可移植基线、目录归属与 K090 接手提示 |
+| [测试与实验索引](../tests/README.md) | 标准库基线、候选/原生/Web 实验及各自环境前提 |
 | [IMPLEMENTATION_PLAN.md](IMPLEMENTATION_PLAN.md) | 阶段、发布门槛、关键依赖与首批行动 |
 | [TASKS.md](TASKS.md) | 任务状态表，以及可独立领取的任务、交付物和验收标准 |
 | [ACCEPTANCE.md](ACCEPTANCE.md) | 兼容性、安全、原生功能、同步与性能测试 |

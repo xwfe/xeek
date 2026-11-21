@@ -34,7 +34,8 @@ def main() -> None:
     assert not re.search(r'\b(?:fetch|XMLHttpRequest|localStorage|sessionStorage)\b', script)
 
     # 校验本次编写的 Markdown 链接；原始导出不参与文档改写规则。
-    documents = [root / 'README.md', root / 'AGENTS.md', *sorted((root / 'adr').glob('*.md')), design / 'README.md']
+    documents = [root / 'README.md', root / 'AGENTS.md', *sorted((root / 'docs').glob('*.md')),
+                 root / 'tests/README.md', *sorted((root / 'adr').glob('*.md')), design / 'README.md']
     checked_links = 0
     for path in documents:
         for target in re.findall(r'\]\(([^)]+)\)', path.read_text()):
