@@ -5,7 +5,7 @@
 ## 现在在哪
 
 - **阶段：P0 风险实验。** 仓库里只有方案、HTML 交互原型和合成测试工具；**还没有生产客户端或安全核心，NSH 尚未接入。**
-- **当前路线：** [ADR-0008](0008-nsh-unified-clients.md) 已将 NSH + TSX / Rust 定为 Android/iOS/macOS/Windows 目标，Web 保留独立验收。K090–K096 全部 TODO；K010 依赖 writer 裁决 K009 和迁移裁决 K094/GN，停止扩大 Flutter/ForUI 主 UI，保留旧实验证据。
+- **当前路线：** [ADR-0008](0008-nsh-unified-clients.md) 已将 NSH + TSX / Rust 定为 Android/iOS/macOS/Windows 目标，Web 保留独立验收。K090 已有固定候选与权限/构建清单，实际构建测试待主会话补跑；主任务状态见 TASKS。K010 依赖 writer 裁决 K009 和迁移裁决 K094/GN，停止扩大 Flutter/ForUI 主 UI，保留旧实验证据。
 - **写入闸门：关闭。** 两个候选写入库 keepass-rs 0.15.3、kdbx.dart 2.5.0 在同一批合成库上都没做到无损，见 [K003 证据](evidence/K003.md)。
 - **K003 最新进展：** [隔离 Rust 补丁](evidence/K003_RUST_PATCH.md)已保留图标双字段、追加完整历史并补齐引用登记/重开重建；已修图标双字段、历史顺序、附件删除/替换的历史引用，按 KeePass/KeePassXC 的顺序先写条目后写子组，原 12 组算法矩阵往返已无差异；模型带不过去的 XML 现在拒绝保存，可能解错受保护值的文件拒绝打开；tracked 编辑按库里的上限裁剪历史，结果与 KeePassXC 对照一致；和 KeePassXC 轮流编辑时补丁库这边没有差异，文件头设置原样保留。本机能验证的保留问题告一段落。原候选保持不变。
 - **K071 最新进展：** [浏览器存储实验](evidence/K071.md)在本机测过的范围内没有发现阻塞项：密文缓存只用 IndexedDB，磁盘写满和杀进程后旧版本都完好。授权后写回真实文件只能人点，还没测。
@@ -29,6 +29,12 @@
 | iOS 仍暂停 | 缺平台组件和可连真机；K008/K092 无证据将阻塞 GN | 保留既有暂停决定与资源缺口，不自动安装或宣称完成；具备执行条件后按原授权范围续接 |
 
 ## 历史记录
+
+### 2026-11-21：K090 固定候选与权限准备
+
+固定 NSH v0.6.1 完整提交，登记主 workspace 875 / GPUI workspace 1114 个 package 的版本和许可表达式，提供最小五导航合成 TSX、空 capabilities/grants 输入与拒绝反例。源码证实未配置 capabilities 保留 legacy 宽权限；stock 桌面 release 仍有 NSH_APP_DIR 入口，发行受控宿主需另验。四原生端与 Web 缺口见 [K090](evidence/K090.md)。
+
+本批子代理按上游约束未 build/test NSH，CLI/wasm/反例待主会话执行，视觉未验证；Linux 秘密扫描依赖因 PyYAML wheel 哈希不符未能按锁安装，未绕过。K090 不标 DONE，原有 REVIEW、iOS 暂停、GN/writer 门槛保持。
 
 以下按时间倒序保留各批原始记录，只统一了标题。其中的测试数量、任务状态和“未提交”“未初始化 Git”等描述都是当时的情况，现状以上两节为准。
 
