@@ -71,6 +71,37 @@ open "$HOME/k091-apple-out/macos/keex 合成实验.app"
 - 模拟器与 Mac 共用文件系统，所以模拟器里的“另存新副本”直接写进本仓库的 `rust/target/outputs`。真机没有这个路径，不能据此认为真机可保存。
 - `NSH_APP_DIR` 指向外部资源目录时，打包出的 macOS runner 会加载该目录的界面与 capabilities 而不是包内资源（已实测生效）；不要把这个包当作已封闭的发行宿主。
 
+## K091 Android 模拟器切片复现
+
+证据与限制见 [K091_ANDROID](../../adr/evidence/K091_ANDROID.md)。只覆盖 x86_64 模拟器（API 35），不计真机。
+
+需要 Android SDK（build-tools、`platforms;android-35`、NDK、emulator、一个 x86_64 系统镜像）、JDK 和 libclang。NDK r27 不带 libclang，bindgen 要靠 `LIBCLANG_PATH` 找到一份。磁盘至少留 60 GiB；AVD 数据分区要 12 GiB 以上，否则开发宿主 APK 装不进去。
+
+```sh
+export ANDROID_HOME="$HOME/Android/Sdk"
+export PATH="$ANDROID_HOME/platform-tools:$ANDROID_HOME/emulator:$PATH"
+export CARGO_TARGET_DIR="$HOME/nsh-k090/target"
+export LIBCLANG_PATH=<含 libclang.so 的目录>
+emulator -avd <AVD 名> -no-window -no-audio -gpu swiftshader_indirect &
+adb wait-for-device
+
+# 6 项 TSX 测试，真实触摸与按键事件
+"$HOME/nsh-k090/target/debug/nsh" test "$PWD/tests/nsh_candidate" --target android
+
+# 另存副本在开发宿主的私有目录，拉回后交给 oracle
+mkdir -p /tmp/keex-android-out
+for f in $(adb shell run-as com.longbridge.nsh.host find cache/nsh-test -type f | tr -d '\r'); do
+  adb exec-out run-as com.longbridge.nsh.host cat "$f" > "/tmp/keex-android-out/$(basename "$f")"
+done
+KEEX_NSH_OUTPUTS=/tmp/keex-android-out python3.12 -B tests/nsh_candidate/oracle_check.py
+
+# 打包并安装（调试密钥签名，不是发行包）；APK 写到当前目录的 .nsh/out，用完删除，不要入库
+"$HOME/nsh-k090/target/debug/nsh" package "$PWD/tests/nsh_candidate" --target android --abi x86_64 --run
+rm -rf .nsh
+```
+
+打包 APK 不可调试，副本在 `files/nsh/dev.keex.nshcandidate/outputs/`，只能在 `userdebug` 模拟器上用 `adb root` 拉回。
+
 ## 固定输入与许可证复现
 
 上游 `https://github.com/longbridge/nsh`，tag `v0.6.1`，完整提交 `2f51d8611677c8a6bbad937b39756e8d0cc45350`，Apache-2.0。源码与构建产物放仓库外，不复制进本目录。
