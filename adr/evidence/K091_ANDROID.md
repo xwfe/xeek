@@ -130,3 +130,22 @@ BLOCKED：
 ## 8. 证据文件
 
 本机日志在 `~/k090-logs/`：`k091-android-all.log`（6 项测试）、`k091-android-package*.log`、`k091-android-apk-oracle.log`、`android-sdk-install.log`、`emulator.log`；截图在 `~/k090-logs/android-shots/`，关键截图附在 PR。日志和截图不入库。
+
+## 9. 界面重做后的复验（2026-11-22）
+
+实验页按 `adr/design/zh-CN/styles.css` 的深浅两套语义色重做（`theme.ts`、`ui.tsx`、`App.tsx`、`VaultPanel.tsx`）：卡片分组、分段样本选择、主次按钮、条目行、弱化的“实验检查”区。Rust 接口、会话逻辑、测试文件和全部 `testID` 未改；按钮文案改短，状态文本不变。
+
+同一模拟器（API 35，x86_64，调试密钥 APK）上实际运行：
+
+- 人工流程（真实触摸和按键）：基础库解锁、搜索、读取、修改、另存、锁库后旧句柄拒绝；一千条和一万条各自解锁、翻页往返、无匹配搜索、读取、修改、另存、切库旧句柄拒绝。全部通过。
+- 三份副本用 `adb root` 拉回后 `oracle_check.py`：5 项通过。
+- 主机：Rust 5/5，`nsh test` 11/11，主机副本 oracle 5/5，`scripts/check.py` 通过，秘密扫描测试 90 项通过。
+
+第 6 节里本次处理掉的两项（仅在此模拟器上确认）：
+
+- 标题不再与状态栏重叠：标题栏固定在安全区内，内容在其下滚动。软键盘弹出时聚焦的输入框保持可见；底部导航仍被键盘盖住。
+- 无障碍树：按钮为 `android.widget.Button` 并带名称，三个输入框有独立名称（口令、搜索标题、用户名），导航和样本选择暴露选中状态。
+
+另确认：跟随系统深浅色切换；横屏（宽 ≥ 760）切到同顺序侧栏。
+
+没做：改样式后没有重跑 `nsh test --target android`（开发宿主）；TalkBack 实际朗读、大字体、平板、iOS / macOS / Windows 上的新样式均未验证。第 6 节其余各项和第 7 节的 BLOCKED 不变。
