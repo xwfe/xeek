@@ -109,6 +109,10 @@ rm -rf .nsh
 
 保存完整原始 trace 后运行 `~/.local/bin/python3.12 -B tests/nsh_candidate/security_check.py --trace <日志路径>`。Rust 私有哨兵不得出现；公开 TSX 输入负控制必须出现以证明检测有效。**masked Input 的原始 trace 会包含输入值，尚未解决，不能用于真实主密码。** audit pass 不等于 TSX 安全输入通过。未修改 NSH 上游，不承诺 JS 字符串擦除或系统剪贴板保证。
 
+## K092 Android 实验宿主
+
+`android_host/` 是实验，不是生产宿主：`KeexActivity.java` 加 `FLAG_SECURE`、加载前传空 grants、进入最近任务时发 `keex.revoke`；清单不声明权限并关闭备份；`build.py` 把 `nsh package` 的产物重新装包（debug 签名）；`probe.py` 在模拟器上逐个系统事件核对是否撤权。命令、对照结果和限制见 [K092_ANDROID](../../adr/evidence/K092_ANDROID.md)。
+
 ## 固定输入与许可证复现
 
 上游 `https://github.com/longbridge/nsh`，tag `v0.6.1`，完整提交 `2f51d8611677c8a6bbad937b39756e8d0cc45350`，Apache-2.0。源码与构建产物放仓库外，不复制进本目录。

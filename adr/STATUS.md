@@ -4,6 +4,8 @@
 
 ## 现在在哪
 
+- **K092 Android 模拟器切片：** NSH 默认宿主在 API 35 模拟器上进入最近任务不撤权（旧票据仍可读字段），任务卡片露出条目标题；清单带 `INTERNET` 且允许备份。实验宿主加 `FLAG_SECURE`、空 grants、无权限清单、禁备份和 `keex.revoke` 后，同一界面包对照撤权。撤权事件仍经 JS，Kotlin 直调 Rust 未做；开发宿主 13 项自动测试中 1 项因驱动不支持 `setLifecycle` 未验证。仅模拟器、debug 签名，K092 仍 TODO，见 [K092_ANDROID](evidence/K092_ANDROID.md)。
+
 - **K092 独立准备：** Linux-headless 注入生命周期撤销 Rust 会话、确定性交付屏障、私有 MemoryClipboard 版本/到期策略已测；Rust 私有哨兵不进入原始 trace/普通 Storage/输出元数据。但 masked TSX 输入的原始 trace 已复现明文负控制，尚未解决。前置 K091 未完成，K092 仍 TODO，不能标 DONE；四端与签名未验收，见 [K092](evidence/K092.md)。
 
 - **K091 规模桥接：** 1k/10k 固定合成库已接入真实 TSX→Rust 分页/搜索/编辑新副本，三份输出交原 oracle；切库撤销旧 ticket，记录核心/桥接/渲染提交与可观察延迟。仅 Linux-headless，保持 DOING，不计四端，不解禁 writer；见 [K091](evidence/K091.md)。

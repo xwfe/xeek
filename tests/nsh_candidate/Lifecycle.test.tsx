@@ -32,6 +32,17 @@ test("非活动后台唤醒均撤销 Rust 权限且恢复不复活", async () =>
   }
 });
 
+test("宿主撤权事件锁库且保留票据失效", async () => {
+  const app = await unlocked();
+  await app.press("id:read");
+  await app.waitFor("text:单字段已读取");
+  await app.host.send("keex.revoke");
+  await app.waitFor("text:已锁库");
+  expect(app.value("id:field")).toBe("");
+  await app.press("id:probe-retained");
+  await app.waitFor("text:STALE_SESSION");
+});
+
 test("确定性屏障拒绝锁库后解锁读取分页保存复制交付", async () => {
   for (const kind of ["unlock", "read", "page", "save", "copy"]) {
     const app = await unlocked();

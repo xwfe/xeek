@@ -1,4 +1,4 @@
-import { cleanup, effect, lifecycle, Scroll, signal, Text, View, wakeCount } from "nsh";
+import { cleanup, effect, host, lifecycle, Scroll, signal, Text, View, wakeCount } from "nsh";
 import { Input } from "nsh/base";
 import { VaultSession } from "keex/vault";
 import { palette } from "./theme";
@@ -84,6 +84,8 @@ export function VaultPanel(props: { controls?: boolean; onAudit?: (code: string)
     const wake = wakeCount();
     if (wake !== lastWake) { lastWake = wake; lock(); }
   });
+  // 宿主在 lifecycle() 覆盖不到的系统状态（如 Android 最近任务）主动撤权。
+  host.on("keex.revoke", lock);
   cleanup(() => { lock(); session.releaseBarrier(); });
 
   function audit(code: string) { race.set(code); props.onAudit?.(code); }
