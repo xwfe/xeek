@@ -40,7 +40,7 @@ function App() {
             <Text style={{ fontSize: 12, fontWeight: "500", color: palette().accent }}>L0 合成数据</Text>
           </View>
         </View>
-        <Scroll style={{ flex: 1 }}>
+        <Scroll style={{ flex: 1 }} keyboardDismissMode="on-drag" keyboardShouldPersistTaps="handled">
           <View style={{ width: "100%", maxWidth: 680, alignSelf: "center", gap: 12, paddingHorizontal: 16, paddingBottom: "env(keyboard-inset-height)" }}>
             {selected() === 0 && <Text style={{ fontSize: 13, color: palette().muted }}>{summaries[0]}</Text>}
             {selected() === 0 ? <VaultPanel /> : (
