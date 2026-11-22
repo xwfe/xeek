@@ -37,6 +37,40 @@ python3.12 -B tests/nsh_candidate/oracle_check.py
 
 导入 nsh/base 的 Input 会触发 `statusBar` 拒绝告警；已定位为显式 `{}` 生效，不是环境变量/SDK 缺失。不为消除告警扩大能力。模块里的 Rust 代码本身是受信任宿主代码，**不因空 capabilities 自动受文件沙箱约束**，故固定输入与输出目录都在 Rust 限定。
 
+## K091 macOS / iOS 模拟器切片复现
+
+证据、限制与 BLOCKED 见 [K091_APPLE](../../adr/evidence/K091_APPLE.md)。只算 macOS 桌面（ad hoc 包）与 iOS 模拟器；不算 iOS 真机、iPad 或其他端。需要 macOS、Xcode（含 iOS 模拟器运行时）、rustup stable、Python 3.12；不需要开发者账号。先完成上一节到 `cargo test` 为止的准备步骤，再从 xeek 根运行：
+
+```sh
+export PATH=/opt/homebrew/opt/rustup/bin:$PATH RUSTUP_TOOLCHAIN=stable-aarch64-apple-darwin
+export CARGO_TARGET_DIR="$HOME/nsh-k090/target"
+NSH="$HOME/nsh-k090/target/debug/nsh"   # 在 $HOME/nsh-k090 内 cargo build --locked -p nsh-cli；须为 nsh 0.6.1 (2f51d86)
+
+# macOS AppKit 开发宿主跑 6 项 TSX 用例，再核对副本
+"$NSH" test "$PWD/tests/nsh_candidate" --target macos
+python3.12 -B tests/nsh_candidate/oracle_check.py -v
+
+# iOS 模拟器开发宿主（先启动一个模拟器）
+xcrun simctl boot <模拟器 UDID>; open -a Simulator   # xcrun simctl list devices 查 UDID
+"$NSH" test "$PWD/tests/nsh_candidate" --target ios
+python3.12 -B tests/nsh_candidate/oracle_check.py -v
+
+# 打包后人工走流程（release runner，ad hoc 签名）
+"$NSH" package "$PWD/tests/nsh_candidate" --target macos --out "$HOME/k091-apple-out/macos"
+open "$HOME/k091-apple-out/macos/keex 合成实验.app"
+"$NSH" package "$PWD/tests/nsh_candidate" --target ios-simulator --out "$HOME/k091-apple-out/ios-sim" --run
+```
+
+注意：
+
+- 在 `$HOME/nsh-k090` 内运行任何 `rustup`/`cargo` 前先设置 `RUSTUP_TOOLCHAIN`。上游 `rust-toolchain.toml` 是滚动 `stable` 加 iOS/Android 目标，不设置会让 rustup 自动升级全局 stable 并安装这些目标；iOS 构建确实需要 `aarch64-apple-ios-sim`，安装前应先得到确认。
+- iOS 首次构建会在 `$HOME/nsh-k090/target` 新增大量产物；本次曾因磁盘写满报 `No space left on device`，清理该目录的中间产物后通过。
+- `--target ios` 不接受 `open` 的 `width`/`height`；`Vault.test.tsx`、`Scale.test.tsx` 仅在错误码为 `ERR_NSH_TEST_UNSUPPORTED` 时退回设备全屏。
+- 搜索框与字段编辑框关闭了 `autoCapitalize`/`autoCorrect`：iOS 默认会把 `synthetic-nsh-edit` 改写成别的词，oracle 会以 `edit missing` 失败。
+- 口令见 `tests/fixtures/kdbx` 的 manifest（公开合成值）：基础 `keex-synthetic-V41-VAULT`，规模样本 `keex-synthetic-M41-SCALE-<1000|10000>-SMALL`。人工流程每做完一个样本的“保存新副本”都会更新对应 receipt，三份都保存后再跑 oracle；重跑前删除 `rust/target/outputs`。
+- 模拟器与 Mac 共用文件系统，所以模拟器里的“另存新副本”直接写进本仓库的 `rust/target/outputs`。真机没有这个路径，不能据此认为真机可保存。
+- `NSH_APP_DIR` 指向外部资源目录时，打包出的 macOS runner 会加载该目录的界面与 capabilities 而不是包内资源（已实测生效）；不要把这个包当作已封闭的发行宿主。
+
 ## 固定输入与许可证复现
 
 上游 `https://github.com/longbridge/nsh`，tag `v0.6.1`，完整提交 `2f51d8611677c8a6bbad937b39756e8d0cc45350`，Apache-2.0。源码与构建产物放仓库外，不复制进本目录。

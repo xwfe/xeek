@@ -1,7 +1,10 @@
 import { expect, open, test } from "nsh/test";
 
 test("规模样本经 TSX Rust 桥分页搜索编辑并拒绝切库旧票据", async () => {
-  const app = await open("./App.tsx", { width: 1024, height: 1600 });
+  const app = await open("./App.tsx", { width: 1024, height: 1600 }).catch(error => {
+    if ((error as { code?: string }).code !== "ERR_NSH_TEST_UNSUPPORTED") throw error;
+    return open("./App.tsx");
+  });
   for (const count of [1000, 10000]) {
     await app.press(`id:sample-${count}`);
     await app.type("id:vault-password", `keex-synthetic-M41-SCALE-${count}-SMALL`);

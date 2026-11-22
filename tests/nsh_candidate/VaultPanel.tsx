@@ -85,7 +85,7 @@ export function VaultPanel() {
       try { await pending; status.set("错误：取消后仍解锁"); }
       catch (error) { status.set((error as Error).message === "STALE_SESSION" ? "取消回调已拒绝" : "错误：取消类型不符"); }
     })}><Text>解锁并立即取消（合成反例）</Text></View>
-    <Input testID="search" value={query()} onChange={({ value }) => query.set(value)} placeholder="只搜索标题" />
+    <Input testID="search" value={query()} onChange={({ value }) => query.set(value)} placeholder="只搜索标题" autoCapitalize="none" autoCorrect={false} />
     <View testID="search-submit" onPress={() => run(async () => { offset = 0; await page(); })}><Text>搜索摘要</Text></View>
     <View testID="next-page" onPress={() => run(async () => { offset += pageSize(); await page(); })}><Text>下一页</Text></View>
     <View testID="previous-page" onPress={() => run(async () => { offset = Math.max(0, offset - pageSize()); await page(); })}><Text>上一页</Text></View>
@@ -98,7 +98,7 @@ export function VaultPanel() {
       value.set(field);
       status.set("单字段已读取");
     })}><Text>读取首条用户名</Text></View>
-    <Input testID="field" value={value()} onChange={({ value: text }) => value.set(text)} placeholder="仅编辑一个用户名字段" />
+    <Input testID="field" value={value()} onChange={({ value: text }) => value.set(text)} placeholder="仅编辑一个用户名字段" autoCapitalize="none" autoCorrect={false} />
     <View testID="edit" onPress={() => run(async () => {
       if (!ticket || !selected) return;
       const epoch = uiEpoch;
