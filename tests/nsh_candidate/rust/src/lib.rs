@@ -84,8 +84,15 @@ impl VaultSession {
         self.vault.take().ok_or_else(|| "LOCKED_OR_BUSY".into())
     }
 
-    fn output_dir() -> PathBuf {
-        PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("target/outputs")
+    /// 桌面、headless 和 iOS 模拟器写到实验 crate 的 target/outputs；Android 设备上没有构建目录，
+    /// 写到 NSH 给应用的私有数据目录。iOS 真机同样没有构建目录，尚未验证，暂不改。
+    fn output_dir() -> Result<PathBuf, String> {
+        if cfg!(target_os = "android") {
+            return data_dir()
+                .map(|dir| dir.join("outputs"))
+                .ok_or_else(|| "SAVE_IO".into());
+        }
+        Ok(PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("target/outputs"))
     }
 }
 
@@ -243,6 +250,7 @@ impl VaultSession {
     ) -> Result<String, String> {
         let edited = this.with(|s| s.edited.clone()).ok_or("NO_EDIT")?;
         let sample = this.with(|s| s.sample.clone());
+        let dir = Self::output_dir()?;
         let vault = this.with_mut(|s| s.take(&ticket))?;
         let (vault, bytes) = blocking(move || {
             let bytes = vault
@@ -264,7 +272,6 @@ impl VaultSession {
         let output_ticket = ticket.clone();
         let copy = blocking(move || -> Result<String, String> {
             use std::io::Write;
-            let dir = Self::output_dir();
             fs::create_dir_all(&dir).map_err(|_| "SAVE_IO")?;
             let stamp = SystemTime::now()
                 .duration_since(UNIX_EPOCH)

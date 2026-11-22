@@ -4,6 +4,7 @@ from __future__ import annotations
 import copy
 import hashlib
 import json
+import os
 import sys
 import unittest
 import xml.etree.ElementTree as ET
@@ -17,7 +18,8 @@ from kdbx_oracle import read_kdbx
 from kdbx_oracle.semantic import canonicalize, diff
 from matrix_checks import current_entries, fields, paths
 
-OUT = Path(__file__).resolve().parent / "rust/target/outputs"
+# 默认核对本机 headless 输出；设备上的输出先拉到本机目录，再用 KEEX_NSH_OUTPUTS 指向它。
+OUT = Path(os.environ.get("KEEX_NSH_OUTPUTS") or Path(__file__).resolve().parent / "rust/target/outputs")
 FIXTURES = ROOT / "tests/fixtures/kdbx"
 VALUE = "synthetic-nsh-edit"
 
