@@ -306,10 +306,24 @@ class AuthenticatedPayloadTest(unittest.TestCase):
 
     def test_manifest_and_four_saved_controls_are_reproducible(self):
         actual, outputs = payload.build_manifest()
-        self.assertEqual(actual, json.loads(payload.MANIFEST.read_text()))
+        registered = json.loads(payload.MANIFEST.read_text())
+        self.assertEqual(set(actual["runtime"]), set(registered["runtime"]))
+        self.assertEqual({**actual, "runtime": registered["runtime"]}, registered)
         self.assertEqual(len(outputs), 4)
         for name, data in outputs.items():
             self.assertEqual((payload.HERE / name).read_bytes(), data)
+
+    def test_verification_ignores_runtime_versions_but_not_output_bytes(self):
+        manifest, outputs = payload.build_manifest()
+        other = {**manifest, "runtime": {name: "other" for name in manifest["runtime"]}}
+        with patch.object(payload, "build_manifest", return_value=(other, outputs)), \
+             contextlib.redirect_stdout(io.StringIO()):
+            self.assertEqual(payload.main(), 0)
+        samples = [dict(sample) for sample in manifest["samples"]]
+        samples[0]["sha256"] = "0" * 64
+        with patch.object(payload, "build_manifest", return_value=({**other, "samples": samples}, outputs)):
+            with self.assertRaisesRegex(ValueError, "manifest differs"):
+                payload.main()
 
     def test_generator_noop_preserves_bytes_and_modification_times(self):
         records = json.loads(payload.MANIFEST.read_text())["samples"]

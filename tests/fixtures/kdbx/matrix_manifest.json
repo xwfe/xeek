@@ -13,7 +13,7 @@
   },
   "measurement_method": "CLI: one command per fresh worker; oracle: three fresh processes, warm filesystem cache possible; ru_maxrss normalized to bytes; no device performance gate.",
   "provenance": {
-    "source.py": "573dac287a1fef2ef547e2b8c0a726119ac2a6a1584c69edd9c4eddf99803769",
+    "source.py": "f12ecc13b2fe1dff9db76a5818f1510939c9b06bf096530084332c03d4b55b5e",
     "vault_source.py": "a0d0ddc68b8c1dc78a101a767aa74d4d9e5402f7dcd9da191ada09f4aa3272e3",
     "matrix_source.py": "9dcdc0236ae79fa0f112c516951c12c6e674fd55275aced25e0ba692c23d51fb",
     "matrix_checks.py": "b12c4838b9ba55c36945df234ff0c178e77e3dd0cef28f26e8e4b8b86786d288",
@@ -30,7 +30,7 @@
     "matrix_probe.py": "c4f072b9c69c6ab19d195b386f94e987e33aaad4e85205f8859403c687cb32f6",
     "vault_generate.py": "2b3f2096d2c1860b0b66cffb7f9f31f785a460b78184e6368b666fb40ac603ae"
   },
-  "analysis_note": "provenance records current verification code; generation_provenance preserves the original generation hashes. Only matrix_generate.py cleanup documentation changed after generation; no executable statements, source XML, KDBX, diffs or measurements changed.",
+  "analysis_note": "provenance records current verification code; generation_provenance preserves the original generation hashes. Only matrix_generate.py cleanup documentation changed after generation; no executable statements, source XML, KDBX, diffs or measurements changed. source.py later pinned the gzip header OS byte (see verification_revisions); output bytes are identical to the registered sources.",
   "ignored_metadata_paths": [
     "KeePassFile/Meta/Generator",
     "KeePassFile/Meta/CustomData/Item=KPXC_RANDOM_SLUG",
@@ -23796,6 +23796,16 @@
           }
         ]
       }
+    }
+  ],
+  "verification_revisions": [
+    {
+      "date": "2026-11-22",
+      "file": "source.py",
+      "previous_sha256": "573dac287a1fef2ef547e2b8c0a726119ac2a6a1584c69edd9c4eddf99803769",
+      "sha256": "f12ecc13b2fe1dff9db76a5818f1510939c9b06bf096530084332c03d4b55b5e",
+      "reason": "Pin the gzip header OS byte to 19 (the value in the registered macOS-generated sources) so attachment encoding no longer depends on the zlib build platform; no source XML, KDBX bytes, sample hashes or original generation metadata changed.",
+      "evidence": "adr/evidence/K002_GZIP.md"
     }
   ]
 }

@@ -50,6 +50,30 @@
       "sha256": "af08a30bcd38cc9e599662434a7ac5df0849a0b7ccf6a5e8e4bb27ed057bc42b",
       "reason": "Authenticated KDBX 4.x payload checks: normalize gzip/XML base64 errors and reject ambiguous inner headers; no KDBX bytes or original generation metadata changed.",
       "evidence": "adr/evidence/K002_RESOURCES.md"
+    },
+    {
+      "date": "2026-11-22",
+      "file": "tests/fixtures/kdbx/source.py",
+      "previous_sha256": "573dac287a1fef2ef547e2b8c0a726119ac2a6a1584c69edd9c4eddf99803769",
+      "sha256": "f12ecc13b2fe1dff9db76a5818f1510939c9b06bf096530084332c03d4b55b5e",
+      "reason": "Pin the gzip header OS byte to 19 (the value in the registered macOS-generated sources) so attachment encoding no longer depends on the zlib build platform; no source XML, KDBX bytes, sample hashes or original generation metadata changed.",
+      "evidence": "adr/evidence/K002_GZIP.md"
+    },
+    {
+      "date": "2026-11-22",
+      "file": "tests/fixtures/kdbx/vault_manifest.json",
+      "previous_sha256": "42cb8a6860f07c00e4c382c9a29645fa535652d5765486fc3e78df93983b1539",
+      "sha256": "6ae059a40827a07c96a236bfb6f697e033a0289ea0dec061505cdd318bc4afcd",
+      "reason": "Registered-manifest bookkeeping for the source.py gzip OS-byte revision: only provenance and verification_revisions changed; sample entries, source XML hashes and KDBX bytes are unchanged.",
+      "evidence": "adr/evidence/K002_GZIP.md"
+    },
+    {
+      "date": "2026-11-22",
+      "file": "tests/fixtures/kdbx/matrix_manifest.json",
+      "previous_sha256": "170fb86d39f792939a7f770e20b3c16cdabfb97be0b0574cc5e16ee60583fc10",
+      "sha256": "7c3eea2293c2a10fa40a245d95620284c0f9b7aa290183b4e0b5c79777240457",
+      "reason": "Registered-manifest bookkeeping for the source.py gzip OS-byte revision: only provenance and verification_revisions changed; sample entries, source XML hashes and KDBX bytes are unchanged.",
+      "evidence": "adr/evidence/K002_GZIP.md"
     }
   ],
   "generation_build_session": "aced883b-5287-441c-852e-70e807b1e9de",
@@ -63,14 +87,14 @@
     "tests/kdbx_oracle/kdbx_oracle/semantic.py": "e751ec5871ba294ef589f362a03c468b22b9c33ea699ad6f626cd8748888c9c5",
     "tests/kdbx_oracle/kdbx_oracle/__init__.py": "02dc52bf368b43878f310ea71472889007a9927de3820ed22750ab65b5d8cd13",
     "tests/kdbx_oracle/requirements-argon2-macos-arm64.lock": "63fdaf297dc096e1a67f4258ee8092d2847a163fbac3909013badc22d5ef8afc",
-    "tests/fixtures/kdbx/source.py": "573dac287a1fef2ef547e2b8c0a726119ac2a6a1584c69edd9c4eddf99803769",
+    "tests/fixtures/kdbx/source.py": "f12ecc13b2fe1dff9db76a5818f1510939c9b06bf096530084332c03d4b55b5e",
     "tests/fixtures/kdbx/generate.py": "37c7a20ef10ddb5340b1bdf93ac35706f1278bcb2277d6a7348b22c809ea417f",
     "tests/fixtures/kdbx/vault_source.py": "a0d0ddc68b8c1dc78a101a767aa74d4d9e5402f7dcd9da191ada09f4aa3272e3",
     "tests/fixtures/kdbx/vault_generate.py": "2b3f2096d2c1860b0b66cffb7f9f31f785a460b78184e6368b666fb40ac603ae",
     "tests/fixtures/kdbx/matrix_source.py": "9dcdc0236ae79fa0f112c516951c12c6e674fd55275aced25e0ba692c23d51fb",
     "tests/fixtures/kdbx/matrix_checks.py": "b12c4838b9ba55c36945df234ff0c178e77e3dd0cef28f26e8e4b8b86786d288",
-    "tests/fixtures/kdbx/vault_manifest.json": "42cb8a6860f07c00e4c382c9a29645fa535652d5765486fc3e78df93983b1539",
-    "tests/fixtures/kdbx/matrix_manifest.json": "170fb86d39f792939a7f770e20b3c16cdabfb97be0b0574cc5e16ee60583fc10",
+    "tests/fixtures/kdbx/vault_manifest.json": "6ae059a40827a07c96a236bfb6f697e033a0289ea0dec061505cdd318bc4afcd",
+    "tests/fixtures/kdbx/matrix_manifest.json": "7c3eea2293c2a10fa40a245d95620284c0f9b7aa290183b4e0b5c79777240457",
     "tests/vault_domain/contract.py": "e48920ca273266ba6abe3916c3dfca4defd2b51e649386e1dab4f2ad33ab3c61",
     "tests/vault_domain/contract.json": "fc64de169203d94f5baa6fe664748606742fbaa1ad75f35b7e9e35e97950e63b"
   },

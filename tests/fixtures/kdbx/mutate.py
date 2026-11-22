@@ -145,7 +145,9 @@ def gzip_deterministic(chunks) -> bytes:
     out = bytearray()
     for chunk in chunks:
         out += compressor.compress(chunk)
-    return bytes(out + compressor.flush())
+    out += compressor.flush()
+    out[9] = 19  # zlib 按构建平台写头部 OS 字节；登记样本生成于 macOS（19），固定后各平台字节一致
+    return bytes(out)
 
 
 def v3_reencrypt(
