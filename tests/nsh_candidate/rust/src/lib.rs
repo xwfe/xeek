@@ -11,6 +11,11 @@ use std::{
 use keex_wasm_core::core::Vault;
 use nsh_core::prelude::*;
 
+mod controls;
+use controls::{ClipboardPolicy, DeliveryGate};
+
+const SENTINEL: &str = "SYNTHETIC-K092-PRIVATE-BOUNDARY";
+
 static NEXT_BINDING: AtomicU32 = AtomicU32::new(1);
 const FIXTURE: &[u8] = include_bytes!("../../../fixtures/kdbx/v41-vault-edit2.kdbx");
 const BUDGET: u64 = 128 * 1024 * 1024;
@@ -56,12 +61,18 @@ pub struct VaultSession {
     edited: Option<String>,
     generation: Arc<AtomicU32>,
     sample: String,
+    clipboard: ClipboardPolicy,
+    barrier: Option<(String, Arc<DeliveryGate>)>,
+    active: bool,
 }
 
 impl VaultSession {
     fn check(&self, ticket: &Ticket) -> Result<(), String> {
         if self.binding != ticket.binding || self.epoch != ticket.epoch {
             return Err("STALE_SESSION".into());
+        }
+        if !self.active {
+            return Err("SESSION_INACTIVE".into());
         }
         Ok(())
     }
@@ -94,6 +105,13 @@ impl VaultSession {
         }
         Ok(PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("target/outputs"))
     }
+
+    fn gate(&self, operation: &str) -> Option<Arc<DeliveryGate>> {
+        self.barrier
+            .as_ref()
+            .filter(|(name, _)| name == operation)
+            .map(|(_, gate)| gate.clone())
+    }
 }
 
 #[class]
@@ -107,6 +125,9 @@ impl VaultSession {
             edited: None,
             generation: Arc::new(AtomicU32::new(0)),
             sample: "baseline".into(),
+            clipboard: ClipboardPolicy::default(),
+            barrier: None,
+            active: true,
         }
     }
 
@@ -119,12 +140,20 @@ impl VaultSession {
         self.generation.store(self.epoch, Ordering::SeqCst);
         self.vault = None;
         self.edited = None;
+        self.clipboard.clear_owned();
     }
 
     /// 同步登记解锁请求，使尚未调度的任务也可被取消。
     pub fn begin_unlock(&mut self) -> Ticket {
         self.lock();
         self.ticket()
+    }
+
+    pub fn set_active(&mut self, active: bool) {
+        if !active && self.active {
+            self.lock();
+        }
+        self.active = active;
     }
 
     /// 只允许三份编译时固定的公开合成样本，切换即撤销旧授权。
@@ -143,9 +172,16 @@ impl VaultSession {
     ) -> Result<Ticket, String> {
         this.with(|s| s.check(&ticket))?;
         let data = this.with(|s| fixture(&s.sample))?;
-        let opened = blocking(move || Vault::open(data, &password, None, BUDGET))
-            .await
-            .map_err(|_| "WORKER_FAILED")?;
+        let gate = this.with(|s| s.gate("unlock"));
+        let opened = blocking(move || {
+            let opened = Vault::open(data, &password, None, BUDGET);
+            if let Some(gate) = gate {
+                gate.pause();
+            }
+            opened
+        })
+        .await
+        .map_err(|_| "WORKER_FAILED")?;
         this.with_mut(|s| {
             s.check(&ticket)?;
             let vault = opened.map_err(|_| "UNLOCK_FAILED")?;
@@ -165,6 +201,7 @@ impl VaultSession {
             return Err("INVALID_PAGE".into());
         }
         let vault = this.with_mut(|s| s.take(&ticket))?;
+        let gate = this.with(|s| s.gate("page"));
         let (vault, rows) = blocking(move || {
             let started = Instant::now();
             let rows = vault
@@ -179,6 +216,9 @@ impl VaultSession {
                 rows,
                 core_ms: started.elapsed().as_secs_f64() * 1000.0,
             };
+            if let Some(gate) = gate {
+                gate.pause();
+            }
             (vault, result)
         })
         .await
@@ -197,10 +237,14 @@ impl VaultSession {
         field: String,
     ) -> Result<String, String> {
         let vault = this.with_mut(|s| s.take(&ticket))?;
+        let gate = this.with(|s| s.gate("read"));
         let (vault, value) = blocking(move || {
             let value = vault
                 .field(&entry, &field)
                 .map_err(|_| "FIELD_NOT_FOUND".to_owned());
+            if let Some(gate) = gate {
+                gate.pause();
+            }
             (vault, value)
         })
         .await
@@ -252,10 +296,14 @@ impl VaultSession {
         let sample = this.with(|s| s.sample.clone());
         let dir = Self::output_dir()?;
         let vault = this.with_mut(|s| s.take(&ticket))?;
+        let gate = this.with(|s| s.gate("save"));
         let (vault, bytes) = blocking(move || {
             let bytes = vault
                 .save(&password, None)
                 .map_err(|_| "SAVE_FAILED".to_owned());
+            if let Some(gate) = gate {
+                gate.pause();
+            }
             (vault, bytes)
         })
         .await
@@ -299,6 +347,91 @@ impl VaultSession {
         .map_err(|_| "WORKER_FAILED")?;
         this.with_mut(|s| s.accept(&ticket, vault))?;
         copy
+    }
+
+    /// 仅实验：后台交付屏障不阻塞 UI 线程。
+    pub fn arm_barrier(&mut self, operation: String) -> Result<(), String> {
+        if !["unlock", "read", "page", "save", "copy"].contains(&operation.as_str()) {
+            return Err("INVALID_BARRIER".into());
+        }
+        if self
+            .barrier
+            .as_ref()
+            .is_some_and(|(_, gate)| !gate.released())
+        {
+            return Err("BARRIER_BUSY".into());
+        }
+        self.barrier = Some((operation, Arc::new(DeliveryGate::default())));
+        Ok(())
+    }
+
+    pub async fn wait_barrier(this: Instance<Self>) -> Result<(), String> {
+        let gate = this
+            .with(|s| s.barrier.as_ref().map(|(_, gate)| gate.clone()))
+            .ok_or("NO_BARRIER")?;
+        blocking(move || gate.wait_entered())
+            .await
+            .map_err(|_| "WORKER_FAILED")?
+    }
+
+    pub fn release_barrier(&mut self) {
+        if let Some((_, gate)) = &self.barrier {
+            gate.release();
+        }
+    }
+
+    /// 只把字段从核心交给私有 MemoryClipboard，不经过 JS。
+    pub async fn copy_secret(
+        this: Instance<Self>,
+        ticket: Ticket,
+        entry: String,
+    ) -> Result<u32, String> {
+        let vault = this.with_mut(|s| s.take(&ticket))?;
+        let gate = this.with(|s| s.gate("copy"));
+        let (vault, text) = blocking(move || {
+            let text = vault
+                .field(&entry, "Password")
+                .map_err(|_| "FIELD_NOT_FOUND".to_owned());
+            if let Some(gate) = gate {
+                gate.pause();
+            }
+            (vault, text)
+        })
+        .await
+        .map_err(|_| "WORKER_FAILED")?;
+        this.with_mut(|s| {
+            s.accept(&ticket, vault)?;
+            Ok(s.clipboard.copy(text?))
+        })
+    }
+
+    pub fn clipboard_status(&self) -> String {
+        self.clipboard.status()
+    }
+    pub fn clipboard_external_copy(&mut self, same: bool) {
+        self.clipboard.external_copy(same);
+    }
+    pub fn advance_clipboard_clock(&mut self, milliseconds: u32) -> Result<(), String> {
+        self.clipboard.advance(milliseconds)
+    }
+    pub fn expire_clipboard_version(&mut self, version: u32) {
+        self.clipboard.expire(version);
+    }
+
+    /// 故意让核心处理无效秘密标识，但仅交付固定错误码。
+    pub fn sensitive_error(&self, ticket: Ticket) -> Result<(), String> {
+        self.check(&ticket)?;
+        let vault = self.vault.as_ref().ok_or("LOCKED_OR_BUSY")?;
+        vault
+            .field(SENTINEL, SENTINEL)
+            .map(|_| ())
+            .map_err(|_| "FIELD_NOT_FOUND".into())
+    }
+
+    pub fn copy_sentinel(&mut self, ticket: Ticket) -> Result<u32, String> {
+        self.check(&ticket)?;
+        self.vault.as_ref().ok_or("LOCKED_OR_BUSY")?;
+        Ok(self.clipboard.copy(SENTINEL.into()))
     }
 }
 
