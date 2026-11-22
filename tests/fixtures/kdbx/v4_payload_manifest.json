@@ -25,7 +25,7 @@
     }
   ],
   "provenance": {
-    "tests/fixtures/kdbx/v4_payload.py": "298d78a5f684fd978747f01b29391882a69fddb2837a8d530108f04a04169864",
+    "tests/fixtures/kdbx/v4_payload.py": "e58b337ef21710dfccdd50915caaf7ccab9e07c1932f48dee568082d6029803c",
     "tests/fixtures/kdbx/manifest.json": "996f4969b6b1fcef57245f23f855ee99350387dc05dba16e431368aa86637657",
     "tests/kdbx_oracle/kdbx_oracle/reader.py": "af08a30bcd38cc9e599662434a7ac5df0849a0b7ccf6a5e8e4bb27ed057bc42b",
     "tests/kdbx_oracle/kdbx_oracle/semantic.py": "e751ec5871ba294ef589f362a03c468b22b9c33ea699ad6f626cd8748888c9c5",

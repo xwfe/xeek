@@ -48,7 +48,9 @@ def digest(data):
 
 def gzip_bytes(chunks):
     compressor = zlib.compressobj(9, zlib.DEFLATED, 31)
-    return b"".join(compressor.compress(c) for c in chunks) + compressor.flush()
+    out = bytearray(b"".join(compressor.compress(c) for c in chunks) + compressor.flush())
+    out[9] = 19  # zlib 按构建平台写头部 OS 字节；登记记录生成于 macOS（19），固定后各平台字节一致
+    return bytes(out)
 
 
 def item(identifier, value):
@@ -311,7 +313,9 @@ def main():
     manifest, outputs = build_manifest()
     serialized = json.dumps(manifest, ensure_ascii=False, indent=2) + "\n"
     if MANIFEST.exists():
-        if MANIFEST.read_text(encoding="utf-8") != serialized:
+        registered = json.loads(MANIFEST.read_text(encoding="utf-8"))
+        # runtime 是生成时的记录；复核按每条记录的摘要和留存文件逐字节比对，不要求复核环境版本相同。
+        if {**manifest, "runtime": registered.get("runtime")} != registered:
             raise ValueError("registered payload manifest differs; review before updating")
         for name, data in outputs.items():
             if (HERE / name).read_bytes() != data:

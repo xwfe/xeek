@@ -753,7 +753,7 @@
     },
     {
       "path": "tests/fixtures/kdbx/v4_payload_manifest.json",
-      "sha256": "cdc4873692b394bc555944efc6188c43a69f713754e4be441105ea05e9c4fd6b",
+      "sha256": "823cb31432154e05113bf32bdcbe21e1190820051ec17b7c6733eb1d2c484e7f",
       "rules": [
         "HexHighEntropyString",
         "KeywordDetector"
@@ -762,7 +762,7 @@
     },
     {
       "path": "tests/fixtures/kdbx/v4_payload.py",
-      "sha256": "298d78a5f684fd978747f01b29391882a69fddb2837a8d530108f04a04169864",
+      "sha256": "e58b337ef21710dfccdd50915caaf7ccab9e07c1932f48dee568082d6029803c",
       "rules": [
         "HexHighEntropyString"
       ],
