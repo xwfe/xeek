@@ -58,7 +58,11 @@ class MatrixGenerationGuardTest(unittest.TestCase):
     def test_fixed_provenance_preserves_generation_snapshot_after_documentation_correction(self):
         manifest = json.loads((FIXTURES / "matrix_manifest.json").read_text())
         old, current = manifest["generation_provenance"], manifest["provenance"]
-        self.assertEqual([name for name in old if old[name] != current[name]], ["matrix_generate.py"])
+        self.assertEqual([name for name in old if old[name] != current[name]], ["source.py", "matrix_generate.py"])
+        # source.py 的修订只固定 gzip 头部 OS 字节；源 XML 摘要由 test_matrix 逐项复核。
+        revision, = manifest["verification_revisions"]
+        self.assertEqual((revision["file"], revision["previous_sha256"], revision["sha256"]),
+                         ("source.py", old["source.py"], current["source.py"]))
         self.assertEqual(old["matrix_generate.py"], "944325e891345f86ebecc85c314f374364fb397dd79fdcc87ff16270ba535761")
         self.assertIn("no executable statements", manifest["analysis_note"])
 

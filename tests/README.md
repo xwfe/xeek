@@ -37,6 +37,20 @@ Linux 基线只覆盖其列出的静态与契约检查。候选写入、全量 o
 
 ## Linux 全量 Python 已知限制（2026-11-21，K003 归因）
 
+### 2026-11-22 更新：gzip OS 字节已固定
+
+下文 A、B、C 三类共 10 项已由生成器固定 gzip 头部 OS 字节解决，改动范围、清单来源登记的修订和限制见 [K002_GZIP](../adr/evidence/K002_GZIP.md)。已登记样本字节和样本摘要没有改。同一环境（Python 3.12.12 / zlib 1.3.1，KeePassXC CLI 2.7.12）重跑：
+
+```sh
+"$(uv python find 3.12.12)" -B tests/run_python_tests.py
+# Ran 282 tests in 247.259s
+# FAILED (errors=1, skipped=4)
+```
+
+剩下的 1 个 error 是 D（缺 Dart SDK）。它属于 `kdbx.dart` 候选对照，不在 NSH + Rust 生产路线上，本机不安装；4 项 skip 同样依赖 Dart helper。下面保留 2026-11-21 的原始归因记录。
+
+### 2026-11-21 原始归因
+
 不是全量通过记录，不修改样本、清单、比较器或跳过条件；生产 merge/writer 闸门仍关闭。
 
 ### main 与 K003 的同环境对照

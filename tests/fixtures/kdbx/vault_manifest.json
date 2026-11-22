@@ -20,7 +20,7 @@
     "machine": "arm64"
   },
   "provenance": {
-    "source.py": "573dac287a1fef2ef547e2b8c0a726119ac2a6a1584c69edd9c4eddf99803769",
+    "source.py": "f12ecc13b2fe1dff9db76a5818f1510939c9b06bf096530084332c03d4b55b5e",
     "vault_source.py": "a0d0ddc68b8c1dc78a101a767aa74d4d9e5402f7dcd9da191ada09f4aa3272e3",
     "vault_generate.py": "90336af4e65011f6618ee64d4614fc23cd2b2941bd1eaa9b8aa28fe9140051cf"
   },
@@ -2574,6 +2574,16 @@
           ]
         }
       ]
+    }
+  ],
+  "verification_revisions": [
+    {
+      "date": "2026-11-22",
+      "file": "source.py",
+      "previous_sha256": "573dac287a1fef2ef547e2b8c0a726119ac2a6a1584c69edd9c4eddf99803769",
+      "sha256": "f12ecc13b2fe1dff9db76a5818f1510939c9b06bf096530084332c03d4b55b5e",
+      "reason": "Pin the gzip header OS byte to 19 (the value in the registered macOS-generated sources) so attachment encoding no longer depends on the zlib build platform; no source XML, KDBX bytes, sample hashes or original generation metadata changed.",
+      "evidence": "adr/evidence/K002_GZIP.md"
     }
   ]
 }

@@ -165,6 +165,13 @@ def custom_data(level: str, items: dict[str, str], modified: str) -> ET.Element 
     ])
 
 
+def gzip_fixed(data: bytes) -> bytes:
+    """gzip 头部 OS 字节由 zlib 的构建平台决定；登记样本生成于 macOS（19），固定后各平台字节一致。"""
+    packed = bytearray(gzip.compress(data, mtime=0))
+    packed[9] = 19
+    return bytes(packed)
+
+
 class Pool:
     """Meta/Binaries 附件池；内容相同的附件共用一个编号（KeePass 也这样去重）。"""
 
@@ -178,7 +185,7 @@ class Pool:
 
     def element(self) -> ET.Element:
         return E("Binaries", children=[
-            E("Binary", base64.b64encode(gzip.compress(data, mtime=0)).decode(), ID=str(i), Compressed="True")
+            E("Binary", base64.b64encode(gzip_fixed(data)).decode(), ID=str(i), Compressed="True")
             for i, data in enumerate(self.items)
         ])
 

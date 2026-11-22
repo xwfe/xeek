@@ -716,7 +716,7 @@
     },
     {
       "path": "tests/fixtures/kdbx/matrix_manifest.json",
-      "sha256": "170fb86d39f792939a7f770e20b3c16cdabfb97be0b0574cc5e16ee60583fc10",
+      "sha256": "7c3eea2293c2a10fa40a245d95620284c0f9b7aa290183b4e0b5c79777240457",
       "rules": [
         "Base64HighEntropyString",
         "HexHighEntropyString",
@@ -726,7 +726,7 @@
     },
     {
       "path": "tests/fixtures/kdbx/rust_writer_manifest.json",
-      "sha256": "8336f1a510b6ecc6ee758116005c9375f7a117a0c5081a55efe6467589a3d78b",
+      "sha256": "280450ba4aaddeca0bb3cd20a8bdb1ee55e1b6af0b77d38cd9bcfc1add26c975",
       "rules": [
         "HexHighEntropyString",
         "KeywordDetector"
@@ -735,7 +735,7 @@
     },
     {
       "path": "tests/fixtures/kdbx/source.py",
-      "sha256": "573dac287a1fef2ef547e2b8c0a726119ac2a6a1584c69edd9c4eddf99803769",
+      "sha256": "f12ecc13b2fe1dff9db76a5818f1510939c9b06bf096530084332c03d4b55b5e",
       "rules": [
         "KeywordDetector",
         "PrivateKeyDetector"
@@ -779,7 +779,7 @@
     },
     {
       "path": "tests/fixtures/kdbx/vault_manifest.json",
-      "sha256": "42cb8a6860f07c00e4c382c9a29645fa535652d5765486fc3e78df93983b1539",
+      "sha256": "6ae059a40827a07c96a236bfb6f697e033a0289ea0dec061505cdd318bc4afcd",
       "rules": [
         "Base64HighEntropyString",
         "HexHighEntropyString",
@@ -829,7 +829,7 @@
     },
     {
       "path": "tests/kdbx_oracle/tests/test_reference_writer.py",
-      "sha256": "6cc8a99ffa0c6ca6aa088af4a54ec68e6b3b8872033b6b160766c12398a67ebd",
+      "sha256": "42c6045e4c1f9adfad65e75d48cc01446bf8d0a0a8dab312b43d3810e4e56f20",
       "rules": [
         "Base64HighEntropyString",
         "HexHighEntropyString",
@@ -937,7 +937,7 @@
     },
     {
       "path": "tests/vault_domain/test_matrix_generation.py",
-      "sha256": "95e513b2f8fbff6a0c28c1154449e5ac5eb944f08b15e0c6088fa6db7d823419",
+      "sha256": "e274c116e2aa7f63cbc1b0a0a85eaa68f3b3bbf9f71cfb786c59dd23540459ba",
       "rules": [
         "HexHighEntropyString"
       ],
@@ -1002,7 +1002,7 @@
     },
     {
       "path": "tests/fixtures/kdbx/dart_writer_manifest.json",
-      "sha256": "5be1ddd5fc69d974dd201375f1072a2f8193f17f7febf4b2bb7bbe11ebb466d1",
+      "sha256": "402d2f6eb71d48a2bf98e3ae3d41d10baebaf42501cd7245e11305106514ad87",
       "rules": [
         "HexHighEntropyString",
         "KeywordDetector"
@@ -1011,7 +1011,7 @@
     },
     {
       "path": "tests/kdbx_oracle/tests/test_dart_candidate.py",
-      "sha256": "ff93e85048f426c9616ef5301a461c86cd500660da2b643f6a50c235e3a3924f",
+      "sha256": "fb37c82f07fb006c9461fb7fedf25e9fa00d0f883d3c56043163531ae254ce8d",
       "rules": [
         "Base64HighEntropyString",
         "KeywordDetector"

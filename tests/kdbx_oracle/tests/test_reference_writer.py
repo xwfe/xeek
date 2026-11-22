@@ -80,15 +80,22 @@ class ReferenceWriterTest(unittest.TestCase):
         changed = {name for name, value in self.manifest["generation_provenance"].items()
                    if value != self.manifest["provenance"][name]}
         reader_path = "tests/kdbx_oracle/kdbx_oracle/reader.py"
-        self.assertEqual(changed, {"tests/reference_writer/generate.py", reader_path})
+        gzip_paths = ["tests/fixtures/kdbx/source.py", "tests/fixtures/kdbx/vault_manifest.json",
+                      "tests/fixtures/kdbx/matrix_manifest.json"]
+        self.assertEqual(changed, {"tests/reference_writer/generate.py", reader_path, *gzip_paths})
         self.assertEqual(self.manifest["generation_provenance"][reader_path],
                          "ed72d093e1f402ec1257832ce9dd68b8380670b14ce01786436b9fe474c1f764")
         revisions = self.manifest["verification_revisions"]
-        self.assertEqual(len(revisions), 1)
+        self.assertEqual([item["file"] for item in revisions], [reader_path, *gzip_paths])
         self.assertEqual(revisions[0]["file"], reader_path)
         self.assertEqual(revisions[0]["previous_sha256"], self.manifest["generation_provenance"][reader_path])
         self.assertEqual(revisions[0]["sha256"], self.manifest["provenance"][reader_path])
         self.assertEqual(revisions[0]["evidence"], "adr/evidence/K002_RESOURCES.md")
+        # source.py 只固定 gzip 头部 OS 字节，两份清单随之更新来源登记；登记输入的摘要在下面逐项复核，不随修订放宽。
+        for revision in revisions[1:]:
+            self.assertEqual(revision["previous_sha256"], self.manifest["generation_provenance"][revision["file"]])
+            self.assertEqual(revision["sha256"], self.manifest["provenance"][revision["file"]])
+            self.assertEqual(revision["evidence"], "adr/evidence/K002_GZIP.md")
         expected_inputs = {}
         for name in ("vault_manifest.json", "matrix_manifest.json"):
             expected_inputs.update(source_hashes(json.loads((reference.FIXTURES / name).read_text())))

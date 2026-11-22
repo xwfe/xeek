@@ -28,9 +28,9 @@
     "tests/kdbx_oracle/kdbx_oracle/__init__.py": "02dc52bf368b43878f310ea71472889007a9927de3820ed22750ab65b5d8cd13",
     "tests/fixtures/kdbx/generate.py": "37c7a20ef10ddb5340b1bdf93ac35706f1278bcb2277d6a7348b22c809ea417f",
     "tests/fixtures/kdbx/matrix_checks.py": "b12c4838b9ba55c36945df234ff0c178e77e3dd0cef28f26e8e4b8b86786d288",
-    "tests/fixtures/kdbx/vault_manifest.json": "42cb8a6860f07c00e4c382c9a29645fa535652d5765486fc3e78df93983b1539",
-    "tests/fixtures/kdbx/matrix_manifest.json": "170fb86d39f792939a7f770e20b3c16cdabfb97be0b0574cc5e16ee60583fc10",
-    "tests/fixtures/kdbx/rust_writer_manifest.json": "8336f1a510b6ecc6ee758116005c9375f7a117a0c5081a55efe6467589a3d78b",
+    "tests/fixtures/kdbx/vault_manifest.json": "6ae059a40827a07c96a236bfb6f697e033a0289ea0dec061505cdd318bc4afcd",
+    "tests/fixtures/kdbx/matrix_manifest.json": "7c3eea2293c2a10fa40a245d95620284c0f9b7aa290183b4e0b5c79777240457",
+    "tests/fixtures/kdbx/rust_writer_manifest.json": "280450ba4aaddeca0bb3cd20a8bdb1ee55e1b6af0b77d38cd9bcfc1add26c975",
     "tests/fixtures/kdbx/upstream_kdbxweb/manifest.json": "8a1bb3581b99a1c004563218d5bf1ae46ffe282df07080fabb15401ea8728ee8"
   },
   "generation_provenance": {
@@ -4226,5 +4226,32 @@
       "source_sha256": "180d1620659fce95300b3c1630cd05b6b09cc1f5035b3bbe711b9387921b3ac0",
       "observed_error": "database_open_failed"
     }
-  ]
+  ],
+  "verification_revisions": [
+    {
+      "date": "2026-11-22",
+      "file": "tests/fixtures/kdbx/vault_manifest.json",
+      "previous_sha256": "42cb8a6860f07c00e4c382c9a29645fa535652d5765486fc3e78df93983b1539",
+      "sha256": "6ae059a40827a07c96a236bfb6f697e033a0289ea0dec061505cdd318bc4afcd",
+      "reason": "Registered-manifest bookkeeping for the source.py gzip OS-byte revision: only provenance and verification_revisions changed; sample entries, source XML hashes and KDBX bytes are unchanged.",
+      "evidence": "adr/evidence/K002_GZIP.md"
+    },
+    {
+      "date": "2026-11-22",
+      "file": "tests/fixtures/kdbx/matrix_manifest.json",
+      "previous_sha256": "170fb86d39f792939a7f770e20b3c16cdabfb97be0b0574cc5e16ee60583fc10",
+      "sha256": "7c3eea2293c2a10fa40a245d95620284c0f9b7aa290183b4e0b5c79777240457",
+      "reason": "Registered-manifest bookkeeping for the source.py gzip OS-byte revision: only provenance and verification_revisions changed; sample entries, source XML hashes and KDBX bytes are unchanged.",
+      "evidence": "adr/evidence/K002_GZIP.md"
+    },
+    {
+      "date": "2026-11-22",
+      "file": "tests/fixtures/kdbx/rust_writer_manifest.json",
+      "previous_sha256": "8336f1a510b6ecc6ee758116005c9375f7a117a0c5081a55efe6467589a3d78b",
+      "sha256": "280450ba4aaddeca0bb3cd20a8bdb1ee55e1b6af0b77d38cd9bcfc1add26c975",
+      "reason": "Registered-manifest bookkeeping for the source.py gzip OS-byte revision: only provenance and verification_revisions changed; sample entries, source XML hashes and KDBX bytes are unchanged.",
+      "evidence": "adr/evidence/K002_GZIP.md"
+    }
+  ],
+  "verification_note": "generation_provenance preserves the original generation hashes. Later changes to verification inputs are listed in verification_revisions; no candidate output bytes or sample entries changed."
 }

@@ -48,7 +48,16 @@ class DartCandidateTest(unittest.TestCase):
         self.assertEqual(locked.groups(), (self.manifest["writer"]["archive_sha256"], "2.5.0"))
         self.assertEqual(self.manifest["writer"]["license"], "GPL-3.0")
         self.assertEqual(self.manifest["provenance"], candidate.provenance())
-        self.assertEqual(self.manifest["generation_provenance"], self.manifest["provenance"])
+        # 生成后只有三份上游清单因 gzip OS 字节修订更新过来源登记；候选输出与样本条目未变。
+        original, current = self.manifest["generation_provenance"], self.manifest["provenance"]
+        revisions = self.manifest["verification_revisions"]
+        self.assertEqual([name for name in original if original[name] != current[name]],
+                         [item["file"] for item in revisions])
+        self.assertEqual([item["file"].rsplit("/", 1)[-1] for item in revisions],
+                         ["vault_manifest.json", "matrix_manifest.json", "rust_writer_manifest.json"])
+        for revision in revisions:
+            self.assertEqual((revision["previous_sha256"], revision["sha256"], revision["evidence"]),
+                             (original[revision["file"]], current[revision["file"]], "adr/evidence/K002_GZIP.md"))
         self.assertEqual(len(self.samples), 8)
         for sample, case in zip(self.samples, self.cases):
             self.assertEqual({k: sample[k] for k in case}, case)
