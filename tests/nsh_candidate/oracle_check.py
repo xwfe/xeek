@@ -52,13 +52,13 @@ def verify(before, after, identifier):
 def inputs(name="baseline"):
     identifier = {"baseline": "V41-VAULT", "scale-1000": "M41-SCALE-1000-SMALL",
                   "scale-10000": "M41-SCALE-10000-SMALL"}[name]
-    manifest = json.loads((FIXTURES / ("vault_manifest.json" if name == "baseline" else "matrix_manifest.json")).read_text())
+    manifest = json.loads((FIXTURES / ("vault_manifest.json" if name == "baseline" else "matrix_manifest.json")).read_text(encoding="utf-8"))
     sample = next(s for s in manifest["samples"] if s["id"] == identifier)
     stage = next(s for s in sample["stages"] if s["name"] == ("edit2" if name == "baseline" else "import"))
     data = (FIXTURES / stage["file"]).read_bytes()
     if hashlib.sha256(data).hexdigest() != stage["sha256"]:
         raise ValueError("fixture digest mismatch")
-    receipt = json.loads((OUT / f"receipt-{name}.json").read_text())
+    receipt = json.loads((OUT / f"receipt-{name}.json").read_text(encoding="utf-8"))
     if receipt["sample"] != name:
         raise ValueError("receipt sample mismatch")
     output = (OUT / receipt["copy"]).resolve()
