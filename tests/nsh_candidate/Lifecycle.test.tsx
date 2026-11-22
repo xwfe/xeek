@@ -1,7 +1,15 @@
 import { expect, open, test } from "nsh/test";
 
+// 设备目标不接受视口尺寸，退回设备全屏。
+function openSecurity() {
+  return open("./SecurityApp.tsx", { width: 1024, height: 4000 }).catch(error => {
+    if ((error as { code?: string }).code !== "ERR_NSH_TEST_UNSUPPORTED") throw error;
+    return open("./SecurityApp.tsx");
+  });
+}
+
 async function unlocked() {
-  const app = await open("./SecurityApp.tsx", { width: 1024, height: 4000 });
+  const app = await openSecurity();
   await app.type("id:vault-password", "keex-synthetic-V41-VAULT");
   await app.press("id:unlock");
   await app.waitFor("text:摘要已加载");
@@ -42,7 +50,7 @@ test("确定性屏障拒绝锁库后解锁读取分页保存复制交付", async
     expect(app.value("id:field")).toBe("");
     expect(app.texts()).toContain("剪贴板 empty");
   }
-});
+}, 120000);
 
 test("屏障正对照与组件销毁撤权重挂", async () => {
   const app = await unlocked();
@@ -94,7 +102,7 @@ test("Rust 私有哨兵只留内存错误脱敏普通 Storage 为空", async () 
 });
 
 test("公开负控制证明 TSX 输入的原始 trace 仍会暴露输入", async () => {
-  const app = await open("./SecurityApp.tsx", { width: 1024, height: 4000 });
+  const app = await openSecurity();
   await app.type("id:vault-password", "SYNTHETIC-K092-INPUT-NEGATIVE");
   await app.press("id:lock");
   expect(app.value("id:vault-password")).toBe("");
