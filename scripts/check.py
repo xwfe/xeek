@@ -23,7 +23,7 @@ def main() -> int:
     for label, arguments in CHECKS:
         print(f"检查：{label}", flush=True)
         result = subprocess.run(
-            [sys.executable, "-I", "-S", "-B", *arguments], cwd=ROOT,
+            [sys.executable, "-X", "utf8", "-I", "-S", "-B", *arguments], cwd=ROOT,
         )
         if result.returncode:
             return result.returncode

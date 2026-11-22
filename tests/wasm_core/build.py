@@ -46,7 +46,7 @@ def patched_source():
         crate.extractall(source, filter="data")
     upstream = source / f"keepass-{preservation.VERSION}"
     for patch in preservation.PATCHES:
-        run(["git", "apply", "--directory=" + str(upstream.relative_to(ROOT)), str(patch)])
+        run(["git", "apply", "--directory=" + upstream.relative_to(ROOT).as_posix(), str(patch)])
     return upstream
 
 
