@@ -1,10 +1,10 @@
-import { Scroll, signal, Text, View } from "nsh";
+import { cleanup, effect, lifecycle, Scroll, signal, Text, View, wakeCount } from "nsh";
 import { Input } from "nsh/base";
 import { VaultSession } from "keex/vault";
 import { palette } from "./theme";
 import { Button, Card, fieldFocus, fieldStyle, Row } from "./ui";
 
-export function VaultPanel() {
+export function VaultPanel(props: { controls?: boolean; onAudit?: (code: string) => void } = {}) {
   const session = new VaultSession();
   const password = signal("");
   const query = signal("");
@@ -13,6 +13,11 @@ export function VaultPanel() {
   const rows = signal<{ id: string; title: string }[]>([]);
   const sample = signal("baseline");
   const timing = signal("");
+  const race = signal("");
+  const clipboard = signal("empty");
+  let retainedTicket: { binding: number; epoch: number } | undefined;
+  let retainedEntry = "";
+  let firstCopy: number | undefined;
   let previousTicket: { binding: number; epoch: number } | undefined;
   let previousEntry = "";
   let ticket: { binding: number; epoch: number } | undefined;
@@ -21,10 +26,15 @@ export function VaultPanel() {
   let uiEpoch = 0;
   const pageSize = () => sample() === "baseline" ? 2 : 50;
 
+  function errorCode(error: unknown) {
+    const code = (error as Error).message;
+    return ["STALE_SESSION", "SESSION_INACTIVE", "FIELD_NOT_FOUND", "LOCKED_OR_BUSY", "UNLOCK_FAILED", "NO_EDIT"].includes(code) ? code : "OPERATION_FAILED";
+  }
+
   async function run(action: () => Promise<void>) {
     const epoch = uiEpoch;
     try { await action(); }
-    catch (error) { if (epoch === uiEpoch) status.set(String((error as Error).message)); }
+    catch (error) { if (epoch === uiEpoch) status.set(errorCode(error)); }
   }
   async function page() {
     if (!ticket) return;
@@ -36,12 +46,13 @@ export function VaultPanel() {
     if (epoch !== uiEpoch) return;
     rows.set(result.rows);
     selected = result.rows[0]?.id ?? "";
+    retainedTicket = ticket;
+    retainedEntry = selected;
     timing.set(`计时 ${sample()} offset=${offset} core_ms=${result.coreMs.toFixed(3)} bridge_ms=${bridge}`);
     status.set(result.rows.length ? "摘要已加载" : "无匹配摘要");
   }
-  function lock() {
+  function clearUi() {
     uiEpoch++;
-    session.lock();
     ticket = undefined;
     selected = "";
     rows.set([]);
@@ -49,6 +60,11 @@ export function VaultPanel() {
     password.set("");
     timing.set("");
     status.set("已锁库");
+    clipboard.set(session.clipboardStatus());
+  }
+  function lock() {
+    session.lock();
+    clearUi();
   }
   function selectSample(name: string) {
     previousTicket = ticket;
@@ -59,6 +75,35 @@ export function VaultPanel() {
     query.set("");
     offset = 0;
     status.set("样本已切换");
+  }
+  let lastWake = wakeCount();
+  effect(() => {
+    const active = lifecycle() === "active";
+    session.setActive(active);
+    if (!active) clearUi();
+    const wake = wakeCount();
+    if (wake !== lastWake) { lastWake = wake; lock(); }
+  });
+  cleanup(() => { lock(); session.releaseBarrier(); });
+
+  function audit(code: string) { race.set(code); props.onAudit?.(code); }
+  async function startRace(kind: string) {
+    if (kind !== "unlock" && (!ticket || !selected)) { audit("LOCKED_OR_BUSY"); return; }
+    try {
+      session.armBarrier(kind);
+      const pending = kind === "unlock" ? session.unlock(session.beginUnlock(), password())
+        : kind === "read" ? session.readField(ticket!, selected, "UserName")
+        : kind === "page" ? session.page(ticket!, "", 0, 2)
+        : kind === "copy" ? session.copySecret(ticket!, selected)
+        : session.saveCopy(ticket!, password());
+      password.set("");
+      const completion = pending.then(() => audit("RACE_DELIVERED"), error => {
+        audit(errorCode(error)); session.releaseBarrier();
+      });
+      await session.waitBarrier();
+      audit("屏障已到达");
+      await completion;
+    } catch (error) { audit(errorCode(error)); session.releaseBarrier(); }
   }
   // 状态点：失败（错误文案或 Rust 错误码）用警示色，进行中和待解锁用弱化色，其余用强调色。
   const statusColor = () => /^(错误|[A-Z_]+$)/.test(status()) ? palette().warning
@@ -173,5 +218,42 @@ export function VaultPanel() {
       </Row>
       {timing() ? <Text style={{ fontSize: 11, color: palette().muted }}>{timing()}</Text> : null}
     </Card>
+    {props.controls && <Card title="生命周期与剪贴板实验">
+      <Row>
+        {["unlock", "read", "page", "save", "copy"].map(kind => <Button testID={`race-${kind}`} label={`屏障 ${kind}`} kind="quiet" grow onPress={() => startRace(kind)} />)}
+      </Row>
+      <Row>
+        <Button testID="release-barrier" label="释放屏障" kind="quiet" grow onPress={() => session.releaseBarrier()} />
+        <Button testID="probe-retained" label="保留票据" kind="quiet" grow onPress={() => run(async () => {
+          if (!retainedTicket) return;
+          try { await session.readField(retainedTicket, retainedEntry, "UserName"); status.set("ERROR_AUTH"); }
+          catch (error) { status.set(errorCode(error)); }
+        })} />
+        <Button testID="sensitive-error" label="哨兵错误" kind="quiet" grow onPress={() => run(async () => { if (ticket) session.sensitiveError(ticket); })} />
+      </Row>
+      <Row>
+        <Button testID="copy-secret" label="复制密码" kind="quiet" grow onPress={() => run(async () => {
+          if (!ticket || !selected) return;
+          const version = await session.copySecret(ticket, selected);
+          if (firstCopy === undefined) firstCopy = version;
+          clipboard.set(session.clipboardStatus());
+          audit(`COPY_${version}`);
+        })} />
+        <Button testID="copy-sentinel" label="复制哨兵" kind="quiet" grow onPress={() => run(async () => {
+          if (!ticket) return;
+          session.copySentinel(ticket);
+          clipboard.set(session.clipboardStatus());
+        })} />
+        <Button testID="old-expiry" label="旧版过期" kind="quiet" grow onPress={() => { if (firstCopy !== undefined) session.expireClipboardVersion(firstCopy); clipboard.set(session.clipboardStatus()); }} />
+      </Row>
+      <Row>
+        <Button testID="external-copy" label="外部另复制" kind="quiet" grow onPress={() => { session.clipboardExternalCopy(false); clipboard.set(session.clipboardStatus()); }} />
+        <Button testID="external-same" label="外部同内容" kind="quiet" grow onPress={() => { session.clipboardExternalCopy(true); clipboard.set(session.clipboardStatus()); }} />
+        <Button testID="clock-600" label="+600ms" kind="quiet" grow onPress={() => { session.advanceClipboardClock(600); clipboard.set(session.clipboardStatus()); }} />
+        <Button testID="clock-400" label="+400ms" kind="quiet" grow onPress={() => { session.advanceClipboardClock(400); clipboard.set(session.clipboardStatus()); }} />
+      </Row>
+      <Text style={{ fontSize: 12, color: palette().muted }}>{`剪贴板 ${clipboard()}`}</Text>
+      <Text style={{ fontSize: 12, color: palette().muted }}>{race()}</Text>
+    </Card>}
   </View>;
 }

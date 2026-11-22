@@ -4,6 +4,8 @@
 
 ## 现在在哪
 
+- **K092 独立准备：** Linux-headless 注入生命周期撤销 Rust 会话、确定性交付屏障、私有 MemoryClipboard 版本/到期策略已测；Rust 私有哨兵不进入原始 trace/普通 Storage/输出元数据。但 masked TSX 输入的原始 trace 已复现明文负控制，尚未解决。前置 K091 未完成，K092 仍 TODO，不能标 DONE；四端与签名未验收，见 [K092](evidence/K092.md)。
+
 - **K091 规模桥接：** 1k/10k 固定合成库已接入真实 TSX→Rust 分页/搜索/编辑新副本，三份输出交原 oracle；切库撤销旧 ticket，记录核心/桥接/渲染提交与可观察延迟。仅 Linux-headless，保持 DOING，不计四端，不解禁 writer；见 [K091](evidence/K091.md)。
 
 - **阶段：P0 风险实验。** 仓库里只有方案、HTML 交互原型和合成测试工具；**还没有生产客户端或安全核心，NSH 尚未接入。**
