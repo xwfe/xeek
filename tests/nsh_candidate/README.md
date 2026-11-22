@@ -95,3 +95,49 @@ Web 产物位于执行命令的上游 cwd：`.nsh/out/keex 合成实验`（5.5 M
 不配置 `updater`，不用 dev host、不加载 `.nshpkg`/远程 TSX/外部平台插件。发行须重建/审计固定 release host，只从签名资源读 bundle；不能认为 `--release` 本身关闭所有开发入口。具体源代码与缺口见证据。
 
 `.nsh/`、根 `target/`/`build/` 已忽略；不要暂存依赖缓存、日志、SDK、运行时下载或密钥。
+
+## K091 Windows 切片复现
+
+只验证 Windows Server 2022 虚拟机上的未签名 Win32 宿主，不计真机、签名包或其他平台通过；实际结果、缺口与 BLOCKED 项见 [K091_WINDOWS](../../adr/evidence/K091_WINDOWS.md)。
+
+前置：Rust 1.100.0（`x86_64-pc-windows-msvc`）、VS Build Tools 2022 的 C++ 工具与 Windows SDK、LLVM/libclang、Python 3.12+、Git for Windows（以下命令在 Git Bash 中执行）。工作树须为 LF（Git for Windows 默认会转 CRLF，使设计稿摘要核对失败）；Windows 没有系统 IANA 时区库，需解压 PyPI 的 tzdata 并用 `PYTHONTZPATH` 指向其 `zoneinfo`。
+
+```sh
+export PATH="$HOME/.cargo/bin:$PATH" RUSTUP_TOOLCHAIN=1.100.0-x86_64-pc-windows-msvc
+export LIBCLANG_PATH="<libclang.dll 所在目录>" PYTHONTZPATH="<tzdata 解压目录>/tzdata/zoneinfo"
+git -C "$HOME/nsh-k090" rev-parse HEAD   # 必须为 2f51d8611677c8a6bbad937b39756e8d0cc45350
+(cd "$HOME/nsh-k090" && cargo build --locked -p nsh-cli)
+cargo fetch --locked --manifest-path tests/reference_writer/Cargo.toml
+python -m pip --isolated --disable-pip-version-check install --only-binary=:all: \
+  --target tests/kdbx_oracle/.deps-argon2 -r tests/kdbx_oracle/requirements.txt
+PYTHONPATH=tests/kdbx_oracle/.deps-argon2 python -B -c \
+  'import importlib.util; s=importlib.util.spec_from_file_location("build", "tests/wasm_core/build.py"); m=importlib.util.module_from_spec(s); s.loader.exec_module(m); print(m.patched_source())'
+cargo test --locked --manifest-path tests/nsh_candidate/rust/Cargo.toml --lib -- --nocapture --test-threads=1
+export CARGO_TARGET_DIR="$HOME/nsh-k090/target"
+"$HOME/nsh-k090/target/debug/nsh.exe" test "$PWD/tests/nsh_candidate" --trace
+python -B tests/nsh_candidate/oracle_check.py
+python -X utf8 -B scripts/check.py
+```
+
+`RUSTUP_TOOLCHAIN` 用来避免 NSH 的 `rust-toolchain.toml` 拉取滚动 stable 和交叉 target。
+
+Win32 宿主（均未签名）：
+
+```sh
+# 开发宿主（debug，带开发服务器）
+"$HOME/nsh-k090/target/debug/nsh.exe" run "$PWD/tests/nsh_candidate"
+# release runner；输出目录放在仓库外。没有 Inno Setup 时只生成目录与 zip，不生成安装包
+"$HOME/nsh-k090/target/debug/nsh.exe" package "$PWD/tests/nsh_candidate" --target windows -o "$HOME/k091-win/pkg"
+```
+
+启动后按 Vault.test.tsx 的同一流程手动操作：选样本 → 输入公开合成口令 → 解锁 → 翻页/搜索 → 读取首条用户名 → 修改单字段 → 再次输入口令后保存新副本 → 锁库并验证旧句柄。宿主写出的副本与 receipt 落在 `rust/target/outputs`（release runner 也写回构建机的这个路径），随后再跑一次 `oracle_check.py` 即对照 Win32 副本。
+
+`windows/` 下三份 PowerShell 脚本经 UI Automation 观察已启动的宿主，只使用公开合成口令：
+
+```powershell
+powershell -NoProfile -File tests\nsh_candidate\windows\uia_edits.ps1 -ProcessId <pid>
+powershell -NoProfile -File tests\nsh_candidate\windows\uia_tab_order.ps1 -Steps 30      # 需宿主窗口在前台
+powershell -NoProfile -File tests\nsh_candidate\windows\uia_unlock_timing.ps1 -ProcessId <pid> -Label release-runner
+```
+
+计时脚本的结果含 UIA 调用与 20 ms 轮询开销，只作观测。秘密扫描 hook 不支持原生 Windows；本切片在 WSL（Linux x86_64 / CPython 3.12）中安装并从 WSL 的 git 提交，扫描命令需带 `-S`。
